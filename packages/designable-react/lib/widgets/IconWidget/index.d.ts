@@ -1,5 +1,5 @@
 import React from 'react';
-import { TooltipProps } from 'antd';
+import { TooltipProps } from 'antd/lib/tooltip';
 import './styles.less';
 export interface IconProviderProps {
     tooltip?: boolean;

@@ -126,6 +126,7 @@ var useResizeEffect = function useResizeEffect(container, content, engine) {
       startY = e.data.topClientY;
       startWidth = rect.width;
       startHeight = rect.height;
+      engine.screen.setStatus(core_1.ScreenStatus.Resizing);
     }
   });
   engine.subscribeTo(core_1.DragMoveEvent, function (e) {
@@ -170,6 +171,7 @@ var useResizeEffect = function useResizeEffect(container, content, engine) {
     if (!status) return;
     status = null;
     engine.cursor.setStyle('');
+    engine.screen.setStatus(core_1.ScreenStatus.Normal);
 
     if (animationX) {
       animationX = animationX();

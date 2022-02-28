@@ -56,6 +56,18 @@ var classnames_1 = __importDefault(require("classnames"));
 
 require("./styles.less");
 
+var Space = function Space(props) {
+  return react_1.default.createElement("div", __assign({}, props));
+};
+
+var Typography = function Typography(props) {
+  return react_1.default.createElement("div", __assign({}, props));
+};
+
+Typography.Link = function (props) {
+  return react_1.default.createElement("div", __assign({}, props));
+};
+
 exports.NodeActionsWidget = (0, reactive_react_1.observer)(function (props) {
   var node = (0, hooks_1.useTreeNode)();
   var prefix = (0, hooks_1.usePrefix)('node-actions');
@@ -66,7 +78,7 @@ exports.NodeActionsWidget = (0, reactive_react_1.observer)(function (props) {
     style: props.style
   }, react_1.default.createElement("div", {
     className: prefix + '-content'
-  }, react_1.default.createElement(antd_1.Space, {
+  }, react_1.default.createElement(Space, {
     split: react_1.default.createElement(antd_1.Divider, {
       type: "vertical"
     })
@@ -79,7 +91,7 @@ exports.NodeActionsWidget.Action = function (_a) {
       props = __rest(_a, ["icon", "title"]);
 
   var prefix = (0, hooks_1.usePrefix)('node-actions-item');
-  return react_1.default.createElement(antd_1.Typography.Link, __assign({}, props, {
+  return react_1.default.createElement(Typography.Link, __assign({}, props, {
     className: (0, classnames_1.default)(props.className, prefix),
     "data-click-stop-propagation": "true"
   }), react_1.default.createElement("span", {

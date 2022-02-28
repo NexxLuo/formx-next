@@ -61,12 +61,13 @@ exports.DroppableWidget = (0, reactive_react_1.observer)(function (_a) {
       placeholder = _a.placeholder,
       style = _a.style,
       className = _a.className,
-      props = __rest(_a, ["node", "actions", "height", "placeholder", "style", "className"]);
+      hasChildrenProp = _a.hasChildren,
+      props = __rest(_a, ["node", "actions", "height", "placeholder", "style", "className", "hasChildren"]);
 
   var currentNode = (0, hooks_1.useTreeNode)();
   var nodeId = (0, hooks_1.useNodeIdProps)(node);
   var target = node !== null && node !== void 0 ? node : currentNode;
-  var hasChildren = ((_b = target.children) === null || _b === void 0 ? void 0 : _b.length) > 0;
+  var hasChildren = hasChildrenProp !== null && hasChildrenProp !== void 0 ? hasChildrenProp : ((_b = target.children) === null || _b === void 0 ? void 0 : _b.length) > 0;
   return react_1.default.createElement("div", __assign({}, nodeId, {
     className: className,
     style: style

@@ -89,7 +89,7 @@ export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
         <Fragment>
           <InputNumber
             size="small"
-            value={screen.width}
+            value={screen.width as number}
             style={{ width: 70, textAlign: 'center' }}
             onChange={(value) => {
               sizeRef.current.width = value
@@ -104,7 +104,7 @@ export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
             style={{ padding: '0 3px', color: '#999' }}
           />
           <InputNumber
-            value={screen.height}
+            value={screen.height as number}
             size="small"
             style={{
               width: 70,

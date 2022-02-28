@@ -10,7 +10,7 @@ export interface IDesignerProps extends IDesignerLayoutProps {
     engine: Engine;
 }
 export interface IDesignerComponents {
-    [key: string]: DnFC<any>;
+    [key: string]: DnFC<any> | DnComponent<any>;
 }
 export interface IDesignerLayoutContext {
     theme?: 'dark' | 'light' | (string & {});

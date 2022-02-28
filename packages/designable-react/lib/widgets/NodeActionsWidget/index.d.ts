@@ -1,6 +1,8 @@
 import React from 'react';
-import { TypographyProps } from 'antd';
 import './styles.less';
+declare type TypographyProps = {
+    Link: any;
+};
 export interface INodeActionsWidgetProps {
     className?: string;
     style?: React.CSSProperties;
@@ -15,3 +17,4 @@ export interface INodeActionsWidgetActionProps extends Omit<React.ComponentProps
 export declare const NodeActionsWidget: React.FC<INodeActionsWidgetProps> & {
     Action?: React.FC<INodeActionsWidgetActionProps>;
 };
+export {};

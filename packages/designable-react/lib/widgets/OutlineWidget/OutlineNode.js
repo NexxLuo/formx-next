@@ -120,6 +120,8 @@ exports.OutlineTreeNode = (0, reactive_react_1.observer)(function (_a) {
   }, [node, outlineDragon, cursor]);
   (0, react_1.useEffect)(function () {
     return (0, reactive_1.autorun)(function () {
+      var _a;
+
       var selectedIds = (selection === null || selection === void 0 ? void 0 : selection.selected) || [];
       var id = node.id;
       if (!ref.current) return;
@@ -134,13 +136,13 @@ exports.OutlineTreeNode = (0, reactive_react_1.observer)(function (_a) {
         }
       }
 
-      if (cursor.status === core_1.CursorStatus.Dragging) {
+      if (cursor.status === core_1.CursorStatus.Dragging && ((_a = outlineDragon === null || outlineDragon === void 0 ? void 0 : outlineDragon.dragNodes) === null || _a === void 0 ? void 0 : _a.length)) {
         if (ref.current.classList.contains('selected')) {
           ref.current.classList.remove('selected');
         }
       }
     });
-  }, [node, selection]);
+  }, [node, selection, outlineDragon]);
   if (!node) return null;
 
   var renderIcon = function renderIcon(node) {

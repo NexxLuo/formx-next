@@ -9,5 +9,6 @@ export interface IDroppableWidgetProps {
     height?: number;
     style?: React.CSSProperties;
     className?: string;
+    hasChildren?: boolean;
 }
 export declare const DroppableWidget: React.FC<IDroppableWidgetProps>;

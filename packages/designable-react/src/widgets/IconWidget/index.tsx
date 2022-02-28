@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react'
 import { isStr, isFn, isObj, isPlainObj } from '@designable/shared'
 import { observer } from '@formily/reactive-react'
-import { Tooltip, TooltipProps } from 'antd'
+import { Tooltip } from 'antd'
+import {  TooltipProps } from 'antd/lib/tooltip'
 import { usePrefix, useRegistry, useTheme } from '../../hooks'
 import cls from 'classnames'
 import './styles.less'
@@ -89,7 +90,7 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
     }
   }
   const renderTooltips = (children: React.ReactElement): React.ReactElement => {
-    if (!isStr(props.infer) && context.tooltip) return children as any
+    if (!isStr(props.infer) && context?.tooltip) return children as any
     const tooltip =
       props.tooltip || registry.getDesignerMessage(`icons.${props.infer}`)
     if (tooltip) {

@@ -149,7 +149,7 @@ exports.IconWidget = (0, reactive_react_1.observer)(function (props) {
   };
 
   var renderTooltips = function renderTooltips(children) {
-    if (!(0, shared_1.isStr)(props.infer) && context.tooltip) return children;
+    if (!(0, shared_1.isStr)(props.infer) && (context === null || context === void 0 ? void 0 : context.tooltip)) return children;
     var tooltip = props.tooltip || registry.getDesignerMessage("icons.".concat(props.infer));
 
     if (tooltip) {

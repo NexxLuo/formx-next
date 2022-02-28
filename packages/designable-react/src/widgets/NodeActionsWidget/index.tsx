@@ -1,11 +1,27 @@
 import React from 'react'
-import { Space, Typography, Divider, TypographyProps } from 'antd'
+import {   Divider } from 'antd'
 import { observer } from '@formily/reactive-react'
 import { usePrefix, useTreeNode, useSelected } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { TextWidget } from '../TextWidget'
 import cls from 'classnames'
 import './styles.less'
+
+const Space=(props)=>{
+  return <div {...props}></div>
+}
+
+type TypographyProps={
+  Link:any
+};
+
+const Typography=(props)=>{
+  return <div {...props}></div>
+}
+
+Typography.Link=(props)=>{
+  return <div {...props}></div>
+}
 
 export interface INodeActionsWidgetProps {
   className?: string

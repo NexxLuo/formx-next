@@ -125,7 +125,7 @@ var Viewport = function Viewport(_a) {
   var ref = (0, react_1.useRef)();
   var viewportRef = (0, react_1.useRef)();
   var isFrameRef = (0, react_1.useRef)(false);
-  (0, react_1.useEffect)(function () {
+  (0, react_1.useLayoutEffect)(function () {
     var frameElement = ref.current.querySelector('iframe');
     if (!viewport) return;
 

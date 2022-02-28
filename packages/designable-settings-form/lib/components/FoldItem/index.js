@@ -108,12 +108,14 @@ exports.FoldItem = (0, react_2.observer)(function (_a) {
     var _a, _b;
 
     if (react_1.default.isValidElement(node)) {
-      if (((_a = node === null || node === void 0 ? void 0 : node['type']) === null || _a === void 0 ? void 0 : _a['displayName']) === 'FoldItem.Base') {
-        slots.current.base = node['props'].children;
+      var _node = node;
+
+      if (((_a = _node === null || _node === void 0 ? void 0 : _node['type']) === null || _a === void 0 ? void 0 : _a['displayName']) === 'FoldItem.Base') {
+        slots.current.base = _node['props'].children;
       }
 
-      if (((_b = node === null || node === void 0 ? void 0 : node['type']) === null || _b === void 0 ? void 0 : _b['displayName']) === 'FoldItem.Extra') {
-        slots.current.extra = node['props'].children;
+      if (((_b = _node === null || _node === void 0 ? void 0 : _node['type']) === null || _b === void 0 ? void 0 : _b['displayName']) === 'FoldItem.Extra') {
+        slots.current.extra = _node['props'].children;
       }
     }
   });
