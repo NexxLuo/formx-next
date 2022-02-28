@@ -6,7 +6,8 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean"
+    "clean": "lerna clean",
+    "link": "lerna link"
   },
   "resolutions": {},
   "devDependencies": {
