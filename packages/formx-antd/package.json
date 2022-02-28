@@ -1,0 +1,60 @@
+{
+  "name": "@nvwa/formx-antd",
+  "version": "1.0.3",
+  "license": "MIT",
+  "main": "lib",
+  "module": "lib",
+  "umd:main": "dist/formily.antd.umd.production.js",
+  "unpkg": "dist/formily.antd.umd.production.js",
+  "jsdelivr": "dist/formily.antd.umd.production.js",
+  "jsnext:main": "esm",
+  "sideEffects": [
+    "dist/*",
+    "esm/*.js",
+    "lib/*.js",
+    "src/*.ts",
+    "*.less",
+    "**/*/style.js"
+  ],
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alibaba/formily.git"
+  },
+  "types": "esm/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/alibaba/formily/issues"
+  },
+  "homepage": "https://github.com/alibaba/formily#readme",
+  "engines": {
+    "npm": ">=3.0.0"
+  },
+  "scripts": {
+    "build": "father-build build",
+    "dev": "father-build build --watch"
+  },
+  "devDependencies": {
+    "father-build": "^1.18.0"
+  },
+  "peerDependencies": {
+    "@types/react": ">=16.8.0 || >=17.0.0",
+    "@types/react-dom": ">=16.8.0 || >=17.0.0",
+    "antd": "3.26.19",
+    "react": ">=16.8.0 || >=17.0.0",
+    "react-dom": ">=16.8.0",
+    "react-is": ">=16.8.0 || >=17.0.0",
+    "@formily/core": "2.0.8",
+    "@formily/grid": "2.0.8",
+    "@formily/json-schema": "2.0.8",
+    "@formily/react": "2.0.8",
+    "@formily/reactive": "2.0.8",
+    "@formily/reactive-react": "2.0.8",
+    "@formily/shared": "2.0.8"
+  },
+  "dependencies": {
+    "@formily/grid": "2.0.8",
+    "classnames": "^2.2.6"
+  }
+}

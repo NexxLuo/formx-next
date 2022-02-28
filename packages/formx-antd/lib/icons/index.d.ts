@@ -1,0 +1,20 @@
+export declare type AntdIconProps = {};
+export declare const QuestionCircleOutlined: (props: any) => JSX.Element;
+export declare const CloseCircleOutlined: (props: any) => JSX.Element;
+export declare const CheckCircleOutlined: (props: any) => JSX.Element;
+export declare const ExclamationCircleOutlined: (props: any) => JSX.Element;
+export declare const LoadingOutlined: (props: any) => JSX.Element;
+export declare const DeleteOutlined: (props: any) => JSX.Element;
+export declare const DownOutlined: (props: any) => JSX.Element;
+export declare const UpOutlined: (props: any) => JSX.Element;
+export declare const PlusOutlined: {
+    (props: any): JSX.Element;
+    type: string;
+};
+export declare const MenuOutlined: (props: any) => JSX.Element;
+export declare const EditOutlined: (props: any) => JSX.Element;
+export declare const CloseOutlined: (props: any) => JSX.Element;
+export declare const MessageOutlined: (props: any) => JSX.Element;
+export declare const CheckOutlined: (props: any) => JSX.Element;
+export declare const InboxOutlined: (props: any) => JSX.Element;
+export declare const UploadOutlined: (props: any) => JSX.Element;

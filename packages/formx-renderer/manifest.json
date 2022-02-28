@@ -1,0 +1,20 @@
+{
+  "name": "formily-editor",
+  "short_name": "formily-editor",
+  "icons": [
+    {
+      "src": "/assets/logo-192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/logo-128.png",
+      "sizes": "128x128"
+    }
+  ],
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/login?homescreen=true",
+  "orientation": "portrait",
+  "theme_color": "#278fef",
+  "background_color": "#fff"
+}

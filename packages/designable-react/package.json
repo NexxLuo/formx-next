@@ -1,0 +1,45 @@
+{
+  "name": "@nvwa/designable-react",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "npm": ">=3.0.0"
+  },
+  "module": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alibaba/designable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alibaba/designable/issues"
+  },
+  "homepage": "https://github.com/alibaba/designable#readme",
+  "scripts": {
+    "build": "father-build build",
+    "dev": "father-build build --watch"
+  },
+  "devDependencies": {
+    "@formily/reactive": "^2.0.8",
+    "@formily/reactive-react": "^2.0.8",
+    "@designable/core": "1.0.0-beta.43",
+    "@designable/shared": "1.0.0-beta.43",
+    "father-build": "^1.18.0"
+  },
+  "peerDependencies": {
+    "@formily/reactive": "^2.0.8",
+    "@formily/reactive-react": "^2.0.8",
+    "@designable/core": "1.0.0-beta.43",
+    "@designable/shared": "1.0.0-beta.43",
+    "antd": "3.26.19",
+    "react": "16.x || 17.x"
+  },
+  "dependencies": {
+    "@juggle/resize-observer": "^3.3.1",
+    "dateformat": "^4.5.1"
+  }
+}
