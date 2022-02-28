@@ -21,7 +21,6 @@ import {
     Upload,
     Switch,
     Transfer,
-    FormItem
 } from "@nvwa/formx-antd";
 import {
     FieldSet,
@@ -39,7 +38,8 @@ import {
     TreeSelect,
     Image,
     Radio,
-    Divider
+    Divider,
+    FormItem
 } from "./components";
 
 import { withLayoutPane } from "./components/shared";

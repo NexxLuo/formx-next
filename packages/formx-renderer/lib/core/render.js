@@ -76,7 +76,7 @@ var eachSchema = function eachSchema(schema, fn) {
 function getComponents() {
   var registryComponents = (0, _registry.getRegistryComponents)();
   return _objectSpread(_objectSpread({}, registryComponents), {}, {
-    FormItem: (0, _shared.withLayoutPane)(_formxAntd.FormItem),
+    FormItem: (0, _shared.withLayoutPane)(_components.FormItem),
     Select: _components.Select,
     TreeSelect: _components.TreeSelect,
     ArrayTable: _components.ArrayTable,
