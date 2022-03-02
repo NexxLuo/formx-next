@@ -22,11 +22,14 @@ const ensureObjectItemsNode = createEnsureTypeItemsNode("object");
 
 const createTableColumns = (node: TreeNode) => {
   let columns = [];
-  let items =
-    node.children.find(d => d.props.type === "object")?.children || [];
+  let items = node.children || [];
+
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     let props = item.props;
+
+    let extraProps = props?.["x-component-props"]?.["x-extra-props"];
+    let isColumn = props.type !== "object";
 
     let column: any = {
       title: props.title,
@@ -43,7 +46,10 @@ const createTableColumns = (node: TreeNode) => {
               width: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
+              position: "absolute",
+              left: 0,
+              top: 0
             }}
             data-designer-node-id={column.key}
             data-content-editable="title"
@@ -54,12 +60,21 @@ const createTableColumns = (node: TreeNode) => {
       }
     };
 
-    let children = item.children;
-    if (children instanceof Array && children.length > 0) {
-      column.children = createTableColumns(item);
-    }
+    if (isColumn) {
+      let children = item.children;
+      if (children instanceof Array && children.length > 0) {
+        column.children = createTableColumns(item);
+      }
+      columns.push(column);
+    } else {
+      let children = item.children;
+      let _children = [];
+      if (children instanceof Array && children.length > 0) {
+        _children = createTableColumns(item);
+      }
 
-    columns.push(column);
+      columns = columns.concat(_children);
+    }
   }
   return columns;
 };
@@ -166,7 +181,7 @@ ArrayTable.Resource = createResource({
             {
               componentName: "Field",
               props: {
-                type: "void",
+                type: "string",
                 "x-component": "Input",
                 "x-component-props": {
                   "x-extra-props": {
@@ -179,7 +194,7 @@ ArrayTable.Resource = createResource({
             {
               componentName: "Field",
               props: {
-                type: "void",
+                type: "string",
                 "x-component": "Input",
                 "x-component-props": {
                   "x-extra-props": {
