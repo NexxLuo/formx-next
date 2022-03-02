@@ -261,7 +261,43 @@ ArrayTable.Resource = createResource({
             isGroup: false
           }
         }
-      }
+      },
+      children: [
+        {
+          componentName: "Field",
+          props: {
+            type: "object"
+          },
+          children: [
+            {
+              componentName: "Field",
+              props: {
+                type: "void",
+                "x-component": "Input",
+                "x-component-props": {
+                  "x-extra-props": {
+                    isTableColumn: true
+                  }
+                },
+                title: "column-1"
+              }
+            },
+            {
+              componentName: "Field",
+              props: {
+                type: "void",
+                "x-component": "Input",
+                "x-component-props": {
+                  "x-extra-props": {
+                    isTableColumn: true
+                  }
+                },
+                title: "column-2"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 });
