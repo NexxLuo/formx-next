@@ -272,7 +272,7 @@ ArrayTable.Resource = createResource({
             {
               componentName: "Field",
               props: {
-                type: "void",
+                type: "string",
                 "x-component": "Input",
                 "x-component-props": {
                   "x-extra-props": {
@@ -285,7 +285,7 @@ ArrayTable.Resource = createResource({
             {
               componentName: "Field",
               props: {
-                type: "void",
+                type: "string",
                 "x-component": "Input",
                 "x-component-props": {
                   "x-extra-props": {
