@@ -51,13 +51,19 @@ export const FieldSet = withLayoutPane(props => {
         };
     }
 
+    let clsArr = ["formx-fieldset"];
+
+    if (typeof props.className === "string") {
+        clsArr.push(props.className);
+    }
+
     return (
         <Collapse
             expandIconPosition="right"
             defaultActiveKey="pane"
             bordered={true}
             {...componentProps}
-            className="formx-fieldset"
+            className={clsArr.join(" ")}
         >
             <Collapse.Panel {...panelProps} key="pane">
                 <Row type="flex">{props.children}</Row>
@@ -82,6 +88,10 @@ export const Card = withLayoutPane(props => {
     if (!panelProps.header) {
         panelProps.showArrow = false;
         cls.push("formx-card-without-header");
+    }
+
+    if (typeof props.className === "string") {
+        cls.push(props.className);
     }
 
     if (props.collapsible !== true) {
