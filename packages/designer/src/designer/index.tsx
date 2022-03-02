@@ -40,7 +40,8 @@ import {
   Card,
   ArrayTable,
   FormTab,
-  ObjectContainer
+  ObjectContainer,
+  Button
 } from "../components";
 import "./style.less";
 import { getRegistryComponents } from "../components/register";
@@ -115,7 +116,7 @@ const FormDesigner = () => {
             <ResourceWidget title="sources.Arrays" sources={[ArrayTable]} />
             <ResourceWidget
               title="sources.Displays"
-              sources={[Text, ...registeredComponentsArr]}
+              sources={[Text, Button, ...registeredComponentsArr]}
             />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
@@ -149,6 +150,7 @@ const FormDesigner = () => {
                       Text,
                       Card,
                       ArrayTable,
+                      Button,
                       FormTab,
                       ObjectContainer,
                       ...registeredComponents

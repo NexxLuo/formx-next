@@ -52,6 +52,33 @@ export const withLayoutPane = FC => {
   };
 };
 
+export const withLayoutField = FC => {
+  return props => {
+    const node = useTreeNode();
+    if (!node) return null;
+    let hasParent = node.parent !== null;
+    let innerElement = <FC {...props}></FC>;
+
+    let _noneWrapper = true;
+    if (hasParent && !_noneWrapper) {
+      let parentColumns = useParentNodeColumns();
+      let nodeSpan = useNodeSpan();
+      let span = (24 / parentColumns) * nodeSpan;
+      if (span > 24 || isNaN(span)) {
+        span = 24;
+      }
+
+      return (
+        <Col span={span}>
+          <div className="formx-item-virtual-field">{innerElement}</div>
+        </Col>
+      );
+    } else {
+      return <div className="formx-item-virtual-field">{innerElement}</div>;
+    }
+  };
+};
+
 export const withLayoutPaneContent = children => {
   return <Row type="flex">{children}</Row>;
 };

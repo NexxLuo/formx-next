@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Children } from "react";
+//@ts-ignore
 import { Table } from "tablex";
 import { TableProps } from "antd/lib/table/interface";
 import { TreeNode, createBehavior, createResource } from "@designable/core";
@@ -6,7 +7,8 @@ import {
   useTreeNode,
   DroppableWidget,
   useNodeIdProps,
-  DnFC
+  DnFC,
+  TreeNodeWidget
 } from "@nvwa/designable-react";
 import { observer } from "@formily/react";
 import { LoadTemplate } from "../../common/LoadTemplate";
@@ -31,49 +33,88 @@ const createTableColumns = (node: TreeNode) => {
     let extraProps = props?.["x-component-props"]?.["x-extra-props"];
     let isColumn = props.type !== "object";
 
-    let column: any = {
-      title: props.title,
-      key: item.id,
-      dataIndex: item.id,
-      resizable: false,
-      sortable: false,
-      dropMenu: false,
-      titleRender: ({ column }) => {
-        return (
-          <div
-            style={{
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              left: 0,
-              top: 0
-            }}
-            data-designer-node-id={column.key}
-            data-content-editable="title"
-          >
-            {column.title ?? null}
-          </div>
-        );
-      }
-    };
+    let isOperationColumn = extraProps?.isOperationColumn === true;
 
-    if (isColumn) {
-      let children = item.children;
-      if (children instanceof Array && children.length > 0) {
-        column.children = createTableColumns(item);
-      }
+    if (isOperationColumn) {
+      let operationNode = item.children?.[0]?.children || [];
+      let column: any = {
+        title: "操作列",
+        key: item.id,
+        dataIndex: item.id,
+        resizable: false,
+        sortable: false,
+        dropMenu: false,
+        titleRender: ({ column }) => {
+          return (
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute",
+                left: 0,
+                top: 0
+              }}
+              data-designer-node-id={column.key}
+              data-content-editable="title"
+            >
+              {operationNode.map(d => {
+                let el = d.clone();
+                el.props.noneWrapper = true;
+                return <TreeNodeWidget key={el.id} node={el} />;
+              })}
+            </div>
+          );
+        }
+      };
+
       columns.push(column);
     } else {
-      let children = item.children;
-      let _children = [];
-      if (children instanceof Array && children.length > 0) {
-        _children = createTableColumns(item);
-      }
+      let column: any = {
+        title: props.title,
+        key: item.id,
+        dataIndex: item.id,
+        resizable: false,
+        sortable: false,
+        dropMenu: false,
+        titleRender: ({ column }) => {
+          return (
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute",
+                left: 0,
+                top: 0
+              }}
+              data-designer-node-id={column.key}
+              data-content-editable="title"
+            >
+              {column.title ?? null}
+            </div>
+          );
+        }
+      };
+      if (isColumn) {
+        let children = item.children;
+        if (children instanceof Array && children.length > 0) {
+          column.children = createTableColumns(item);
+        }
+        columns.push(column);
+      } else {
+        let children = item.children;
+        let _children = [];
+        if (children instanceof Array && children.length > 0) {
+          _children = createTableColumns(item);
+        }
 
-      columns = columns.concat(_children);
+        columns = columns.concat(_children);
+      }
     }
   }
   return columns;
@@ -127,6 +168,56 @@ export const ArrayTable: DnFC<TableProps<any>> = observer((props: any) => {
               });
               ensureObjectItemsNode(node).append(tableColumn);
             }
+          },
+          {
+            title: node.getMessage("addOperation"),
+            icon: "AddOperation",
+            onClick: () => {
+              const operationNode = new TreeNode({
+                componentName: "Field",
+                props: {
+                  type: "array",
+                  "x-component-props": {
+                    "x-extra-props": {
+                      isTableColumn: true,
+                      isOperationColumn: true
+                    }
+                  }
+                },
+                children: [
+                  {
+                    componentName: "Field",
+                    props: {
+                      type: "object"
+                    },
+                    children: [
+                      {
+                        componentName: "Field",
+                        props: {
+                          type: "void",
+                          "x-component": "Button",
+                          title: "Button",
+                          "x-component-props": {
+                            title: "Button"
+                          }
+                        }
+                      },
+                      {
+                        componentName: "Field",
+                        props: {
+                          type: "void",
+                          "x-component": "Button",
+                          "x-component-props": {
+                            title: "Button"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              });
+              ensureObjectItemsNode(node).append(operationNode);
+            }
           }
         ]}
       />
@@ -170,43 +261,7 @@ ArrayTable.Resource = createResource({
             isGroup: false
           }
         }
-      },
-      children: [
-        {
-          componentName: "Field",
-          props: {
-            type: "object"
-          },
-          children: [
-            {
-              componentName: "Field",
-              props: {
-                type: "string",
-                "x-component": "Input",
-                "x-component-props": {
-                  "x-extra-props": {
-                    isTableColumn: true
-                  }
-                },
-                title: "column-1"
-              }
-            },
-            {
-              componentName: "Field",
-              props: {
-                type: "string",
-                "x-component": "Input",
-                "x-component-props": {
-                  "x-extra-props": {
-                    isTableColumn: true
-                  }
-                },
-                title: "column-2"
-              }
-            }
-          ]
-        }
-      ]
+      }
     }
   ]
 });

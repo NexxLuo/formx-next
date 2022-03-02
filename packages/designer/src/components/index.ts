@@ -13,3 +13,5 @@ export * from "./Card";
 export * from "./ArrayTable";
 export * from "./FormTab";
 export * from './Object'
+export * from './Button'
+
