@@ -26,6 +26,8 @@ import {
 } from "./Extends";
 import { untracked } from "@formily/reactive";
 import { ArrayField } from "@formily/core";
+import { isResponsiveSizeSmall } from "../../../extensions/utils";
+
 const KEY_FIELD = "__KEY__";
 
 type ComposedArrayTable = React.FC<TableProps<any>> & {
@@ -172,9 +174,16 @@ const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
     };
 
     if (!isEditor) {
+        let orderColumnWidth = summary?.titleWidth || 60;
+        if (isResponsiveSizeSmall()) {
+            orderColumnWidth = orderColumnWidth / 2;
+            if (orderColumnWidth < 40) {
+                orderColumnWidth = 40;
+            }
+        }
         tbProps.orderNumber = {
             resizable: true,
-            width: summary?.titleWidth || 60
+            width: orderColumnWidth
         };
     }
     if (summary !== null) {

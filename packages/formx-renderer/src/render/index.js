@@ -1121,6 +1121,14 @@ class Renderer extends React.Component {
         let { readOnly, disabled, getContext, setContext, className } =
             this.props;
 
+        let navDisabled =
+            schema?.additionalProperties?.enabledNavToolbar === false
+                ? true
+                : false;
+        if (isResponsiveSizeSmall() || this.props.enabledNavToolbar === false) {
+            navDisabled = true;
+        }
+
         return (
             <FormContext.Provider
                 value={{
@@ -1155,12 +1163,7 @@ class Renderer extends React.Component {
                             {this.props.children}
                         </FormRender>
                         <AnchorNav
-                            disabled={
-                                schema?.additionalProperties
-                                    ?.enabledNavToolbar === false
-                                    ? true
-                                    : false
-                            }
+                            disabled={navDisabled}
                             ref={this.navRef}
                             getContainer={this.getContainer}
                             getForm={() => this.formInstance}

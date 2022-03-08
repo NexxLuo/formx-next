@@ -121,7 +121,15 @@ export const Select = connect(
 
         useEffect(() => {
             let bl = false;
-            if (autoSelectFirst && !v && !props.disabled) {
+            let allowOverwriteValue = extraProps.allowOverwriteValue === true;
+            let allowSetValue = false;
+            if (allowOverwriteValue) {
+                allowSetValue = true;
+            } else {
+                allowSetValue = !v;
+            }
+
+            if (autoSelectFirst && allowSetValue && !props.disabled) {
                 if (options.length === 1) {
                     let first = options[0];
                     if (first && first.value && !first.disabled) {
