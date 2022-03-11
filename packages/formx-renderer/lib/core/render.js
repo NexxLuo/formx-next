@@ -13,7 +13,7 @@ var _react2 = require("@formily/react");
 
 var _core = require("@formily/core");
 
-var _formxAntd = require("@nvwa/formx-antd");
+var _formxAntd = require("@platform/formx-antd");
 
 var _components = require("./components");
 

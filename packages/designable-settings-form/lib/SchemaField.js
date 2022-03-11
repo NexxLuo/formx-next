@@ -7,7 +7,7 @@ exports.SchemaField = void 0;
 
 var react_1 = require("@formily/react");
 
-var formx_antd_1 = require("@nvwa/formx-antd");
+var formx_antd_1 = require("@platform/formx-antd");
 
 var antd_1 = require("antd");
 

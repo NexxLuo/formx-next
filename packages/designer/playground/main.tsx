@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Designer from "../src/designer";
-import { registry } from "@nvwa/formx-renderer";
+import { registry } from "@platform/formx-renderer";
 
 registry.registerField(
   "TestInput",

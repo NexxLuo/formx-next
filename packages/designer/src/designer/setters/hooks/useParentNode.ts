@@ -1,4 +1,4 @@
-import { useCurrentNode } from "@nvwa/designable-react";
+import { useCurrentNode } from "@platform/designable-react";
 
 export const useParentNode = () => {
   const node = useCurrentNode();

@@ -26,11 +26,25 @@ var antd_1 = require("antd");
 var react_1 = require("@formily/react");
 
 exports.Switch = (0, react_1.connect)(antd_1.Switch, (0, react_1.mapProps)({
-  value: 'checked'
+  value: "checked"
 }, function (props) {
+  var _a;
+
   var _onChange = props.onChange;
-  delete props['value'];
+  delete props["value"];
+  var checked = false;
+
+  if (typeof props.checked !== "boolean") {
+    checked = (_a = {
+      0: false,
+      1: true
+    }[props.checked]) !== null && _a !== void 0 ? _a : false;
+  } else {
+    checked = props.checked;
+  }
+
   return __assign(__assign({}, props), {
+    checked: checked,
     onChange: function onChange(checked) {
       _onChange === null || _onChange === void 0 ? void 0 : _onChange(checked, null);
     }

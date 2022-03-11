@@ -1,4 +1,4 @@
 替换  
-@formily/antd => @nvwa/formx-antd
+@formily/antd => @platform/formx-antd
 
-@designable/react =>  @nvwa/designable-react
+@designable/react =>  @platform/designable-react

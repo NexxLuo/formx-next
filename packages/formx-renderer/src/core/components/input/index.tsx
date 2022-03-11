@@ -9,8 +9,8 @@ import {
 } from "@formily/react";
 import { Input as AntdInput } from "antd";
 import { InputProps, TextAreaProps, SearchProps } from "antd/lib/input";
-import { PreviewText } from "@nvwa/formx-antd";
-import { LoadingOutlined } from "@nvwa/formx-antd/lib/icons";
+import { PreviewText } from "@platform/formx-antd";
+import { LoadingOutlined } from "@platform/formx-antd/lib/icons";
 import { Field } from "@formily/core/esm/models";
 
 type ComposedInput = React.FC<InputProps> & {

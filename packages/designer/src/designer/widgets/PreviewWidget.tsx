@@ -1,7 +1,7 @@
 import React from "react";
 import { TreeNode } from "@designable/core";
 import { transformToSchema } from "@designable/formily-transformer";
-import { FormRender } from "@nvwa/formx-renderer";
+import { FormRender } from "@platform/formx-renderer";
 
 export interface IPreviewWidgetProps {
   tree: TreeNode;

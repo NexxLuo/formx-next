@@ -1,6 +1,6 @@
 {
-    "name": "@nvwa/formx-renderer",
-    "version": "1.0.4",
+    "name": "@platform/formx-renderer",
+    "version": "1.1.0",
     "description": "",
     "license": "MIT",
     "author": "n",

@@ -29,7 +29,7 @@ exports.BorderRadiusStyleSetter = void 0;
 
 var react_1 = __importDefault(require("react"));
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var BoxStyleSetter_1 = require("../BoxStyleSetter");
 

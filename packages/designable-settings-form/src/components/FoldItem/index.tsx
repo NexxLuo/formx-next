@@ -1,8 +1,8 @@
 import React, { Fragment, useRef, useMemo } from 'react'
-import { FormItem, IFormItemProps } from '@nvwa/formx-antd'
+import { FormItem, IFormItemProps } from '@platform/formx-antd'
 import { useField, observer } from '@formily/react'
 import { observable } from '@formily/reactive'
-import { IconWidget, usePrefix } from '@nvwa/designable-react'
+import { IconWidget, usePrefix } from '@platform/designable-react'
 import cls from 'classnames'
 import './styles.less'
 

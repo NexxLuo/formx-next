@@ -94,9 +94,9 @@ var react_dom_1 = require("react-dom");
 
 var react_2 = require("@formily/react");
 
-var formx_antd_1 = require("@nvwa/formx-antd");
+var formx_antd_1 = require("@platform/formx-antd");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var antd_1 = require("antd");
 

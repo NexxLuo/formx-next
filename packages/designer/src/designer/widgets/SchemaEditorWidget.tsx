@@ -4,7 +4,7 @@ import {
   transformToTreeNode
 } from "@designable/formily-transformer";
 import { TreeNode, ITreeNode } from "@designable/core";
-import { MonacoInput } from "@nvwa/designable-settings-form";
+import { MonacoInput } from "@platform/designable-settings-form";
 
 export interface ISchemaEditorWidgetProps {
   tree: TreeNode;

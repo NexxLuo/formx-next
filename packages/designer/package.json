@@ -1,6 +1,6 @@
 {
-  "name": "@nvwa/form-designer",
-  "version": "1.0.0",
+  "name": "@platform/form-designer",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "lib",
   "module": "esm",
@@ -8,6 +8,7 @@
   "engines": {
     "npm": ">=3.0.0"
   },
+  "private": "true",
   "scripts": {
     "start": "webpack-dev-server --config playground/webpack.dev.js"
   },
@@ -48,10 +49,10 @@
     "@designable/core": "1.0.0-beta.45",
     "@designable/formily-transformer": "1.0.0-beta.45",
     "@monaco-editor/react": "^4.3.1",
-    "@nvwa/designable-react": "^1.0.0",
-    "@nvwa/designable-settings-form": "^1.0.0",
-    "@nvwa/formx-antd": "^1.0.2",
-    "@nvwa/formx-renderer": "^1.0.0",
+    "@platform/designable-react": "1.1.0",
+    "@platform/designable-settings-form": "1.1.0",
+    "@platform/formx-antd": "1.1.0",
+    "@platform/formx-renderer": "1.1.0",
     "antd": "3.26.19",
     "dateformat": "^5.0.2",
     "react": "^17.0.2",

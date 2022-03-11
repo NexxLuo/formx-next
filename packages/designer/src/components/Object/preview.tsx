@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBehavior, createResource } from '@designable/core'
-import { DnFC } from '@nvwa/designable-react'
+import { DnFC } from '@platform/designable-react'
 import { createFieldSchema } from '../Field'
 import { Container } from '../../common/Container'
 import { AllLocales } from '../../locales'

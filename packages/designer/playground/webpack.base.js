@@ -23,11 +23,11 @@ module.exports = {
     alias: {
       react: path.resolve("node_modules/react"),
       "react-dom": path.resolve("node_modules/react-dom"),
-      "@nvwa/designable-react": path.resolve(
-        "node_modules/@nvwa/designable-react"
+      "@platform/designable-react": path.resolve(
+        "node_modules/@platform/designable-react"
       ),
-      "@nvwa/designable-settings-form": path.resolve(
-        "node_modules/@nvwa/designable-settings-form"
+      "@platform/designable-settings-form": path.resolve(
+        "node_modules/@platform/designable-settings-form"
       ),
      
     },

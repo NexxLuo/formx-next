@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { createForm } from '@formily/core'
-import { Form } from '@nvwa/formx-antd'
+import { Form } from '@platform/formx-antd'
 import { observer } from '@formily/react'
 import { requestIdle, cancelIdle } from '@designable/shared'
 import {
@@ -11,7 +11,7 @@ import {
   useWorkbench,
   IconWidget,
   NodePathWidget,
-} from '@nvwa/designable-react'
+} from '@platform/designable-react'
 import { SchemaField } from './SchemaField'
 import { ISettingFormProps } from './types'
 import { SettingsFormContext } from './shared/context'

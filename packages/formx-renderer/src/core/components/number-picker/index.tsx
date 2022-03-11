@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, mapReadPretty } from "@formily/react";
-import { PreviewText } from "@nvwa/formx-antd";
+import { PreviewText } from "@platform/formx-antd";
 
 import { InputNumber } from "antd";
 import { formatNumberComma } from "../../utils";

@@ -6,8 +6,8 @@ import {
   GeneralField,
   Form
 } from "@formily/core";
-import { SettingsForm } from "@nvwa/designable-settings-form";
-import { useOperation } from "@nvwa/designable-react";
+import { SettingsForm } from "@platform/designable-settings-form";
+import { useOperation } from "@platform/designable-react";
 import { TreeNode } from "@designable/core";
 import { merge } from "@formily/shared";
 import * as setters from "../setters";

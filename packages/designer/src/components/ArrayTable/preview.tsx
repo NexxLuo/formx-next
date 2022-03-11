@@ -9,7 +9,7 @@ import {
   useNodeIdProps,
   DnFC,
   TreeNodeWidget
-} from "@nvwa/designable-react";
+} from "@platform/designable-react";
 import { observer } from "@formily/react";
 import { LoadTemplate } from "../../common/LoadTemplate";
 import cls from "classnames";

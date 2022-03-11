@@ -9,7 +9,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _react2 = require("@formily/react");
 
-var _builtins__ = require("@nvwa/formx-antd/lib/__builtins__");
+var _builtins__ = require("@platform/formx-antd/lib/__builtins__");
 
 var _tablex = _interopRequireDefault(require("tablex"));
 

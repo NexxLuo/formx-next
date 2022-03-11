@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cls from "classnames";
-import { usePrefixCls } from "@nvwa/formx-antd/lib/__builtins__";
+import { usePrefixCls } from "@platform/formx-antd/lib/__builtins__";
 import { isVoidField } from "@formily/core";
 import { connect, mapProps, useField, useFieldSchema } from "@formily/react";
 import { reduce } from "@formily/shared";
@@ -9,9 +9,9 @@ import {
     useFormShallowLayout,
     FormLayoutShallowContext,
     useGridSpan
-} from "@nvwa/formx-antd";
+} from "@platform/formx-antd";
 import { Tooltip, Row, Col } from "antd";
-import { QuestionCircleOutlined } from "@nvwa/formx-antd/lib/icons";
+import { QuestionCircleOutlined } from "@platform/formx-antd/lib/icons";
 import { GeneralField } from "@formily/core/esm/types";
 
 export interface IFormItemProps {

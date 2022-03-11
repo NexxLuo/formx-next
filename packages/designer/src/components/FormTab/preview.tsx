@@ -9,7 +9,7 @@ import {
   TreeNodeWidget,
   DroppableWidget,
   DnFC
-} from "@nvwa/designable-react";
+} from "@platform/designable-react";
 import { LoadTemplate } from "../../common/LoadTemplate";
 import { createVoidFieldSchema } from "../Field";
 import { AllSchemas } from "../../schemas";

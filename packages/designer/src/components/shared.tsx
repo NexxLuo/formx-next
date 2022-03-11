@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Row, Col } from "antd";
-import { useTreeNode } from "@nvwa/designable-react";
+import { useTreeNode } from "@platform/designable-react";
 import { merge } from "@formily/shared";
 import { TreeNode } from "@designable/core";
 

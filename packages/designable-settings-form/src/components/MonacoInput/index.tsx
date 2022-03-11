@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Editor, { EditorProps, loader } from '@monaco-editor/react'
-import { TextWidget, IconWidget, usePrefix, useTheme } from '@nvwa/designable-react'
+import { TextWidget, IconWidget, usePrefix, useTheme } from '@platform/designable-react'
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 import { Tooltip } from 'antd'
 import { parseExpression, parse } from '@babel/parser'

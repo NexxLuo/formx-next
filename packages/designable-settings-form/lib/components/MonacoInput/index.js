@@ -105,7 +105,7 @@ var react_1 = __importStar(require("react"));
 
 var react_2 = __importStar(require("@monaco-editor/react"));
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var antd_1 = require("antd");
 

@@ -35,7 +35,7 @@ var core_2 = require("@designable/core");
 
 var shared_1 = require("@designable/shared");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var takeIcon = function takeIcon(message) {
   if (!(0, shared_1.isStr)(message)) return;

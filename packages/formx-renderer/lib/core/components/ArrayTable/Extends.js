@@ -20,7 +20,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _react2 = require("@formily/react");
 
-var _icons = require("@nvwa/formx-antd/lib/icons");
+var _icons = require("@platform/formx-antd/lib/icons");
 
 var _shared = require("@formily/shared");
 

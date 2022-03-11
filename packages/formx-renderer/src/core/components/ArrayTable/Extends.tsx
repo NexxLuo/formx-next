@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RecursionField } from "@formily/react";
-import { CheckOutlined } from "@nvwa/formx-antd/lib/icons";
+import { CheckOutlined } from "@platform/formx-antd/lib/icons";
 import { clone } from "@formily/shared";
 import { Tooltip, Skeleton, Icon } from "antd";
 import message from "../../../extensions/message";

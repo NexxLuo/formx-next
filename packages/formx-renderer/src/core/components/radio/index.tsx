@@ -2,7 +2,7 @@ import React from "react";
 import { connect, mapProps, mapReadPretty } from "@formily/react";
 import { Radio as AntdRadio } from "antd";
 import { RadioProps, RadioGroupProps } from "antd/lib/radio";
-import { PreviewText } from "@nvwa/formx-antd";
+import { PreviewText } from "@platform/formx-antd";
 import { CheckboxOptionType } from "antd/lib/checkbox/Group";
 
 type ComposedRadio = React.FC<RadioProps> & {

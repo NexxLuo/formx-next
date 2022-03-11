@@ -76,13 +76,13 @@ exports.FoldItem = void 0;
 
 var react_1 = __importStar(require("react"));
 
-var formx_antd_1 = require("@nvwa/formx-antd");
+var formx_antd_1 = require("@platform/formx-antd");
 
 var react_2 = require("@formily/react");
 
 var reactive_1 = require("@formily/reactive");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var classnames_1 = __importDefault(require("classnames"));
 

@@ -11,7 +11,7 @@ var _react2 = require("@formily/react");
 
 var _antd = require("antd");
 
-var _formxAntd = require("@nvwa/formx-antd");
+var _formxAntd = require("@platform/formx-antd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

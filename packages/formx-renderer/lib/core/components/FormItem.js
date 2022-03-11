@@ -9,7 +9,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _builtins__ = require("@nvwa/formx-antd/lib/__builtins__");
+var _builtins__ = require("@platform/formx-antd/lib/__builtins__");
 
 var _core = require("@formily/core");
 
@@ -17,11 +17,11 @@ var _react2 = require("@formily/react");
 
 var _shared = require("@formily/shared");
 
-var _formxAntd = require("@nvwa/formx-antd");
+var _formxAntd = require("@platform/formx-antd");
 
 var _antd = require("antd");
 
-var _icons = require("@nvwa/formx-antd/lib/icons");
+var _icons = require("@platform/formx-antd/lib/icons");
 
 var _excluded = ["children"],
     _excluded2 = ["wrapper", "displayTitle"];

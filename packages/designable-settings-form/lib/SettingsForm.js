@@ -65,13 +65,13 @@ var react_1 = __importStar(require("react"));
 
 var core_1 = require("@formily/core");
 
-var formx_antd_1 = require("@nvwa/formx-antd");
+var formx_antd_1 = require("@platform/formx-antd");
 
 var react_2 = require("@formily/react");
 
 var shared_1 = require("@designable/shared");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var SchemaField_1 = require("./SchemaField");
 

@@ -1,6 +1,6 @@
 {
-  "name": "@nvwa/formx-antd",
-  "version": "1.0.3",
+  "name": "@platform/formx-antd",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "lib",
   "module": "lib",
@@ -39,19 +39,19 @@
     "father-build": "^1.18.0"
   },
   "peerDependencies": {
-    "@types/react": ">=16.8.0 || >=17.0.0",
-    "@types/react-dom": ">=16.8.0 || >=17.0.0",
-    "antd": "3.26.19",
-    "react": ">=16.8.0 || >=17.0.0",
-    "react-dom": ">=16.8.0",
-    "react-is": ">=16.8.0 || >=17.0.0",
     "@formily/core": "2.0.8",
     "@formily/grid": "2.0.8",
     "@formily/json-schema": "2.0.8",
     "@formily/react": "2.0.8",
     "@formily/reactive": "2.0.8",
     "@formily/reactive-react": "2.0.8",
-    "@formily/shared": "2.0.8"
+    "@formily/shared": "2.0.8",
+    "@types/react": ">=16.8.0 || >=17.0.0",
+    "@types/react-dom": ">=16.8.0 || >=17.0.0",
+    "antd": "3.26.19",
+    "react": ">=16.8.0 || >=17.0.0",
+    "react-dom": ">=16.8.0",
+    "react-is": ">=16.8.0 || >=17.0.0"
   },
   "dependencies": {
     "@formily/grid": "2.0.8",

@@ -16,7 +16,7 @@ import {
   ViewPanel,
   SettingsPanel,
   ComponentTreeWidget
-} from "@nvwa/designable-react";
+} from "@platform/designable-react";
 import {
   createDesigner,
   GlobalRegistry,

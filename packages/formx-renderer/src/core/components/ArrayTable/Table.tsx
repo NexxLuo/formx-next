@@ -9,7 +9,7 @@ import {
     connect,
     mapProps
 } from "@formily/react";
-import { usePrefixCls } from "@nvwa/formx-antd/lib/__builtins__";
+import { usePrefixCls } from "@platform/formx-antd/lib/__builtins__";
 import Table from "tablex";
 import { getParentElement } from "tablex/lib/utils";
 import {

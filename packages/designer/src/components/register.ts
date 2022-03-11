@@ -1,5 +1,5 @@
 import React from "react";
-import { registry } from "@nvwa/formx-renderer";
+import { registry } from "@platform/formx-renderer";
 import { createBehavior, createResource } from "@designable/core";
 import { createVoidFieldSchema, createFieldSchema } from "./Field";
 

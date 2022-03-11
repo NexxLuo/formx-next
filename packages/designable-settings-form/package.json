@@ -1,6 +1,6 @@
 {
-  "name": "@nvwa/designable-settings-form",
-  "version": "1.0.1",
+  "name": "@platform/designable-settings-form",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -31,7 +31,8 @@
     "@formily/reactive": "^2.0.8",
     "@formily/reactive-react": "^2.0.8",
     "@formily/shared": "^2.0.8",
-    "@nvwa/designable-react": "1.0.0",
+    "@platform/designable-react": "1.0.2",
+    "@platform/formx-antd": "1.0.4",
     "antd": "3.26.19"
   },
   "devDependencies": {
@@ -42,7 +43,8 @@
     "@formily/reactive": "^2.0.8",
     "@formily/reactive-react": "^2.0.8",
     "@formily/shared": "^2.0.8",
-    "@nvwa/designable-react": "1.0.0",
+    "@platform/designable-react": "1.0.2",
+    "@platform/formx-antd": "1.0.4",
     "antd": "3.26.19",
     "father-build": "^1.18.0"
   },

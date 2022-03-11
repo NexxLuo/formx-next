@@ -15,7 +15,7 @@ import {
   FormGrid,
   FormLayout,
   FormTab,
-} from '@nvwa/formx-antd'
+} from '@platform/formx-antd'
 import { Slider } from 'antd'
 import {
   SizeInput,

@@ -8,8 +8,8 @@ import {
     RecursionField
 } from "@formily/react";
 import { TreeSelect as AntdTreeSelect } from "antd";
-import { PreviewText } from "@nvwa/formx-antd";
-import { LoadingOutlined } from "@nvwa/formx-antd/lib/icons";
+import { PreviewText } from "@platform/formx-antd";
+import { LoadingOutlined } from "@platform/formx-antd/lib/icons";
 import {
     formatNamedValueWhenChange,
     formatNamedValue,

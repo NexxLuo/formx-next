@@ -9,7 +9,7 @@ import {
 } from "@formily/react";
 import { Schema, SchemaKey } from "@formily/json-schema";
 import cls from "classnames";
-import { usePrefixCls } from "@nvwa/formx-antd/lib/__builtins__";
+import { usePrefixCls } from "@platform/formx-antd/lib/__builtins__";
 import { withLayoutPane } from "../shared";
 
 interface IFormTab {

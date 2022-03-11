@@ -21,7 +21,7 @@ import {
     Upload,
     Switch,
     Transfer,
-} from "@nvwa/formx-antd";
+} from "@platform/formx-antd";
 import {
     FieldSet,
     Grid,

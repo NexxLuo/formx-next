@@ -43,7 +43,7 @@ var react_1 = __importStar(require("react"));
 
 var antd_1 = require("antd");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var react_color_1 = require("react-color");
 

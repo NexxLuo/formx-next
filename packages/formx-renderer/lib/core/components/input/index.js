@@ -13,9 +13,9 @@ var _react2 = require("@formily/react");
 
 var _antd = require("antd");
 
-var _formxAntd = require("@nvwa/formx-antd");
+var _formxAntd = require("@platform/formx-antd");
 
-var _icons = require("@nvwa/formx-antd/lib/icons");
+var _icons = require("@platform/formx-antd/lib/icons");
 
 var _excluded = ["displayTitle", "initialValue"];
 

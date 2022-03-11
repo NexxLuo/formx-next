@@ -73,7 +73,7 @@ var _button = _interopRequireDefault(require("./button"));
 
 var _shared = require("./shared");
 
-require("@nvwa/formx-antd/lib/style.css");
+require("@platform/formx-antd/lib/style.css");
 
 require("./style.css");
 

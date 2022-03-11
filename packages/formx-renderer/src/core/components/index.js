@@ -6,7 +6,7 @@ import BaseButton from "./button";
 
 import { withLayoutGrid, withLayoutPane, withLayoutField } from "./shared";
 
-import "@nvwa/formx-antd/lib/style.css";
+import "@platform/formx-antd/lib/style.css";
 import "./style.css";
 
 export { default as FormItem } from "./FormItem";

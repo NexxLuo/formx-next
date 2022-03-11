@@ -39,7 +39,7 @@ var antd_1 = require("antd");
 
 var MonacoInput_1 = require("../MonacoInput");
 
-var designable_react_1 = require("@nvwa/designable-react");
+var designable_react_1 = require("@platform/designable-react");
 
 var STARTTAG_REX = /<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
 var EXPRESSION_REX = /^\{\{([\s\S]*)\}\}$/;
