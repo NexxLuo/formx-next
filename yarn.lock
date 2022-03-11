@@ -2218,14 +2218,6 @@
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
 
-"@nvwa/designable-react@1.0.0":
-  version "1.0.0"
-  resolved "http://171.221.227.116:5555/@nvwa%2fdesignable-react/-/designable-react-1.0.0.tgz#4a27101e91b346ee1fc51d5e92d818d4c409f98c"
-  integrity sha512-MaNK/wJYsCBSRGS7ABsGZ4YAT8bkqu79f2Mk8d87ezuZuBWCHEAOROcMrP6WsnOvprfSPW+By6uN93vKu7DhQw==
-  dependencies:
-    "@juggle/resize-observer" "^3.3.1"
-    dateformat "^4.5.1"
-
 "@octokit/auth-token@^2.4.4":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@octokit/auth-token/-/auth-token-2.5.0.tgz#27c37ea26c205f28443402477ffd261311f21e36"
