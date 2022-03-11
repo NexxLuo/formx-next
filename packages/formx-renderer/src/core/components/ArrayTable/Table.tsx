@@ -44,6 +44,25 @@ const useAddition = (schema: Schema) => {
     return null;
 };
 
+const isValidWidthHeight = v => {
+    let bl = false;
+
+    if (typeof v === "number" && !isNaN(v)) {
+        bl = true;
+    }
+
+    if (typeof v === "string" && v) {
+        let n = parseFloat(v);
+        if (!isNaN(n)) {
+            if (n + "%" === v || n + "vw" === v || n + "vh" === v) {
+                bl = true;
+            }
+        }
+    }
+
+    return bl;
+};
+
 const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
     let {
         onBlur,
@@ -194,6 +213,9 @@ const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
 
     let layoutHeight = layoutProps.height;
 
+    let minHeight = layoutProps.minHeight;
+    let maxHeight = layoutProps.maxHeight;
+
     if (typeof layoutHeight === "object" && layoutHeight) {
         if (layoutHeight.type === "const") {
             tbProps.autoHeight = false;
@@ -204,6 +226,14 @@ const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
     }
     if (tbProps.autoHeight) {
         tbProps.maxHeight = 3000;
+    }
+
+    if (isValidWidthHeight(minHeight)) {
+        tbProps.minHeight = minHeight;
+    }
+
+    if (isValidWidthHeight(maxHeight)) {
+        tbProps.maxHeight = maxHeight;
     }
     //
 
@@ -326,12 +356,12 @@ const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
                 rowKey={defaultRowKey}
                 editable={editable}
                 {...props}
+                minHeight={200}
                 {...tbProps}
                 clearPrevSelections={true}
                 singleRowEditTrigger="onDoubleClick"
                 loading={field.loading}
                 editTools={[]}
-                minHeight={200}
                 editKeys={editKeys}
                 singleRowEdit={editable}
                 virtual={isVirtual}
