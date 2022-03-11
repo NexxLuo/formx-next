@@ -11,14 +11,6 @@
     "npm": ">=3.0.0"
   },
   "module": "lib",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alibaba/designable.git"
-  },
-  "bugs": {
-    "url": "https://github.com/alibaba/designable/issues"
-  },
-  "homepage": "https://github.com/alibaba/designable#readme",
   "scripts": {
     "build": "father-build build",
     "dev": "father-build build --watch"
@@ -41,5 +33,6 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",
     "dateformat": "^4.5.1"
-  }
+  },
+  "gitHead": "1aa66090987ef73f865c6e69e49c9c6ac465ea5c"
 }
