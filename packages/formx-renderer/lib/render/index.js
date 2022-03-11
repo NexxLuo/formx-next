@@ -1089,6 +1089,12 @@ var Renderer = /*#__PURE__*/function (_React$Component) {
           getContext = _this$props.getContext,
           setContext = _this$props.setContext,
           className = _this$props.className;
+      var navDisabled = (schema === null || schema === void 0 ? void 0 : (_schema$additionalPro = schema.additionalProperties) === null || _schema$additionalPro === void 0 ? void 0 : _schema$additionalPro.enabledNavToolbar) === false ? true : false;
+
+      if ((0, _utils2.isResponsiveSizeSmall)() || this.props.enabledNavToolbar === false) {
+        navDisabled = true;
+      }
+
       return /*#__PURE__*/_react.default.createElement(FormContext.Provider, {
         value: {
           loading: this.props.loading,
@@ -1117,7 +1123,7 @@ var Renderer = /*#__PURE__*/function (_React$Component) {
         },
         className: className
       }, this.props.children), /*#__PURE__*/_react.default.createElement(_AnchorNav.default, {
-        disabled: (schema === null || schema === void 0 ? void 0 : (_schema$additionalPro = schema.additionalProperties) === null || _schema$additionalPro === void 0 ? void 0 : _schema$additionalPro.enabledNavToolbar) === false ? true : false,
+        disabled: navDisabled,
         ref: this.navRef,
         getContainer: this.getContainer,
         getForm: function getForm() {

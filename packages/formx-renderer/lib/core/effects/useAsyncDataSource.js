@@ -224,7 +224,13 @@ var getOutputTargetValues = function getOutputTargetValues(_ref3) {
       var hasValue = false;
 
       if (field) {
-        hasValue = typeof field.value !== "undefined";
+        var _field$componentProps, _field$componentProps2;
+
+        var allowOverwriteValue = ((_field$componentProps = field.componentProps) === null || _field$componentProps === void 0 ? void 0 : (_field$componentProps2 = _field$componentProps["x-extra-props"]) === null || _field$componentProps2 === void 0 ? void 0 : _field$componentProps2.allowOverwriteValue) === true;
+
+        if (!allowOverwriteValue) {
+          hasValue = typeof field.value !== "undefined";
+        }
       }
 
       if (!hasValue) {

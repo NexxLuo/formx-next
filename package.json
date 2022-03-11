@@ -8,6 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "link": "lerna link",
+    "build": "lerna run build --stream",
     "version:patch": "lerna version patch --no-git-tag-version --no-push --yes",
     "version:minor": "lerna version minor --no-git-tag-version --no-push --yes",
     "pub": "lerna publish from-package --no-private --no-git-reset --yes"

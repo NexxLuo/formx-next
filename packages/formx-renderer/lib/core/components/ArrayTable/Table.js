@@ -19,6 +19,8 @@ var _Extends = require("./Extends");
 
 var _reactive = require("@formily/reactive");
 
+var _utils2 = require("../../../extensions/utils");
+
 var _excluded = ["onBlur", "onFocus", "onSelect", "dataIndexStore", "temporary_virtual", "fixedOperationColumn"];
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56,6 +58,26 @@ var useAddition = function useAddition(schema) {
   }
 
   return null;
+};
+
+var isValidWidthHeight = function isValidWidthHeight(v) {
+  var bl = false;
+
+  if (typeof v === "number" && !isNaN(v)) {
+    bl = true;
+  }
+
+  if (typeof v === "string" && v) {
+    var n = parseFloat(v);
+
+    if (!isNaN(n)) {
+      if (n + "%" === v || n + "vw" === v || n + "vh" === v) {
+        bl = true;
+      }
+    }
+  }
+
+  return bl;
 };
 
 var BaseArrayTable = function BaseArrayTable(fieldProps) {
@@ -174,9 +196,19 @@ var BaseArrayTable = function BaseArrayTable(fieldProps) {
   };
 
   if (!isEditor) {
+    var orderColumnWidth = (summary === null || summary === void 0 ? void 0 : summary.titleWidth) || 60;
+
+    if ((0, _utils2.isResponsiveSizeSmall)()) {
+      orderColumnWidth = orderColumnWidth / 2;
+
+      if (orderColumnWidth < 40) {
+        orderColumnWidth = 40;
+      }
+    }
+
     tbProps.orderNumber = {
       resizable: true,
-      width: (summary === null || summary === void 0 ? void 0 : summary.titleWidth) || 60
+      width: orderColumnWidth
     };
   }
 
@@ -186,6 +218,8 @@ var BaseArrayTable = function BaseArrayTable(fieldProps) {
 
   var layoutProps = field.componentProps["x-layout-props"] || {};
   var layoutHeight = layoutProps.height;
+  var minHeight = layoutProps.minHeight;
+  var maxHeight = layoutProps.maxHeight;
 
   if (_typeof(layoutHeight) === "object" && layoutHeight) {
     if (layoutHeight.type === "const") {
@@ -197,6 +231,14 @@ var BaseArrayTable = function BaseArrayTable(fieldProps) {
 
   if (tbProps.autoHeight) {
     tbProps.maxHeight = 3000;
+  }
+
+  if (isValidWidthHeight(minHeight)) {
+    tbProps.minHeight = minHeight;
+  }
+
+  if (isValidWidthHeight(maxHeight)) {
+    tbProps.maxHeight = maxHeight;
   } //
 
 
@@ -314,12 +356,13 @@ var BaseArrayTable = function BaseArrayTable(fieldProps) {
     size: "small",
     rowKey: defaultRowKey,
     editable: editable
-  }, props, tbProps, {
+  }, props, {
+    minHeight: 200
+  }, tbProps, {
     clearPrevSelections: true,
     singleRowEditTrigger: "onDoubleClick",
     loading: field.loading,
     editTools: [],
-    minHeight: 200,
     editKeys: editKeys,
     singleRowEdit: editable,
     virtual: isVirtual,

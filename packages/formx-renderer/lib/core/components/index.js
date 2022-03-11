@@ -141,12 +141,18 @@ var FieldSet = (0, _shared.withLayoutPane)(function (props) {
     };
   }
 
+  var clsArr = ["formx-fieldset"];
+
+  if (typeof props.className === "string") {
+    clsArr.push(props.className);
+  }
+
   return /*#__PURE__*/_react.default.createElement(_antd.Collapse, _extends({
     expandIconPosition: "right",
     defaultActiveKey: "pane",
     bordered: true
   }, componentProps, {
-    className: "formx-fieldset"
+    className: clsArr.join(" ")
   }), /*#__PURE__*/_react.default.createElement(_antd.Collapse.Panel, _extends({}, panelProps, {
     key: "pane"
   }), /*#__PURE__*/_react.default.createElement(_antd.Row, {
@@ -169,6 +175,10 @@ var Card = (0, _shared.withLayoutPane)(function (props) {
   if (!panelProps.header) {
     panelProps.showArrow = false;
     cls.push("formx-card-without-header");
+  }
+
+  if (typeof props.className === "string") {
+    cls.push(props.className);
   }
 
   if (props.collapsible !== true) {

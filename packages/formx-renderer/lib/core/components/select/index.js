@@ -151,8 +151,16 @@ var Select = (0, _react2.connect)(function (_props) {
   var objectValue = (0, _utils.formatNamedValue)(v, field.inputValues, extraProps.selectMode === "multiple");
   (0, _react.useEffect)(function () {
     var bl = false;
+    var allowOverwriteValue = extraProps.allowOverwriteValue === true;
+    var allowSetValue = false;
 
-    if (autoSelectFirst && !v && !props.disabled) {
+    if (allowOverwriteValue) {
+      allowSetValue = true;
+    } else {
+      allowSetValue = !v;
+    }
+
+    if (autoSelectFirst && allowSetValue && !props.disabled) {
       if (options.length === 1) {
         var first = options[0];
 
