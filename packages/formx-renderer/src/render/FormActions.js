@@ -6,6 +6,7 @@ import {
     setTableErrorsToExtraField,
     isResponsiveSizeSmall
 } from "../extensions/utils";
+import { batch, untracked } from "@formily/reactive";
 
 export default class FormActions {
     constructor(instance, $observable, _consumer) {
@@ -300,6 +301,56 @@ export default class FormActions {
             return state;
         }
         return null;
+    };
+
+    batch = batch;
+    untracked = untracked;
+
+    transformCodeValues = values => {
+        if (typeof values === "object" && values) {
+            let realValues = {};
+            Reflect.ownKeys(values).forEach(k => {
+                let id = this.getElementIdByCode();
+                if (id) {
+                    realValues[id] = values[k];
+                } else {
+                    realValues[k] = values[k];
+                }
+            });
+            return realValues;
+        }
+    };
+
+    setFieldValues = values => {
+        let formInstance = this.getFormInstance();
+        if (formInstance && typeof values === "object" && values) {
+            batch(() => {
+                Reflect.ownKeys(values).forEach(k => {
+                    let field = formInstance.query(k).take();
+                    if (field) {
+                        field.setValue(values[k]);
+                    }
+                });
+            });
+        }
+    };
+
+    setFieldValuesByCode = values => {
+        let realValues = this.transformCodeValues(values);
+        return this.setFieldValues(realValues);
+    };
+
+    setValues = (values, strategy = "merge") => {
+        let formInstance = this.getFormInstance();
+        if (formInstance && typeof values === "object" && values) {
+            let state = formInstance.setValues(values, strategy);
+            return state;
+        }
+    };
+
+    setValuesByCode = (values, strategy = "merge") => {
+        let realValues = this.transformCodeValues(values);
+        return this.setValues(realValues, strategy);
     };
 
     getValue = id => {
