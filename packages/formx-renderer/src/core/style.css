@@ -19,6 +19,465 @@
     z-index: 1;
 }
 
+.formx-container .ant-col-24 {
+    flex: auto;
+    width: 100%;
+}
+
+.formx-container .ant-tabs .ant-tabs-top-content > .ant-tabs-tabpane {
+    padding-bottom: 16px;
+}
+
+.formx-container .ant-tabs {
+    background-color: #ffffff;
+}
+
+/*fieldset*/
+
+.formx-container .formx-fieldset.ant-collapse {
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+}
+
+.formx-container .formx-fieldset.ant-collapse > .ant-collapse-item {
+    border: none;
+}
+
+.formx-container
+    .formx-fieldset.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-content {
+    min-height: 100px;
+    border: none;
+}
+
+.formx-container
+    .formx-fieldset.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-content.ant-collapse-content-active,
+.formx-container
+    .formx-card.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-content.ant-collapse-content-active {
+    height: auto !important;
+}
+
+.formx-container .formx-form-pane-nested .formx-fieldset.ant-collapse {
+    border: none;
+    border-radius: 0;
+}
+
+.formx-container
+    .formx-fieldset.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header {
+    padding: 8px 0px !important;
+    border-radius: 0 !important;
+    color: #697ad4;
+    margin: 0 12px;
+    border-bottom: 2px solid transparent;
+}
+
+.formx-container
+    .formx-form-pane-nested
+    .formx-fieldset.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header {
+    border-bottom: 2px solid #e7e9ed;
+}
+
+.formx-container
+    .formx-fieldset.ant-collapse
+    > .ant-collapse-item.ant-collapse-item-active
+    > .ant-collapse-header {
+    border-bottom: 2px solid #e7e9ed;
+}
+
+.formx-container
+    .formx-fieldset.ant-collapse.ant-collapse-icon-position-right
+    > .ant-collapse-item
+    > .ant-collapse-header
+    .ant-collapse-arrow {
+    right: 0;
+    transform: none;
+    padding: 0;
+    top: 50%;
+    margin-top: -6px;
+}
+
+/**/
+
+.formx-container .tablex__emptydata .tablex__emptydata__inner {
+    height: 70px;
+}
+
+.formx-container .tablex__emptydata .tablex__emptydata__inner > div {
+    height: 40px;
+}
+
+.formx-container .tablex__container__header {
+    line-height: normal;
+    font-weight: 500;
+    padding: 9px 12px;
+    border: 1px solid #e8e8e8;
+    border-bottom: none;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+}
+
+.formx-container .ant-form .ant-form-item.ant-form-item-with-tooltip {
+    margin: 0;
+}
+
+.formx-container
+    .ant-form
+    .ant-form-item.ant-form-item-with-tooltip.table-tools-item {
+    padding-right: 5px;
+}
+
+.formx-container
+    .ant-form
+    .drag-item
+    .ant-form-item.ant-form-item-with-tooltip.table-tools-item {
+    padding-right: 0px;
+}
+
+.formx-container textarea.ant-input {
+    margin: 0;
+}
+
+.formx-container .formx-form-pane {
+    position: relative;
+    padding-bottom: 6px;
+}
+
+.formx-container .formx-item-table-wrapper {
+    padding-bottom: 6px;
+}
+
+.formx-container .formx-form-pane.formx-form-pane-divider {
+    padding-bottom: 0;
+}
+
+.formx-container .formx-item-virtual-field {
+    padding: 2px 4px 2px 0;
+    display: inline-block;
+}
+
+.formx-container .table-head-cell-operation .formx-item-virtual-field,
+.formx-container .table-cell-operation .formx-item-virtual-field {
+    padding: 0;
+}
+
+.formx-container .form-item-control-addon-after {
+    position: relative;
+    padding: 0 2px 0 4px;
+}
+
+.formx-container .formx-form-item {
+    display: flex;
+    padding: 6px 6px 6px 2px;
+}
+
+.formx-container .formx-form-item.formx-form-item-align-center {
+    justify-content: center;
+}
+
+.formx-container .formx-form-item.formx-form-item-align-right {
+    justify-content: flex-end;
+}
+.formx-container .formx-form-item .formx-form-item-control {
+    word-break: break-all;
+    overflow: hidden;
+    width: 100%;
+}
+
+.formx-container .table-head-cell-operation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formx-container .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formx-container .table-cell-operation .formx-form-pane {
+    margin: 0;
+}
+
+.formx-container .table-cell-operation .formx-form-item {
+    padding: 0 2px;
+}
+
+.formx-container .table-cell-operation .formx-form-item .ant-form-item-control {
+    line-height: normal;
+}
+
+.formx-container .table-cell-operation .ant-btn:not(.ant-btn-primary),
+.formx-container
+    .table-cell-operation
+    .anticon:not(.ant-btn-primary > .anticon),
+.formx-container .table-head-cell-operation .ant-btn:not(.ant-btn-primary),
+.formx-container
+    .table-head-cell-operation
+    .anticon:not(.ant-btn-primary > .anticon) {
+    margin: 0 4px 0 0;
+    color: #40a9ff;
+}
+
+.formx-container .table-cell-operation .anticon,
+.formx-container .table-head-cell-operation .anticon {
+    font-size: 16px;
+}
+
+.formx-container .table-cell-validate-error {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    box-shadow: 0 0 8px 0px #f00 inset;
+    border-radius: 2px;
+}
+
+/* antd */
+.formx-container .ant-collapse > .ant-collapse-item .ant-collapse-content-box {
+    padding: 12px;
+}
+
+/* antd 3.x */
+.formx-container .ant-row {
+    display: flex !important;
+    align-items: center;
+}
+
+.formx-container .ant-form-item-control-wrapper {
+    width: 100%;
+}
+
+.formx-container .ant-formily-item .ant-input-number,
+.formx-container .ant-formily-item .ant-calendar-picker,
+.formx-container .ant-formily-item .ant-time-picker,
+.formx-container .ant-form-item .ant-input-number,
+.formx-container .ant-form-item .ant-calendar-picker,
+.formx-container .ant-form-item .ant-time-picker {
+    width: 100%;
+}
+
+/* */
+
+.formx-container .layout-grid {
+    display: flex;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 0px;
+    overflow: auto;
+}
+
+.formx-container .layout-grid .formx-form-table-pane {
+    padding: 4px;
+}
+
+.formx-editor .formx-container .layout-grid {
+    min-height: 40px;
+    padding: 10px;
+    border: 1px dashed #cccccc;
+}
+
+.formx-container .layout-grid-v {
+    flex-direction: column;
+}
+
+.formx-container .layout-grid-h {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.layout-grid > .ant-row-flex {
+    width: 100%;
+}
+
+.formx-container .layout-grid {
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.formx-container .layout-grid .layout-grid-col {
+    flex: none;
+}
+
+.formx-container .layout-grid-col > .layout-grid-pane,
+.formx-container .layout-grid-col > .layout-grid-pane > .layout-grid {
+    height: 100%;
+    align-items: center;
+}
+
+.formx-modal-wrapper .ant-modal-body > .ant-row-flex .layout-grid-pane {
+    height: 100%;
+}
+
+.formx-container .formx-item-fill-height {
+    height: 100%;
+}
+
+.formx-container .formx-item-fill-height > .formx-form-pane,
+.formx-container
+    .formx-item-fill-height
+    > .formx-form-pane
+    > .formx-form-item-wrapper {
+    height: 100%;
+}
+
+.formx-container .formx-item-layout-vertical .ant-form-item,
+.formx-container .formx-item-layout-vertical .ant-formily-item {
+    display: block !important;
+}
+
+.formx-container
+    .formx-item-layout-vertical
+    .ant-form-item
+    > .ant-form-item-label,
+.formx-container
+    .formx-item-layout-vertical
+    .ant-formily-item
+    > .ant-formily-item-label {
+    width: 100%;
+    min-height: auto;
+    line-height: normal;
+}
+
+.formx-container .ant-form-item > .ant-form-item-label {
+    word-break: break-all;
+    white-space: pre-line;
+    line-height: 1em;
+}
+
+.formx-container
+    .formx-item-layout-vertical
+    .ant-form-item
+    > .ant-form-item-label,
+.formx-container
+    .formx-item-layout-vertical
+    .ant-formily-item
+    > .ant-formily-item-label {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.formx-container
+    .formx-item-layout-vertical
+    .ant-form-item
+    > .ant-form-item-label-align-right,
+.formx-container
+    .formx-item-layout-vertical
+    .ant-formily-item.ant-formily-item-label-align-right
+    .ant-formily-item-label {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.formx-container
+    .formx-item-layout-vertical
+    .ant-form-item
+    > .ant-form-item-label-align-center,
+.formx-container
+    .formx-item-layout-vertical
+    .ant-formily-item.ant-formily-item-label-align-center
+    .ant-formily-item-label {
+    text-align: center;
+    justify-content: center;
+}
+
+.formx-container
+    .formx-item-label-align-left
+    .ant-form-item
+    > .ant-form-item-label {
+    text-align: left;
+}
+
+.formx-container
+    .formx-item-label-align-right
+    .ant-form-item
+    > .ant-form-item-label {
+    text-align: right;
+}
+
+.formx-container
+    .formx-item-label-align-center
+    .ant-form-item
+    > .ant-form-item-label {
+    text-align: center;
+}
+
+.formx-container .ant-formily-item-label {
+    align-items: center;
+}
+
+.formx-container .ant-formily-item {
+    padding: 4px 6px;
+}
+
+.formx-container .tablex-row-cell-editor .ant-formily-item {
+    padding: 0;
+}
+
+.formx-container .ant-input-affix-wrapper::before {
+    display: none;
+}
+
+.formx-container .ant-formily-item-control {
+    overflow: hidden;
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+}
+
+.formx-container .ant-formily-item-control .ant-formily-item-control-content {
+    width: 100%;
+}
+
+.formx-container
+    .ant-formily-item:not(.ant-formily-item-table)
+    .ant-formily-item-control
+    .ant-formily-item-control-content
+    .ant-formily-item-control-content-component {
+    line-height: 32px;
+    padding-left: 1px;
+}
+
+.formx-container .ant-formily-item.ant-formily-item-table {
+    padding: 0 0 0px 0;
+    margin: 0;
+}
+
+.formx-container .ant-formily-item-label {
+    padding-bottom: 2px;
+}
+
+.formx-container .ant-formily-item-label-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.formx-container .ant-formily-item-label-content,
+.formx-container .ant-formily-item-label-content * {
+    line-height: normal;
+}
+
+.formx-container
+    .ant-formily-item-label-align-right
+    .ant-formily-item-label-content {
+    text-align: right;
+}
+
+.formx-container .anticon-loading {
+    color: #1890ff;
+}
+
 /*右侧锚点导航*/
 .formx-anchor {
     position: fixed;
@@ -155,6 +614,10 @@
 
 .responsive-size-small .mobile-hidden {
     display: none;
+}
+
+.responsive-size-small .ant-formily-item.mobile-hidden {
+    display: none !important;
 }
 
 .responsive-size-small
