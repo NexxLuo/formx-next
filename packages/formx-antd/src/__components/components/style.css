@@ -1,0 +1,280 @@
+.ant-input-group-addon:not(:first-child):not(:last-child),
+.ant-input-group-wrap:not(:first-child):not(:last-child),
+.ant-input-group > .ant-input-number:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+.ant-input-group > .ant-input-number:last-child,
+.ant-input-group-addon:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.ant-input-group > .ant-input-number:first-child,
+.ant-input-group-addon:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.formx-input-number input::-webkit-outer-spin-button,
+.formx-input-number input::-webkit-inner-spin-button,
+.formx-input-number::-webkit-outer-spin-button,
+.formx-input-number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.formx-input-number input,
+.formx-input-number {
+    -moz-appearance: textfield;
+}
+
+.table-head-cell-tag-required {
+    padding: 0 4px;
+    position: relative;
+    top: 2px;
+}
+
+.table-head-cell-tag-required::before {
+    content: "*";
+    color: #f00;
+}
+
+.formx-editor .formx-modal-wrapper {
+    min-height: 100px;
+    position: static;
+}
+
+.formx-editor .formx-modal-wrapper .ant-modal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    min-width: 100%;
+}
+
+.formx-container .formx-modal-wrapper .ant-modal .ant-modal-body {
+    min-height: 200px;
+}
+
+.formx-modal-wrapper .ant-modal-body {
+    padding: 12px;
+}
+
+.formx-modal-wrapper .ant-modal-header {
+    padding: 8px 12px;
+}
+
+.formx-modal-wrapper .ant-modal-close-x {
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+}
+
+.formx-editor .formx-list-modal {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.formx-editor .formx-list-modal .ant-card-body {
+    height: 200px;
+}
+
+.formx-editor .tablex-frozen-right {
+    box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+.tablex-table-column-hidden {
+    display: none !important;
+}
+
+.formx-container .tablex-table-row-cell .ant-form-item textarea.ant-input,
+.formx-container .tablex-table-row-cell .ant-formily-item textarea.ant-input {
+    resize: none;
+    margin-bottom: 0;
+    float: left;
+    max-height: 32px;
+}
+
+.formx-editor .ant-modal > div:nth-child(1) {
+    display: none !important;
+}
+
+.formx-container .formx-card.ant-collapse,
+.formx-container .formx-divider > .ant-divider-inner-text {
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.formx-container .formx-divider.ant-divider-horizontal {
+    margin: 20px 0;
+}
+
+.formx-container
+    .formx-divider.ant-divider-horizontal.ant-divider-with-text-center,
+.formx-container
+    .formx-divider.ant-divider-horizontal.ant-divider-with-text-left,
+.formx-container
+    .formx-divider.ant-divider-horizontal.ant-divider-with-text-right {
+    margin: 10px 0;
+}
+
+.formx-container
+    .formx-card.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header {
+    margin: 0;
+    padding: 8px 10px !important;
+    color: inherit;
+    border-radius: 0 !important;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.formx-card.formx-card-without-header.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header {
+    display: none;
+}
+
+.formx-container
+    .formx-card.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header {
+    border-bottom: 1px solid transparent;
+}
+
+.formx-container .formx-card.ant-collapse {
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+}
+
+.formx-container .formx-card.ant-collapse > .ant-collapse-item {
+    border: none;
+}
+
+.formx-container
+    .formx-card.ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-content {
+    min-height: 100px;
+    border: none;
+    overflow: auto;
+}
+
+.formx-container
+    .formx-card.ant-collapse
+    > .ant-collapse-item.ant-collapse-item-active
+    > .ant-collapse-header {
+    border-bottom: 1px solid #e7e9ed;
+}
+
+.formx-container
+    .formx-card.ant-collapse.ant-collapse-icon-position-right
+    > .ant-collapse-item
+    > .ant-collapse-header
+    .ant-collapse-arrow {
+    right: 12px;
+}
+
+.formx-card.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header,
+.formx-fieldset.ant-collapse
+    > .ant-collapse-item-disabled
+    > .ant-collapse-header {
+    cursor: auto;
+}
+
+.formx-container div.tablex-container {
+    border-radius: 0px;
+    transition: border-color 0.3s;
+}
+
+.ant-formily-item-error .tablex-container {
+    border-color: rgb(255, 77, 79) !important;
+}
+
+.formx-array-table-required .tablex__emptydata__inner::after {
+    content: "*";
+    color: #f00;
+    position: absolute;
+    left: 60px;
+    bottom: -4px;
+    font-weight: bold;
+}
+
+.formx-item-fill-height .ant-formily-item.ant-formily-item-table,
+.formx-item-fill-height
+    .ant-formily-item.ant-formily-item-table
+    > .ant-formily-item-control,
+.formx-item-fill-height
+    .ant-formily-item.ant-formily-item-table
+    > .ant-formily-item-control
+    > .ant-formily-item-control-content,
+.formx-item-fill-height
+    .ant-formily-item.ant-formily-item-table
+    > .ant-formily-item-control
+    > .ant-formily-item-control-content
+    > .ant-formily-item-control-content-component,
+.formx-item-fill-height
+    .ant-formily-item.ant-formily-item-table
+    > .ant-formily-item-control
+    > .ant-formily-item-control-content
+    > .ant-formily-item-control-content-component
+    > .ant-formily-item-control-content-component-inner {
+    height: 100%;
+}
+
+.ant-select-auto-complete.ant-select-combobox .ant-select-arrow {
+    display: block;
+}
+.ant-select-auto-complete.ant-select-combobox
+    .ant-select-arrow
+    .ant-select-arrow-icon {
+    display: none;
+}
+
+.formx-label {
+    white-space: pre-wrap;
+    display: inline-block;
+    padding: 4px 0;
+    word-break: break-all;
+}
+
+.formx-item-text-align-right .ant-input,
+.formx-item-text-align-right .ant-input-number-input {
+    text-align: right !important;
+}
+
+.formx-item-text-align-right .ant-input-number-handler-wrap {
+    left: 0;
+    border: none;
+    border-right: 1px solid #d9d9d9;
+    border-radius: 4px 0 0 4px;
+}
+
+.formx-item-text-align-right .ant-input-affix-wrapper > .ant-input {
+    padding-right: 11px !important;
+}
+
+.formx-item-text-align-right .ant-input-affix-wrapper > .ant-input-suffix {
+    background-color: #ffffff;
+}
+
+.formx-item-text-align-left .ant-input,
+.formx-item-text-align-left .ant-input-number-input {
+    text-align: left !important;
+}
+
+.formx-item-text-align-center .ant-input,
+.formx-item-text-align-center .ant-input-number-input {
+    text-align: center !important;
+}
+
+.ant-input-number.input-number-nonehandler > .ant-input-number-handler-wrap {
+    display: none;
+}
+
+.ant-input-number.input-number-nonehandler {
+    padding-right: 0;
+}

@@ -11,6 +11,8 @@ var _FormFunction = _interopRequireDefault(require("./FormFunction"));
 
 var _utils = require("../extensions/utils");
 
+var _reactive = require("@formily/reactive");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -293,6 +295,66 @@ var FormActions = /*#__PURE__*/_createClass(function FormActions(_instance, $obs
     }
 
     return null;
+  };
+
+  this.batch = _reactive.batch;
+  this.untracked = _reactive.untracked;
+
+  this.transformCodeValues = function (values) {
+    if (_typeof(values) === "object" && values) {
+      var realValues = {};
+      Reflect.ownKeys(values).forEach(function (k) {
+        var id = _this.getElementIdByCode(k);
+
+        if (id) {
+          realValues[id] = values[k];
+        } else {
+          realValues[k] = values[k];
+        }
+      });
+      return realValues;
+    }
+  };
+
+  this.setFieldValues = function (values) {
+    var formInstance = _this.getFormInstance();
+
+    if (formInstance && _typeof(values) === "object" && values) {
+      (0, _reactive.batch)(function () {
+        Reflect.ownKeys(values).forEach(function (k) {
+          var field = formInstance.query(k).take();
+
+          if (field) {
+            field.setValue(values[k]);
+          }
+        });
+      });
+    }
+  };
+
+  this.setFieldValuesByCode = function (values) {
+    var realValues = _this.transformCodeValues(values);
+
+    return _this.setFieldValues(realValues);
+  };
+
+  this.setValues = function (values) {
+    var strategy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "merge";
+
+    var formInstance = _this.getFormInstance();
+
+    if (formInstance && _typeof(values) === "object" && values) {
+      var state = formInstance.setValues(values, strategy);
+      return state;
+    }
+  };
+
+  this.setValuesByCode = function (values) {
+    var strategy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "merge";
+
+    var realValues = _this.transformCodeValues(values);
+
+    return _this.setValues(realValues, strategy);
   };
 
   this.getValue = function (id) {
