@@ -310,7 +310,7 @@ export default class FormActions {
         if (typeof values === "object" && values) {
             let realValues = {};
             Reflect.ownKeys(values).forEach(k => {
-                let id = this.getElementIdByCode();
+                let id = this.getElementIdByCode(k);
                 if (id) {
                     realValues[id] = values[k];
                 } else {
