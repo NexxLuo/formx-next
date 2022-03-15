@@ -17,7 +17,7 @@ type FixAntdCascaderType = React.ForwardRefExoticComponent<
     }
 >;
 
-export const Cascader = connect(
+export const Cascader:React.FC<any> = connect(
   AntdCascader,
   mapProps(
     {

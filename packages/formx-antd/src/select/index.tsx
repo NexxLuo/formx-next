@@ -5,7 +5,7 @@ import { SelectProps } from "antd/lib/select";
 import { PreviewText } from "../preview-text";
 import { LoadingOutlined } from "../icons";
 
-export const Select = connect(
+export const Select:React.FC<any> = connect(
   AntdSelect as any,
   mapProps(
     {

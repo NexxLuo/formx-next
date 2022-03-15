@@ -3,7 +3,7 @@ import { connect, mapProps } from "@formily/react";
 import { Field } from "@formily/core/esm/models";
 import { AutoCompleteProps } from "antd/lib/auto-complete";
 
-const AutoComplete = connect(
+const AutoComplete:React.FC<AutoCompleteProps> = connect(
     AntdAutoComplete,
     mapProps(
         {

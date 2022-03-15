@@ -1,3 +1,3 @@
 /// <reference types="react" />
-export declare const Switch: import("react").ForwardRefExoticComponent<Partial<import("antd/lib/switch").SwitchProps> & import("react").RefAttributes<unknown>>;
+export declare const Switch: React.FC<any>;
 export default Switch;

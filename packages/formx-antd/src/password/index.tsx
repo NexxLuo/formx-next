@@ -9,7 +9,7 @@ export interface IPasswordProps extends PasswordProps {
   checkStrength: boolean
 }
 
-export const Password = connect((props: IPasswordProps) => {
+export const Password:React.FC<any> = connect((props: IPasswordProps) => {
   const { value, className, checkStrength, ...others } = props
   const blockStyle: React.CSSProperties = {
     position: 'absolute',

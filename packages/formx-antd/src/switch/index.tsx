@@ -1,7 +1,7 @@
 import { Switch as AntdSwitch } from "antd";
 import { connect, mapProps } from "@formily/react";
 
-export const Switch = connect(
+export const Switch:React.FC<any> = connect(
     AntdSwitch,
     mapProps(
         {

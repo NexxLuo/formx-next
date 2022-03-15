@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useEffect, useLayoutEffect } from "react";
 import { TableProps, ColumnProps } from "antd/lib/table";
 import {
@@ -436,7 +437,7 @@ const BaseArrayTable: ComposedArrayTable = (fieldProps: any) => {
   );
 };
 
-const ArrayTable = connect(
+const ArrayTable: any = connect(
   BaseArrayTable,
   mapProps((props: any, field) => {
     let fieldValue = Array.isArray(props.value) ? props.value.slice() : [];

@@ -123,7 +123,7 @@ const formatSelectable = (itemSelectable, data, form) => {
     }
 };
 
-export const TreeSelect = connect(
+export const TreeSelect:React.FC<any> = connect(
     _props => {
         let { showLabelStrategy, listMap, ...props } = _props;
         let field: Field = useField();

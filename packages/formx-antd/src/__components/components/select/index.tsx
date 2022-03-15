@@ -18,6 +18,7 @@ import {
 } from "../../shared/utils";
 import { Field } from "@formily/core/esm/models";
 import { Evaluator } from "@platform/formx-renderer/lib/core/expression";
+import { SelectProps } from "antd/lib/select";
 
 
 const AntdSelectOption = props => {
@@ -62,7 +63,7 @@ const formatSelectable = (itemSelectable, data, form) => {
   }
 };
 
-export const Select = connect(
+export const Select:React.FC<any> = connect(
   _props => {
     let field: Field = useField();
     let schema = useFieldSchema();
