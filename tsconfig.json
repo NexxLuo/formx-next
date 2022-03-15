@@ -20,7 +20,8 @@
       "@platform/designable-react/lib/*": ["./packages/designable-react/src/*"],
       "@platform/formx-antd": ["./packages/formx-antd/src"],
       "@platform/formx-antd/lib/*": ["./packages/formx-antd/src/*"],
-
+      "@platform/formx-renderer": ["./packages/formx-renderer/src"],
+      "@platform/formx-renderer/lib/*": ["./packages/formx-renderer/src/*"]
     },
     "lib": ["ESNext"]
   }

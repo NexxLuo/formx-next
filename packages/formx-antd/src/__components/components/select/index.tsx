@@ -18,7 +18,6 @@ import {
 } from "../../shared/utils";
 import { Field } from "@formily/core/esm/models";
 import { Evaluator } from "@platform/formx-renderer/lib/core/expression";
-import { SelectProps } from "antd/lib/select";
 
 
 const AntdSelectOption = props => {
