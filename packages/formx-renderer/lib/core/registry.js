@@ -17,8 +17,6 @@ var _utils = require("../core/utils");
 
 var _react2 = require("@formily/react");
 
-var _shared2 = require("./components/shared");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -201,7 +199,7 @@ function registerField(name, component, options) {
         options: options,
         original: component,
         type: "virtual",
-        component: (0, _shared2.withLayoutField)(Cmp)
+        component: Cmp
       };
     } else if (type === "virtualBlock") {
       registry.fields[name] = {
@@ -209,7 +207,7 @@ function registerField(name, component, options) {
         options: options,
         type: "virtual",
         original: component,
-        component: (0, _shared2.withLayoutPane)(Cmp)
+        component: Cmp
       };
     } else {
       registry.fields[name] = {

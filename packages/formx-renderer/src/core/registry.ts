@@ -11,7 +11,6 @@ import {
     mapProps
 } from "@formily/react";
 import { Schema } from "@formily/react";
-import { withLayoutField, withLayoutPane } from "./components/shared";
 import { GeneralField, IFieldState, IGeneralFieldState } from "@formily/core";
 
 const registry = {
@@ -52,7 +51,7 @@ export const getRegistryComponents = () => {
     let components = {};
     let registedVoid: string[] = [];
     for (const k in fields) {
-        let name = k;//.toLowerCase();
+        let name = k; //.toLowerCase();
         if (fields[k].type === "virtual") {
             registedVoid.push(name);
         }
@@ -200,7 +199,7 @@ export function registerField(
                 options,
                 original: component,
                 type: "virtual",
-                component: withLayoutField(Cmp)
+                component: Cmp
             };
         } else if (type === "virtualBlock") {
             registry.fields[name] = {
@@ -208,7 +207,7 @@ export function registerField(
                 options,
                 type: "virtual",
                 original: component,
-                component: withLayoutPane(Cmp)
+                component: Cmp
             };
         } else {
             registry.fields[name] = {
