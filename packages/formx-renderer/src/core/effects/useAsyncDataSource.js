@@ -111,11 +111,9 @@ export const useAsyncData = (form, { name, service, extra }, filter) => {
     setFieldState(name, state => {
         state.loading = true;
         state.dataSource = [];
-        let componentProps = state.componentProps || {};
-        state.componentProps = { ...componentProps };
+        state.componentProps = { ...state.componentProps };
         service(extra).then(res => {
             state.loading = false;
-
             let data = res.data;
             if (typeof filter === "function") {
                 data = filter(res.data);
@@ -123,7 +121,10 @@ export const useAsyncData = (form, { name, service, extra }, filter) => {
             data = formatter(data, extra.output, form, name);
 
             state.dataSource = data;
-            state.componentProps = { ...componentProps };
+            //异步请求结束吼触发组件渲染，某些自定义组件如果未直接使用props.dataSource属性而是直接传入到内层组件，会导致组件无法进行依赖更新，
+            //故修改componentProps强制刷新组件
+            //注意不要覆盖componentProps
+            state.componentProps = { ...state.componentProps };
             //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
             notify("requestAsyncDataSourceComplete", {
                 name,
