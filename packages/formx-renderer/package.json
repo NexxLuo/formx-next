@@ -1,6 +1,6 @@
 {
     "name": "@platform/formx-renderer",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "",
     "license": "MIT",
     "author": "n",
@@ -22,6 +22,7 @@
         "dayjs": "^1.10.3",
         "flat": "^5.0.0",
         "mathjs": "^9.2.0",
+        "rc-notification": "^4.5.7",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "uuid": "^8.1.0"
