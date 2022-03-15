@@ -29,7 +29,7 @@ var _uuid = require("uuid");
 
 var _shared = require("@formily/shared");
 
-var _moment = _interopRequireDefault(require("moment"));
+var _dayjs = _interopRequireDefault(require("dayjs"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71,7 +71,7 @@ function formatDateValue(value, format) {
       _format = format.replace("hh", "HH");
     }
 
-    var momentable = (0, _moment.default)(value, _format);
+    var momentable = (0, _dayjs.default)(value, _format);
     return momentable.format(_format);
   } else {
     return value;

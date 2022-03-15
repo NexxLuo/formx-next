@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { each } from "@formily/shared";
-import moment from "moment";
+import dayjs from "dayjs";
 
 function isNum(v) {
     return isNaN(v) === false && v !== null;
@@ -29,7 +29,7 @@ export function formatDateValue(value, format) {
         if (typeof format === "string" && format) {
             _format = format.replace("hh", "HH");
         }
-        let momentable = moment(value, _format);
+        let momentable = dayjs(value, _format);
         return momentable.format(_format);
     } else {
         return value;
