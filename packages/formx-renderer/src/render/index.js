@@ -14,8 +14,7 @@ import {
 } from "../extensions/utils";
 import message from "../extensions/message";
 import { createEffects } from "./effects";
-import AnchorNav from "./AnchorNav";
-import { ConfigProvider } from "antd";
+
 
 export const FormContext = createContext(null);
 
@@ -1136,40 +1135,29 @@ class Renderer extends React.Component {
                     options: this.props.options
                 }}
             >
-                <ConfigProvider getPopupContainer={this.getContainer}>
-                    <div
-                        className="formx-wrapper formx-container"
-                        ref={this.containerRef}
-                    >
-                        <FormRender
-                            initialValues={values}
-                            schema={schema}
-                            effects={_effects}
-                            onInit={this.onInit}
-                            onMount={this.onMount}
-                            readOnly={readOnly}
-                            disabled={disabled}
-                            getContext={getContext}
-                            setContext={setContext}
-                            context={{
-                                loading: this.props.loading,
-                                options: this.props.options || {},
-                                onListItemDelete: this.onListItemDelete,
-                                enabledSmallLayoutSize:
-                                    this.props.enabledSmallLayoutSize
-                            }}
-                            className={className}
-                        >
-                            {this.props.children}
-                        </FormRender>
-                        <AnchorNav
-                            disabled={navDisabled}
-                            ref={this.navRef}
-                            getContainer={this.getContainer}
-                            getForm={() => this.formInstance}
-                        ></AnchorNav>
-                    </div>
-                </ConfigProvider>
+                <FormRender
+                    initialValues={values}
+                    schema={schema}
+                    components={this.props.components}
+                    form={this.props.form}
+                    effects={_effects}
+                    onInit={this.onInit}
+                    onMount={this.onMount}
+                    readOnly={readOnly}
+                    disabled={disabled}
+                    getContext={getContext}
+                    setContext={setContext}
+                    context={{
+                        loading: this.props.loading,
+                        options: this.props.options || {},
+                        onListItemDelete: this.onListItemDelete,
+                        enabledSmallLayoutSize:
+                            this.props.enabledSmallLayoutSize
+                    }}
+                    className={className}
+                >
+                    {this.props.children}
+                </FormRender>
             </FormContext.Provider>
         );
     }
@@ -1181,6 +1169,7 @@ Renderer.defaultProps = {
     enabledSmallLayoutSize: false
 };
 Renderer.propTypes = {
+    components: PropTypes.object.isRequired,
     actions: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     /** 模板数据 */
     schema: PropTypes.object,

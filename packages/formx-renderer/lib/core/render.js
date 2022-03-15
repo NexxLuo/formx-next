@@ -13,14 +13,6 @@ var _react2 = require("@formily/react");
 
 var _core = require("@formily/core");
 
-var _formxAntd = require("@platform/formx-antd");
-
-var _components = require("./components");
-
-var _shared = require("./components/shared");
-
-require("antd/dist/antd.css");
-
 require("./style.css");
 
 var _registry = require("./registry");
@@ -73,43 +65,9 @@ var eachSchema = function eachSchema(schema, fn) {
   }
 };
 
-function getComponents() {
+function getComponents(components) {
   var registryComponents = (0, _registry.getRegistryComponents)();
-  return _objectSpread(_objectSpread({}, registryComponents), {}, {
-    FormItem: (0, _shared.withLayoutPane)(_components.FormItem),
-    Select: _components.Select,
-    TreeSelect: _components.TreeSelect,
-    ArrayTable: _components.ArrayTable,
-    Input: _components.Input,
-    Radio: _components.Radio,
-    Checkbox: _formxAntd.Checkbox,
-    TextArea: _components.Input.TextArea,
-    NumberPicker: _components.NumberPicker,
-    Search: _components.Input.Search,
-    AutoComplete: _components.AutoComplete,
-    Switch: _formxAntd.Switch,
-    DatePicker: _formxAntd.DatePicker,
-    DateRangePicker: _formxAntd.DatePicker.RangePicker,
-    YearPicker: _formxAntd.DatePicker.YearPicker,
-    MonthPicker: _formxAntd.DatePicker.MonthPicker,
-    WeekPicker: _formxAntd.DatePicker.WeekPicker,
-    TimePicker: _formxAntd.TimePicker,
-    TimeRangePicker: _formxAntd.TimePicker.RangePicker,
-    Upload: _formxAntd.Upload,
-    Transfer: _formxAntd.Transfer,
-    Tab: _components.Tab,
-    FormTab: _components.Tab,
-    TabPane: _components.Tab.TabPane,
-    FieldSet: _components.FieldSet,
-    Grid: _components.Grid,
-    Card: _components.Card,
-    Label: _components.Label,
-    Text: _components.Label,
-    Button: _components.Button,
-    Modal: _components.Modal,
-    Image: _components.Image,
-    Divider: _components.Divider
-  });
+  return _objectSpread(_objectSpread({}, registryComponents), components);
 }
 
 var $selector = function $selector() {
@@ -161,7 +119,9 @@ var FormRender = function FormRender(_ref) {
       _ref$readOnly = _ref.readOnly,
       readOnly = _ref$readOnly === void 0 ? false : _ref$readOnly,
       onInit = _ref.onInit,
-      onMount = _ref.onMount;
+      onMount = _ref.onMount,
+      components = _ref.components,
+      form = _ref.form;
 
   var _useState = (0, _react.useState)(schema),
       _useState2 = _slicedToArray(_useState, 2),
@@ -211,23 +171,23 @@ var FormRender = function FormRender(_ref) {
 
   var SchemaField = (0, _react.useMemo)(function () {
     return (0, _react2.createSchemaField)({
-      components: getComponents(),
+      components: getComponents(components),
       scope: {}
     });
   }, [current]);
   (0, _react.useEffect)(function () {
     setCurrent(schema);
   }, [schema]);
-  return /*#__PURE__*/_react.default.createElement(_formxAntd.Form, {
-    form: _form,
-    labelCol: 6,
-    wrapperCol: 12,
+  var FormComponent = form;
+  return /*#__PURE__*/_react.default.createElement(_react2.FormProvider, {
+    form: _form
+  }, /*#__PURE__*/_react.default.createElement(FormComponent, {
     className: "formx-form"
   }, /*#__PURE__*/_react.default.createElement(SchemaField, {
     size: "small",
     schema: current,
     basePath: [""]
-  }, children));
+  }, children)));
 };
 
 var _default = FormRender;

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
-import { createSchemaField, Schema } from "@formily/react";
+import { createSchemaField, Schema, FormProvider } from "@formily/react";
 import {
     createForm,
     createEffectHook,
@@ -13,38 +13,7 @@ import {
     onFieldInputValueChange,
     onFieldValidateEnd
 } from "@formily/core";
-import {
-    Form,
-    Checkbox,
-    DatePicker,
-    TimePicker,
-    Upload,
-    Switch,
-    Transfer,
-} from "@platform/formx-antd";
-import {
-    FieldSet,
-    Grid,
-    Card,
-    Tab,
-    Label,
-    Button,
-    AutoComplete,
-    ArrayTable,
-    Modal,
-    Input,
-    NumberPicker,
-    Select,
-    TreeSelect,
-    Image,
-    Radio,
-    Divider,
-    FormItem
-} from "./components";
 
-import { withLayoutPane } from "./components/shared";
-
-import "antd/dist/antd.css";
 import "./style.css";
 import { getRegistryComponents } from "./registry";
 
@@ -71,43 +40,11 @@ let eachSchema = (schema, fn) => {
     }
 };
 
-function getComponents() {
+function getComponents(components) {
     let registryComponents = getRegistryComponents();
     return {
         ...registryComponents,
-        FormItem: withLayoutPane(FormItem),
-        Select,
-        TreeSelect,
-        ArrayTable,
-        Input,
-        Radio: Radio,
-        Checkbox: Checkbox,
-        TextArea: Input.TextArea,
-        NumberPicker: NumberPicker,
-        Search: Input.Search,
-        AutoComplete: AutoComplete,
-        Switch: Switch,
-        DatePicker: DatePicker,
-        DateRangePicker: DatePicker.RangePicker,
-        YearPicker: DatePicker.YearPicker,
-        MonthPicker: DatePicker.MonthPicker,
-        WeekPicker: DatePicker.WeekPicker,
-        TimePicker: TimePicker,
-        TimeRangePicker: TimePicker.RangePicker,
-        Upload: Upload,
-        Transfer: Transfer,
-        Tab: Tab,
-        FormTab: Tab,
-        TabPane: Tab.TabPane,
-        FieldSet: FieldSet,
-        Grid: Grid,
-        Card: Card,
-        Label: Label,
-        Text: Label,
-        Button: Button,
-        Modal: Modal,
-        Image: Image,
-        Divider: Divider
+        ...components
     };
 }
 
@@ -155,7 +92,9 @@ const FormRender = ({
     disabled = false,
     readOnly = false,
     onInit,
-    onMount
+    onMount,
+    components,
+    form
 }) => {
     const [current, setCurrent] = useState(schema);
     const contextRef = useRef(context);
@@ -199,7 +138,7 @@ const FormRender = ({
 
     let SchemaField = useMemo(() => {
         return createSchemaField({
-            components: getComponents(),
+            components: getComponents(components),
             scope: {}
         });
     }, [current]);
@@ -208,12 +147,16 @@ const FormRender = ({
         setCurrent(schema);
     }, [schema]);
 
+    let FormComponent = form;
+
     return (
-        <Form form={_form} labelCol={6} wrapperCol={12} className="formx-form">
-            <SchemaField size="small" schema={current} basePath={[""]}>
-                {children}
-            </SchemaField>
-        </Form>
+        <FormProvider form={_form}>
+            <FormComponent className="formx-form">
+                <SchemaField size="small" schema={current} basePath={[""]}>
+                    {children}
+                </SchemaField>
+            </FormComponent>
+        </FormProvider>
     );
 };
 

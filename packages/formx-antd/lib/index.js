@@ -41,10 +41,6 @@ __exportStar(require("./form-dialog"), exports);
 
 __exportStar(require("./form-drawer"), exports);
 
-__exportStar(require("./form"), exports);
-
-__exportStar(require("./form-item"), exports);
-
 __exportStar(require("./form-layout"), exports);
 
 __exportStar(require("./form-step"), exports);
@@ -90,3 +86,7 @@ __exportStar(require("./reset"), exports);
 __exportStar(require("./editable"), exports);
 
 __exportStar(require("./form-grid"), exports);
+
+__exportStar(require("./form"), exports);
+
+__exportStar(require("./form-item"), exports);

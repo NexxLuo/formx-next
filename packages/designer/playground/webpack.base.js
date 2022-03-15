@@ -11,22 +11,18 @@ let fe = [
   "@formily/reactive",
   "@formily/reactive-react",
   "@designable/core",
-  "@designable/shared",
+  "@designable/shared"
 ];
 
 let allAlias = {};
 for (let i = 0; i < fe.length; i++) {
   const pkg = fe[i];
-  const pkg_path = path.resolve("node_modules/" + pkg);
-console.log("pkg_path:",pkg_path)
-
+  const pkg_path = path.resolve("../../node_modules/" + pkg);
   if (fs.existsSync(pkg_path)) {
-console.log("pkg_path2:",pkg_path)
-
     allAlias[pkg] = pkg_path;
   }
 }
-console.log("allAlias:",allAlias)
+
 module.exports = {
   entry: {
     playground: path.resolve(__dirname, "./main")
@@ -47,6 +43,12 @@ module.exports = {
     alias: {
       react: path.resolve("node_modules/react"),
       "react-dom": path.resolve("node_modules/react-dom"),
+      "@platform/designable-react": path.resolve(
+        "node_modules/@platform/designable-react"
+      ),
+      "@platform/designable-settings-form": path.resolve(
+        "node_modules/@platform/designable-settings-form"
+      ),
       ...allAlias
     },
     extensions: [".wasm", ".mjs", ".js", ".json", ".ts", ".tsx"]

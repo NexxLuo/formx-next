@@ -25,10 +25,6 @@ var _message2 = _interopRequireDefault(require("../extensions/message"));
 
 var _effects2 = require("./effects");
 
-var _AnchorNav = _interopRequireDefault(require("./AnchorNav"));
-
-var _antd = require("antd");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -1071,8 +1067,7 @@ var Renderer = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _schema$additionalPro,
-          _this2 = this;
+      var _schema$additionalPro;
 
       var _this$state = this.state,
           schema = _this$state.schema,
@@ -1100,14 +1095,11 @@ var Renderer = /*#__PURE__*/function (_React$Component) {
           loading: this.props.loading,
           options: this.props.options
         }
-      }, /*#__PURE__*/_react.default.createElement(_antd.ConfigProvider, {
-        getPopupContainer: this.getContainer
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "formx-wrapper formx-container",
-        ref: this.containerRef
       }, /*#__PURE__*/_react.default.createElement(_render.default, {
         initialValues: values,
         schema: schema,
+        components: this.props.components,
+        form: this.props.form,
         effects: _effects,
         onInit: this.onInit,
         onMount: this.onMount,
@@ -1122,14 +1114,7 @@ var Renderer = /*#__PURE__*/function (_React$Component) {
           enabledSmallLayoutSize: this.props.enabledSmallLayoutSize
         },
         className: className
-      }, this.props.children), /*#__PURE__*/_react.default.createElement(_AnchorNav.default, {
-        disabled: navDisabled,
-        ref: this.navRef,
-        getContainer: this.getContainer,
-        getForm: function getForm() {
-          return _this2.formInstance;
-        }
-      }))));
+      }, this.props.children));
     }
   }], [{
     key: "getDerivedStateFromProps",
@@ -1193,6 +1178,7 @@ Renderer.defaultProps = {
   enabledSmallLayoutSize: false
 };
 Renderer.propTypes = {
+  components: _propTypes.default.object.isRequired,
   actions: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]),
 
   /** 模板数据 */

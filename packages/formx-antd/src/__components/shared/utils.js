@@ -484,6 +484,22 @@ export function triggerOnChangeWhenDataLoaded(value, data, onChange) {
   }
 }
 
+export function isMobile() {
+  let info = window.navigator.userAgent;
+  let agents = [
+    "Android",
+    "iPhone",
+    "SymbianOS",
+    "Windows Phone",
+    "iPod",
+    "iPad"
+  ];
+  for (let i = 0; i < agents.length; i++) {
+    if (info.indexOf(agents[i]) >= 0) return true;
+  }
+  return false;
+}
+
 export function isResponsiveSizeSmall(form) {
   let bl = window.document.body.classList.contains("responsive-size-small");
 

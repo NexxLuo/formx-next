@@ -1,7 +1,8 @@
 import React from "react";
 import { TreeNode } from "@designable/core";
 import { transformToSchema } from "@designable/formily-transformer";
-import { FormRender } from "@platform/formx-renderer";
+import { FormRender } from "@platform/formx-renderer"; 
+import * as AllComponents from "@platform/formx-antd/lib/all";
 
 export interface IPreviewWidgetProps {
   tree: TreeNode;
@@ -9,9 +10,6 @@ export interface IPreviewWidgetProps {
 
 export const PreviewWidget: React.FC<IPreviewWidgetProps> = props => {
   const { schema } = transformToSchema(props.tree);
-  return (
-    <div>
-      <FormRender schema={schema} />
-    </div>
-  );
+
+  return <FormRender schema={schema} components={AllComponents} form={AllComponents.Form} />;
 };
