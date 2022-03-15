@@ -67,6 +67,22 @@ export default class FormActions {
             return null;
         };
 
+        this.getFieldSchemasByCode = code => {
+            let schemas = [];
+            let schemaMap = _consumer()?.formSchemaMap;
+            if (schemaMap && code) {
+                for (const k in schemaMap) {
+                    const item = schemaMap[k];
+                    const extraProps =
+                        item?.["x-component-props"]?.["x-extra-props"];
+                    if (extraProps && extraProps.formItemCode === code) {
+                        schemas.push(item);
+                    }
+                }
+            }
+            return schemas;
+        };
+
         this.tasks = {};
     }
 
@@ -191,7 +207,7 @@ export default class FormActions {
     };
 
     getElementIdByCode = code => {
-        let el = this.getElementsByCode(code)[0];
+        let el = this.getFieldSchemasByCode(code)[0];
         if (el) {
             return el.name;
         }
@@ -200,43 +216,28 @@ export default class FormActions {
 
     getElementsByCode = code => {
         let arr = [];
-        let hasGraph = false;
+
         let formInstance = this.getFormInstance();
-        if (formInstance && code) {
-            let graph = formInstance.getFormGraph();
-            let tableGraph = [];
-            for (const k in graph) {
-                if (k && graph.hasOwnProperty(k)) {
-                    hasGraph = true;
-                    let g = graph[k];
-
-                    let componentProps = g.component?.[1];
-
-                    if (componentProps && g.isTableCellField !== true) {
-                        let extraProps = componentProps["x-extra-props"] || {};
-                        let ctype = extraProps.name?.toLowerCase();
-
-                        if (ctype === "arraytable") {
-                            tableGraph.push(g);
-                        }
-
-                        if (extraProps.formItemCode === code) {
-                            let path = g.path;
-                            if (path) {
-                                arr.push({
-                                    ...componentProps,
-                                    name: path,
-                                    path: g.address
-                                });
-                            }
-                        }
-                    }
+        if (code && formInstance) {
+            let schemas = this.getFieldSchemasByCode(code);
+            schemas.forEach(d => {
+                let name = d.name;
+                let fieldState = formInstance.getFieldState(name);
+                if (fieldState) {
+                    arr.push({
+                        ...fieldState,
+                        name: fieldState.path
+                    });
                 }
-            }
-        }
+            });
 
-        if (hasGraph && arr.length === 0) {
-            console.error("no element found:", code);
+            if (schemas.length === 0) {
+                console.error("no element schema found:", code);
+            }
+
+            if (arr.length === 0) {
+                console.error("no element state found:", code);
+            }
         }
 
         return arr;
@@ -522,7 +523,7 @@ export default class FormActions {
         let els = [];
 
         if (code) {
-            els = this.getElementsByCode(code);
+            els = this.getFieldSchemasByCode(code);
         }
 
         for (let i = 0; i < els.length; i++) {
@@ -539,7 +540,7 @@ export default class FormActions {
         let els = [];
 
         if (code) {
-            els = this.getElementsByCode(code);
+            els = this.getFieldSchemasByCode(code);
         }
 
         for (let i = 0; i < els.length; i++) {
