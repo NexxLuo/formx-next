@@ -25,7 +25,8 @@ for (let i = 0; i < fe.length; i++) {
 
 module.exports = {
   entry: {
-    playground: path.resolve(__dirname, "./main")
+    playground: path.resolve(__dirname, "./main"),
+    preview: path.resolve(__dirname, "./preview")
   },
   mode: "development",
   devtool: prod ? "none" : "eval",
