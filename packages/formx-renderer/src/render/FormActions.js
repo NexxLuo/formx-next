@@ -214,7 +214,7 @@ export default class FormActions {
         return null;
     };
 
-    getElementsByCode = code => {
+    getElementsByCode2 = code => {
         let arr = [];
 
         let formInstance = this.getFormInstance();
@@ -238,6 +238,48 @@ export default class FormActions {
             if (arr.length === 0) {
                 console.error("no element state found:", code);
             }
+        }
+
+        return arr;
+    };
+
+    getElementsByCode = code => {
+        let arr = [];
+        let hasGraph = false;
+        let formInstance = this.getFormInstance();
+        if (formInstance && code) {
+            let graph = formInstance.getFormGraph();
+            let tableGraph = [];
+            for (const k in graph) {
+                if (k && graph.hasOwnProperty(k)) {
+                    hasGraph = true;
+                    let g = graph[k];
+                    let componentProps = g.component?.[1];
+                    if (componentProps && g.isTableCellField !== true) {
+                        let extraProps = componentProps["x-extra-props"] || {};
+                        let ctype = extraProps.name?.toLowerCase();
+
+                        if (ctype === "arraytable") {
+                            tableGraph.push(g);
+                        }
+
+                        if (extraProps.formItemCode === code) {
+                            let path = g.path;
+                            if (path) {
+                                arr.push({
+                                    ...componentProps,
+                                    name: path,
+                                    path: g.address
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (hasGraph && arr.length === 0) {
+            console.error("no element found:", code);
         }
 
         return arr;
@@ -523,7 +565,7 @@ export default class FormActions {
         let els = [];
 
         if (code) {
-            els = this.getFieldSchemasByCode(code);
+            els = this.getElementsByCode(code);
         }
 
         for (let i = 0; i < els.length; i++) {
@@ -540,7 +582,7 @@ export default class FormActions {
         let els = [];
 
         if (code) {
-            els = this.getFieldSchemasByCode(code);
+            els = this.getElementsByCode(code);
         }
 
         for (let i = 0; i < els.length; i++) {
