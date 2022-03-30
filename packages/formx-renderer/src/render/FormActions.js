@@ -674,7 +674,16 @@ export default class FormActions {
         let bl = false;
         let formInstance = this.getFormInstance();
 
-        if (formInstance && id) {
+        if (formInstance && id && typeof id === "string") {
+            let temp = id.split(".");
+            let name = temp[temp.length - 1];
+            if (name) {
+                let schema = this.getFieldSchema(name);
+                if (schema?.type === "void") {
+                    return true;
+                }
+            }
+
             let _path = id;
             _path = _path.replace(/.additionalProperties./g, "_toolbar.");
             let state = formInstance.getFieldState(_path);
