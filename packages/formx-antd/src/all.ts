@@ -4,6 +4,7 @@ export {
   Grid,
   Card,
   Tab,
+  FormTab,
   Label,
   Button,
   AutoComplete,

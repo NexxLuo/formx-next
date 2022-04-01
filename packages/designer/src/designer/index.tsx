@@ -15,7 +15,7 @@ import {
   ViewportPanel,
   ViewPanel,
   SettingsPanel,
-  ComponentTreeWidget
+  ComponentTreeWidget,
 } from "@platform/designable-react";
 import {
   createDesigner,
@@ -41,10 +41,14 @@ import {
   ArrayTable,
   FormTab,
   ObjectContainer,
-  Button
+  Button,
+  Modal
 } from "../components";
 import "./style.less";
 import { getRegistryComponents } from "../components/register";
+import {setNpmCDNRegistry} from "@platform/designable-settings-form"
+
+setNpmCDNRegistry("npm")
 
 GlobalRegistry.registerDesignerLocales({
   "zh-CN": {
@@ -112,7 +116,10 @@ const FormDesigner = () => {
                 Switch
               ]}
             />
-            <ResourceWidget title="sources.Layouts" sources={[Card, FormTab]} />
+            <ResourceWidget
+              title="sources.Layouts"
+              sources={[Card, FormTab, Modal]}
+            />
             <ResourceWidget title="sources.Arrays" sources={[ArrayTable]} />
             <ResourceWidget
               title="sources.Displays"
@@ -152,6 +159,7 @@ const FormDesigner = () => {
                       ArrayTable,
                       Button,
                       FormTab,
+                      Modal,
                       ObjectContainer,
                       ...registeredComponents
                     }}

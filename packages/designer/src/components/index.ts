@@ -14,4 +14,5 @@ export * from "./ArrayTable";
 export * from "./FormTab";
 export * from './Object'
 export * from './Button'
+export * from './Modal'
 

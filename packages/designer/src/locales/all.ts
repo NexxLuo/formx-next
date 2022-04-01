@@ -18,3 +18,5 @@ export * from "./Void";
 export * from "./FormTab";
 export * from "./Object";
 export * from "./Button";
+export * from "./Modal";
+
