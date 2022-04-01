@@ -1,7 +1,6 @@
 import React from "react";
 import { Collapse, Row, Divider as AntdDivider } from "antd";
 import { useField } from "@formily/react";
-import BaseModal from "./modal";
 import BaseButton from "./button";
 
 import { withLayoutGrid, withLayoutPane, withLayoutField } from "./shared";
@@ -10,22 +9,20 @@ import "@platform/formx-antd/lib/style.css";
 import "./style.css";
 
 import BaseFormItem from "./FormItem";
+export * from "./modal";
 export { default as Form } from "./Form";
 export { default as AutoComplete } from "./auto-complete";
-
 export { NumberPicker } from "./number-picker";
 export { Input } from "./input";
-
 export { TreeSelect } from "./tree-select";
 export { Select } from "./select";
 export { default as Tab } from "./form-tab";
+export * from "./form-tab";
 export { default as Radio } from "./radio";
 export { default as ArrayTable } from "./ArrayTable";
 
 export const FormItem = withLayoutPane(BaseFormItem);
 export const Button = withLayoutField(BaseButton);
-
-export const Modal = withLayoutPane(BaseModal, true);
 
 export const FieldSet = withLayoutPane(props => {
   let field = useField();
