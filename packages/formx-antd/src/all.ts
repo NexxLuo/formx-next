@@ -1,4 +1,4 @@
-export { Checkbox, DatePicker, TimePicker, Upload, Switch, Transfer } from "./";
+export {  DatePicker, TimePicker, Upload, Switch, Transfer } from "./";
 export {
   FieldSet,
   Grid,
@@ -18,6 +18,7 @@ export {
   Radio,
   Divider,
   FormItem,
-  Form
+  Form,
+  Checkbox
 } from "./__components/components";
  
