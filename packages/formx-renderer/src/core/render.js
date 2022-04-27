@@ -15,7 +15,7 @@ import {
 } from "@formily/core";
 
 import "./style.css";
-import { getRegistryComponents } from "./registry";
+import { getRegistryComponents } from "./getRegistryComponents";
 
 let eachSchema = (schema, fn) => {
     if (schema) {
