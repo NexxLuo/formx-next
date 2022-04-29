@@ -44,6 +44,7 @@ export function registerField(
                 name: name,
                 options,
                 original: component,
+                originalType: type,
                 type: "virtual"
             };
         } else if (type === "virtualBlock") {
@@ -51,6 +52,7 @@ export function registerField(
                 name: name,
                 options,
                 type: "virtual",
+                originalType: type,
                 original: component
             };
         } else {
@@ -58,6 +60,7 @@ export function registerField(
                 name: name,
                 options,
                 type,
+                originalType: type,
                 original: component
             };
         }

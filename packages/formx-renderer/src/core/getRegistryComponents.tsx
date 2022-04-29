@@ -16,7 +16,11 @@ import {
 import { getParentPath } from "../core/utils";
 import { getRegistry } from "./registry";
 
-function createCustomField(component) {
+const CustomWrapper = props => {
+    return <div {...props}>{props.children}</div>;
+};
+
+function createCustomField(component, cls: string) {
     return (props: any) => {
         let field: GeneralField = useField();
         let schema = useFieldSchema();
@@ -53,6 +57,15 @@ function createCustomField(component) {
             }
         }
 
+        if (cls) {
+            return React.createElement(
+                CustomWrapper,
+                { className: cls },
+                React.createElement(component, componentProps),
+                extraItems
+            );
+        }
+
         return React.createElement(
             React.Fragment,
             {},
@@ -69,8 +82,15 @@ export const getRegistryComponents = () => {
 
     for (const k in fields) {
         let item = fields[k];
+
+        let cls =
+            {
+                virtualField: "formx-item-virtual-field",
+                virtualBlock: "formx-form-pane"
+            }[item.originalType] || "";
+
         let Cmp = connect(
-            createCustomField(item.original),
+            createCustomField(item.original, cls),
             mapProps((props, field: IFieldState & GeneralField) => {
                 //以下属性都应该响应组件render，否则可能导致业务组件动态设置状态后无法触发渲染
                 return {
@@ -84,7 +104,7 @@ export const getRegistryComponents = () => {
             })
         );
 
-        components[k] =Cmp;
+        components[k] = Cmp;
     }
     return components;
 };
