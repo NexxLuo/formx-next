@@ -13,8 +13,6 @@ import {
     onFieldInputValueChange,
     onFieldValidateEnd
 } from "@formily/core";
-
-import "./style.css";
 import { getRegistryComponents } from "./getRegistryComponents";
 
 let eachSchema = (schema, fn) => {
