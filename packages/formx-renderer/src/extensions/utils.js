@@ -41,7 +41,7 @@ export function createEvaluator(form, options) {
                             state &&
                             state.fieldActions &&
                             typeof state.fieldActions.getSelections ===
-                                "function"
+                            "function"
                         ) {
                             return state.fieldActions.getSelections();
                         }
@@ -713,7 +713,7 @@ export function transformCardToTab(schema) {
                         let tabpaneId = guid("g");
                         let tabpane = {
                             properties: {},
-                            "x-component": "tabpane",
+                            "x-component": "Tab.TabPane",
                             "x-component-props": {
                                 "x-layout-props": {
                                     span: 24
@@ -733,17 +733,14 @@ export function transformCardToTab(schema) {
                         ["card", "fieldset", "grid"].includes(componentType)
                     ) {
                         bl = true;
-                        item["x-component"] = "tabpane";
+                        item["x-component"] = "Tab.TabPane";
                         let cmp = item["x-component-props"] || {};
-                        let extra = item["x-extra-props"] || {};
-                        let layout = item["x-layout-props"] || {};
+                        let extra = cmp["x-extra-props"] || {};
                         extra.name = "tabpane";
                         cmp.name = "tabpane";
                         item["x-component-props"] = {
                             ...cmp,
-                            tab: cmp.title,
-                            "x-extra-props": extra,
-                            "x-layout-props": layout
+                            tab: cmp.title
                         };
                         children[k] = item;
                     } else {
