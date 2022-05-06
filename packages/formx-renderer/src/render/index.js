@@ -843,7 +843,7 @@ class Renderer extends React.Component {
                 let validateAsyncApi = null;
                 try {
                     validateAsyncApi = JSON.parse(validateAsync.api);
-                } catch (error) {}
+                } catch (error) { }
 
                 let validateAsyncMessage = validateAsync.message;
 
@@ -1119,14 +1119,6 @@ class Renderer extends React.Component {
 
         let { readOnly, disabled, getContext, setContext, className } =
             this.props;
-
-        let navDisabled =
-            schema?.additionalProperties?.enabledNavToolbar === false
-                ? true
-                : false;
-        if (isResponsiveSizeSmall() || this.props.enabledNavToolbar === false) {
-            navDisabled = true;
-        }
 
         return (
             <FormContext.Provider
