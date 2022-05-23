@@ -13,9 +13,14 @@
     "version:minor": "lerna version minor --no-git-tag-version --no-push --yes",
     "pub": "lerna publish from-package --no-private --no-git-reset --yes"
   },
-  "resolutions": {},
+  "resolutions": {
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11"
+  },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11"
   },
   "dependencies": {}
 }
