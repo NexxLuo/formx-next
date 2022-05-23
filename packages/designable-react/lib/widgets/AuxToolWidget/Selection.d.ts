@@ -5,4 +5,4 @@ export interface ISelectionBoxProps {
     showHelpers: boolean;
 }
 export declare const SelectionBox: React.FC<ISelectionBoxProps>;
-export declare const Selection: React.MemoExoticComponent<React.FunctionComponent<unknown>>;
+export declare const Selection: React.MemoExoticComponent<import("@formily/reactive-react").ReactFC<unknown>>;
