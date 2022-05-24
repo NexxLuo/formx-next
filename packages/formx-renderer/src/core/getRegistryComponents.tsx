@@ -21,20 +21,21 @@ const CustomWrapper = props => {
 };
 
 function createCustomField(component, cls: string) {
-    return (props: any) => {
+    return function CustomField(props: any) {
         let field: GeneralField = useField();
         let schema = useFieldSchema();
         let form = useForm();
-        let formState: any = form.getFormState();
-        let fieldState: IGeneralFieldState = field.getState();
+
+        let __isEditor = form.values.__DATA__?.__isEditor === true;
+        let _formActions = (form as any).formActions;
+
         let componentProps = {
             ...props,
             id: field.path.toString(),
             path: field.address.toString(),
             attribute: props.attribute || {},
-            form: formState.formActions,
-            isEditor: formState.values.__DATA__?.__isEditor === true,
-            state: fieldState
+            form: _formActions,
+            isEditor: __isEditor
         };
         let extraProps = props["x-extra-props"] || {};
 
