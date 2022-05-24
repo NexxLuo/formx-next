@@ -14,6 +14,7 @@ import {
     onFieldValidateEnd
 } from "@formily/core";
 import { getRegistryComponents } from "./getRegistryComponents";
+import "./validator/rule"
 
 let eachSchema = (schema, fn) => {
     if (schema) {
