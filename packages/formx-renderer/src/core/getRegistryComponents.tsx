@@ -22,20 +22,30 @@ const CustomWrapper = props => {
 
 function createCustomField(component, cls: string) {
     return function CustomField(props: any) {
-        let field: GeneralField = useField();
+        let field: IFieldState & GeneralField = useField();
         let schema = useFieldSchema();
         let form = useForm();
 
         let __isEditor = form.values.__DATA__?.__isEditor === true;
         let _formActions = (form as any).formActions;
 
+        let _props = {
+            disabled: field.disabled || props.disabled,
+            readOnly: field.readOnly || props.readOnly,
+            loading: field.loading || props.loading,
+            value: field.value,
+            values: field.inputValues
+        };
+
         let componentProps = {
             ...props,
+            ..._props,
             id: field.path.toString(),
             path: field.address.toString(),
             attribute: props.attribute || {},
             form: _formActions,
-            isEditor: __isEditor
+            isEditor: __isEditor,
+            state: field
         };
         let extraProps = props["x-extra-props"] || {};
 
@@ -90,20 +100,7 @@ export const getRegistryComponents = () => {
                 virtualBlock: "formx-form-pane"
             }[item.originalType] || "";
 
-        let Cmp = connect(
-            createCustomField(item.original, cls),
-            mapProps((props, field: IFieldState & GeneralField) => {
-                //以下属性都应该响应组件render，否则可能导致业务组件动态设置状态后无法触发渲染
-                return {
-                    ...props,
-                    disabled: field.disabled || props.disabled,
-                    readOnly: field.readOnly || props.readOnly,
-                    loading: field.loading || props.loading,
-                    value: field.value,
-                    values: field.inputValues
-                };
-            })
-        );
+        let Cmp = connect(createCustomField(item.original, cls));
 
         components[k] = Cmp;
     }
