@@ -334,7 +334,8 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true) {
 
     for (const k in graph) {
         if (k && graph.hasOwnProperty(k)) {
-            let item = formatGraph(graph[k]);
+            let _g = graph[k];
+            let item = formatGraph(_g);
             let extraProps = item.extraProps || {};
 
             let itemName = item.name;
@@ -346,11 +347,14 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true) {
                 path: item.path,
                 entity: extraProps.entity,
                 entityField: extraProps.field,
+                hiddenValue: extraProps.visibility?.hiddenValue ?? true,
                 ctype: item.componentName,
                 isField:
                     item.hasOwnProperty("value") || item.isEntityField === true, //容错处理：组件isEntityField为true时也视为输入控件
                 relatedKey: extraProps.relatedKey,
-                visible: item.visible
+                visible: item.visible,
+                hidden: _g.hidden,
+                selfDisplay: _g.selfDisplay
             };
 
             if (bindEntity && extraProps.isEntity && extraProps.entity) {
@@ -392,8 +396,10 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true) {
 
             if (["arraytable"].indexOf(item.ctype) > -1) {
                 //bug fixed : 表格父级隐藏后，表格本身的数据并未清空，导致传递给了后端
-                if (item.visible === false) {
-                    dataValue = [];
+                if (item.hidden === true && item.selfDisplay === "visible") {
+                    if (item.hiddenValue === true) {
+                        dataValue = [];
+                    }
                 }
                 //
                 dataValue = (dataValue || []).map(row => {
