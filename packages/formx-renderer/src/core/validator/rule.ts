@@ -29,5 +29,11 @@ registerValidateRules({
         var length = isNum(Number(value)) ? Number(value) : getLength(value);
         var max = Number(rule.maximum);
         return length > max ? rule.message : "";
+    },
+    minimum(value, rule) {
+        if (isValidateEmpty(value)) return "";
+        var length = isNum(Number(value)) ? Number(value) : getLength(value);
+        var min = Number(rule.min);
+        return length < min ? rule.message : "";
     }
 });
