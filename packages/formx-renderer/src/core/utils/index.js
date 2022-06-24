@@ -46,6 +46,11 @@ export function guid(prefix = "f") {
  * 表格组件存在编辑、非编辑两种模式，编辑模式时需要使用表单项真实id进行值的操作，非编辑模式需要使用数据中的dataIndex数据key进行操作
  * @路径 {string} path 如：a.1.b
  */
+/**
+2022年6月24日 如果使用form获取表格state，当数据量大时会造成明显的性能问题；
+而由于表格在render时已经将数据接口中的字段值同步到真实字段id中，故可不需获取表格state拿dataIndex，直接使用列的真实id即可，故使用此方法的地方均不再传递form参数；
+将会产生的问题如下：表格数据源来自于接口时，修改列值时不会及时同步到接口对应的字段中，点击完成编辑时方进行同步；
+ */
 export function getItemIndex(path, form) {
     let itemIndex = -1;
 

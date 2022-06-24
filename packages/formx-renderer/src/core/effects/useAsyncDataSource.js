@@ -5,7 +5,7 @@ import { getItemIndex } from "../utils";
 function getExpressionVar(name, form) {
     let expressionVar = {};
     if (name && form) {
-        let { index } = getItemIndex(name, form);
+        let { index } = getItemIndex(name);
         if (index > -1) {
             expressionVar.items = index;
         }

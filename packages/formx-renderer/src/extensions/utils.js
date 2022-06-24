@@ -51,7 +51,7 @@ export function createEvaluator(form, options) {
                             index,
                             parentKey: listKey,
                             dataIndex: fieldKey
-                        } = getItemIndex(k, form);
+                        } = getItemIndex(k);
 
                         if (index > -1) {
                             v = form.getValuesIn(
