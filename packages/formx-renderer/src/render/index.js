@@ -15,7 +15,6 @@ import {
 import message from "../extensions/message";
 import { createEffects } from "./effects";
 
-
 export const FormContext = createContext(null);
 
 function formatGraph(item) {
@@ -544,7 +543,7 @@ function getValuesFromJson(obj) {
  * @param {*} a
  * @param {*} b
  */
-function mergeErrors(a, b) {
+function mergeErrors(a, b, formGraph) {
     let errors = [];
     let warnings = [];
 
@@ -556,12 +555,27 @@ function mergeErrors(a, b) {
 
     let errorsMap = {};
 
+    const getTitle = d => {
+        let t = "";
+        if (formGraph && d) {
+            let g = formGraph[d.address];
+            t = g?.title || g?.component?.[1]?.["x-extra-props"]?.title;
+        }
+        return t;
+    };
+
     e_a.forEach(d => {
-        errorsMap[d.path] = d;
+        errorsMap[d.path] = {
+            ...d,
+            title: getTitle(d)
+        };
     });
 
     e_b.forEach(d => {
-        errorsMap[d.path] = d;
+        errorsMap[d.path] = {
+            ...d,
+            title: getTitle(d)
+        };
     });
 
     for (const k in errorsMap) {
@@ -571,11 +585,17 @@ function mergeErrors(a, b) {
     let warningsMap = {};
 
     w_a.forEach(d => {
-        warningsMap[d.path] = d;
+        warningsMap[d.path] = {
+            ...d,
+            title: getTitle(d)
+        };
     });
 
     w_b.forEach(d => {
-        warningsMap[d.path] = d;
+        warningsMap[d.path] = {
+            ...d,
+            title: getTitle(d)
+        };
     });
 
     for (const k in warningsMap) {
@@ -768,8 +788,10 @@ class Renderer extends React.Component {
                     if (typeof callback === "function") {
                         let { errors, warnings } = mergeErrors(
                             ins.getFormState(),
-                            res
+                            res,
+                            ins.getFormGraph()
                         );
+
                         callback(errors, warnings);
                     }
                 })
@@ -777,7 +799,8 @@ class Renderer extends React.Component {
                     if (typeof callback === "function") {
                         let { errors, warnings } = mergeErrors(
                             ins.getFormState(),
-                            res
+                            res,
+                            ins.getFormGraph()
                         );
                         callback(errors, warnings);
                     }
@@ -849,7 +872,7 @@ class Renderer extends React.Component {
                 let validateAsyncApi = null;
                 try {
                     validateAsyncApi = JSON.parse(validateAsync.api);
-                } catch (error) { }
+                } catch (error) {}
 
                 let validateAsyncMessage = validateAsync.message;
 
