@@ -3,17 +3,19 @@
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 .formx-message {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     font-variant: tabular-nums;
-    line-height: 1.5715;
+    line-height: 1.5;
     list-style: none;
+    -webkit-font-feature-settings: "tnum";
     font-feature-settings: "tnum";
     position: fixed;
-    top: 8px;
+    top: 16px;
     left: 0;
     z-index: 1010;
     width: 100%;
@@ -23,20 +25,23 @@
     padding: 8px;
     text-align: center;
 }
+.formx-message-notice:first-child {
+    margin-top: -8px;
+}
 .formx-message-notice-content {
     display: inline-block;
     padding: 10px 16px;
     background: #fff;
-    border-radius: 2px;
-    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
-        0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     pointer-events: all;
 }
 .formx-message-success .anticon {
     color: #52c41a;
 }
 .formx-message-error .anticon {
-    color: #ff4d4f;
+    color: #f5222d;
 }
 .formx-message-warning .anticon {
     color: #faad14;
@@ -51,7 +56,8 @@
     margin-right: 8px;
     font-size: 16px;
 }
-.formx-message-notice.ant-move-up-leave.ant-move-up-leave-active {
+.formx-message-notice.move-up-leave.move-up-leave-active {
+    overflow: hidden;
     -webkit-animation-name: MessageMoveOut;
     animation-name: MessageMoveOut;
     -webkit-animation-duration: 0.3s;
@@ -80,14 +86,4 @@
         padding: 0;
         opacity: 0;
     }
-}
-.formx-message-rtl {
-    direction: rtl;
-}
-.formx-message-rtl span {
-    direction: rtl;
-}
-.formx-message-rtl .anticon {
-    margin-right: 0;
-    margin-left: 8px;
 }
