@@ -100,7 +100,7 @@ export function getItemIndex(path, form) {
                 if (
                     listState &&
                     typeof listState.fieldActions?.getItemDataIndex ===
-                        "function"
+                    "function"
                 ) {
                     //获取表单项key对应的dataIndex
                     dataIndex = listState.fieldActions.getItemDataIndex(key);
@@ -118,7 +118,7 @@ export function getItemIndex(path, form) {
                 if (
                     listState &&
                     typeof listState.fieldActions?.getItemDataIndex ===
-                        "function"
+                    "function"
                 ) {
                     //获取表单项key对应的dataIndex
                     dataIndex = listState.fieldActions.getItemDataIndex(key);
@@ -128,6 +128,8 @@ export function getItemIndex(path, form) {
             let pathArr = path.split(".toolbar_");
             if (pathArr.length > 1) {
                 parentKey = pathArr[0];
+            } else {
+                parentKey = getParentPath(path);
             }
         }
     }
@@ -267,7 +269,7 @@ export function eachSchemaItems(root, callback) {
     function isObject(o) {
         return o
             ? typeof o === "object" &&
-                  Object.getPrototypeOf(o) === Object.prototype
+            Object.getPrototypeOf(o) === Object.prototype
             : false;
     }
 
