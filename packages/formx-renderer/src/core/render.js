@@ -118,6 +118,7 @@ const FormRender = ({
                     return {
                         formSchema: _formSchema,
                         formSchemaMap,
+                        formGraphMap: _form.getFormGraph(),
                         ...contextRef.current
                     };
                 };

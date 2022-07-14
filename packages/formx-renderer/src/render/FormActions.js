@@ -83,6 +83,23 @@ export default class FormActions {
             return schemas;
         };
 
+
+        this.getFieldGraphByCode = code => {
+            let graphs = [];
+            let graphMap = _consumer()?.formGraphMap;
+            if (graphMap && code) {
+                for (const k in graphMap) {
+                    const item = graphMap[k];
+                    const extraProps =
+                        item?.["component"]?.[1]?.["x-extra-props"];
+                    if (extraProps && extraProps.formItemCode === code) {
+                        graphs.push(item);
+                    }
+                }
+            }
+            return graphs;
+        };
+
         this.tasks = {};
     }
 
@@ -207,6 +224,10 @@ export default class FormActions {
     };
 
     getElementIdByCode = code => {
+        let g = this.getFieldGraphByCode(code)[0];
+        if (g) {
+            return g.path;
+        }
         let el = this.getFieldSchemasByCode(code)[0];
         if (el) {
             return el.name;
