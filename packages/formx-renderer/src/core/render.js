@@ -114,19 +114,22 @@ const FormRender = ({
                     formSchemaMap[key] = _schema;
                 });
 
+                let _consumerData = {
+                    formSchema: _formSchema,
+                    formSchemaMap,
+                    formGraphMap: {},
+                    ...contextRef.current
+                }
+
                 const _consumer = () => {
-                    return {
-                        formSchema: _formSchema,
-                        formSchemaMap,
-                        formGraphMap: _form.getFormGraph(),
-                        ...contextRef.current
-                    };
+                    return _consumerData;
                 };
 
                 onFormInit(form => {
                     onInit(form, $selector(), _consumer);
                 });
                 onFormMount(form => {
+                    _consumerData.formGraphMap = form.getFormGraph();
                     onMount(form, $selector(), _consumer);
                 });
                 if (typeof effects === "function") {
