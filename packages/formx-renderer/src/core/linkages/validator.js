@@ -26,7 +26,14 @@ async function validateArrayTable(value, rule, context) {
         return "";
     }
 
-    function validate(_value, _validator, _address, context, _instance) {
+    function validate(
+        _value,
+        _title,
+        _validator,
+        _address,
+        context,
+        _instance
+    ) {
         return new Promise(resolve => {
             let res = _validator(
                 _value,
@@ -44,6 +51,7 @@ async function validateArrayTable(value, rule, context) {
                                 messages: [_res],
                                 path: _address,
                                 type: "error",
+                                title: _title,
                                 triggerType: "onInput",
                                 code: "ValidateError"
                             });
@@ -57,6 +65,7 @@ async function validateArrayTable(value, rule, context) {
                             address: _address,
                             messages: [res],
                             path: _address,
+                            title: _title,
                             type: "error",
                             triggerType: "onInput",
                             code: "ValidateError"
@@ -152,6 +161,8 @@ async function validateArrayTable(value, rule, context) {
                         existFieldState = fieldState.mounted === true;
                     }
 
+                    let title = _schema.title || extraProps?.title;
+
                     if (
                         _schema.type !== "void" &&
                         !existFieldState &&
@@ -170,6 +181,7 @@ async function validateArrayTable(value, rule, context) {
                                 validator: validateRequired,
                                 value: _value,
                                 address: _address,
+                                title,
                                 context: {}
                             });
                         }
@@ -183,6 +195,7 @@ async function validateArrayTable(value, rule, context) {
                         rules.forEach(rule => {
                             tasks.push({
                                 validator: rule.validator,
+                                title,
                                 value: _value,
                                 address: _address,
                                 context: rule.validatorContext
@@ -199,10 +212,11 @@ async function validateArrayTable(value, rule, context) {
     let resultMap = {};
 
     for (let i = 0; i < tasks.length; i++) {
-        let { validator, value, address, context } = tasks[i];
+        let { validator, value, address, context, title } = tasks[i];
         if (!resultMap.hasOwnProperty(address)) {
             const result = await validate(
                 value,
+                title,
                 validator,
                 address,
                 context,
