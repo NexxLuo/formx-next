@@ -153,6 +153,7 @@ async function validateArrayTable(value, rule, context) {
                     }
 
                     if (
+                        _schema.type !== "void" &&
                         !existFieldState &&
                         isVisible(d, i, k, _options, _schema, _evaluator)
                     ) {
