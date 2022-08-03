@@ -564,18 +564,41 @@ function mergeErrors(a, b, formGraph) {
         return t;
     };
 
+    const mergeExtra = d => {
+        let msgArr = d?.messages;
+
+        if (msgArr instanceof Array) {
+            msgArr.forEach(item => {
+                if ((!Reflect.has(errorsMap), item.path)) {
+                    errorsMap[item.path] = {
+                        ...item,
+                        title: item.title
+                    };
+                }
+            });
+        }
+    };
+
     e_a.forEach(d => {
-        errorsMap[d.path] = {
-            ...d,
-            title: getTitle(d)
-        };
+        if (d.path === "__DATA__") {
+            mergeExtra(d);
+        } else {
+            errorsMap[d.path] = {
+                ...d,
+                title: getTitle(d)
+            };
+        }
     });
 
     e_b.forEach(d => {
-        errorsMap[d.path] = {
-            ...d,
-            title: getTitle(d)
-        };
+        if (d.path === "__DATA__") {
+            mergeExtra(d);
+        } else {
+            errorsMap[d.path] = {
+                ...d,
+                title: getTitle(d)
+            };
+        }
     });
 
     for (const k in errorsMap) {
@@ -585,17 +608,25 @@ function mergeErrors(a, b, formGraph) {
     let warningsMap = {};
 
     w_a.forEach(d => {
-        warningsMap[d.path] = {
-            ...d,
-            title: getTitle(d)
-        };
+        if (d.path === "__DATA__") {
+            mergeExtra(d);
+        } else {
+            warningsMap[d.path] = {
+                ...d,
+                title: getTitle(d)
+            };
+        }
     });
 
     w_b.forEach(d => {
-        warningsMap[d.path] = {
-            ...d,
-            title: getTitle(d)
-        };
+        if (d.path === "__DATA__") {
+            mergeExtra(d);
+        } else {
+            warningsMap[d.path] = {
+                ...d,
+                title: getTitle(d)
+            };
+        }
     });
 
     for (const k in warningsMap) {

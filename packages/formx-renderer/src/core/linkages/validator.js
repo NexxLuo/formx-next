@@ -14,6 +14,7 @@ async function validateArrayTable(value, rule, context) {
     let field = context.field;
     let instance = context.form;
     let listAddress = field.address.toString();
+    let listPath = field.path.toString();
 
     let arr = value;
 
@@ -32,7 +33,8 @@ async function validateArrayTable(value, rule, context) {
         _validator,
         _address,
         context,
-        _instance
+        _instance,
+        _path
     ) {
         return new Promise(resolve => {
             let res = _validator(
@@ -49,7 +51,7 @@ async function validateArrayTable(value, rule, context) {
                             resolve({
                                 address: _address,
                                 messages: [_res],
-                                path: _address,
+                                path: _path,
                                 type: "error",
                                 title: _title,
                                 triggerType: "onInput",
@@ -64,7 +66,7 @@ async function validateArrayTable(value, rule, context) {
                         resolve({
                             address: _address,
                             messages: [res],
-                            path: _address,
+                            path: _path,
                             title: _title,
                             type: "error",
                             triggerType: "onInput",
@@ -153,6 +155,7 @@ async function validateArrayTable(value, rule, context) {
                         _schema["x-component-props"]?.["x-extra-props"];
 
                     let _address = listAddress + "." + i + "." + k;
+                    let _path = listPath + "." + i + "." + k;
                     let fieldState = instance.query(_address).take();
 
                     let existFieldState = false;
@@ -181,6 +184,7 @@ async function validateArrayTable(value, rule, context) {
                                 validator: validateRequired,
                                 value: _value,
                                 address: _address,
+                                path: _path,
                                 title,
                                 context: {}
                             });
@@ -198,6 +202,7 @@ async function validateArrayTable(value, rule, context) {
                                 title,
                                 value: _value,
                                 address: _address,
+                                path: _path,
                                 context: rule.validatorContext
                             });
                         });
@@ -212,7 +217,7 @@ async function validateArrayTable(value, rule, context) {
     let resultMap = {};
 
     for (let i = 0; i < tasks.length; i++) {
-        let { validator, value, address, context, title } = tasks[i];
+        let { validator, value, address, context, title, path } = tasks[i];
         if (!resultMap.hasOwnProperty(address)) {
             const result = await validate(
                 value,
@@ -220,7 +225,8 @@ async function validateArrayTable(value, rule, context) {
                 validator,
                 address,
                 context,
-                instance
+                instance,
+                path
             );
             if (result != null) {
                 resultMap[address] = result;
