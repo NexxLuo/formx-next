@@ -107,6 +107,13 @@ export function observerChainHidden($) {
                             ) {
                                 return false;
                             }
+
+                            let extraProps =
+                                _field.componentProps?.["x-extra-props"] || {};
+                            if (extraProps.isTableColumn === true) {
+                                return false;
+                            }
+
                             return true;
                         });
 
