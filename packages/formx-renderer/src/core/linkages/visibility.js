@@ -91,11 +91,37 @@ export function linkageVisibility(linkageItem, instance, _evaluator) {
     }
 }
 
+/**
+ * 如果父级已被隐藏，或者是条件隐藏，则不响应该父级容器的级联隐藏属性(isChainHidden)
+ * @param {*} field 
+ * @returns 
+ */
+const isControledHidden = (field) => {
+    let bl = false;
+
+    if (field) {
+        let visibility = field.componentProps?.["x-extra-props"]?.visibility;
+        if (typeof visibility === "object" && visibility) {
+            if (visibility.type === "expression" || visibility.type === "hidden") {
+                bl = true;
+            } else {
+                let allOptions = field.form.formActions.getOptions() || {};
+                let fieldOptions = allOptions[field.path.toString()];
+                if (fieldOptions.visible === false) {
+                    bl = true;
+                }
+            }
+        }
+    }
+
+    return bl
+}
+
 export function observerChainHidden($) {
     $("onFieldReact", "*").subscribe((field, form) => {
         if (form.mounted) {
             let parent = field.parent;
-            if (parent) {
+            if (parent && !isControledHidden(parent)) {
                 let extraProps = parent.componentProps?.["x-extra-props"];
                 if (extraProps?.isChainHidden) {
                     let visibles = field
