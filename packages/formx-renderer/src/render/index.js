@@ -570,10 +570,21 @@ function mergeErrors(a, b, formGraph) {
         if (msgArr instanceof Array) {
             msgArr.forEach(item => {
                 if ((!Reflect.has(errorsMap), item.path)) {
-                    errorsMap[item.path] = {
-                        ...item,
-                        title: item.title
-                    };
+                    let g = formGraph[item.address];
+                    if (g) {
+                        //明细表非编辑列错误信息中过滤掉已卸载和隐藏的字段
+                        if (g.mounted === true && g.display !== "hidden" && g.display !== "none") {
+                            errorsMap[item.path] = {
+                                ...item,
+                                title: item.title
+                            };
+                        }
+                    } else {
+                        errorsMap[item.path] = {
+                            ...item,
+                            title: item.title
+                        };
+                    }
                 }
             });
         }
@@ -903,7 +914,7 @@ class Renderer extends React.Component {
                 let validateAsyncApi = null;
                 try {
                     validateAsyncApi = JSON.parse(validateAsync.api);
-                } catch (error) {}
+                } catch (error) { }
 
                 let validateAsyncMessage = validateAsync.message;
 
