@@ -107,7 +107,7 @@ const isControledHidden = (field) => {
             } else {
                 let allOptions = field.form.formActions.getOptions() || {};
                 let fieldOptions = allOptions[field.path.toString()];
-                if (fieldOptions.visible === false) {
+                if (fieldOptions && fieldOptions.visible === false) {
                     bl = true;
                 }
             }
