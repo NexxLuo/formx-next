@@ -14,6 +14,7 @@ import {
 } from "../extensions/utils";
 import message from "../extensions/message";
 import { createEffects } from "./effects";
+import { clone } from "@formily/shared";
 
 export const FormContext = createContext(null);
 
@@ -535,7 +536,9 @@ function getValuesFromJson(obj) {
             }
         }
     }
-    return values;
+
+    //需要深拷贝，否则第二次设置表单数据后，修改表单数据时会导致外部的源数据发生变化
+    return clone(values);
 }
 
 /**
@@ -573,7 +576,11 @@ function mergeErrors(a, b, formGraph) {
                     let g = formGraph[item.address];
                     if (g) {
                         //明细表非编辑列错误信息中过滤掉已卸载和隐藏的字段
-                        if (g.mounted === true && g.display !== "hidden" && g.display !== "none") {
+                        if (
+                            g.mounted === true &&
+                            g.display !== "hidden" &&
+                            g.display !== "none"
+                        ) {
                             errorsMap[item.path] = {
                                 ...item,
                                 title: item.title
@@ -914,7 +921,7 @@ class Renderer extends React.Component {
                 let validateAsyncApi = null;
                 try {
                     validateAsyncApi = JSON.parse(validateAsync.api);
-                } catch (error) { }
+                } catch (error) {}
 
                 let validateAsyncMessage = validateAsync.message;
 
