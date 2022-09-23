@@ -802,6 +802,20 @@ class Renderer extends React.Component {
         return null;
     }
 
+
+
+    shouldComponentUpdate(newProps, newState) {
+        let bl = false;
+        if (this.state.sourceSchema !== newState.sourceSchema || this.state.sourceValues !== newState.sourceValues) {
+            bl = true;
+        }
+        if (this.props.loading !== newProps.loading || this.props.options !== newProps.options) {
+            bl = true;
+        }
+        return bl;
+    }
+
+
     getFormItems = () => {
         let ins = this.formInstance;
         return getFormItems(ins);
@@ -921,7 +935,7 @@ class Renderer extends React.Component {
                 let validateAsyncApi = null;
                 try {
                     validateAsyncApi = JSON.parse(validateAsync.api);
-                } catch (error) {}
+                } catch (error) { }
 
                 let validateAsyncMessage = validateAsync.message;
 
