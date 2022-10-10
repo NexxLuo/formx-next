@@ -154,15 +154,17 @@ export const useAsyncListData = (
             let _data = res.data;
             _data = formatter(_data, extra.output, form, name);
             state.value = _data;
+
+            linkage.requestInfo(name, res?.requestInfo);
+            if (pagination) {
+                linkage.pagination(name, {
+                    total: res.total,
+                    pageIndex: pagination.pageIndex,
+                    pageSize: pagination.pageSize
+                });
+            }
         });
-        linkage.requestInfo(name, res?.requestInfo);
-        if (pagination) {
-            linkage.pagination(name, {
-                total: res.total,
-                pageIndex: pagination.pageIndex,
-                pageSize: pagination.pageSize
-            });
-        }
+
         //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
         notify("requestListDataSourceComplete", {
             name,
