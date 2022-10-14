@@ -4,6 +4,7 @@ import { createEvaluator } from "../extensions/utils";
 import {
     addLinkageItem,
     triggerLinkage,
+    triggerLinkageDataSource,
     setInitialOptions,
     triggerExtraFieldValue,
     triggerRelatedInputValues,
@@ -198,6 +199,15 @@ export const createEffects = ($, instance, _consumer) => {
                 getContext().options
             );
             triggerRelatedInputValues(schema, form);
+        } else {
+            triggerLinkageDataSource(
+                schema,
+                linkageItemMap,
+                form,
+                _evaluator,
+                fieldActionTargetMap,
+                getContext().options
+            );
         }
     });
 

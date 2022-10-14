@@ -4,6 +4,25 @@ import { requestApiById, getRequestParams } from "../../extensions/utils";
 
 import { useAsyncData, useAsyncListData } from "../effects/useAsyncDataSource";
 
+function isNull(v) {
+    let bl = false;
+    if (typeof v === "object") {
+        if (v instanceof Array) {
+            bl = v.length === 0;
+        } else {
+            bl = v === null;
+        }
+    } else if (typeof v === "string") {
+        bl = !v;
+    } else if (typeof v === "number") {
+        bl = isNaN(v);
+    } else if (typeof v === "undefined") {
+        bl = true;
+    }
+
+    return bl;
+}
+
 export function setTableDataSource(schema, instance, extraParameters, context) {
     let name = schema.name;
     let apiUrl = "";
@@ -188,13 +207,14 @@ export function setInitialDataSource(
                     };
                     fields.forEach(d => {
                         if (d.field) {
-                            if (d.fieldMap) {
-                                newItem[d.fieldMap] = newItem[d.field] ?? "";
+                            //添加isNull判断，避免已有值的情况下被覆盖
+                            if (d.fieldMap && isNull(newItem[d.fieldMap])) {
+                                newItem[d.fieldMap] = item[d.field] ?? "";
                             }
                             if (d.targetField) {
                                 let { dataIndex } = getItemIndex(d.targetField);
-                                if (dataIndex) {
-                                    newItem[dataIndex] = newItem[d.field] ?? "";
+                                if (dataIndex && isNull(newItem[dataIndex])) {
+                                    newItem[dataIndex] = item[d.field] ?? "";
                                 }
                             }
                         }
@@ -316,10 +336,11 @@ export function linkageDataSource(
 
     //过滤掉指定了表单项动作执行查询的数据源控件，如果绑定了查询动作，则不在onChange时触发api请求
     //比如：比如表格如果被指定了一个按钮或搜索框进行数据查询，则其所有表单项参数change时都不会联动触发数据源请求，只会在点击按钮或点击搜索时触发
-    if (linkageItemDataSource.length > 0 && dataSourceType === "api") {
+    if (linkageItemDataSource.length > 0 && dataSourceType.indexOf("api") > -1) {
         linkageItemDataSource = linkageItemDataSource.filter(d => {
             let actionTarget = fieldActionTargetMap[d.name];
             if (
+                d.dataSourceType === "api" &&
                 actionTarget instanceof Array &&
                 actionTarget.findIndex(_d => _d.type === "queryData") > -1
             ) {
@@ -331,7 +352,7 @@ export function linkageDataSource(
     //
 
     linkageItemDataSource.forEach(d => {
-        if (d.dataSourceType === dataSourceType) {
+        if (dataSourceType.indexOf(d.dataSourceType) > -1) {
             let state = instance.getFieldState(d.name);
             if (state) {
                 let schema = formatState(state);

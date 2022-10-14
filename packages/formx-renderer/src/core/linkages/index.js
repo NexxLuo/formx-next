@@ -457,7 +457,37 @@ function triggerLinkage(
             schema,
             linkageItem,
             instance,
-            "api",
+            ["api", "formItem"],
+            fieldActionTargetMap,
+            _evaluator
+        );
+    }
+}
+
+function triggerLinkageDataSource(
+    schema,
+    linkageItemMap,
+    instance,
+    _evaluator,
+    fieldActionTargetMap,
+    options
+) {
+    //虽然会进此生命周期但组件可能还未挂载，此时不做任何处理
+    if (schema.mounted === false) {
+        return;
+    }
+    let name = schema.name;
+
+    /*********条件表达式处理**********/
+
+    //此表单项是否被联动引用
+    let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
+    if (linkageItem) {
+        linkageDataSource(
+            schema,
+            linkageItem,
+            instance,
+            ["api", "formItem"],
             fieldActionTargetMap,
             _evaluator
         );
@@ -467,7 +497,7 @@ function triggerLinkage(
 //debounce(_triggerLinkage, 100); 使用debounce会导致_triggerLinkage执行次数变少，部分联动会失效
 //比如：表格下拉列触发数据源联动
 
-export { triggerLinkage };
+export { triggerLinkage, triggerLinkageDataSource };
 
 function getFieldInitOptions(schema, _evaluator) {
     let extraProps = schema.extraProps || {};
