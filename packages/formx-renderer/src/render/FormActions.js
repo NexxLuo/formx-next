@@ -13,6 +13,7 @@ export default class FormActions {
         this.getFormInstance = () => {
             return instance;
         };
+        this.businessData = {};
         this.formEnvs = new FormEnvs();
         this.formFunction = new FormFunction();
         this.getFormSchema = () => {
@@ -665,6 +666,71 @@ export default class FormActions {
         }
         return null;
     };
+
+    /**
+     * 获取已设置的业务数据
+     * @param {string?} type 类型 
+     * @returns {{}} 业务数据
+     */
+    getBusinessData = type => {
+        if (type) {
+            return this.businessData[type];
+        }
+        return this.businessData;
+    };
+
+    /**
+     * 设置业务数据
+     * @param {string} id 字段id
+     * @param {string} type 业务数据类型
+     * @param {*} data 需要设置的数据
+     * @returns {{}} 已设置的完整业务数据
+     */
+    setBusinessData = (id, type, data) => {
+        let store = this.businessData || {};
+        let old = store[type];
+        if (old) {
+            this.businessData[type] = { ...old, [id]: data };
+        } else {
+            this.businessData[type] = { [id]: data };
+        }
+        return this.businessData;
+    };
+
+    /**
+     * 根据字段id或类型移除业务数据
+     * @param {string?} id 字段id
+     * @param {string?} type 业务数据类型
+     * @returns {{}} 移除后的完整业务数据
+     */
+    removeBusinessData = (id, type) => {
+        if (id) {
+            if (type) {
+                let typed = this.businessData[type];
+                if (typed) {
+                    if (Reflect.has(typed, id)) {
+                        Reflect.deleteProperty(this.businessData[type], id)
+                    }
+                }
+            } else {
+                Reflect.ownKeys(this.businessData).forEach(k => {
+                    let typed = this.businessData[k];
+                    if (typed) {
+                        if (Reflect.has(typed, id)) {
+                            Reflect.deleteProperty(this.businessData[k], id)
+                        }
+                    }
+                })
+            }
+        } else {
+            if (type) {
+                if (Reflect.has(this.businessData, type)) {
+                    Reflect.deleteProperty(this.businessData, type)
+                }
+            }
+        }
+        return this.businessData;
+    }
 
     getExtraData = () => {
         let formInstance = this.getFormInstance();
