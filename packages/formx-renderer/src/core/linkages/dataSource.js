@@ -136,7 +136,7 @@ export function setTableDataSource(schema, instance, extraParameters, context) {
  * @param {*} instance
  * @param {number} triggerIndex 触发联动的行数据索引
  */
-export function setInitialDataSource(
+export function setDataSource(
     schema,
     instance,
     _evaluator,
@@ -296,6 +296,24 @@ export function setInitialDataSource(
     }
 }
 
+export function setInitialDataSource(schema,
+    instance,
+    _evaluator,
+    triggerIndex) {
+
+    let ctype = schema.componentName?.toLowerCase();
+
+    //当为表格时，如果已存在初始数据则不加载数据源
+    if (ctype === "arraytable" && typeof schema.initialValue !== "undefined") {
+        return;
+    }
+
+    setDataSource(schema,
+        instance,
+        _evaluator,
+        triggerIndex)
+}
+
 function formatState(field) {
     let componentProps = field.component[1] || {};
     let extraProps = componentProps["x-extra-props"];
@@ -356,7 +374,7 @@ export function linkageDataSource(
             let state = instance.getFieldState(d.name);
             if (state) {
                 let schema = formatState(state);
-                setInitialDataSource(
+                setDataSource(
                     schema,
                     instance,
                     _evaluator,
