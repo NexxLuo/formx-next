@@ -174,14 +174,18 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onFieldMount").subscribe((field, form) => {
         let schema = formatField(field, getContext().options);
+
+        let _context = getContext();
+
+        //在mount中设置初始属性响应才能正确获取到初始值
         setActions(schema, form, _evaluator);
         setInitialOptions(
             schema,
             form,
-            getContext().loading,
-            getContext().options,
+            _context.loading,
+            _context.options,
             _evaluator,
-            getContext()
+            _context
         );
     });
 
