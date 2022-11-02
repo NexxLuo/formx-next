@@ -545,13 +545,15 @@ export function GetId(v) {
 /**
  * 根据条件表达式过滤数据源
  * 表达式中如果想获取其他字段的值可使用GetId函数包装表单项，如：item[GetId("表格.column1")]
- * 完整用例 Filter(表格,'item[GetId("表格.column1")]=="a"?true:false',GetId("表格.column2"))
- * @param {Array} items 数据源
+ * 完整用例 Sum(Filter(value('fc50caa74f3d642bcb083bec3f44fa6f2') ,"item[GetId(\"value('fc50caa74f3d642bcb083bec3f44fa6f2.items.fb403c08619234ee2b2a57250f20ebaec')\")]==deps[0]",GetId("value('fc50caa74f3d642bcb083bec3f44fa6f2.items.fb403c08619234ee2b2a57250f20ebaec')") ,[value('fb68970699b2b498eb804b0e0ac16b9d7.items.f10382d373c534bf78185d819269eb542') ]))
+ * @param {array} items 数据源
  * @param {string} expr 过滤表达式，支持item:any、value:(fieldId:string)=>any两个参数
- * @param {*} returnedField 过滤后返回的数据字段，不设置则返回所有
- * @returns 过滤后的值
+ * @param {string} returnedField 过滤后返回的数据字段，不设置则返回所有
+ * @param {array} deps 依赖项，会直接传递到表达式中,表达式中可直接使用deps变量名
+ * @returns {array} 过滤后的值
  */
-export function Filter(items, expr, returnedField, a, b, c) {
+export function Filter(items, expr, returnedField, deps) {
+
     let value = items;
 
     let _evaluator = this;
@@ -559,17 +561,16 @@ export function Filter(items, expr, returnedField, a, b, c) {
         let res = _evaluator.parser.functions.value(str);
         return res;
     }
-
     if (items instanceof Array && expr) {
         let fn = new Function(
-            ["item", "value", "index", "items"],
+            ["item", "value", "index", "items", "GetId", "deps"],
             "var top=undefined,parent=undefined,window=undefined,eval=undefined;return " +
-                expr
+            expr
         );
 
         let _temp = items.filter((d, index) => {
             try {
-                let res = fn(d, getValue, index, items);
+                let res = fn(d, getValue, index, items, GetId, deps);
                 return res;
             } catch (error) {
                 console.error("filter function error:", error);
@@ -589,6 +590,48 @@ export function Filter(items, expr, returnedField, a, b, c) {
     return value;
 }
 
+
+/**
+ * 查询是否存在表达式匹配的项
+ * @param {array} items 需要检索的集合
+ * @param {string} expr 表达式
+ * @param {array} deps 依赖项，会直接传递到表达式中,表达式中可直接使用deps变量名
+ * @returns {boolean} 是否存在
+ */
+export function Exists(items, expr, deps) {
+
+    let bl = false;
+
+    let _evaluator = this;
+    function getValue(str) {
+        let res = _evaluator.parser.functions.value(str);
+        return res;
+    }
+
+    if (items instanceof Array && items.length > 0 && expr) {
+        let fn = new Function(
+            ["item", "value", "index", "items", "GetId", "deps"],
+            "var top=undefined,parent=undefined,window=undefined,eval=undefined;return " +
+            expr
+        );
+
+        let arr = items.filter((d, index) => {
+            try {
+                let res = fn(d, getValue, index, items, GetId, deps);
+                return res;
+            } catch (error) {
+                console.error("filter function error:", error);
+                return false;
+            }
+        });
+
+        bl = arr.length > 0;
+    }
+
+
+    return bl;
+}
+
 /**
  * 数组Reduce函数
  * 表达式中如果想获取其他字段的值可使用GetId函数包装表单项，如：item[GetId("表格.column1")]
@@ -603,7 +646,7 @@ export function Reduce(items, expr, initialValue) {
 
     try {
         value = JSONParse(JSONStringify(items || []));
-    } catch (error) {}
+    } catch (error) { }
 
     if (typeof items === "object" && items && expr) {
         if (items instanceof Array === false) {
@@ -613,7 +656,7 @@ export function Reduce(items, expr, initialValue) {
         let fn = new Function(
             ["all", "item", "index", "array"],
             "var top=undefined,parent=undefined,window=undefined,eval=undefined;return " +
-                expr
+            expr
         );
 
         value = items.reduce(fn, initialValue ?? "");
