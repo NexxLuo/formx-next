@@ -1,18 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     RecursionField,
     useForm,
     useField,
     useFieldSchema,
-    connect,
-    mapProps
+    connect
 } from "@formily/react";
-import {
-    FormPath,
-    GeneralField,
-    IFieldState,
-    IGeneralFieldState
-} from "@formily/core";
+import { Field, FormPath } from "@formily/core";
 import { getParentPath } from "../core/utils";
 import { getRegistry } from "./registry";
 
@@ -22,9 +16,17 @@ const CustomWrapper = props => {
 
 function createCustomField(component, cls: string) {
     return function CustomField(props: any) {
-        let field: IFieldState & GeneralField = useField();
+        let field: Field = useField();
         let schema = useFieldSchema();
         let form = useForm();
+
+        useEffect(() => {
+            return () => {
+                if (typeof field.setLoading === "function") {
+                    field.setLoading(false);
+                }
+            };
+        }, []);
 
         let __isEditor = form.values.__DATA__?.__isEditor === true;
         let _formActions = (form as any).formActions;
