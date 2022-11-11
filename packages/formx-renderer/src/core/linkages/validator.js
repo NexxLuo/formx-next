@@ -4,6 +4,24 @@ import {
     getRequestParams,
     setTableErrorsToExtraField
 } from "../../extensions/utils";
+import { traverseSchema, SchemaValidatorMap } from "@formily/json-schema/esm/shared"
+import {
+    validate as validateBuiltIn,
+} from '@formily/validator'
+
+async function validateInternal(_value, context) {
+    let rule = context?.validatorContext?.rule;
+    if (!rule) {
+        return "";
+    }
+    let res = await validateBuiltIn(_value, [rule], {});
+    let msg = "";
+    if (res?.error instanceof Array) {
+        msg = res.error.join(",");
+    }
+    return msg;
+}
+
 
 async function validateArrayTable(value, rule, context) {
     let validatorContext = rule.validatorContext;
@@ -19,13 +37,6 @@ async function validateArrayTable(value, rule, context) {
     let arr = value;
 
     let tasks = [];
-
-    function validateRequired(_value) {
-        if (_value === "" || _value === null || _value === undefined) {
-            return "该字段是必填字段";
-        }
-        return "";
-    }
 
     function validate(
         _value,
@@ -179,16 +190,20 @@ async function validateArrayTable(value, rule, context) {
                                 _options?.[k]?.required === true
                         };
 
-                        if (schema.required === true) {
-                            tasks.push({
-                                validator: validateRequired,
-                                value: _value,
-                                address: _address,
-                                path: _path,
-                                title,
-                                context: {}
-                            });
-                        }
+                        traverseSchema(_schema, (value, key, omitCompile) => {
+                            const isValidatorKey = SchemaValidatorMap[key]
+                            if (isValidatorKey) {
+                                tasks.push({
+                                    validator: validateInternal,
+                                    value: _value,
+                                    address: _address,
+                                    path: _path,
+                                    title,
+                                    context: { rule: { [key]: value } }
+                                });
+                            }
+                        })
+
                         let rules = getValidateRules(
                             schema,
                             instance,
@@ -356,7 +371,7 @@ function getValidateRules(schema, instance, _evaluator, context) {
 
         try {
             validateAsyncApi = JSON.parse(extraProps.validateAsync.api);
-        } catch (error) {}
+        } catch (error) { }
 
         let validateAsyncMessage = extraProps.validateAsync.message;
         if (validateAsyncApi) {
