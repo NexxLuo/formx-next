@@ -162,7 +162,7 @@ export function triggerItemActions(state, args, form) {
                 }
                 actionCall(
                     actionTarget,
-                    { ...args, arrayName: runtime.arrayPath, arrayIndex: index, rowKey: runtime.rowKey },
+                    { ...args, triggerPath: name, arrayName: runtime.arrayPath, arrayIndex: index, rowKey: runtime.rowKey },
                     name
                 );
             }
