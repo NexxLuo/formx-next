@@ -115,9 +115,9 @@ export function triggerItemActions(state, args, form) {
                 state.fieldActions.editRow(args?.arrayIndex, args?.rowKey);
             });
         },
-        openModal: function (name) {
+        openModal: function (name, args) {
             form.getFieldState(name, state => {
-                state.fieldActions.show();
+                state.fieldActions.show(args);
             });
         },
         closeModal: function (name) {
@@ -162,7 +162,7 @@ export function triggerItemActions(state, args, form) {
                 }
                 actionCall(
                     actionTarget,
-                    { ...args, arrayIndex: index, rowKey: runtime.rowKey },
+                    { ...args, arrayName: runtime.arrayPath, arrayIndex: index, rowKey: runtime.rowKey },
                     name
                 );
             }
@@ -375,8 +375,8 @@ function bindItemEvent(schema, eventType, form, _evaluator) {
                     } else {
                         console.error(
                             "Interrupt execution event '" +
-                                eventType +
-                                "' by form setting and without message tips"
+                            eventType +
+                            "' by form setting and without message tips"
                         );
                     }
                     return false;
