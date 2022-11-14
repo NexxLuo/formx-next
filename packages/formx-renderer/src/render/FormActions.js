@@ -97,7 +97,24 @@ export default class FormActions {
                         graphs.push(item);
                     }
                 }
+
             }
+
+            //如果依然没找到graph，则可能字段是懒渲染的，此时需要通过表单实例获取graph
+            if (graphs.length <= 0) {
+                let _graphMap = instance.getFormGraph();
+                if (_graphMap && code) {
+                    for (const k in _graphMap) {
+                        const item = _graphMap[k];
+                        const extraProps =
+                            item?.["component"]?.[1]?.["x-extra-props"];
+                        if (item.mounted === true && extraProps && extraProps.formItemCode === code) {
+                            graphs.push(item);
+                        }
+                    }
+                }
+            }
+
             return graphs;
         };
 
