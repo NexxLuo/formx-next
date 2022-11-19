@@ -815,6 +815,7 @@ function setInitialRelatedInputValues(schema, instance, initialValue) {
         let idFieldPath = replacePathKey(schema.path, extraProps.relatedKey);
         instance.setFieldState(idFieldPath, s => {
             s.inputValues = [s.value, value];
+            s.componentProps = { ...s.componentProps };
         });
     }
 }
