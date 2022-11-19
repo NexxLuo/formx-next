@@ -97,7 +97,7 @@ export function getValue(
     return value;
 }
 
-export function linkageValue(linkageItem, instance, _evaluator, type) {
+export function linkageValue(linkageItem, instance, _evaluator, type, schema) {
     //数据联动
     if (linkageItem.value instanceof Array) {
         linkageItem.value.forEach(d => {
@@ -117,7 +117,7 @@ export function linkageValue(linkageItem, instance, _evaluator, type) {
                     }
                 }
             } else if (d.expression) {
-                let _expressionVar = getExpressionVar(d.name);
+                let _expressionVar = getExpressionVar(schema.path);
                 //执行表达式
                 let res = _evaluator.evaluate(d.expression, _expressionVar);
                 //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环

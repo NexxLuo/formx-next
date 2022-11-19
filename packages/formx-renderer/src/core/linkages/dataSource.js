@@ -280,7 +280,7 @@ export function setDataSource(
                                 let arr = data.filter(d => {
                                     let res = _evaluator.evaluate(
                                         _dataFilterExpr,
-                                        {},
+                                        { items: triggerIndex },
                                         d
                                     );
                                     return res;

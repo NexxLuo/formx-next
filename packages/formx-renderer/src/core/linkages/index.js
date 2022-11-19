@@ -448,7 +448,7 @@ function triggerLinkage(
     //此表单项是否被联动引用
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
     if (linkageItem) {
-        linkageValue(linkageItem, instance, _evaluator);
+        linkageValue(linkageItem, instance, _evaluator, "", schema);
         linkageVisibility(linkageItem, instance, _evaluator);
         linkageAvailability(linkageItem, instance, _evaluator);
         linkageProps(linkageItem, schema, instance, _evaluator);
@@ -852,6 +852,6 @@ export function linkageAsyncValue(
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
 
     if (linkageItem) {
-        linkageValue(linkageItem, instance, _evaluator, "api");
+        linkageValue(linkageItem, instance, _evaluator, "api", schema);
     }
 }
