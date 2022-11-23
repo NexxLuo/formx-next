@@ -1,4 +1,5 @@
 import React, { createContext } from "react";
+import ReactDOM from "react-dom"
 import PropTypes from "prop-types";
 import FormRender from "../core/render";
 import FormActions from "./FormActions";
@@ -284,12 +285,18 @@ function getFormItems(ins) {
  * @param {*} stateValues
  * @param {*} bindEntity 是否将表单项值绑定到实体字段，默认情况下会将表单项值绑定到父级容器
  */
-function getValuesFromGraph(graph, stateValues, bindEntity = true) {
+function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, getContainer) {
     let values = {};
 
     let keyPath = {};
 
     let listKeys = [];
+
+    let containerEl = null;
+
+    if (typeof getContainer === "function") {
+        containerEl = getContainer()
+    }
 
     function getParentKey(item) {
         if (!item) {
@@ -422,7 +429,22 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true) {
                                     transformArrayValuesToComma(column_value);
                             }
 
-                            _d[columnKey] = column_value;
+                            let columnSchema = formActions.getFieldSchema(columnKey);
+                            let extraProps = columnSchema?.["x-component-props"]?.["x-extra-props"] || {};
+                            let columnHiddenValue = extraProps.visibility?.hiddenValue === true;
+                            let hiddenValue = false;
+
+                            if (columnHiddenValue && containerEl) {
+                                let columnEl = containerEl.getElementsByClassName("column_" + columnKey)[0];
+                                if (columnEl && columnEl.classList.contains("tablex-table-column-hidden")) {
+                                    hiddenValue = true;
+                                }
+                            }
+
+                            if (!hiddenValue) {
+                                _d[columnKey] = column_value;
+                            }
+
                         }
                     }
                     return _d;
@@ -828,7 +850,9 @@ class Renderer extends React.Component {
                 return getValuesFromGraph(
                     ins.getFormGraph(),
                     { ...state.values },
-                    bindEntity
+                    bindEntity,
+                    state.formActions,
+                    this.getContainer
                 );
             });
             return {
@@ -982,7 +1006,9 @@ class Renderer extends React.Component {
                     let { values, listKeys } = getValuesFromGraph(
                         ins.getFormGraph(),
                         { ...formState.values },
-                        bindEntity
+                        bindEntity,
+                        state.formActions,
+                        this.getContainer
                     );
                     callback(
                         values,
@@ -1108,6 +1134,7 @@ class Renderer extends React.Component {
 
         window.addEventListener("resize", this.onResize);
         this.onResize();
+
     }
 
     componentWillUnmount() {
@@ -1198,7 +1225,7 @@ class Renderer extends React.Component {
     };
 
     getContainer = () => {
-        return this.containerRef.current;
+        return ReactDOM.findDOMNode(this);
     };
 
     render() {
