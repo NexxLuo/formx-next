@@ -167,7 +167,8 @@ export const createEffects = ($, instance, _consumer) => {
 
         //如果不在init时进行显隐控制，将会导致隐藏的控件依然进行mount
         //新版本后，无论显隐，始终都会触发mount
-        initFieldOptions(schema, field, getContext().options, _evaluator, form);
+        //父级容器若在init时就隐藏子级将不会再mount，故隐藏应该在mount中进行，2022年11月23日10:22:09
+        //initFieldOptions(schema, field, getContext().options, _evaluator, form);
         //init中设置验证器，mount可能会多次执行
         initValidator(schema, _evaluator, form, getContext());
     });
