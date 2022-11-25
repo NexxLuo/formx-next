@@ -918,7 +918,7 @@ class Renderer extends React.Component {
         let validate = additional.validate;
         let validateAsync = additional.validateAsync;
 
-        function getEnv(k, injectEnvs) {
+        function getEnv(instance, k, injectEnvs) {
             try {
                 if (
                     typeof injectEnvs === "object" &&
@@ -927,7 +927,7 @@ class Renderer extends React.Component {
                 ) {
                     return injectEnvs[k];
                 }
-                let formActions = formInstance.getFormState().formActions;
+                let formActions = instance.getFormState().formActions;
                 return formActions.formEnvs.getItemValue(k);
             } catch (error) {
                 console.error("get environment value error :", error);
