@@ -33,7 +33,7 @@ registerValidateRules({
     minimum(value, rule) {
         if (isValidateEmpty(value)) return "";
         var length = isNum(Number(value)) ? Number(value) : getLength(value);
-        var min = Number(rule.min);
+        var min = Number(rule.minimum);
         return length < min ? rule.message : "";
     }
 });
