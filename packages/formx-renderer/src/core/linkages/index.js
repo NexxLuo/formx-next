@@ -43,14 +43,16 @@ function getLinkageItem(name, store = {}, instance, options) {
         if (_state) {
             //如果触发联动的是表格，则不应触发当前表格列本身的联动
             let runtime = _state.component?.[1]?.["x-runtime"] || {};
-            if (runtime.isTableCellField && runtime.arrayPath === name) {
-                return false;
+            if (runtime.isTableCellField) {
+                if (runtime.arrayPath === name) {
+                    return false;
+                }
+                if (_state.mounted === false) {
+                    return false;
+                }
             }
-            return (
-                _state.mounted === true ||
-                ((_state.hidden === true || _state.visible === false) &&
-                    _state.unmounted === true)
-            );
+
+            return true;
         }
         return false;
     }
@@ -429,6 +431,18 @@ export function addLinkageItem(targets, store, type, item) {
     }
 }
 
+const enabledTriggerLinkage = (schema) => {
+    let componentProps = schema.componentProps || {};
+    let extraProps = schema.extraProps || {};
+    let runtime = componentProps["x-runtime"] || {};
+    if (extraProps.isTableColumn === true || runtime.isTableCellField) {
+        if (schema.mounted === false) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function triggerLinkage(
     schema,
     linkageItemMap,
@@ -438,7 +452,7 @@ function triggerLinkage(
     options
 ) {
     //虽然会进此生命周期但组件可能还未挂载，此时不做任何处理
-    if (schema.mounted === false) {
+    if (enabledTriggerLinkage(schema) === false) {
         return;
     }
     let name = schema.name;
@@ -447,6 +461,7 @@ function triggerLinkage(
 
     //此表单项是否被联动引用
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
+
     if (linkageItem) {
         linkageValue(linkageItem, instance, _evaluator, "", schema);
         linkageVisibility(linkageItem, instance, _evaluator);
