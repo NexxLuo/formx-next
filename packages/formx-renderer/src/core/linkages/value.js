@@ -97,43 +97,59 @@ export function getValue(
     return value;
 }
 
+const setAsyncApiValue = (name, instance) => {
+
+    let state = instance.getFieldState(name);
+    if (state) {
+        let _state = formatState(state);
+        let initialValue = _state.extraProps?.initialValue;
+        let expressionVar = getExpressionVar(_state.name);
+        setAsyncValue(
+            _state.name,
+            initialValue,
+            expressionVar,
+            instance
+        );
+    }
+}
+
+
+const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) => {
+    let _expressionVar = getExpressionVar(sourcePath);
+    //执行表达式
+    let res = _evaluator.evaluate(expression, _expressionVar);
+    //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环
+    if (typeof res !== "undefined") {
+        //当目标字段值需要保留小数位时，需进行处理
+        instance.setFieldState(name, s => {
+            let precision = s.componentProps?.precision;
+            if (
+                typeof res == "number" &&
+                typeof precision === "number"
+            ) {
+                s.value = res.toFixed(precision);
+            } else {
+                s.value = res;
+            }
+        });
+    }
+}
+
+
+
 export function linkageValue(linkageItem, instance, _evaluator, type, schema) {
     //数据联动
     if (linkageItem.value instanceof Array) {
         linkageItem.value.forEach(d => {
-            if (type === "api") {
+            if (type) {
                 if (d.type === "api") {
-                    let state = instance.getFieldState(d.name);
-                    if (state) {
-                        let _state = formatState(state);
-                        let initialValue = _state.extraProps?.initialValue;
-                        let expressionVar = getExpressionVar(_state.name);
-                        setAsyncValue(
-                            _state.name,
-                            initialValue,
-                            expressionVar,
-                            instance
-                        );
-                    }
+                    setAsyncApiValue(d.name, instance);
                 }
-            } else if (d.expression) {
-                let _expressionVar = getExpressionVar(schema.path);
-                //执行表达式
-                let res = _evaluator.evaluate(d.expression, _expressionVar);
-                //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环
-                if (typeof res !== "undefined") {
-                    //当目标字段值需要保留小数位时，需进行处理
-                    instance.setFieldState(d.name, s => {
-                        let precision = s.componentProps?.precision;
-                        if (
-                            typeof res == "number" &&
-                            typeof precision === "number"
-                        ) {
-                            s.value = res.toFixed(precision);
-                        } else {
-                            s.value = res;
-                        }
-                    });
+            } else {
+                if (d.type === "api") {
+                    setAsyncApiValue(d.name, instance);
+                } else if (d.expression) {
+                    setExpressionValue(d.name, d.expression, _evaluator, instance, schema.path);
                 }
             }
         });
