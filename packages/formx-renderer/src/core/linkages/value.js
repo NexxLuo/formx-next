@@ -115,7 +115,8 @@ const setAsyncApiValue = (name, instance) => {
 
 
 const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) => {
-    let _expressionVar = getExpressionVar(sourcePath);
+    //值联动时items应该取目标控件的index，否则会明细表汇总到主表时，字段值为当前明细行数据
+    let _expressionVar = getExpressionVar(name);
     //执行表达式
     let res = _evaluator.evaluate(expression, _expressionVar);
     //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环
