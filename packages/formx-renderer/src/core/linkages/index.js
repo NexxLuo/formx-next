@@ -625,6 +625,13 @@ function getFieldControledOptions(schema, _evaluator, allOptions) {
         }
     }
 
+    //临时处理，导出按钮不禁用
+    let _formItemCode = extraProps?.formItemCode;
+    if (_formItemCode === "Export") {
+        controlOptions.disabled = false;
+    }
+    //
+
     let _initOptions = Object.assign({}, initOptions, controlOptions);
 
     //表格列头中的控件，如果为禁用，直接不显示
