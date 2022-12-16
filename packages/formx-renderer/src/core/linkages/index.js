@@ -626,6 +626,7 @@ function getFieldControledOptions(schema, _evaluator, allOptions) {
     }
 
     //临时处理，导出按钮不禁用
+    //二院提出，强烈要求，勿轻易更改 2022年12月16日16:53:47
     let _formItemCode = extraProps?.formItemCode;
     if (_formItemCode === "Export") {
         controlOptions.disabled = false;
