@@ -13,7 +13,7 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
             "componentProps.title",
             "componentProps.x-extra-props.title"
         ],
-        style: ["componentProps.style","decorator[1].style"],
+        style: ["componentProps.style", "decorator[1].style"],
         disabled: ["componentProps.disabled"],
         readonly: ["componentProps.readOnly"],
         visible: ["visible"]
@@ -45,6 +45,12 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
                         if (propertyType === "componentProps") {
                             if (property === "style") {
                                 res = parseStyleString(res);
+                            }
+                            //清空value值时，将值设置为undefined，以区分是无值还是值为null
+                            if (property === "value") {
+                                if (res === null) {
+                                    res = undefined;
+                                }
                             }
                             let propertyPathArr = propertyPathMap[property];
                             if (propertyPathArr instanceof Array) {
