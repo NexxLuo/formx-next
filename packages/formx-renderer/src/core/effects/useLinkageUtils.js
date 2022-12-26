@@ -28,11 +28,23 @@ export const useLinkageUtils = () => {
 export const useLinkageUtilsSync = ({ setFieldState }) => {
     const linkage = (key, defaultValue) => (path, value) =>
         setFieldState(path, state => {
-            FormPath.setIn(
-                state,
-                key,
-                value !== undefined ? value : defaultValue
-            );
+            let nextValue = value !== undefined ? value : defaultValue;
+            //联动设置值时，如果目标字段为隐藏值，则将值设置到caches中，以便显示出字段时拿到正确值
+            if (key === "value" && state.selfDisplay === "none") {
+                if (typeof state.caches === "object" && state.caches) {
+                    state.caches.value = nextValue;
+                } else {
+                    state.caches = {
+                        value: nextValue
+                    }
+                }
+            } else {
+                FormPath.setIn(
+                    state,
+                    key,
+                    nextValue
+                );
+            }
         });
 
     return {

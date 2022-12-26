@@ -100,8 +100,7 @@ export function getValue(
 const setAsyncApiValue = (name, instance) => {
 
     let state = instance.getFieldState(name);
-    //如果selfDisplay为none证明为隐藏值，此时不再请求接口
-    if (state && state.selfDisplay !== "none") {
+    if (state) {
         let _state = formatState(state);
         let initialValue = _state.extraProps?.initialValue;
         let expressionVar = getExpressionVar(_state.name);
@@ -123,12 +122,9 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) 
     //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环
     if (typeof res !== "undefined") {
         //当目标字段值需要保留小数位时，需进行处理
-
-
         let field = instance.query(name).take();
 
-        //如果被隐藏值，则不再联动赋值
-        if (field && field.selfDisplay !== "none") {
+        if (field) {
             let precision = field.componentProps?.precision;
             let nextValue = res;
             if (
@@ -137,7 +133,19 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) 
             ) {
                 nextValue = res.toFixed(precision);
             }
-            field.setValue(nextValue);
+
+            //如果被隐藏值，则不再联动赋值,但要将值设置到caches中，以便显示出字段时拿到正确值
+            if (field.selfDisplay === "none") {
+                if (typeof field.caches === "object" && field.caches) {
+                    field.caches.value = nextValue;
+                } else {
+                    field.caches = {
+                        value: nextValue
+                    }
+                }
+            } else {
+                field.setValue(nextValue);
+            }
         }
 
     }
