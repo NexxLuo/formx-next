@@ -1168,7 +1168,12 @@ class Renderer extends React.Component {
             //直接更改key会导致所有组件都重新mount，不可取
             ins.query("*").forEach(_field => {
                 if (_field) {
-                    _field.caches = {};
+                    if (_field.displayName === "Field") {
+                        //将值设置为null，因为暂存后再次设值，未修改的字段都为null，而表单值为undefined，会导致触发联动
+                        //从而，联动的值覆盖了暂存的值
+                        _field.value = null;
+                        _field.caches = {};
+                    }
                 }
             });
             //不可reset，否则会导致未绑定实体的字段控件，如何默认值来自于接口，暂存reset后会被清空值，
