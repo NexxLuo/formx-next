@@ -1171,7 +1171,9 @@ class Renderer extends React.Component {
                     if (_field.displayName === "Field") {
                         //将值设置为null，因为暂存后再次设值，未修改的字段都为null，而表单值为undefined，会导致触发联动
                         //从而，联动的值覆盖了暂存的值
-                        _field.value = null;
+                        if (typeof _field.value === "undefined") {
+                            _field.value = null;
+                        }
                         _field.caches = {};
                     }
                 }
