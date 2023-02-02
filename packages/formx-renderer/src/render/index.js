@@ -16,7 +16,7 @@ import {
 import message from "../extensions/message";
 import { createEffects } from "./effects";
 import { clone } from "@formily/shared";
-
+import { DateTimeFormat } from "../core/expression/functions"
 export const FormContext = createContext(null);
 
 function formatGraph(item) {
@@ -1169,12 +1169,26 @@ class Renderer extends React.Component {
             ins.query("*").forEach(_field => {
                 if (_field) {
                     if (_field.displayName === "Field") {
+                        let fk = _field.path.toString();
+
+                        _field.caches = {};
+
                         //将值设置为null，因为暂存后再次设值，未修改的字段都为null，而表单值为undefined，会导致触发联动
                         //从而，联动的值覆盖了暂存的值
-                        if (typeof _field.value === "undefined") {
-                            _field.value = null;
+                        //将字段值与外部传递的值进行一次简单值比较(表单内部使用的是严格相等比较)，如果相同则依然使用字段本身的值，避免不必要的触发onFieldValueChange
+                        if (_field.value == values[fk]) {
+                            values[fk] = _field.value;
                         }
-                        _field.caches = {};
+
+                        //日期控件需要进行格式化后再进行比较，否则也会导致不必要的触发onFieldValueChange
+                        //因为传递进来的值为时分秒格式，而表单值为年月日，如：2020-01-01、2020-01-01 00:00:00,实际两者相等
+                        if (_field.componentType === "DatePicker") {
+                            let df = "YYYY-MM-DD HH:mm:ss";
+                            if (DateTimeFormat(_field.value, df) === DateTimeFormat(values[fk], df)) {
+                                values[fk] = _field.value;
+                            }
+                        }
+
                     }
                 }
             });
