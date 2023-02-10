@@ -114,7 +114,7 @@ export function getItemIndex(path, form) {
             key = pathArr[1];
             dataIndex = key;
             if (form) {
-                let listState = form.getFieldState(parentKey);
+                let listState = form.query(parentKey).take();
                 if (
                     listState &&
                     typeof listState.fieldActions?.getItemDataIndex ===
@@ -122,6 +122,24 @@ export function getItemIndex(path, form) {
                 ) {
                     //获取表单项key对应的dataIndex
                     dataIndex = listState.fieldActions.getItemDataIndex(key);
+                }
+
+                //如果传递的path为表格列，则查找表格正在编辑的行索引
+                if (listState) {
+                    let edittingKey = "";
+                    let editKeys = listState.componentProps.editKeys;
+                    let arr = listState.value;
+
+                    if (editKeys instanceof Array && editKeys.length > 0) {
+                        edittingKey = editKeys[editKeys.length - 1];
+                    }
+
+                    if (edittingKey && arr instanceof Array && arr.length > 0) {
+                        let index = arr.findIndex(d => d["__KEY__"] === edittingKey);
+                        if (index > -1) {
+                            itemIndex = index + "";
+                        }
+                    }
                 }
             }
         } else {

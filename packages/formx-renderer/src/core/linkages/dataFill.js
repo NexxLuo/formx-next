@@ -1,5 +1,6 @@
 import { FormPath } from "@formily/shared";
 import { getExpressionVar } from "./utils";
+import { getItemIndex } from "../utils";
 
 function formatDataFill(dataFill) {
     let arr = [];
@@ -110,6 +111,12 @@ function transformArrayItemsPath(path, form, expressionVar) {
 
     if (expressionVar?.items) {
         index = Number(expressionVar.items);
+    }
+
+    //当为弹窗进行数据联动到表格时，由于触发源为弹窗，源schema不存在表格的行索引
+    //故需要通过表格状态去查找正在编辑的行索引，否则无法联动
+    if (!(index > -1)) {
+        index = Number(getItemIndex(path, form).index)
     }
 
     let _path = path;
