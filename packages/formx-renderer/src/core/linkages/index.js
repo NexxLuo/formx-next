@@ -59,8 +59,16 @@ function getLinkageItem(name, store = {}, instance, options) {
 
     function getItemState(_name) {
         //如果是表格列中的表单项，则需要替换items为当前行索引，以只联动当前编辑行的表单项
-        if (_name.indexOf(".items.") > -1 && index > -1) {
-            _name = _name.replace(".items.", "." + index + ".");
+        if (_name.indexOf(".items.") > -1) {
+            let _index = index;
+            //如果触发源控件在表格中，则直接使用源index，否则使用目标控件index
+            //场景：表格外部控件，联动设置表格内控件
+            if (!(_index > -1)) {
+                _index = getItemIndex(_name, instance).index;
+            }
+            if (_index > -1) {
+                _name = _name.replace(".items.", "." + _index + ".");
+            }
         }
         //
 
