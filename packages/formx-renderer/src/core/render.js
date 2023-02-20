@@ -95,7 +95,6 @@ const FormRender = ({
     components,
     form
 }) => {
-    const [current, setCurrent] = useState(schema);
     const contextRef = useRef(context);
     contextRef.current = context;
     const _form = useMemo(() => {
@@ -108,7 +107,7 @@ const FormRender = ({
             setContext,
             effects(_form) {
                 //用到formSchemaMap的地方必须要使用Schema创建的对象，以使用Schema对象中的特定属性
-                let _formSchema = new Schema(current);
+                let _formSchema = new Schema(schema);
                 let formSchemaMap = {};
                 eachSchema(_formSchema, (_schema, key) => {
                     formSchemaMap[key] = _schema;
@@ -137,17 +136,13 @@ const FormRender = ({
                 }
             }
         });
-    }, [current]);
+    }, [schema]);
 
     let SchemaField = useMemo(() => {
         return createSchemaField({
             components: getComponents(components),
             scope: {}
         });
-    }, [current]);
-
-    useEffect(() => {
-        setCurrent(schema);
     }, [schema]);
 
     let FormComponent = form;
@@ -155,7 +150,7 @@ const FormRender = ({
     return (
         <FormProvider form={_form}>
             <FormComponent className="formx-form">
-                <SchemaField size="small" schema={current} basePath={[""]}>
+                <SchemaField size="small" schema={schema} basePath={[""]}>
                     {children}
                 </SchemaField>
             </FormComponent>
