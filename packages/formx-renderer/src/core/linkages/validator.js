@@ -4,7 +4,7 @@ import {
     getRequestParams,
     setTableErrorsToExtraField
 } from "../../extensions/utils";
-import { traverseSchema, SchemaValidatorMap } from "@formily/json-schema/esm/shared"
+import { SchemaValidatorKeys } from "@formily/json-schema/esm/shared"
 import {
     validate as validateBuiltIn,
 } from '@formily/validator'
@@ -190,8 +190,9 @@ async function validateArrayTable(value, rule, context) {
                                 _options?.[k]?.required === true
                         };
 
-                        traverseSchema(_schema, (value, key, omitCompile) => {
-                            const isValidatorKey = SchemaValidatorMap[key]
+                        SchemaValidatorKeys.forEach(key => {
+                            let value = _schema[key];
+                            const isValidatorKey = value !== undefined && value !== null;
                             if (isValidatorKey) {
                                 tasks.push({
                                     validator: validateInternal,
