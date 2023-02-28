@@ -192,6 +192,9 @@ async function validateArrayTable(value, rule, context) {
 
                         SchemaValidatorKeys.forEach(key => {
                             let value = _schema[key];
+                            if (key === "required") {
+                                value = schema.required;
+                            }
                             const isValidatorKey = value !== undefined && value !== null;
                             if (isValidatorKey) {
                                 tasks.push({
