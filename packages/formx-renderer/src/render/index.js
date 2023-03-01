@@ -351,7 +351,7 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
 
             let allowValues = true;
             let _dataHandleMode = extraProps.dataHandleMode ?? "default";
-            if (bindEntity && extraProps.entity && _dataHandleMode === "onlyLoad") {
+            if (bindEntity && extraProps.entity && ["onlyLoad", "none"].indexOf(_dataHandleMode) > -1) {
                 allowValues = false;
             }
 
