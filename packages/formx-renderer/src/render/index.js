@@ -349,28 +349,36 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
             let tempArr = item.path.split(".");
             itemName = tempArr[tempArr.length - 1];
 
-            keyPath[itemName] = {
-                name: itemName,
-                path: item.path,
-                entity: extraProps.entity,
-                entityField: extraProps.field,
-                hiddenValue: extraProps.visibility?.hiddenValue ?? true,
-                ctype: item.componentName,
-                isField:
-                    item.hasOwnProperty("value") || item.isEntityField === true, //容错处理：组件isEntityField为true时也视为输入控件
-                relatedKey: extraProps.relatedKey,
-                visible: item.visible,
-                hidden: _g.hidden,
-                selfDisplay: _g.selfDisplay
-            };
+            let allowValues = true;
+            let _dataHandleMode = extraProps.dataHandleMode ?? "default";
+            if (bindEntity && extraProps.entity && _dataHandleMode === "onlyLoad") {
+                allowValues = false;
+            }
 
-            if (bindEntity && extraProps.isEntity && extraProps.entity) {
-                //bug fixed : 表格不应该设置{}值，否则会导致数据错误
-                if (["arraytable"].indexOf(item.componentName) > -1) {
-                    values[itemName] = [];
-                    listKeys.push(itemName);
-                } else {
-                    values[itemName] = {};
+            if (allowValues) {
+                keyPath[itemName] = {
+                    name: itemName,
+                    path: item.path,
+                    entity: extraProps.entity,
+                    entityField: extraProps.field,
+                    hiddenValue: extraProps.visibility?.hiddenValue ?? true,
+                    ctype: item.componentName,
+                    isField:
+                        item.hasOwnProperty("value") || item.isEntityField === true, //容错处理：组件isEntityField为true时也视为输入控件
+                    relatedKey: extraProps.relatedKey,
+                    visible: item.visible,
+                    hidden: _g.hidden,
+                    selfDisplay: _g.selfDisplay
+                };
+
+                if (bindEntity && extraProps.isEntity && extraProps.entity) {
+                    //bug fixed : 表格不应该设置{}值，否则会导致数据错误
+                    if (["arraytable"].indexOf(item.componentName) > -1) {
+                        values[itemName] = [];
+                        listKeys.push(itemName);
+                    } else {
+                        values[itemName] = {};
+                    }
                 }
             }
         }
