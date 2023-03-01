@@ -257,13 +257,13 @@ export const useAsyncValue = (form, { pathVars, name, service, extra }) => {
     });
 };
 
-export const getAsyncValue = (form, { pathVars, service, extra }) => {
+export const getAsyncValue = (form, { pathVars, name, service, extra }) => {
     return new Promise(resolve => {
         let _data = null;
         service(extra).then(res => {
             //设置值
             let data = res.data;
-            data = formatter(data, extra.output, form, pathVars);
+            data = formatter(data, extra.output, form, name, pathVars);
             let item = data;
             let output = extra.output;
 

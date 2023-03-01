@@ -43,10 +43,11 @@ function setAsyncValue(name, initialValue, expressionVar, instance) {
     }
 }
 
-function _getAsyncValue(instance, expressionVar, apiData) {
+function _getAsyncValue(instance, name, expressionVar, apiData) {
     return getAsyncValue(instance, {
         service: requestApiById,
         pathVars: expressionVar,
+        name: name,
         extra: {
             form: instance,
             id: apiData.dataSourceId,
@@ -89,7 +90,7 @@ export function getValue(
         ) {
             let apiData = JSON.parse(initialValue.api);
             if (apiData) {
-                value = _getAsyncValue(instance, expressionVar, apiData);
+                value = _getAsyncValue(instance, "", expressionVar, apiData);
             }
         }
     }
