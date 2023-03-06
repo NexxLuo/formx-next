@@ -40,7 +40,7 @@ async function validateArrayTable(value, rule, context) {
 
     let componentProps = field.componentProps;
     //大数据量情况下，验证性能很慢,支持禁用验证
-    if (componentProps.disabledValidate === true
+    if (componentProps?.disabledValidate === true
     ) {
         return "";
     }
