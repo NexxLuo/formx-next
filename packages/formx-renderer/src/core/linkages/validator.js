@@ -38,6 +38,13 @@ async function validateArrayTable(value, rule, context) {
 
     let tasks = [];
 
+    let componentProps = field.componentProps;
+    //大数据量情况下，验证性能很慢,支持禁用验证
+    if (componentProps.disabledValidate === true
+    ) {
+        return "";
+    }
+
     function validate(
         _value,
         _title,
@@ -195,7 +202,11 @@ async function validateArrayTable(value, rule, context) {
                             if (key === "required") {
                                 value = schema.required;
                             }
-                            const isValidatorKey = value !== undefined && value !== null;
+                            let isValidatorKey = value !== undefined && value !== null && value !== false;
+                            if (key === "format" && value === "number") {
+                                isValidatorKey = false;
+                            }
+
                             if (isValidatorKey) {
                                 tasks.push({
                                     validator: validateInternal,
@@ -234,8 +245,7 @@ async function validateArrayTable(value, rule, context) {
     let res = [];
 
     let resultMap = {};
-
-    for (let i = 0; i < tasks.length; i++) {
+    for (let i = 0, len = tasks.length; i < len; i++) {
         let { validator, value, address, context, title, path } = tasks[i];
         if (!resultMap.hasOwnProperty(address)) {
             const result = await validate(
