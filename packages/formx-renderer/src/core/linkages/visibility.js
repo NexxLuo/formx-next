@@ -149,8 +149,8 @@ export function observerChainHidden($) {
                     }
                 }
 
-                if (parent.visible === true && parent.hidden === false) {
-                    //如果autoCollapse为true，且为"FieldSet","Card"组件，且子级只有一个表格
+                if (parent.visible === true && parent.hidden === false && parent.componentProps?.activeKeyInputed !== true) {
+                    //如果autoCollapse为true，且为"FieldSet","Card"组件，且子级只有一个表格,且未被展开过（activeKeyInputed为true待办被手动展开过）
                     //则表格无数据时自动折叠
                     if (
                         extraProps.autoCollapse &&
