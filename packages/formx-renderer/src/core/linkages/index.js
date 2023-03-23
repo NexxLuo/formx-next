@@ -42,16 +42,15 @@ function getLinkageItem(name, store = {}, instance, options) {
     function itemIsValid(_state) {
         if (_state) {
             //如果触发联动的是表格，则不应触发当前表格列本身的联动
-            let runtime = _state.component?.[1]?.["x-runtime"] || {};
-            if (runtime.isTableCellField) {
-                if (runtime.arrayPath === name) {
+            let { index: targetIndex, parentKey: tableKey } = getItemIndex(_state.path);
+            if (targetIndex > -1) {
+                if (tableKey === name) {
                     return false;
                 }
                 if (_state.mounted === false) {
                     return false;
                 }
             }
-
             return true;
         }
         return false;
