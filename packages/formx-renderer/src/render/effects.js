@@ -119,6 +119,15 @@ export const createEffects = ($, instance, _consumer) => {
 
         //表格列隐藏条件表达式
         if (schema.componentName === "ArrayTable") {
+
+            //不加载初始数据时，将初始值设置为undefined，以便后续数据源接口进行设置值
+            let _dataHandleMode = schema.extraProps.dataHandleMode ?? "default";
+            if (["onlySave", "none"].indexOf(_dataHandleMode) > -1) {
+                field.initialValue = undefined;
+                field.value = undefined;
+            }
+            //
+
             let itemsSchema = getSchema(schema.name);
             mapSchemaItems(itemsSchema?.items, o => {
                 addLinkageItem(
