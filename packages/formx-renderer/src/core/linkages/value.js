@@ -132,7 +132,11 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) 
                 typeof res == "number" &&
                 typeof precision === "number"
             ) {
-                nextValue = res.toFixed(precision);
+                if (field.componentProps?.fillZero === true) {
+                    nextValue = res.toFixed(precision);
+                } else {
+                    nextValue = Number(res.toFixed(precision));
+                }
             }
 
             //如果被隐藏值，则不再联动赋值,但要将值设置到caches中，以便显示出字段时拿到正确值
@@ -228,7 +232,11 @@ export function setInitialValue(schema, instance, _loading, _evaluator) {
                         typeof _initialValue == "number" &&
                         typeof precision === "number"
                     ) {
-                        _initialValue = _initialValue.toFixed(precision);
+                        if (s.componentProps?.fillZero === true) {
+                            _initialValue = _initialValue.toFixed(precision);
+                        } else {
+                            _initialValue = Number(_initialValue.toFixed(precision));
+                        }
                     }
                     s.value = _initialValue;
                 }
