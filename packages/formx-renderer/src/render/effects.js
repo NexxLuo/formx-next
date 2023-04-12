@@ -255,7 +255,7 @@ export const createEffects = ($, instance, _consumer) => {
     //自定义事件响应
     $("onClick").subscribe(({ event, payload, field }, form) => {
         let schema = formatField(field);
-        if (event?.stopPropagation) {
+        if (payload?.cancelBubble === true && event?.stopPropagation) {
             event.stopPropagation();
         }
 

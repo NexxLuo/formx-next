@@ -401,6 +401,7 @@ function bindItemEvent(schema, eventType, form, _evaluator) {
 
     if (state && eventType) {
         form.setFieldState(name, _state => {
+            let cancelBubble = _state.componentProps?.["x-runtime"]?.cancelBubble ?? false;
             _state.componentProps[eventType] = e => {
                 let { parentKey, index } = getItemIndex(name);
                 if (typeof e.persist === "function") {
@@ -412,6 +413,7 @@ function bindItemEvent(schema, eventType, form, _evaluator) {
                             event: e,
                             field: _state,
                             payload: {
+                                cancelBubble,
                                 name,
                                 listKey: parentKey,
                                 index
