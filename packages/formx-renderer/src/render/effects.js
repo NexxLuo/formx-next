@@ -11,11 +11,11 @@ import {
     linkageDataFill,
     setTableDataSource,
     observerChainHidden,
-    initFieldOptions,
+    setAsyncDataSource,
     linkageAsyncValue,
     initValidator
 } from "../core/linkages";
-import { mapSchemaItems } from "../core/utils";
+import { mapSchemaItems, getItemIndex } from "../core/utils";
 
 import { setActions, triggerItemActions } from "../core/actions";
 
@@ -197,6 +197,22 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             _context
         );
+    });
+
+    $("onFieldChange", "*", ["visited"]).subscribe((field, form) => {
+        if (field.mounted && field.visited && field.loaded !== true && field.loading !== true) {
+            let schema = formatField(field, getContext().options);
+            let dataSourceLoadMode = schema.extraProps.dataSourceLoadMode ?? "mount"
+            if (dataSourceLoadMode === "focus") {
+                let { index: triggerIndex } = getItemIndex(schema.path);
+                setAsyncDataSource(
+                    schema,
+                    form,
+                    _evaluator,
+                    triggerIndex
+                );
+            }
+        }
     });
 
     $("onFieldValueChange").subscribe((field, form) => {

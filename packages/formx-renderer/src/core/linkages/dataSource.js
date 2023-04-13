@@ -129,6 +129,76 @@ export function setTableDataSource(schema, instance, extraParameters, context) {
     }
 }
 
+export function setAsyncDataSource(schema,
+    instance,
+    _evaluator,
+    triggerIndex) {
+
+    let extraProps = schema.extraProps || {};
+    let name = schema.name;
+    let _dataSource = null;
+    let _dataFilterExpr = null;
+
+    if (extraProps) {
+        if (extraProps.dataSource) {
+            _dataSource = JSON.parse(extraProps.dataSource);
+        }
+
+        if (extraProps.dataFilter) {
+            _dataFilterExpr = extraProps.dataFilter.expression;
+        }
+    }
+
+    let apiUrl = "";
+    let apiId = "";
+    let apiOutput = [];
+    let apiInput = [];
+    let apiData = _dataSource?.data?.api;
+
+    if (apiData) {
+        apiUrl = apiData.url;
+        apiId = apiData.dataSourceId;
+        apiOutput = apiData.output;
+        apiInput = apiData.input;
+    }
+
+    if (apiUrl || apiId) {
+        useAsyncData(
+            instance,
+            {
+                name: name,
+                service: requestApiById,
+                extra: {
+                    form: instance,
+                    id: apiId,
+                    input: getRequestParams(
+                        apiInput,
+                        instance,
+                        {},
+                        getEnv,
+                        { index: triggerIndex }
+                    ),
+                    output: apiOutput
+                }
+            },
+            data => {
+                if (data instanceof Array && _dataFilterExpr) {
+                    let arr = data.filter(d => {
+                        let res = _evaluator.evaluate(
+                            _dataFilterExpr,
+                            { items: triggerIndex },
+                            d
+                        );
+                        return res;
+                    });
+                    return arr;
+                }
+                return data;
+            }
+        );
+    }
+}
+
 /**
  * 字段挂载完成时，联动数据源
  * @param {*} name
@@ -140,7 +210,8 @@ export function setDataSource(
     schema,
     instance,
     _evaluator,
-    triggerIndex
+    triggerIndex,
+    isInit = false
 ) {
     let ctype = schema.componentName?.toLowerCase();
 
@@ -158,7 +229,6 @@ export function setDataSource(
 
     let name = schema.name;
     let _dataSource = null;
-    let _dataFilterExpr = null;
     if (extraProps) {
         if (extraProps.dataSource) {
             _dataSource = JSON.parse(extraProps.dataSource);
@@ -243,53 +313,19 @@ export function setDataSource(
                     { triggerType: "effects" }
                 );
             } else {
-                let apiUrl = "";
-                let apiId = "";
-                let apiOutput = [];
-                let apiInput = [];
-                let apiData = _dataSource.data?.api;
-
-                if (apiData) {
-                    apiUrl = apiData.url;
-                    apiId = apiData.dataSourceId;
-                    apiOutput = apiData.output;
-                    apiInput = apiData.input;
-                }
-
-                if (apiUrl || apiId) {
-                    useAsyncData(
+                if (isInit) {
+                    let dataSourceLoadMode = schema.extraProps.dataSourceLoadMode ?? "mount"
+                    if (dataSourceLoadMode === "mount") {
+                        setAsyncDataSource(schema,
+                            instance,
+                            _evaluator,
+                            triggerIndex);
+                    }
+                } else {
+                    setAsyncDataSource(schema,
                         instance,
-                        {
-                            name: name,
-                            service: requestApiById,
-                            extra: {
-                                form: instance,
-                                id: apiId,
-                                input: getRequestParams(
-                                    apiInput,
-                                    instance,
-                                    {},
-                                    getEnv,
-                                    { index: triggerIndex }
-                                ),
-                                output: apiOutput
-                            }
-                        },
-                        data => {
-                            if (data instanceof Array && _dataFilterExpr) {
-                                let arr = data.filter(d => {
-                                    let res = _evaluator.evaluate(
-                                        _dataFilterExpr,
-                                        { items: triggerIndex },
-                                        d
-                                    );
-                                    return res;
-                                });
-                                return arr;
-                            }
-                            return data;
-                        }
-                    );
+                        _evaluator,
+                        triggerIndex);
                 }
             }
         }
@@ -311,7 +347,8 @@ export function setInitialDataSource(schema,
     setDataSource(schema,
         instance,
         _evaluator,
-        triggerIndex)
+        triggerIndex,
+        true)
 }
 
 function formatState(field) {

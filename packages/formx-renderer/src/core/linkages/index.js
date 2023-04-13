@@ -12,6 +12,7 @@ import { linkageAvailability } from "./availability";
 import {
     linkageDataSource,
     setInitialDataSource,
+    setAsyncDataSource,
     setTableDataSource
 } from "./dataSource";
 import { linkageDataFill } from "./dataFill";
@@ -25,7 +26,8 @@ export {
     linkageDataFill,
     setTableDataSource,
     observerChainHidden,
-    initValidator
+    initValidator,
+    setAsyncDataSource
 };
 
 /**

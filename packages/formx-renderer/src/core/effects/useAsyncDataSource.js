@@ -114,6 +114,7 @@ export const useAsyncData = (form, { name, service, extra }, filter) => {
         state.componentProps = { ...state.componentProps };
         service(extra).then(res => {
             state.loading = false;
+            state.loaded = true;
             let data = res.data;
             if (typeof filter === "function") {
                 data = filter(res.data);
