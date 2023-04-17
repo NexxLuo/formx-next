@@ -520,14 +520,20 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
     };
 }
 
+/** 在表单mount完成后再进行明细表数据加载，明细表数据较影响初始化mout效率 */
+const ArrayValues_Defer_Load = true;
+
 /**
  * 此处为外部传递的嵌套数据，但是表单需接收平级数据，顾需要进行展平处理
  * @param {*} obj
  */
 function getValuesFromJson(obj) {
+    //需要深拷贝，否则第二次设置表单数据后，修改表单数据时会导致外部的源数据发生变化
+    let _obj = clone(obj);
     let values = {};
+    let arrayValues = {};
 
-    for (const k in obj) {
+    for (const k in _obj) {
         if (obj.hasOwnProperty(k)) {
             let value = obj[k];
 
@@ -536,7 +542,12 @@ function getValuesFromJson(obj) {
                 values[k] = value;
             } else {
                 if (value instanceof Array) {
-                    values[k] = value;
+                    if (ArrayValues_Defer_Load) {
+                        values[k] = [];
+                        arrayValues[k] = value;
+                    } else {
+                        values[k] = value;
+                    }
                 } else if (typeof value === "object" && value) {
                     //数据如果为object，则进行数据展平
                     for (const sk in value) {
@@ -567,8 +578,14 @@ function getValuesFromJson(obj) {
         }
     }
 
-    //需要深拷贝，否则第二次设置表单数据后，修改表单数据时会导致外部的源数据发生变化
-    return clone(values);
+    return {
+        values,
+        arrayValues,
+        allValues: {
+            ...values,
+            ...arrayValues
+        }
+    };
 }
 
 /**
@@ -760,7 +777,6 @@ class Renderer extends React.Component {
         super(props);
         this.formInstance = null;
         this.containerRef = React.createRef(null);
-        this.navRef = React.createRef(null);
         this.stateRef = React.createRef(null);
         this.stateRef.current = { deleted: null };
         this.state = {
@@ -1169,7 +1185,7 @@ class Renderer extends React.Component {
     setData = data => {
         let ins = this.formInstance;
         if (ins) {
-            let values = getValuesFromJson(data, this.state.sourceSchema);
+            let { allValues: values } = getValuesFromJson(data, this.state.sourceSchema);
             //如果不清除缓存，会导致获取到之前缓存的数据，如：
             //表格显示隐藏，隐藏后暂存，再次让表格显示，表格获取到了之前的数据，实际上此条数据已经被删除
             //清除caches也可以，但是暂存时表格数据超过2000行可能导致Reaction报错 RangeError: Maximum call stack size exceeded
@@ -1204,6 +1220,10 @@ class Renderer extends React.Component {
             //因为暂存后的getData接口无法返回该字段值。
             //ins.reset("*", { forceClear: true, validate: false });
             ins.setValues(values, "merge");
+
+            if (typeof this.props.onDataChange === "function") {
+                this.props.onDataChange(this.formActions);
+            }
         }
     };
 
@@ -1219,14 +1239,32 @@ class Renderer extends React.Component {
         }
     };
 
-    onMount = () => {
-        if (typeof this.props.onSchemaChange === "function") {
-            this.props.onSchemaChange(this.formActions, this.formInstance);
+    onMount = (form, $, _consumer) => {
+        let arrayValues = this.state.values.arrayValues;
+
+        let { formSchemaMap } = _consumer();
+        let _arrayValues = {};
+        let bl = false;
+
+        Reflect.ownKeys(arrayValues).forEach(k => {
+            let _schema = formSchemaMap[k];
+            let _dataHandleMode = _schema?.extraProps?.dataHandleMode ?? "default";
+            if (["onlySave", "none"].indexOf(_dataHandleMode) === -1) {
+                bl = true;
+                _arrayValues[k] = arrayValues[k]
+            }
+        })
+
+        if (bl) {
+            this.formInstance.setValues(_arrayValues, "merge");
         }
 
-        let navRef = this.navRef.current;
-        if (navRef) {
-            navRef.init();
+        if (typeof this.props.onDataInit === "function") {
+            this.props.onDataInit(this.formActions);
+        }
+
+        if (typeof this.props.onSchemaChange === "function") {
+            this.props.onSchemaChange(this.formActions, this.formInstance);
         }
     };
 
@@ -1276,7 +1314,7 @@ class Renderer extends React.Component {
                 }}
             >
                 <FormRender
-                    initialValues={values}
+                    initialValues={values?.values}
                     schema={schema}
                     components={this.props.components}
                     form={this.props.form}
@@ -1331,7 +1369,11 @@ Renderer.propTypes = {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     className: PropTypes.string,
-    enabledSmallLayoutSize: PropTypes.bool
+    enabledSmallLayoutSize: PropTypes.bool,
+    onSchemaChange: PropTypes.func,
+    onInit: PropTypes.func,
+    onDataInit: PropTypes.func,
+    onDataChange: PropTypes.func
 };
 
 export default Renderer;
