@@ -403,11 +403,10 @@ function getValidateRules(schema, instance, _evaluator, context) {
     return rules;
 }
 
-export function initValidator(schema, _evaluator, instance, context) {
+export function initValidator(field, schema, _evaluator, instance, context) {
     let extraRules = getValidateRules(schema, instance, _evaluator, context);
-    let name = schema.name;
     if (extraRules.length > 0) {
-        instance.setFieldState(name, state => {
+        field.setState(state => {
             let prev = state.validator;
             let next = extraRules;
             if (prev instanceof Array) {

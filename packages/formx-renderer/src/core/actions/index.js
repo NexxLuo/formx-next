@@ -345,11 +345,11 @@ function callActionRequest(_name, form, resolving, resolve, reject) {
  * @param {*} form
  * @param {*} _evaluator
  */
-function bindItemEvent(schema, eventType, form, _evaluator) {
+function bindItemEvent(field, schema, eventType, form, _evaluator) {
     let name = schema.name;
     let extraProps = schema.extraProps;
 
-    let state = form.getFieldState(name);
+    let state = field.getState(name);
 
     let preEventType = {
         onClick: "onBeforeClick",
@@ -400,7 +400,7 @@ function bindItemEvent(schema, eventType, form, _evaluator) {
     }
 
     if (state && eventType) {
-        form.setFieldState(name, _state => {
+        field.setState(_state => {
             let cancelBubble = _state.componentProps?.["x-runtime"]?.cancelBubble ?? false;
             _state.componentProps[eventType] = e => {
                 let { parentKey, index } = getItemIndex(name);
@@ -433,7 +433,7 @@ function bindItemEvent(schema, eventType, form, _evaluator) {
     }
 }
 
-export function setActions(schema, instance, _evaluator) {
+export function setActions(field, schema, instance, _evaluator) {
     let ctype = schema.componentName?.toLowerCase();
 
     //控件事件订阅,目前暂时只支持以下事件类型
@@ -456,6 +456,6 @@ export function setActions(schema, instance, _evaluator) {
             modal: "onClose"
         }[ctype];
 
-        bindItemEvent(schema, eventType, instance, _evaluator);
+        bindItemEvent(field, schema, eventType, instance, _evaluator);
     }
 }

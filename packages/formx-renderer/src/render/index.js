@@ -1305,7 +1305,7 @@ class Renderer extends React.Component {
 
         let { readOnly, disabled, getContext, setContext, className } =
             this.props;
-
+        console.log("FormRenderRender")
         return (
             <FormContext.Provider
                 value={{

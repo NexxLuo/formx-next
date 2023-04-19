@@ -179,7 +179,7 @@ export const createEffects = ($, instance, _consumer) => {
         //父级容器若在init时就隐藏子级将不会再mount，故隐藏应该在mount中进行，2022年11月23日10:22:09
         //initFieldOptions(schema, field, getContext().options, _evaluator, form);
         //init中设置验证器，mount可能会多次执行
-        initValidator(schema, _evaluator, form, getContext());
+        initValidator(field, schema, _evaluator, form, getContext());
     });
 
     $("onFieldMount").subscribe((field, form) => {
@@ -188,8 +188,9 @@ export const createEffects = ($, instance, _consumer) => {
         let _context = getContext();
 
         //在mount中设置初始属性响应才能正确获取到初始值
-        setActions(schema, form, _evaluator);
+        setActions(field, schema, form, _evaluator);
         setInitialOptions(
+            field,
             schema,
             form,
             _context.loading,

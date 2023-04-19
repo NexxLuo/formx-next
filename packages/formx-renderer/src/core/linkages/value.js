@@ -173,7 +173,7 @@ export function linkageValue(linkageItem, instance, _evaluator, type, schema) {
     }
 }
 
-export function setInitialValue(schema, instance, _loading, _evaluator) {
+export function setInitialValue(field, schema, instance, _loading, _evaluator) {
     let extraProps = schema.extraProps || {};
 
     //默认值，设置默认值必须在init中，否则可能导致后续组件无法获取到值
@@ -219,7 +219,7 @@ export function setInitialValue(schema, instance, _loading, _evaluator) {
                 _initialValue,
                 instance
             );
-            instance.setFieldState(name, s => {
+            field.setState(s => {
                 //如果值已经被修改过，则不再设置默认值，比如表格复制行数据，此时数据已经被修改过，无需再设置默认值
                 //visible为false时证明需要隐藏值，也就不应该设置默认值
                 if (!s.selfModified && s.display !== "none") {

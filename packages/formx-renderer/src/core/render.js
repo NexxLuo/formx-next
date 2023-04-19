@@ -146,7 +146,7 @@ const FormRender = ({
     }, [schema]);
 
     let FormComponent = form;
-
+    console.log("SchemaFieldRender")
     return (
         <FormProvider form={_form}>
             <FormComponent className="formx-form">

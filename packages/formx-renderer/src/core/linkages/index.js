@@ -663,13 +663,13 @@ function getFieldControledOptions(schema, _evaluator, allOptions) {
  * @param {*} _evaluator
  * @param {*} form
  */
-function setFieldOptions(schema, allOptions, _evaluator, form) {
+function setFieldOptions(field, schema, allOptions, _evaluator, form) {
     let extraProps = schema.extraProps || {};
     let name = schema.name;
     let ctype = schema.componentName;
 
-    function _setFieldOptions(name, options) {
-        form.setFieldState(name, state => {
+    function _setFieldOptions(options) {
+        field.setState(state => {
             for (const ck in options) {
                 if (ck === "visible") {
                     state.visible = options[ck]; //visible如果为false，value值将会被清空
@@ -707,7 +707,7 @@ function setFieldOptions(schema, allOptions, _evaluator, form) {
                 _initOptions.visible
             );
         } else {
-            _setFieldOptions(name, _initOptions);
+            _setFieldOptions(_initOptions);
         }
     }
 }
@@ -802,7 +802,7 @@ export function triggerRelatedInputValues(schema, instance) {
     }
 }
 
-function setSelectable(schema, instance, _evaluator) {
+function setSelectable(field, schema, instance, _evaluator) {
     let extraProps = schema.extraProps || {};
     let name = schema.name;
     let ctype = schema.componentName?.toLowerCase();
@@ -816,7 +816,7 @@ function setSelectable(schema, instance, _evaluator) {
             dateItemSelectable.type === "expression" &&
             dateItemSelectable.expression
         ) {
-            instance.setFieldState(name, s => {
+            field.setState(s => {
                 s.componentProps.disabledDate = currDate => {
                     let v = currDate;
                     if (typeof currDate.format === "function") {
@@ -852,8 +852,8 @@ function setInitialRelatedInputValues(schema, instance, initialValue) {
     }
 }
 
-export function refreshInitialValue(schema, instance, loading, _evaluator) {
-    let initialValue = setInitialValue(schema, instance, loading, _evaluator);
+export function refreshInitialValue(field, schema, instance, loading, _evaluator) {
+    let initialValue = setInitialValue(field, schema, instance, loading, _evaluator);
     //必须设置inputValues,因为第二次打开表单时，values已经传递给form的initialValues，未触发onFieldValueChange，
     //所以必须在此手动设置
     setInitialRelatedInputValues(schema, instance, initialValue);
@@ -861,6 +861,7 @@ export function refreshInitialValue(schema, instance, loading, _evaluator) {
 }
 
 export function setInitialOptions(
+    field,
     schema,
     instance,
     loading,
@@ -868,10 +869,10 @@ export function setInitialOptions(
     _evaluator
 ) {
     let { index: triggerIndex } = getItemIndex(schema.path);
-    refreshInitialValue(schema, instance, loading, _evaluator);
-    setFieldOptions(schema, options, _evaluator, instance);
-    setInitialDataSource(schema, instance, _evaluator, triggerIndex);
-    setSelectable(schema, instance, _evaluator);
+    refreshInitialValue(field, schema, instance, loading, _evaluator);
+    setFieldOptions(field, schema, options, _evaluator, instance);
+    setInitialDataSource(field, schema, instance, _evaluator, triggerIndex);
+    setSelectable(field, schema, instance, _evaluator);
 }
 
 export function linkageAsyncValue(

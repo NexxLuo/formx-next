@@ -23,7 +23,7 @@ function isNull(v) {
     return bl;
 }
 
-export function setTableDataSource(schema, instance, extraParameters, context) {
+export function setTableDataSource(field, schema, instance, extraParameters, context) {
     let name = schema.name;
     let apiUrl = "";
     let apiId = "";
@@ -109,7 +109,7 @@ export function setTableDataSource(schema, instance, extraParameters, context) {
         }
     } else if (dataSource.type === "const") {
         if (dataSource.data && dataSource.data.const instanceof Array) {
-            instance.setFieldState(name, state => {
+            field.setState(state => {
                 state.value = dataSource.data.const;
                 if (hasPagination) {
                     state.componentProps.pagination = {
@@ -120,7 +120,7 @@ export function setTableDataSource(schema, instance, extraParameters, context) {
         }
     } else {
         if (hasPagination) {
-            instance.setFieldState(name, state => {
+            field.setState(state => {
                 state.componentProps.pagination = {
                     ..._pagination
                 };
@@ -207,6 +207,7 @@ export function setAsyncDataSource(schema,
  * @param {number} triggerIndex 触发联动的行数据索引
  */
 export function setDataSource(
+    field,
     schema,
     instance,
     _evaluator,
@@ -227,7 +228,6 @@ export function setDataSource(
     }
     let extraProps = schema.extraProps || {};
 
-    let name = schema.name;
     let _dataSource = null;
     if (extraProps) {
         if (extraProps.dataSource) {
@@ -243,6 +243,7 @@ export function setDataSource(
         if (_dataSource.type === "const") {
             if (ctype === "arraytable") {
                 setTableDataSource(
+                    field,
                     schema,
                     instance,
                     {},
@@ -292,7 +293,7 @@ export function setDataSource(
                     return newItem;
                 });
 
-                instance.setFieldState(name, s => {
+                field.setState(s => {
                     let _ctype =
                         s.componentProps?.[
                             "x-extra-props"
@@ -307,6 +308,7 @@ export function setDataSource(
         } else if (_dataSource.type === "api") {
             if (ctype === "arraytable") {
                 setTableDataSource(
+                    field,
                     schema,
                     instance,
                     {},
@@ -332,7 +334,7 @@ export function setDataSource(
     }
 }
 
-export function setInitialDataSource(schema,
+export function setInitialDataSource(field, schema,
     instance,
     _evaluator,
     triggerIndex) {
@@ -344,7 +346,7 @@ export function setInitialDataSource(schema,
         return;
     }
 
-    setDataSource(schema,
+    setDataSource(field, schema,
         instance,
         _evaluator,
         triggerIndex,
@@ -408,10 +410,11 @@ export function linkageDataSource(
 
     linkageItemDataSource.forEach(d => {
         if (dataSourceType.indexOf(d.dataSourceType) > -1) {
-            let state = instance.getFieldState(d.name);
-            if (state) {
-                let schema = formatState(state);
+            let field = instance.query(d.name).take();
+            if (field) {
+                let schema = formatState(field.getState());
                 setDataSource(
+                    field,
                     schema,
                     instance,
                     _evaluator,
