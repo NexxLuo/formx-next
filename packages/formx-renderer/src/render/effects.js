@@ -148,6 +148,7 @@ export const createEffects = ($, instance, _consumer) => {
                     let { context: _context, ..._payload } =
                         payload.payload || {};
                     setTableDataSource(
+                        form.query(schema.name).take(),
                         schema,
                         form,
                         { ..._payload },
@@ -345,14 +346,14 @@ export const createEffects = ($, instance, _consumer) => {
     $("onDataSourceReload").subscribe(({ name, payload }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-        setTableDataSource(schema, form, {}, { triggerType: "fieldAction" });
+        setTableDataSource(field, schema, form, {}, { triggerType: "fieldAction" });
     });
 
     //列表分页
     $("onListPageChange").subscribe(({ name, pagination }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-        setTableDataSource(schema, form, pagination, {
+        setTableDataSource(field, schema, form, pagination, {
             triggerType: "pageChange"
         });
     });
