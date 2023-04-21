@@ -883,7 +883,7 @@ class Renderer extends React.Component {
                 data: values,
                 deleted: getDeleted(
                     values,
-                    this.state.values,
+                    this.state.values?.allValues,
                     listKeys,
                     this.stateRef.current.deleted
                 )
@@ -1038,7 +1038,7 @@ class Renderer extends React.Component {
                         values,
                         getDeleted(
                             values,
-                            this.state.values,
+                            this.state.values?.allValues,
                             listKeys,
                             this.stateRef.current.deleted
                         ),
