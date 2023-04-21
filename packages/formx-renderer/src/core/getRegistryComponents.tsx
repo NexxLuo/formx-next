@@ -19,7 +19,7 @@ function createCustomField(component, cls: string) {
         let field: Field = useField();
         let schema = useFieldSchema();
         let form = useForm();
-
+        let runtimeProps = schema?.["x-component-props"]?.["x-runtime"];
         useEffect(() => {
             return () => {
                 if (typeof field.setLoading === "function") {
@@ -42,6 +42,7 @@ function createCustomField(component, cls: string) {
         let componentProps = {
             ...props,
             ..._props,
+            "x-runtime": runtimeProps,
             id: field.path.toString(),
             path: field.address.toString(),
             attribute: props.attribute || {},
