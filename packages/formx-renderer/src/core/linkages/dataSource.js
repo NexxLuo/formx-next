@@ -233,10 +233,6 @@ export function setDataSource(
         if (extraProps.dataSource) {
             _dataSource = JSON.parse(extraProps.dataSource);
         }
-
-        if (extraProps.dataFilter) {
-            _dataFilterExpr = extraProps.dataFilter.expression;
-        }
     }
 
     if (typeof _dataSource === "object" && _dataSource) {
