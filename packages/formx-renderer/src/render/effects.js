@@ -219,42 +219,25 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onFieldValueChange").subscribe((field, form) => {
         let schema = formatField(field);
-        //非表格组件value change时才进行联动
-        //表格组件change时联动时，如果列字段存在多个联动，会多次触发表格change，影响性能
+
+        //由于表单数据改为了延迟加载表格数据，表格mount时，表格数据还未设置，故表格数据改变后需要触发联动，
+        triggerLinkage(
+            schema,
+            linkageItemMap,
+            form,
+            _evaluator,
+            fieldActionTargetMap,
+            getContext().options
+        );
+
         if (schema.componentName?.toLowerCase() !== "arraytable") {
-            triggerLinkage(
-                schema,
-                linkageItemMap,
-                form,
-                _evaluator,
-                fieldActionTargetMap,
-                getContext().options
-            );
             triggerRelatedInputValues(schema, form);
-        } else {
-            triggerLinkageDataSource(
-                schema,
-                linkageItemMap,
-                form,
-                _evaluator,
-                fieldActionTargetMap,
-                getContext().options
-            );
         }
+
     });
 
     $("onFieldInputValueChange").subscribe((field, form) => {
         let schema = formatField(field);
-        if (schema.componentName?.toLowerCase() === "arraytable") {
-            triggerLinkage(
-                schema,
-                linkageItemMap,
-                form,
-                _evaluator,
-                fieldActionTargetMap,
-                getContext().options
-            );
-        }
         triggerExtraFieldValue(schema, form);
         linkageDataFill(form, schema, _evaluator);
         linkageAsyncValue(
