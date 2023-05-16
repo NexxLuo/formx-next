@@ -238,6 +238,16 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onFieldInputValueChange").subscribe((field, form) => {
         let schema = formatField(field);
+        if (schema.componentName?.toLowerCase() === "arraytable") {
+            triggerLinkage(
+                schema,
+                linkageItemMap,
+                form,
+                _evaluator,
+                fieldActionTargetMap,
+                getContext().options
+            );
+        }
         triggerExtraFieldValue(schema, form);
         linkageDataFill(form, schema, _evaluator);
         linkageAsyncValue(
