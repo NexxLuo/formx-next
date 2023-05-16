@@ -17,8 +17,8 @@
         "updateWP": "cross-env yarn add webpack@latest webpack-cli@latest webpack-dev-server@latest -D"
     },
     "dependencies": {
-        "@formily/core": "2.2.22",
-        "@formily/react": "2.2.22",
+        "@formily/core": "2.2.24",
+        "@formily/react": "2.2.24",
         "dayjs": "^1.10.3",
         "flat": "^5.0.0",
         "mathjs": "^9.2.0",
