@@ -1288,7 +1288,7 @@ class Renderer extends React.Component {
 
     toTabLayout = () => {
         let next = transformCardToTab(this.state.schema);
-        this.setState({ schema: next });
+        this.setState({ sourceSchema: { ...this.state.sourceSchema }, schema: next });
     };
 
     getContainer = () => {

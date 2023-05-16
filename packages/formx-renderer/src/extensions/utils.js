@@ -713,6 +713,7 @@ export function transformCardToTab(schema) {
                         let tabpaneId = guid("g");
                         let tabpane = {
                             properties: {},
+                            "type": "void",
                             "x-component": "Tab.TabPane",
                             "x-component-props": {
                                 "x-layout-props": {
@@ -734,6 +735,7 @@ export function transformCardToTab(schema) {
                     ) {
                         bl = true;
                         item["x-component"] = "Tab.TabPane";
+                        item.type = "void";
                         let cmp = item["x-component-props"] || {};
                         let extra = cmp["x-extra-props"] || {};
                         extra.name = "tabpane";
@@ -756,6 +758,7 @@ export function transformCardToTab(schema) {
                     properties: {
                         [tabId]: {
                             title: "选项卡",
+                            "type": "void",
                             "x-component": "Tab",
                             "x-component-props": {
                                 "x-extra-props": {
