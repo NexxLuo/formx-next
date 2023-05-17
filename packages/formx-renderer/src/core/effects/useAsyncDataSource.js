@@ -1,6 +1,6 @@
 import { useLinkageUtilsSync } from "./useLinkageUtils";
 import { createEvaluator } from "../../extensions/utils";
-import { getItemIndex } from "../utils";
+import { getItemIndex, getListDataFieldMap } from "../utils";
 
 function getExpressionVar(name, form) {
     let expressionVar = {};
@@ -25,24 +25,9 @@ function getExpressionVar(name, form) {
 function formatter(data, output, form, name, pathVars) {
     let _data = [];
 
-    let formatMap = {};
-    let hasFormatter = false;
+    let { needTransform, formatMap, transformer } = getListDataFieldMap(output);
 
-    let fieldMap = {};
-
-    if (output instanceof Array) {
-        output.forEach(d => {
-            if (d.formatter && d.field) {
-                hasFormatter = true;
-                formatMap[d.field] = d.formatter;
-                if (d.fieldMap) {
-                    fieldMap[d.field] = d.fieldMap;
-                }
-            }
-        });
-    }
-
-    if (!hasFormatter) {
+    if (!needTransform) {
         return data;
     }
 
@@ -66,13 +51,9 @@ function formatter(data, output, form, name, pathVars) {
 
                         if (typeof formatted !== "undefined") {
                             item[k] = formatted;
-                            let mapKey = fieldMap[k];
-
-                            if (mapKey) {
-                                item[mapKey] = formatted;
-                            }
                         }
                     }
+                    transformer(item, k);
                 }
                 _data.push(item);
             });
@@ -89,12 +70,9 @@ function formatter(data, output, form, name, pathVars) {
                     );
                     if (typeof formatted !== "undefined") {
                         item[k] = formatted;
-                        let mapKey = fieldMap[k];
-                        if (mapKey) {
-                            item[mapKey] = formatted;
-                        }
                     }
                 }
+                transformer(item, k);
             }
             _data = item;
         }

@@ -1,5 +1,5 @@
 import { getEnv } from "./utils";
-import { getItemIndex } from "../utils";
+import { getItemIndex, getListDataFieldMap } from "../utils";
 import { requestApiById, getRequestParams } from "../../extensions/utils";
 
 import { useAsyncData, useAsyncListData } from "../effects/useAsyncDataSource";
@@ -110,7 +110,20 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
     } else if (dataSource.type === "const") {
         if (dataSource.data && dataSource.data.const instanceof Array) {
             field.setState(state => {
-                state.value = dataSource.data.const;
+                let { needTransform, transformer } = getListDataFieldMap(dataSource.data.fields);
+                let _data = [];
+                if (needTransform) {
+                    dataSource.data.const.forEach(d => {
+                        let item = { ...d };
+                        for (const k in d) {
+                            transformer(item, k);
+                        }
+                        _data.push(item)
+                    })
+                } else {
+                    _data = dataSource.data.const
+                }
+                state.value = _data;
                 if (hasPagination) {
                     state.componentProps.pagination = {
                         ..._pagination

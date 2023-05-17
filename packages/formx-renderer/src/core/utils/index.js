@@ -8,6 +8,58 @@ function isNum(v) {
 
 export { each };
 
+/**
+ * 对表格设置的数据源进行转换
+ * @param {*} output 
+ * @returns 
+ */
+export function getListDataFieldMap(output) {
+
+    let formatMap = {};
+    let bl = false;
+
+    let fieldMap = {};
+    let targetFieldMap = {};
+
+    if (output instanceof Array) {
+        output.forEach(d => {
+            if (d.field) {
+                if (d.formatter) {
+                    bl = true;
+                    formatMap[d.field] = d.formatter;
+                }
+
+                if (d.fieldMap) {
+                    bl = true;
+                    fieldMap[d.field] = d.fieldMap;
+                }
+
+                if (d.targetField) {
+                    bl = true;
+                    let { key } = getItemIndex(d.targetField)
+                    targetFieldMap[d.field] = key;
+                }
+            }
+        });
+    }
+
+    return {
+        needTransform: bl,
+        formatMap,
+        transformer: (item, k) => {
+            let mapKey = fieldMap[k];
+            if (mapKey) {
+                item[mapKey] = item[k];
+            }
+            let targetFieldMapKey = targetFieldMap[k];
+            if (targetFieldMapKey) {
+                item[targetFieldMapKey] = item[k];
+            }
+        }
+    }
+
+}
+
 export function formatNumberComma(value) {
     if (value === undefined || value === null) {
         return value;
