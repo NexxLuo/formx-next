@@ -23,7 +23,7 @@ function isNull(v) {
     return bl;
 }
 
-export function setTableDataSource(field, schema, instance, extraParameters, context) {
+export function setTableDataSource(field, schema, instance, extraParameters, context, disabledApiDataSource = false) {
     let name = schema.name;
     let apiUrl = "";
     let apiId = "";
@@ -67,7 +67,7 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
         }
     }
 
-    if (dataSource.type === "api") {
+    if (dataSource.type === "api" && !disabledApiDataSource) {
         if (apiUrl || apiId) {
             let envs = {
                 pageIndex: 1

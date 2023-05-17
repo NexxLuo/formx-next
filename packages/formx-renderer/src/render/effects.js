@@ -4,7 +4,6 @@ import { createEvaluator } from "../extensions/utils";
 import {
     addLinkageItem,
     triggerLinkage,
-    triggerLinkageDataSource,
     setInitialOptions,
     triggerExtraFieldValue,
     triggerRelatedInputValues,
@@ -348,7 +347,8 @@ export const createEffects = ($, instance, _consumer) => {
         let schema = formatField(field);
         setTableDataSource(field, schema, form, pagination, {
             triggerType: "pageChange"
-        });
+        }, pagination?.isServerSidePagination !== true);
+
     });
     //
 

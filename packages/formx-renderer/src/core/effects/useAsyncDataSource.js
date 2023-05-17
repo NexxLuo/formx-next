@@ -135,9 +135,10 @@ export const useAsyncListData = (
             state.value = _data;
 
             linkage.requestInfo(name, res?.requestInfo);
-            if (pagination) {
+            if (pagination && res.isServerSidePagination) {
                 linkage.pagination(name, {
                     total: res.total,
+                    isServerSidePagination:res.isServerSidePagination,
                     pageIndex: pagination.pageIndex,
                     pageSize: pagination.pageSize
                 });

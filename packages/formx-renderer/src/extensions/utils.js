@@ -293,6 +293,7 @@ export const requestApiById = async (params, pagination) => {
     return {
         data: arr,
         total,
+        isServerSidePagination: isPagination,
         requestInfo
     };
 };
