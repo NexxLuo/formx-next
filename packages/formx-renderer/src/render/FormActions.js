@@ -904,7 +904,9 @@ export default class FormActions {
         if (formInstance && path) {
             let field = formInstance.query(path).take();
             if (field) {
-                field.setLoading(loading);
+                field.setState((s) => {
+                    s.loading = loading
+                });
             }
         }
     };
