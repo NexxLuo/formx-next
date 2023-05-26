@@ -191,26 +191,32 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
 
     if (
         loading === false &&
-        hasValue === false &&
-        typeof initialValue === "object" &&
-        initialValue
+        hasValue === false
     ) {
-        if (initialValue.type === "const") {
-            if (initialValue.const !== "" && initialValue.const !== null) {
-                _initialValue = initialValue.const;
+        if (
+            typeof initialValue === "object" && initialValue
+        ) {
+            if (initialValue.type === "const") {
+                if (initialValue.const !== "" && initialValue.const !== null) {
+                    _initialValue = initialValue.const;
+                }
+            } else if (initialValue.type === "expression") {
+                //表达式求值
+                let res = _evaluator.evaluate(
+                    initialValue.expression,
+                    expressionVar
+                );
+                _initialValue = res;
+            } else if (initialValue.type === "env") {
+                _initialValue = getEnv(instance, initialValue.env);
+            } else if (initialValue.type === "api" && initialValue.api) {
+                setAsyncValue(name, initialValue, expressionVar, instance);
             }
-        } else if (initialValue.type === "expression") {
-            //表达式求值
-            let res = _evaluator.evaluate(
-                initialValue.expression,
-                expressionVar
-            );
+        }
 
-            _initialValue = res;
-        } else if (initialValue.type === "env") {
-            _initialValue = getEnv(instance, initialValue.env);
-        } else if (initialValue.type === "api" && initialValue.api) {
-            setAsyncValue(name, initialValue, expressionVar, instance);
+        //bool类型的默认设为false
+        if (schema.extraProps?.dataType === "boolean" && typeof _initialValue === "undefined") {
+            _initialValue = false;
         }
 
         if (typeof _initialValue !== "undefined") {
