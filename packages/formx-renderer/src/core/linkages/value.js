@@ -115,7 +115,7 @@ const setAsyncApiValue = (name, instance) => {
 }
 
 
-const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) => {
+const setExpressionValue = (name, expression, _evaluator, instance, sourcePath, ignoreInitValue) => {
     //值联动时items应该取目标控件的index，否则会明细表汇总到主表时，字段值为当前明细行数据
     let _expressionVar = getExpressionVar(name);
     //执行表达式
@@ -125,7 +125,12 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) 
         //当目标字段值需要保留小数位时，需进行处理
         let field = instance.query(name).take();
 
-        if (field) {
+        let hasValue = false;;
+        if (ignoreInitValue === false) {
+            hasValue = typeof field.value !== "undefined"
+        }
+
+        if (field && !hasValue) {
             let precision = field.componentProps?.precision;
             let nextValue = res;
             if (
@@ -154,7 +159,7 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath) 
 
 
 
-export function linkageValue(linkageItem, instance, _evaluator, type, schema) {
+export function linkageValue(linkageItem, instance, _evaluator, type, schema, ignoreInitValue) {
     //数据联动
     if (linkageItem.value instanceof Array) {
         linkageItem.value.forEach(d => {
@@ -166,7 +171,7 @@ export function linkageValue(linkageItem, instance, _evaluator, type, schema) {
                 if (d.type === "api") {
                     setAsyncApiValue(d.name, instance);
                 } else if (d.expression) {
-                    setExpressionValue(d.name, d.expression, _evaluator, instance, schema.path);
+                    setExpressionValue(d.name, d.expression, _evaluator, instance, schema.path, ignoreInitValue);
                 }
             }
         });

@@ -458,7 +458,8 @@ function triggerLinkage(
     instance,
     _evaluator,
     fieldActionTargetMap,
-    options
+    options,
+    ignoreInitValue = true
 ) {
     //虽然会进此生命周期但组件可能还未挂载，此时不做任何处理
     if (enabledTriggerLinkage(schema) === false) {
@@ -472,7 +473,7 @@ function triggerLinkage(
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
 
     if (linkageItem) {
-        linkageValue(linkageItem, instance, _evaluator, "", schema);
+        linkageValue(linkageItem, instance, _evaluator, "", schema, ignoreInitValue);
         linkageVisibility(linkageItem, instance, _evaluator);
         linkageAvailability(linkageItem, instance, _evaluator);
         linkageProps(linkageItem, schema, instance, _evaluator);
