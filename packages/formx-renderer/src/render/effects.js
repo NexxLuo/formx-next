@@ -221,6 +221,7 @@ export const createEffects = ($, instance, _consumer) => {
 
         //由于表单数据改为了延迟加载表格数据，表格mount时，表格数据还未设置，故表格数据改变后需要触发联动，
         //此时数据值联动，应该判断是否已存在值，如已存在则不进行联动
+        let isArrayTable = schema.componentName?.toLowerCase() === "arraytable"
         triggerLinkage(
             schema,
             linkageItemMap,
@@ -228,7 +229,7 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             fieldActionTargetMap,
             getContext().options,
-            false
+            !isArrayTable
         );
 
         if (schema.componentName?.toLowerCase() !== "arraytable") {
