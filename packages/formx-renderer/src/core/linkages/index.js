@@ -538,7 +538,8 @@ function getFieldInitOptions(schema, _evaluator) {
         if (extraProps.hidden === true) {
             initOptions.hidden = true;
         } else if (typeof visibility === "object" && visibility) {
-            let hiddenValue = visibility.hiddenValue ?? true;
+            let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
+            let hiddenValue = visibility.hiddenValue ?? defaultHiddenValue;
             let res = true;
             if (visibility.type === "visible") {
                 res = true;
