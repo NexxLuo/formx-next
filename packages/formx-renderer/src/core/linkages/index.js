@@ -538,8 +538,9 @@ function getFieldInitOptions(schema, _evaluator) {
         if (extraProps.hidden === true) {
             initOptions.hidden = true;
         } else if (typeof visibility === "object" && visibility) {
-            let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
-            let hiddenValue = visibility.hiddenValue ?? defaultHiddenValue;
+            //let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
+            //初始表单时，始终都不隐藏值，避免值被条件隐藏更改导致触发联动，值和接口返回的初始数据对应不上
+            let hiddenValue = false;// visibility.hiddenValue ?? defaultHiddenValue;
             let res = true;
             if (visibility.type === "visible") {
                 res = true;
