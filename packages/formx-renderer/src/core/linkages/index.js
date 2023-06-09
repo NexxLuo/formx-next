@@ -538,9 +538,14 @@ function getFieldInitOptions(schema, _evaluator) {
         if (extraProps.hidden === true) {
             initOptions.hidden = true;
         } else if (typeof visibility === "object" && visibility) {
-            //let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
+            let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
             //初始表单时，始终都不隐藏值，避免值被条件隐藏更改导致触发联动，值和接口返回的初始数据对应不上
-            let hiddenValue = false;// visibility.hiddenValue ?? defaultHiddenValue;
+            //如果不隐藏值，如果此字段存在默认值，隐藏时依然会参与公式联动计算
+            //综上两种情况会导致冲突，故判断是否存在接口返回设置的初始值，如果存在初始值则不隐藏值
+            let hiddenValue = visibility.hiddenValue ?? defaultHiddenValue;
+            if (typeof schema.initialValue !== "undefined") {
+                hiddenValue = false;
+            }
             let res = true;
             if (visibility.type === "visible") {
                 res = true;
@@ -872,8 +877,10 @@ export function setInitialOptions(
     _evaluator
 ) {
     let { index: triggerIndex } = getItemIndex(schema.path);
-    refreshInitialValue(field, schema, instance, loading, _evaluator);
+    //先设置隐藏属性，再设置值，避免设置值后再设置隐藏（并隐藏值），导致公式计算获取的值依然为老值
     setFieldOptions(field, schema, options, _evaluator, instance);
+    //
+    refreshInitialValue(field, schema, instance, loading, _evaluator);
     setInitialDataSource(field, schema, instance, _evaluator, triggerIndex);
     setSelectable(field, schema, instance, _evaluator);
 }
