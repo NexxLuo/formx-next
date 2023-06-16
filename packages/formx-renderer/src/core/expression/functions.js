@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { create, all } from "mathjs";
-import { formatNumberComma } from "../utils";
+import { formatNumberComma, decryptString, encryptString } from "../utils";
 
 const MathCalc = create(all, {
     number: "BigNumber"
@@ -667,4 +667,12 @@ export function Reduce(items, expr, initialValue) {
 //数字千分位分隔
 export function FormatNumberComma(value) {
     return formatNumberComma(value);
+}
+
+export function EncryptString(value) {
+    return encryptString(value);
+}
+
+export function DecryptString(value) {
+    return decryptString(value);
 }
