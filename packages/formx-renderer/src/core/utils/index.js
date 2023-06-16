@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { each } from "@formily/shared";
 import dayjs from "dayjs";
+import { JSEncrypt } from "jsencrypt";
 
 function isNum(v) {
     return isNaN(v) === false && v !== null;
@@ -338,8 +339,7 @@ export function eachSchemaItems(root, callback) {
     }
     function isObject(o) {
         return o
-            ? typeof o === "object" &&
-            Object.getPrototypeOf(o) === Object.prototype
+            ? (typeof o === "object" && o !== null && !(o instanceof Array))
             : false;
     }
 
@@ -571,3 +571,37 @@ export function triggerOnChangeWhenDataLoaded(value, data, onChange) {
         }
     }
 }
+
+export const decryptString = (text) => {
+
+    if (typeof text === "number" && !isNaN(text)) {
+        text = text.toString();
+    }
+
+    if (typeof text === "string" && text.length > 0) {
+        let privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJzARBzfyEkgdZCL9lyIJVdmX+AyzjbdWPmTtyWB61uJyP9aDrCJzuzxjpD0lLnaS5uj55rYdyvPRpJk4QOCvaylQjYC5rlr4pSdQwK97jAr4LMqRG0rPgQ0RnBAo1+hexST7WTkkHrWtiN5CpN/y0XierJz3ksrQllSuqBWFMDhAgMBAAECgYAnTodF/k/JFpykfJRwq6tBeWh9XgAb/fF71DDO9P9B2xFOBxU767K58/DeJJbO7BCdnMJNMA7iK33049sQ+E37gW4pmBP+kQE2gYRHdOHfv/2VEorBq0tDbH/RNXcmPSQhRIOKMTLAimzvbO33205hVjBHawkZvvejcgrxT2Gp6QJBAOkZWVB35Vtttmz1sSn6zz+A9aHFpjUoUuf0Ik9u2F145ahGrl26hLXH/Fo/0QsHmBizJ1gn+9bj/d0XhI1rhpMCQQCsJrJKmZgTU4I1PlFncNRitfXr8cRH+fwS2jzpYTWKsXxUmX4IBUI4xZ9hYSnO7Et8TZvxTV4wfNn8EIjiIW87AkEAigNDOXyzpO2RrHPQIK3qlYvyY4UWArVMWR/YTLWxj65sM7UdukscFlFBXeIZEHG/oSg57F1IJBS7k3NAPUdj1wJALU8uA+ZzGTsUfTD+uev/ak+b/1Ktp4gLKWcZOw+jyPI32AhiHHhN2qVg8n9hQp38rCW9EoCbdsWVlftAG8xS+wJAOayzd77cAqule52wIz7LER8DsEo5IQAzGp579U6bMQQCXeHQ4CrpN7zZzgcHR1IGdAGKBJkEWHbaKkbpAejKhA==";
+
+        const jsEncrypt = new JSEncrypt();
+        jsEncrypt.setPrivateKey(privateKey)
+        let decrypted = jsEncrypt.decrypt(text);
+        return decrypted;
+    }
+    return text;
+};
+
+export const encryptString = (text) => {
+
+    let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcwEQc38hJIHWQi/ZciCVXZl/gMs423Vj5k7clgetbicj/Wg6wic7s8Y6Q9JS52kubo+ea2Hcrz0aSZOEDgr2spUI2Aua5a+KUnUMCve4wK+CzKkRtKz4ENEZwQKNfoXsUk+1k5JB61rYjeQqTf8tF4nqyc95LK0JZUrqgVhTA4QIDAQAB";
+
+    if (typeof text === "number" && !isNaN(text)) {
+        text = text.toString();
+    }
+
+    if (typeof text === "string" && text.length > 0) {
+        const jsEncrypt = new JSEncrypt();
+        jsEncrypt.setPublicKey(publicKey);
+        let encrypted = jsEncrypt.encrypt(text);
+        return encrypted;
+    }
+    return text
+};

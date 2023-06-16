@@ -5,7 +5,7 @@ import FormRender from "../core/render";
 import FormActions from "./FormActions";
 import { getItems as getExtenedEnvs } from "../extensions/env";
 import { getItems as getExtenedFuncs } from "../extensions/func";
-import { transformArrayValuesToComma } from "../core/utils";
+import { transformArrayValuesToComma, encryptString, decryptString, eachSchemaItems } from "../core/utils";
 import {
     requestValidateApiById,
     getRequestParams,
@@ -409,6 +409,10 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                 dataValue = transformArrayValuesToComma(dataValue);
             }
 
+            if (item.ctype === "sensitiveinput") {
+                dataValue = encryptString(dataValue)
+            }
+
             if (["arraytable"].indexOf(item.ctype) > -1) {
                 //bug fixed : 表格父级隐藏后，表格本身的数据并未清空，导致传递给了后端
                 if (item.hidden === true && item.selfDisplay === "visible") {
@@ -435,6 +439,10 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                             ) {
                                 column_value =
                                     transformArrayValuesToComma(column_value);
+                            }
+
+                            if (column_item?.ctype === "sensitiveinput") {
+                                column_value = encryptString(column_value)
                             }
 
                             let columnSchema = formActions.getFieldSchema(columnKey);
@@ -1251,7 +1259,28 @@ class Renderer extends React.Component {
             let _dataHandleMode = _schema?.extraProps?.dataHandleMode ?? "default";
             if (["onlySave", "none"].indexOf(_dataHandleMode) === -1) {
                 bl = true;
-                _arrayValues[k] = arrayValues[k]
+                let _value = arrayValues[k];
+
+                // 如果表格中存在脱敏文本，需对脱敏文本值进行解密
+                let sensitiveInputKeys = [];
+                let _arrayValue = arrayValues[k];
+                eachSchemaItems(_schema, (k, _columnSchema) => {
+                    if (_columnSchema?.["x-component"] === "SensitiveInput") {
+                        sensitiveInputKeys.push(k)
+                    }
+                })
+                if (sensitiveInputKeys.length > 0 && _arrayValue instanceof Array) {
+                    _value = _arrayValue.map(d => {
+                        let _d = { ...d };
+                        sensitiveInputKeys.forEach(_k => {
+                            _d[_k] = decryptString(_d[_k])
+                        })
+                        return _d;
+                    })
+                }
+                //
+
+                _arrayValues[k] = _value;
             }
         })
 

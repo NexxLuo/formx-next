@@ -14,7 +14,7 @@ import {
     linkageAsyncValue,
     initValidator
 } from "../core/linkages";
-import { mapSchemaItems, getItemIndex } from "../core/utils";
+import { mapSchemaItems, getItemIndex, decryptString } from "../core/utils";
 
 import { setActions, triggerItemActions } from "../core/actions";
 
@@ -157,6 +157,16 @@ export const createEffects = ($, instance, _consumer) => {
                 }
             });
             //
+        }
+
+        // 脱敏文本，需对脱敏文本的初始值进行解密
+        if (schema.componentName === "SensitiveInput") {
+            let _initialValue = field.initialValue;
+            if (typeof _initialValue !== "undefined") {
+                _initialValue = decryptString(_initialValue);
+                field.initialValue = _initialValue;
+                field.value = _initialValue;
+            }
         }
 
         //记录被指定为控件动作目标的表单项
