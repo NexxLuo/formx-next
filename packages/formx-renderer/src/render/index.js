@@ -1221,6 +1221,11 @@ class Renderer extends React.Component {
                             }
                         }
 
+                        //脱敏文本存储的值都为加密后的值，再次设置到表单时，需要进行解密赋值
+                        if (_field.componentType === "SensitiveInput") {
+                            values[fk] = decryptString(values[fk]);
+                        }
+
                     }
                 }
             });
