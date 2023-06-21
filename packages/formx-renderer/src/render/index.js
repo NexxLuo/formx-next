@@ -401,8 +401,8 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
             let relatedItem = keyPath[item?.relatedKey];
 
             if (
-                ["checkbox", "select", "treeselect"].indexOf(item.ctype) > -1 ||
-                ["checkbox", "select", "treeselect"].indexOf(
+                ["checkbox", "select", "treeselect", "tree"].indexOf(item.ctype) > -1 ||
+                ["checkbox", "select", "treeselect", "tree"].indexOf(
                     relatedItem?.ctype
                 ) > -1
             ) {
@@ -430,10 +430,10 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                                 keyPath[column_item?.relatedKey];
                             let column_value = row[columnKey];
                             if (
-                                ["checkbox", "select", "treeselect"].indexOf(
+                                ["checkbox", "select", "treeselect", "tree"].indexOf(
                                     column_item?.ctype
                                 ) > -1 ||
-                                ["checkbox", "select", "treeselect"].indexOf(
+                                ["checkbox", "select", "treeselect", "tree"].indexOf(
                                     column_relatedItem?.ctype
                                 ) > -1
                             ) {

@@ -398,7 +398,7 @@ export function transformComponentValue(schema, value, instance) {
     if (extraProps) {
         if (["checkbox"].indexOf(ctype) > -1) {
             _value = transformCommaValuesToArray(value);
-        } else if (["select", "treeselect"].indexOf(ctype) > -1) {
+        } else if (["select", "treeselect", "tree"].indexOf(ctype) > -1) {
             if (extraProps.selectMode === "multiple") {
                 _value = transformCommaValuesToArray(value);
             }
@@ -419,7 +419,7 @@ export function transformComponentValue(schema, value, instance) {
                 if (["checkbox"].indexOf(relatedCtype) > -1) {
                     _value = transformCommaValuesToArray(value);
                 } else if (
-                    ["select", "treeselect"].indexOf(relatedCtype) > -1
+                    ["select", "treeselect", "tree"].indexOf(relatedCtype) > -1
                 ) {
                     if (relatedExtraProps.selectMode === "multiple") {
                         _value = transformCommaValuesToArray(value);

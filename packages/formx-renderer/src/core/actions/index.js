@@ -444,6 +444,7 @@ export function setActions(field, schema, instance, _evaluator) {
             "modal",
             "select",
             "treeselect",
+            "tree",
             "arraytable"
         ].indexOf(ctype) > -1
     ) {
@@ -451,6 +452,7 @@ export function setActions(field, schema, instance, _evaluator) {
             button: "onClick",
             select: "onSelect",
             treeselect: "onSelect",
+            tree: "onSelect",
             arraytable: "onSelect",
             search: "onSearch",
             modal: "onClose"
