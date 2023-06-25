@@ -780,6 +780,27 @@ function getDeleted(currentValues, initialValues, listKeys, deleted) {
     return deletedListItem;
 }
 
+const decryptStringInArray = (_schema, value) => {
+    let sensitiveInputKeys = [];
+    let _arrayValue = value;
+    let _value = value;
+    eachSchemaItems(_schema, (k, _columnSchema) => {
+        if (_columnSchema?.["x-component"] === "SensitiveInput") {
+            sensitiveInputKeys.push(k)
+        }
+    })
+    if (sensitiveInputKeys.length > 0 && _arrayValue instanceof Array) {
+        _value = _arrayValue.map(d => {
+            let _d = { ...d };
+            sensitiveInputKeys.forEach(_k => {
+                _d[_k] = decryptString(_d[_k])
+            })
+            return _d;
+        })
+    }
+    return _value;
+}
+
 class Renderer extends React.Component {
     constructor(props) {
         super(props);
@@ -787,6 +808,7 @@ class Renderer extends React.Component {
         this.containerRef = React.createRef(null);
         this.stateRef = React.createRef(null);
         this.stateRef.current = { deleted: null };
+        this.formSchemaMap = null;
         this.state = {
             values: null,
             sourceValues: null,
@@ -1198,6 +1220,7 @@ class Renderer extends React.Component {
             //表格显示隐藏，隐藏后暂存，再次让表格显示，表格获取到了之前的数据，实际上此条数据已经被删除
             //清除caches也可以，但是暂存时表格数据超过2000行可能导致Reaction报错 RangeError: Maximum call stack size exceeded
             //直接更改key会导致所有组件都重新mount，不可取
+            let formSchemaMap = this.formSchemaMap;
             ins.query("*").forEach(_field => {
                 if (_field) {
                     if (_field.displayName === "Field") {
@@ -1226,6 +1249,10 @@ class Renderer extends React.Component {
                             values[fk] = decryptString(values[fk]);
                         }
 
+                    } else if (_field.displayName === "ArrayField") {
+                        //脱敏文本存储的值都为加密后的值，再次设置到表单时，需要进行解密赋值
+                        let fk = _field.path.toString();
+                        values[fk] = decryptStringInArray(formSchemaMap?.[fk], values[fk])
                     }
                 }
             });
@@ -1258,33 +1285,15 @@ class Renderer extends React.Component {
         let { formSchemaMap } = _consumer();
         let _arrayValues = {};
         let bl = false;
-
+        this.formSchemaMap = formSchemaMap;
         Reflect.ownKeys(arrayValues).forEach(k => {
             let _schema = formSchemaMap[k];
             let _dataHandleMode = _schema?.extraProps?.dataHandleMode ?? "default";
             if (["onlySave", "none"].indexOf(_dataHandleMode) === -1) {
                 bl = true;
-                let _value = arrayValues[k];
-
                 // 如果表格中存在脱敏文本，需对脱敏文本值进行解密
-                let sensitiveInputKeys = [];
-                let _arrayValue = arrayValues[k];
-                eachSchemaItems(_schema, (k, _columnSchema) => {
-                    if (_columnSchema?.["x-component"] === "SensitiveInput") {
-                        sensitiveInputKeys.push(k)
-                    }
-                })
-                if (sensitiveInputKeys.length > 0 && _arrayValue instanceof Array) {
-                    _value = _arrayValue.map(d => {
-                        let _d = { ...d };
-                        sensitiveInputKeys.forEach(_k => {
-                            _d[_k] = decryptString(_d[_k])
-                        })
-                        return _d;
-                    })
-                }
+                let _value = decryptStringInArray(_schema, arrayValues[k])
                 //
-
                 _arrayValues[k] = _value;
             }
         })
