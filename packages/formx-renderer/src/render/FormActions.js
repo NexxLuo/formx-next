@@ -27,6 +27,10 @@ export default class FormActions {
             return null;
         };
 
+        this.getFormSchemaMap = () => {
+            return _consumer()?.formSchemaMap;
+        };
+
         this.getFormContext = () => {
             return _consumer();
         };

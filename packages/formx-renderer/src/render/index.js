@@ -292,6 +292,8 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
 
     let listKeys = [];
 
+    let formSchemaMap = formActions.getFormSchemaMap();
+
     let containerEl = null;
 
     if (typeof getContainer === "function") {
@@ -441,7 +443,8 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                                     transformArrayValuesToComma(column_value);
                             }
 
-                            if (column_item?.ctype === "sensitiveinput") {
+                            let _columnSchema = formSchemaMap?.[columnKey];
+                            if (_columnSchema?.["x-component"] === "SensitiveInput") {
                                 column_value = encryptString(column_value)
                             }
 
