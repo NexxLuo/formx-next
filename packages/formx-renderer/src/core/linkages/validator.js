@@ -9,6 +9,10 @@ import {
     validate as validateBuiltIn,
 } from '@formily/validator'
 
+function isNullOrEmpty(v) {
+    return v === undefined || v === null || v === "";
+}
+
 async function validateInternal(_value, context) {
     let rule = context?.validatorContext?.rule;
     if (!rule) {
@@ -274,6 +278,11 @@ async function validateArrayTable(value, rule, context) {
 
 function regExpValidator(value, rule) {
     let { message: _message, expression: _expression } = rule.validatorContext;
+
+    if (isNullOrEmpty(value)) {
+        return "";
+    }
+
     let res = false;
     try {
         let reg = new RegExp(_expression);
