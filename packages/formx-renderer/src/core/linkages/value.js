@@ -195,27 +195,36 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
     let _initialValue = undefined;
 
     if (
-        loading === false &&
-        hasValue === false
+        loading === false
     ) {
         if (
             typeof initialValue === "object" && initialValue
         ) {
-            if (initialValue.type === "const") {
-                if (initialValue.const !== "" && initialValue.const !== null) {
-                    _initialValue = initialValue.const;
+            if (initialValue.type === "api") {
+                let { allowOverwriteValue } =
+                    field.componentProps?.["x-extra-props"] || {};
+                //初始数据值如果为接口，应判断是否开启重写值，如果开启则应请求接口值
+                if (initialValue.api && allowOverwriteValue !== false) {
+                    setAsyncValue(name, initialValue, expressionVar, instance);
                 }
-            } else if (initialValue.type === "expression") {
-                //表达式求值
-                let res = _evaluator.evaluate(
-                    initialValue.expression,
-                    expressionVar
-                );
-                _initialValue = res;
-            } else if (initialValue.type === "env") {
-                _initialValue = getEnv(instance, initialValue.env);
-            } else if (initialValue.type === "api" && initialValue.api) {
-                setAsyncValue(name, initialValue, expressionVar, instance);
+                //
+            } else {
+                if (hasValue === false) {
+                    if (initialValue.type === "const") {
+                        if (initialValue.const !== "" && initialValue.const !== null) {
+                            _initialValue = initialValue.const;
+                        }
+                    } else if (initialValue.type === "expression") {
+                        //表达式求值
+                        let res = _evaluator.evaluate(
+                            initialValue.expression,
+                            expressionVar
+                        );
+                        _initialValue = res;
+                    } else if (initialValue.type === "env") {
+                        _initialValue = getEnv(instance, initialValue.env);
+                    }
+                }
             }
         }
 
