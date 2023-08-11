@@ -12,7 +12,7 @@
       "message": "chore(versions): 😊 publish %s"
     },
     "publish": {
-      "registry": "http://171.221.227.116:5555",
+      "registry": "http://10.10.0.55:5555",
       "ignoreChanges": "src"
     }
   }
