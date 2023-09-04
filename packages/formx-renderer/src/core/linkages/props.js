@@ -16,7 +16,8 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
         style: ["componentProps.style", "decorator[1].style"],
         disabled: ["componentProps.disabled"],
         readonly: ["componentProps.readOnly"],
-        visible: ["visible"]
+        visible: ["visible"],
+        required: ["required"]
     };
 
     //属性联动
@@ -68,6 +69,23 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
                     });
                 }
             }
+        });
+    }
+}
+
+
+export function linkageRequired(linkageItem, instance, _evaluator) {
+    if (linkageItem.required instanceof Array) {
+        linkageItem.required.forEach(d => {
+            let _expressionVar = getExpressionVar(d.name);
+            instance.setFieldState(d.name, state => {
+                let res = _evaluator.evaluate(d.expression, _expressionVar);
+                if (res === true) {
+                    state.required = true;
+                } else {
+                    state.required = false;
+                }
+            });
         });
     }
 }

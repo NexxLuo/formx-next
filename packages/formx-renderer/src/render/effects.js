@@ -113,6 +113,12 @@ export const createEffects = ($, instance, _consumer) => {
             "availability",
             schema
         );
+        addLinkageItem(
+            linkageTargetMap,
+            linkageItemMap,
+            "required",
+            schema
+        );
         addLinkageItem(linkageTargetMap, linkageItemMap, "fieldProps", schema);
 
         addLinkageItem(linkageTargetMap, linkageItemMap, "dataSource", schema);

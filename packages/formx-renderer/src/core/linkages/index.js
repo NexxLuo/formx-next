@@ -17,7 +17,7 @@ import {
 } from "./dataSource";
 import { linkageDataFill } from "./dataFill";
 
-import { linkageProps } from "./props";
+import { linkageProps, linkageRequired } from "./props";
 import { getExpressionVar, replacePathKey } from "./utils";
 
 import { initValidator } from "./validator";
@@ -258,6 +258,14 @@ export function addLinkageItem(targets, store, type, item) {
         ) {
             expression = extraProps.availability.expression;
         }
+    } else if (type === "required") {
+        if (
+            typeof extraProps.required === "object" &&
+            extraProps.required &&
+            extraProps.required.type === "expression"
+        ) {
+            expression = extraProps.availability.expression;
+        }
     } else if (type === "dataSource") {
         let _dataSource = null;
 
@@ -477,6 +485,7 @@ function triggerLinkage(
         linkageVisibility(linkageItem, instance, _evaluator);
         linkageAvailability(linkageItem, instance, _evaluator);
         linkageProps(linkageItem, schema, instance, _evaluator);
+        linkageRequired(linkageItem, instance, _evaluator);
         linkageColumnVisibility(linkageItem, instance, _evaluator);
         linkageDataSource(
             schema,
