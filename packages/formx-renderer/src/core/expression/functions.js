@@ -676,3 +676,24 @@ export function EncryptString(value) {
 export function DecryptString(value) {
     return decryptString(value);
 }
+
+
+/**
+ * 验证集合中的指定属性值是否重复
+ * @param {*} items 数组集合
+ * @param {*} itemKey 属性key
+ * @returns 是否存在重复
+ */
+export function IsDuplicated(items, itemKey) {
+    let bl = false;
+    if (items instanceof Array && items.length > 0 && itemKey) {
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (items.filter(d => d[itemKey] === item[itemKey]).length > 1) {
+                bl = true;
+                break;
+            }
+        }
+    }
+    return bl;
+}
