@@ -264,7 +264,7 @@ export function addLinkageItem(targets, store, type, item) {
             extraProps.required &&
             extraProps.required.type === "expression"
         ) {
-            expression = extraProps.availability.expression;
+            expression = extraProps.required.expression;
         }
     } else if (type === "dataSource") {
         let _dataSource = null;
@@ -393,7 +393,7 @@ export function addLinkageItem(targets, store, type, item) {
         let expressionItems = {};
 
         //匹配出表达式中的所有相关表单项
-        let matched = expression.match(/value\('(\w|-|.|.items.)+'\)/g);
+        let matched = expression.match(/value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.)+'\)/g);
         if (matched) {
             matched.forEach(i => {
                 let v = i.replace(/value\('([^<]*?)'\)/g, "$1");
