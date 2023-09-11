@@ -204,7 +204,9 @@ export function getItemIndex(path, form) {
             }
         }
     }
-
+    if (parentKey.indexOf("__DATA__") > -1) {
+        parentKey = "";
+    }
     return {
         index: itemIndex,
         parentKey,

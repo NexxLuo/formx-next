@@ -119,6 +119,9 @@ const isControledHidden = (field) => {
 
 export function observerChainHidden($) {
     $("onFieldReact", "*").subscribe((field, form) => {
+        if (field.address.toString().indexOf("__DATA__") > -1) {
+            return;
+        }
         if (form.mounted) {
             let parent = field.parent;
             if (parent && !isControledHidden(parent)) {
