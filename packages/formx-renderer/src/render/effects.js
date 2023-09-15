@@ -376,13 +376,23 @@ export const createEffects = ($, instance, _consumer) => {
     $("onModalChange").subscribe(({ name, payload }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
+        let fn = field.getState().fieldActions?.getActionArgs;
+        let itemsIndex = undefined;
+        if (typeof fn === "function") {
+            let actionArgs = fn()?.show;
+            if (typeof actionArgs?.arrayIndex !== "undefined" && !isNaN(Number(actionArgs.arrayIndex))) {
+                itemsIndex = Number(actionArgs.arrayIndex)
+            }
+        }
+
         linkageDataFill(
             form,
             {
                 ...schema,
                 values: [true, "", { ...payload.data }]
             },
-            _evaluator
+            _evaluator,
+            itemsIndex
         );
     });
     //

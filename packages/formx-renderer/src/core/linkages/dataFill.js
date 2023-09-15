@@ -109,7 +109,7 @@ function isValidObject(v) {
 function transformArrayItemsPath(path, form, expressionVar) {
     let index = -1;
 
-    if (expressionVar?.items) {
+    if (!isNull(expressionVar?.items)) {
         index = Number(expressionVar.items);
     }
 
@@ -128,13 +128,19 @@ function transformArrayItemsPath(path, form, expressionVar) {
 }
 
 //数据回填
-export function linkageDataFill(instance, schema, _evaluator) {
+export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
     let values = schema.values;
     let dataValues = values;
 
     let _dataFill = schema.extraProps?.dataFill;
     let dataFill = formatDataFill(_dataFill);
     let expressionVar = getExpressionVar(schema.name);
+
+    //部分情况下需要外部传递index，比如外部弹窗联动设置表格行字段
+    //此时索引由弹窗的getActionArgs方法提供
+    if (typeof itemsIndex === "number") {
+        expressionVar.items = itemsIndex;
+    }
 
     if (dataFill instanceof Array && dataFill.length > 0) {
         for (let i = 0; i < dataFill.length; i++) {
