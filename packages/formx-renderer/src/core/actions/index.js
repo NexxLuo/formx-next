@@ -459,5 +459,10 @@ export function setActions(field, schema, instance, _evaluator) {
         }[ctype];
 
         bindItemEvent(field, schema, eventType, instance, _evaluator);
+    } else {
+        let extraActionEventType = schema?.extraProps?.actionEventType
+        if (typeof extraActionEventType === "string" && extraActionEventType.length > 0) {
+            bindItemEvent(field, schema, extraActionEventType, instance, _evaluator);
+        }
     }
 }
