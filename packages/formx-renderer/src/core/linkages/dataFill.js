@@ -122,6 +122,13 @@ function transformArrayItemsPath(path, form, expressionVar) {
     let _path = path;
     if (index > -1) {
         _path = path.replace(".items.", "." + index + ".");
+    } else {
+        //当items未匹配上时，可能是表格弹窗编辑，此时联动的目标字段路径应进行重写
+        let { parentKey, key } = getItemIndex(_path);
+        if (_path.indexOf(".items.") > -1) {
+            _path = "__DATA__." + parentKey + ".EDIT_ROW." + key;
+        }
+        //
     }
 
     return _path;
