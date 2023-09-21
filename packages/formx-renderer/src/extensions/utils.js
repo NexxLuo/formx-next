@@ -662,7 +662,6 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
         let prevErrors = extraField.selfErrors;
         let nextErrors = [];
 
-        let prevTableErrorsMap = {};
         let currentTableErrors = [];
         let otherTableErrors = [];
 
@@ -670,8 +669,6 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
             prevErrors.forEach(d => {
                 let isCurrentTableError = d.address.indexOf(arrayPath) > -1;
                 if (isCurrentTableError) {
-                    prevTableErrorsMap[d.address] = true;
-                    currentTableErrors.push(d);
                 } else {
                     otherTableErrors.push(d);
                 }
@@ -680,9 +677,7 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
             if (res instanceof Array) {
                 if (res.length > 0) {
                     res.forEach(d => {
-                        if (!prevTableErrorsMap.hasOwnProperty(d.address)) {
-                            currentTableErrors.push(d);
-                        }
+                        currentTableErrors.push(d);
                     });
                 } else {
                     currentTableErrors = [];
