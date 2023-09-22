@@ -427,29 +427,28 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                     let _d = {};
                     for (const columnKey in row) {
                         if (Object.hasOwnProperty.call(row, columnKey)) {
-                            let column_item = keyPath[columnKey];
-                            let column_relatedItem =
-                                keyPath[column_item?.relatedKey];
+
+                            let column_schema = formSchemaMap?.[columnKey];
+                            let extraProps = column_schema?.["x-component-props"]?.["x-extra-props"] || {};
+                            let column_related_schema = formSchemaMap?.[extraProps.relatedKey];
+
                             let column_value = row[columnKey];
                             if (
                                 ["checkbox", "select", "treeselect", "tree"].indexOf(
-                                    column_item?.ctype
+                                    column_schema?.["x-component"]?.toLowerCase()
                                 ) > -1 ||
                                 ["checkbox", "select", "treeselect", "tree"].indexOf(
-                                    column_relatedItem?.ctype
+                                    column_related_schema?.["x-component"]?.toLowerCase()
                                 ) > -1
                             ) {
                                 column_value =
                                     transformArrayValuesToComma(column_value);
                             }
 
-                            let _columnSchema = formSchemaMap?.[columnKey];
-                            if (_columnSchema?.["x-component"] === "SensitiveInput") {
+                            if (column_schema?.["x-component"] === "SensitiveInput") {
                                 column_value = encryptString(column_value)
                             }
 
-                            let columnSchema = formActions.getFieldSchema(columnKey);
-                            let extraProps = columnSchema?.["x-component-props"]?.["x-extra-props"] || {};
                             let columnHiddenValue = extraProps.visibility?.hiddenValue === true;
                             let hiddenValue = false;
 
