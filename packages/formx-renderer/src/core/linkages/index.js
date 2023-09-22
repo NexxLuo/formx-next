@@ -606,6 +606,24 @@ function getFieldInitOptions(schema, _evaluator) {
         if (required === true) {
             initOptions.required = true;
         }
+
+        if (
+            typeof extraProps.required === "object" &&
+            extraProps.required &&
+            extraProps.required.type === "expression"
+        ) {
+            //表达式求值
+            let res =
+                _evaluator.evaluate(
+                    extraProps.required.expression,
+                    expressionVar
+                ) === true;
+
+            if (typeof res === "boolean") {
+                initOptions.required = res;
+            }
+
+        }
     }
 
     return initOptions;
