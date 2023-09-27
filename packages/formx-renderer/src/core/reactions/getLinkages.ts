@@ -79,15 +79,27 @@ export const getLinkages = schema => {
     });
 
     if (itemExtraProps.extraNameFieldKey) {
+      let _columnProps: any = {};
+      let _schema = o.properties?.[itemExtraProps.extraNameFieldKey];
+      const _initialValue = _schema?.["x-component-props"]?.["x-extra-props"]?.initialValue;
+      if (typeof _initialValue === "object" && _initialValue) {
+        _columnProps.initialValue = _initialValue;
+      }
       columns.push({
-        ...columnProps,
+        ..._columnProps,
         name: itemExtraProps.extraNameFieldKey
       });
     }
 
     if (itemExtraProps.extraIdFieldKey) {
+      let _columnProps: any = {};
+      let _schema = o.properties?.[itemExtraProps.extraIdFieldKey];
+      const _initialValue = _schema?.["x-component-props"]?.["x-extra-props"]?.initialValue;
+      if (typeof _initialValue === "object" && _initialValue) {
+        _columnProps.initialValue = _initialValue;
+      }
       columns.push({
-        ...columnProps,
+        ..._columnProps,
         name: itemExtraProps.extraIdFieldKey
       });
     }
