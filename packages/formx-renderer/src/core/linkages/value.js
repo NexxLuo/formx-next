@@ -235,7 +235,7 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
         }
 
         //bool类型的默认设为false
-        if (schema.extraProps?.dataType === "boolean" && typeof _initialValue === "undefined") {
+        if (!hasValue && schema.extraProps?.dataType === "boolean" && typeof _initialValue === "undefined") {
             _initialValue = false;
         }
 

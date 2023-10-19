@@ -405,7 +405,9 @@ export function transformComponentValue(schema, value, instance) {
                 _value = transformCommaValuesToArray(value);
             }
         } else if (["switch"].indexOf(ctype) > -1) {
-            _value = value == "1" ? true : false;
+            if (typeof value !== "boolean") {
+                _value = value == "1" ? true : false;
+            }
         }
 
         if (extraProps.relatedKey) {
