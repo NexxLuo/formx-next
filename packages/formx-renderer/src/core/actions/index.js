@@ -404,7 +404,7 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
             let cancelBubble = _state.componentProps?.["x-runtime"]?.cancelBubble ?? false;
             _state.componentProps[eventType] = e => {
                 let { parentKey, index } = getItemIndex(name);
-                if (typeof e.persist === "function") {
+                if (typeof e?.persist === "function") {
                     e.persist();
                 }
                 callEventWithPrepose(
