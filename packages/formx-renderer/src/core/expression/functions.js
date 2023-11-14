@@ -535,6 +535,7 @@ export function GetId(v) {
     let value = "";
 
     if (typeof v === "string" && v) {
+        v = v.trim();
         let _v = v.replace(/value\('([^<]*?)'\)/g, "$1").split(".");
         value = _v[_v.length - 1];
     }
