@@ -5,7 +5,10 @@ import FormRender from "../core/render";
 import FormActions from "./FormActions";
 import { getItems as getExtenedEnvs } from "../extensions/env";
 import { getItems as getExtenedFuncs } from "../extensions/func";
-import { transformArrayValuesToComma, encryptString, decryptString, eachSchemaItems } from "../core/utils";
+import {
+    transformArrayValuesToComma, encryptString, decryptString, eachSchemaItems,
+    transformToTreeData
+} from "../core/utils";
 import {
     requestValidateApiById,
     getRequestParams,
@@ -467,6 +470,8 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                     }
                     return _d;
                 });
+                dataValue = transformToTreeData(dataValue, "__KEY__", "__PARENT__",
+                    "__ROOT__")
             }
 
             if (dataValue instanceof Array) {
