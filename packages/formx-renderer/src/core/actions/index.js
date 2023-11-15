@@ -90,6 +90,11 @@ export function triggerItemActions(state, args, form) {
                 });
             }
         },
+        insertChildren: function (name, args) {
+            form.getFieldState(name, state => {
+                state.fieldActions.insertChildren(args?.arrayIndex);
+            });
+        },
         deleteSelected: function (name, args) {
             form.getFieldState(name, state => {
                 state.fieldActions.deleteSelected(args?.arrayIndex);
