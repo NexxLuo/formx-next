@@ -291,6 +291,8 @@ function getFormItems(ins) {
 function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, getContainer) {
     let values = {};
 
+    let listValues = {};
+
     let keyPath = {};
 
     let listKeys = [];
@@ -470,8 +472,9 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                     }
                     return _d;
                 });
+                listValues[dataKey] = dataValue;
                 dataValue = transformToTreeData(dataValue, "__KEY__", "__PARENT__",
-                    "__ROOT__")
+                    "__ROOT__");
             }
 
             if (dataValue instanceof Array) {
@@ -531,6 +534,7 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
 
     return {
         values,
+        listValues,
         listKeys
     };
 }
@@ -907,7 +911,7 @@ class Renderer extends React.Component {
     getData = bindEntity => {
         let ins = this.formInstance;
         if (ins) {
-            let { values, listKeys } = ins.getFormState(state => {
+            let { values, listValues, listKeys } = ins.getFormState(state => {
                 return getValuesFromGraph(
                     ins.getFormGraph(),
                     { ...state.values },
@@ -919,7 +923,7 @@ class Renderer extends React.Component {
             return {
                 data: values,
                 deleted: getDeleted(
-                    values,
+                    listValues,
                     this.state.values?.allValues,
                     listKeys,
                     this.stateRef.current.deleted
