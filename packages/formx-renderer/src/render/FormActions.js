@@ -13,6 +13,7 @@ export default class FormActions {
         this.getFormInstance = () => {
             return instance;
         };
+        this.observable = $observable;
         this.businessData = {};
         this.formEnvs = new FormEnvs();
         this.formFunction = new FormFunction();
