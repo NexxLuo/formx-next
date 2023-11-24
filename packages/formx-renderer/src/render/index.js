@@ -1171,7 +1171,7 @@ class Renderer extends React.Component {
 
     onResize = () => {
         let cw = window.document.body.clientWidth;
-        if (cw <= 450) {
+        if (cw <= 450 || this.props.enabledSmallLayoutSize) {
             document.body.classList.add("responsive-size-small");
         } else {
             document.body.classList.remove("responsive-size-small");
