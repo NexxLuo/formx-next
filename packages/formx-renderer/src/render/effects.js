@@ -365,7 +365,9 @@ export const createEffects = ($, instance, _consumer) => {
     $("onListPageChange").subscribe(({ name, pagination }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-        setTableDataSource(field, schema, form, pagination, {
+        //翻页时过滤掉冗余参数，避免传递到接口，导致报错
+        let { isServerSidePagination, total, ...extraParameters } = pagination || {};
+        setTableDataSource(field, schema, form, extraParameters, {
             triggerType: "pageChange"
         }, pagination?.isServerSidePagination !== true);
 
