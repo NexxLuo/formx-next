@@ -12,7 +12,8 @@ import {
     observerChainHidden,
     setAsyncDataSource,
     linkageAsyncValue,
-    initValidator
+    initValidator,
+    triggerLinkageDataSource
 } from "../core/linkages";
 import { mapSchemaItems, getItemIndex, decryptString } from "../core/utils";
 
@@ -235,10 +236,33 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onFieldValueChange").subscribe((field, form) => {
         let schema = formatField(field);
+        //非表格组件value change时才进行联动
+        //表格组件change时联动时，如果列字段存在多个联动，会多次触发表格change，影响性能
+        if (schema.componentName?.toLowerCase() !== "arraytable") {
+            triggerLinkage(
+                schema,
+                linkageItemMap,
+                form,
+                _evaluator,
+                fieldActionTargetMap,
+                getContext().options
+            );
+            triggerRelatedInputValues(schema, form);
+        } else {
+            triggerLinkageDataSource(
+                schema,
+                linkageItemMap,
+                form,
+                _evaluator,
+                fieldActionTargetMap,
+                getContext().options
+            );
+        }
 
-        //由于表单数据改为了延迟加载表格数据，表格mount时，表格数据还未设置，故表格数据改变后需要触发联动，
-        //此时数据值联动，应该判断是否已存在值，如已存在则不进行联动
-        let isArrayTable = schema.componentName?.toLowerCase() === "arraytable"
+    });
+
+    $("onFieldValueDeferLoad").subscribe((field, form) => {
+        let schema = formatField(field);
         triggerLinkage(
             schema,
             linkageItemMap,
@@ -246,17 +270,13 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             fieldActionTargetMap,
             getContext().options,
-            !isArrayTable
+            false
         );
-
-        if (schema.componentName?.toLowerCase() !== "arraytable") {
-            triggerRelatedInputValues(schema, form);
-        }
-
-    });
+    })
 
     $("onFieldInputValueChange").subscribe((field, form) => {
         let schema = formatField(field);
+        //表格组件始终在onFieldInputValueChange中执行联动逻辑，避免引用发生变化产生不必要的联动
         if (schema.componentName?.toLowerCase() === "arraytable") {
             triggerLinkage(
                 schema,

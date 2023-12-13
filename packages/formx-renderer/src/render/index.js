@@ -1311,6 +1311,13 @@ class Renderer extends React.Component {
 
         if (bl) {
             this.formInstance.setValues(_arrayValues, "merge");
+            let formInstance = this.formInstance;
+            Reflect.ownKeys(_arrayValues).forEach(k => {
+                let field = formInstance.query(k).take();
+                if (field != null) {
+                    formInstance.notify("onFieldValueDeferLoad", field, formInstance)
+                }
+            })
         }
 
         if (typeof this.props.onDataInit === "function") {
