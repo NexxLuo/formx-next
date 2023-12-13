@@ -152,7 +152,7 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
     if (dataFill instanceof Array && dataFill.length > 0) {
         for (let i = 0; i < dataFill.length; i++) {
             let d = dataFill[i];
-            let targetField = transformArrayItemsPath(
+            let targetFieldPath = transformArrayItemsPath(
                 d.targetField,
                 instance,
                 expressionVar
@@ -165,13 +165,15 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
             }
             dataValues = values[parameterIndex];
 
+            var targetField = null;
+            if (targetFieldPath) {
+                targetField = instance.query(targetFieldPath).take();
+            }
+
             if (field && targetField) {
                 //如果是清空值，则清空数据联动的所有值
                 if (isNull(values[0])) {
-                    instance.setFieldState(
-                        targetField,
-                        s => (s.value = undefined)
-                    );
+                    targetField.onInput(undefined)
                     continue;
                 }
 
@@ -249,26 +251,25 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
                                 Reflect.deleteProperty(d, "__KEY__");
                             });
                         }
-                        instance.setFieldState(targetField, s => {
-                            let nextValue = [];
-                            if (d.fillMode === "append") {
-                                nextValue = []
-                                    .concat(s.value || [])
-                                    .concat(value);
-                            } else if (d.fillMode === "prepend") {
-                                nextValue = []
-                                    .concat(value)
-                                    .concat(s.value || []);
-                            } else {
-                                nextValue = value;
-                            }
-                            s.value = nextValue;
-                        });
+
+                        let prevValue = targetField.getState().value;
+                        let nextValue = [];
+                        if (d.fillMode === "append") {
+                            nextValue = []
+                                .concat(prevValue || [])
+                                .concat(value);
+                        } else if (d.fillMode === "prepend") {
+                            nextValue = []
+                                .concat(value)
+                                .concat(prevValue || []);
+                        } else {
+                            nextValue = value;
+                        }
+
+                        targetField.onInput(nextValue)
+
                     } else {
-                        instance.setFieldState(
-                            targetField,
-                            s => (s.value = value)
-                        );
+                        targetField.onInput(value)
                     }
                 }
             }

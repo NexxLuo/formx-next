@@ -126,24 +126,26 @@ export const useAsyncListData = (
     });
 
     service(extra, pagination).then(res => {
-        setFieldState(name, state => {
-            state.loading = false;
-            state.componentProps.loading = false;
-
+        let targetField = form.query(name).take();
+        if (targetField) {
             let _data = res.data;
             _data = formatter(_data, extra.output, form, name);
-            state.value = _data;
+            targetField.setState((state) => {
+                state.loading = false;
+                state.componentProps.loading = false;
+                linkage.requestInfo(name, res?.requestInfo);
+                if (pagination && res.isServerSidePagination) {
+                    linkage.pagination(name, {
+                        total: res.total,
+                        isServerSidePagination: res.isServerSidePagination,
+                        pageIndex: pagination.pageIndex,
+                        pageSize: pagination.pageSize
+                    });
+                }
+            })
+            targetField.onInput(_data)
+        }
 
-            linkage.requestInfo(name, res?.requestInfo);
-            if (pagination && res.isServerSidePagination) {
-                linkage.pagination(name, {
-                    total: res.total,
-                    isServerSidePagination:res.isServerSidePagination,
-                    pageIndex: pagination.pageIndex,
-                    pageSize: pagination.pageSize
-                });
-            }
-        });
 
         //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
         notify("requestListDataSourceComplete", {
