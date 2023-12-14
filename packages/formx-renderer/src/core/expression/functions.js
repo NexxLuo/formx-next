@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { create, all } from "mathjs";
-import { formatNumberComma, decryptString, encryptString } from "../utils";
+import { formatNumberComma, decryptString, encryptString, guid } from "../utils";
 
 const MathCalc = create(all, {
     number: "BigNumber"
@@ -697,4 +697,32 @@ export function IsDuplicated(items, itemKey) {
         }
     }
     return bl;
+}
+
+/**
+ * 生成一个唯一id
+ * @returns guid
+ */
+export function Guid() {
+    return guid("");
+}
+
+/**
+ * 根据条件返回匹配的结果
+ * @param {*} cons 条件数组，第一项为条件，紧跟条件的后一项为条件满足后的返回值
+ * @param {*} defaultValue 没有条件满足时返回此默认值
+ * @returns 
+ */
+export function SwitchIF(cons, defaultValue) {
+    var res = defaultValue;
+    if (cons instanceof Array) {
+        for (let i = 0; i < cons.length; i = i + 2) {
+            let bl = cons[i];
+            if (bl === true) {
+                res = cons[i + 1];
+                break;
+            }
+        }
+    }
+    return res;
 }
