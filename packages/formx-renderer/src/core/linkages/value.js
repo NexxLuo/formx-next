@@ -201,12 +201,12 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
             typeof initialValue === "object" && initialValue
         ) {
             if (initialValue.type === "api") {
-                let { allowOverwriteValue } =
+                let { allowOverwriteValue = false } =
                     field.componentProps?.["x-extra-props"] || {};
                 if (initialValue.api) {
                     if (hasValue) {
                         //字段存在值时，初始数据值如果为接口，应判断是否开启重写值，如果开启则应请求接口值
-                        if (allowOverwriteValue !== false) {
+                        if (allowOverwriteValue === true) {
                             setAsyncValue(name, initialValue, expressionVar, instance);
                         }
                     } else {
