@@ -51,6 +51,9 @@ function formatter(data, output, form, name, pathVars) {
 
                         if (typeof formatted !== "undefined") {
                             item[k] = formatted;
+                        } else {
+                            //进行表达式格式化时，如果返回值为undefined，直接删除此字段，以此实现字段是否保留的功能
+                            Reflect.deleteProperty(item, k)
                         }
                     }
                     transformer(item, k);
@@ -70,6 +73,9 @@ function formatter(data, output, form, name, pathVars) {
                     );
                     if (typeof formatted !== "undefined") {
                         item[k] = formatted;
+                    } else {
+                        //进行表达式格式化时，如果返回值为undefined，直接删除此字段，以此实现字段是否保留的功能
+                        Reflect.deleteProperty(item, k)
                     }
                 }
                 transformer(item, k);
