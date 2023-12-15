@@ -1,10 +1,7 @@
 import dayjs from "dayjs";
-import { create, all } from "mathjs";
+import Decimal from "decimal.js";
 import { formatNumberComma, decryptString, encryptString, guid } from "../utils";
 
-const MathCalc = create(all, {
-    number: "BigNumber"
-});
 
 function toNumber(v) {
     let value = 0;
@@ -380,6 +377,61 @@ export function Not(v) {
     return !v;
 }
 
+function isValidValue(v) {
+    let bl = true;
+    if (v === "" || v === null || v === undefined) {
+        bl = false;
+        return bl;
+    }
+    if (isNaN(v)) {
+        bl = false;
+        return bl;
+    }
+
+    try {
+        new Decimal(v);
+    } catch (error) {
+        bl = false;
+        console.error(error)
+    }
+
+    return bl;
+}
+
+function tryToDecimal(v, defaultValue = 0) {
+    try {
+        return new Decimal(v);
+    } catch (error) {
+        return new Decimal(defaultValue);
+    }
+}
+
+
+function tryGetNumberValue(v) {
+    let value = 0;
+
+    //大于15位不进行toNumber处理，否则会精度错误
+    if (typeof v?.toString === "function") {
+        let str = v.toString();
+        if (str.length > 15) {
+            return str;
+        }
+    }
+
+    if (typeof v?.toNumber === "function") {
+        let _v = v.toNumber();
+        if (!isNaN(_v)) {
+            value = _v;
+        }
+    } else {
+        let _v = Number(v);
+        if (!isNaN(_v)) {
+            value = _v;
+        }
+    }
+    return value;
+}
+
 export function MathAdd() {
     let args = Array.prototype.slice.call(arguments);
 
@@ -391,30 +443,19 @@ export function MathAdd() {
         return args[0];
     }
 
-    let first = Number(args[0]);
-    if (isNaN(first)) {
-        first = 0;
-    }
-
-    let c = MathCalc.chain(MathCalc.bignumber(first));
+    let c = tryToDecimal(args[0]);
 
     let i = 1;
 
     let value = 0;
 
     while (i < args.length) {
-        let v = Number(args[i]);
-        if (typeof v === "number" && !isNaN(v)) {
-            c = c.add(MathCalc.bignumber(v));
+        if (isValidValue(args[i])) {
+            c = c.add(tryToDecimal(args[i]));
         }
         i += 1;
     }
-    value = c.done();
-    if (typeof value?.toNumber === "function") {
-        value = value.toNumber();
-    } else {
-        value = 0;
-    }
+    value = tryGetNumberValue(c);
     return value;
 }
 
@@ -429,30 +470,19 @@ export function MathSubtract() {
         return args[0];
     }
 
-    let first = Number(args[0]);
-    if (isNaN(first)) {
-        first = 0;
-    }
-
-    let c = MathCalc.chain(MathCalc.bignumber(first));
+    let c = tryToDecimal(args[0]);
     let i = 1;
 
     let value = 0;
 
     while (i < args.length) {
-        let v = Number(args[i]);
-        if (typeof v === "number" && !isNaN(v)) {
-            c = c.subtract(MathCalc.bignumber(v));
+        if (isValidValue(args[i])) {
+            c = c.sub(tryToDecimal(args[i]));
         }
         i += 1;
     }
 
-    value = c.done();
-    if (typeof value?.toNumber === "function") {
-        value = value.toNumber();
-    } else {
-        value = 0;
-    }
+    value = tryGetNumberValue(c);
 
     return value;
 }
@@ -468,29 +498,18 @@ export function MathMultiply() {
         return args[0];
     }
 
-    let first = Number(args[0]);
-    if (isNaN(first)) {
-        first = 0;
-    }
-
-    let c = MathCalc.chain(MathCalc.bignumber(first));
+    let c = tryToDecimal(args[0]);
     let i = 1;
 
     let value = 0;
 
     while (i < args.length) {
-        let v = Number(args[i]);
-        if (typeof v === "number" && !isNaN(v)) {
-            c = c.multiply(MathCalc.bignumber(v));
+        if (isValidValue(args[i])) {
+            c = c.mul(tryToDecimal(args[i]));
         }
         i += 1;
     }
-    value = c.done();
-    if (typeof value?.toNumber === "function") {
-        value = value.toNumber();
-    } else {
-        value = 0;
-    }
+    value = tryGetNumberValue(c);
     return value;
 }
 
@@ -505,29 +524,18 @@ export function MathDivide() {
         return args[0];
     }
 
-    let first = Number(args[0]);
-    if (isNaN(first)) {
-        first = 0;
-    }
-
-    let c = MathCalc.chain(MathCalc.bignumber(first));
+    let c = tryToDecimal(args[0]);
     let i = 1;
 
     let value = 0;
 
     while (i < args.length) {
-        let v = Number(args[i]);
-        if (typeof v === "number" && !isNaN(v)) {
-            c = c.divide(MathCalc.bignumber(v));
+        if (isValidValue(args[i])) {
+            c = c.div(tryToDecimal(args[i]));
         }
         i += 1;
     }
-    value = c.done();
-    if (typeof value?.toNumber === "function") {
-        value = value.toNumber();
-    } else {
-        value = 0;
-    }
+    value = tryGetNumberValue(c);
     return value;
 }
 
