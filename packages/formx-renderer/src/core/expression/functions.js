@@ -355,12 +355,11 @@ export function ToNumber(v, precision) {
 }
 
 export function ToDecimal(v, precision) {
-    let value = Number(v);
-    if (isNaN(value)) {
-        value = 0;
-    }
+    let value = tryToDecimal(v);
     if (typeof precision === "number") {
-        value = value.toFixed(precision);
+        value = tryGetNumberValue(tryToDecimal(value.toFixed(precision)))
+    } else {
+        value = tryGetNumberValue(value)
     }
     return value;
 }
