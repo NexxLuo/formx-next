@@ -1,23 +1,24 @@
 import contains from './contains';
+import Decimal from "decimal.js";
 
 export function add(a, b) {
-  return Number(a) + Number(b);
+  return Decimal.add(a, b).toNumber();
 }
 
 export function sub(a, b) {
-  return a - b;
+  return Decimal.sub(a, b).toNumber();
 }
 
 export function mul(a, b) {
-  return a * b;
+  return Decimal.mul(a, b).toNumber();
 }
 
 export function div(a, b) {
-  return a / b;
+  return Decimal.div(a, b).toNumber();
 }
 
 export function mod(a, b) {
-  return a % b;
+  return Decimal.mod(a, b).toNumber();
 }
 
 export function concat(a, b) {
@@ -173,8 +174,8 @@ export function gamma(n) {
     var fiveN = fourN * n;
     return Math.sqrt(2 * Math.PI / n) * Math.pow((n / Math.E), n) *
       (1 + (1 / (12 * n)) + (1 / (288 * twoN)) - (139 / (51840 * threeN)) -
-      (571 / (2488320 * fourN)) + (163879 / (209018880 * fiveN)) +
-      (5246819 / (75246796800 * fiveN * n)));
+        (571 / (2488320 * fourN)) + (163879 / (209018880 * fiveN)) +
+        (5246819 / (75246796800 * fiveN * n)));
   }
 
   --n;
@@ -326,7 +327,7 @@ export function sign(x) {
   return ((x > 0) - (x < 0)) || +x;
 }
 
-var ONE_THIRD = 1/3;
+var ONE_THIRD = 1 / 3;
 export function cbrt(x) {
   return x < 0 ? -Math.pow(-x, ONE_THIRD) : Math.pow(x, ONE_THIRD);
 }
