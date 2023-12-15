@@ -726,3 +726,11 @@ export function SwitchIF(cons, defaultValue) {
     }
     return res;
 }
+
+/**
+ * 返回一个undefined类型的常量值
+ * @returns undefined
+ */
+export function Undefined() {
+    return undefined
+}

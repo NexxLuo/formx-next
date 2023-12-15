@@ -83,7 +83,6 @@ export default class Evaluator {
 
             let res = expr.evaluate({
                 null: null,
-                undefined: undefined,
                 ...injectVar
             });
 
