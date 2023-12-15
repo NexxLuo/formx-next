@@ -1,24 +1,56 @@
 import contains from './contains';
 import Decimal from "decimal.js";
 
+function tryToDecimal(v) {
+  try {
+    return new Decimal(v);
+  } catch (error) {
+    return new Decimal(NaN);
+  }
+}
+
+function tryGetNumberValue(v) {
+  let value = NaN;
+  //大于15位不进行toNumber处理，否则会精度错误
+  if (typeof v?.toString === "function") {
+    let str = v.toString();
+    if (str.length > 15) {
+      return str;
+    }
+  }
+
+  if (typeof v?.toNumber === "function") {
+    let _v = v.toNumber();
+    if (!isNaN(_v)) {
+      value = _v;
+    }
+  } else {
+    let _v = Number(v);
+    if (!isNaN(_v)) {
+      value = _v;
+    }
+  }
+  return value;
+}
+
 export function add(a, b) {
-  return Decimal.add(a, b).toNumber();
+  return tryGetNumberValue(Decimal.add(tryToDecimal(a), tryToDecimal(b)));
 }
 
 export function sub(a, b) {
-  return Decimal.sub(a, b).toNumber();
+  return tryGetNumberValue(Decimal.sub(tryToDecimal(a), tryToDecimal(b)));
 }
 
 export function mul(a, b) {
-  return Decimal.mul(a, b).toNumber();
+  return tryGetNumberValue(Decimal.mul(tryToDecimal(a), tryToDecimal(b)));
 }
 
 export function div(a, b) {
-  return Decimal.div(a, b).toNumber();
+  return tryGetNumberValue(Decimal.div(tryToDecimal(a), tryToDecimal(b)));
 }
 
 export function mod(a, b) {
-  return Decimal.mod(a, b).toNumber();
+  return tryGetNumberValue(Decimal.mod(tryToDecimal(a), tryToDecimal(b)));
 }
 
 export function concat(a, b) {
