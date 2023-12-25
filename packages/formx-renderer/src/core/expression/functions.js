@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import Decimal from "decimal.js";
-import { formatNumberComma, decryptString, encryptString, guid } from "../utils";
+import { formatNumberComma, decryptString, encryptString, guid, formatQuarterValue } from "../utils";
 
 
 function toNumber(v) {
@@ -740,4 +740,14 @@ export function SwitchIF(cons, defaultValue) {
  */
 export function Undefined() {
     return undefined
+}
+
+/**
+ * 格式化季度值
+ * @param {*} v 季度值字符串 如：2023Q1
+ * @param {*} format 指定格式 如：YYYY年第Q季度 ，输出 2023年第1季度
+ * @returns 格式化后的字符串
+ */
+export function FormatQuarterValue(v, format) {
+    return formatQuarterValue(v, format)
 }

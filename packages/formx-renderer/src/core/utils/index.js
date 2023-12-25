@@ -615,42 +615,92 @@ export function transformToTreeData(
     idField,
     pidField,
     rootKey = ""
-  ) {
+) {
     function getKey(node) {
-      return node[idField] || "";
+        return node[idField] || "";
     }
-  
+
     function getParentKey(node) {
-      return node[pidField] || "";
+        return node[pidField] || "";
     }
-  
+
     if (!flatData) {
-      return [];
+        return [];
     }
-  
+
     const childrenToParents = {};
     flatData.forEach(child => {
-      const parentKey = getParentKey(child);
-  
-      if (parentKey in childrenToParents) {
-        childrenToParents[parentKey].push(child);
-      } else {
-        childrenToParents[parentKey] = [child];
-      }
+        const parentKey = getParentKey(child);
+
+        if (parentKey in childrenToParents) {
+            childrenToParents[parentKey].push(child);
+        } else {
+            childrenToParents[parentKey] = [child];
+        }
     });
-  
+
     if (!(rootKey in childrenToParents)) {
-      return [];
+        return [];
     }
-  
+
     const trav = parent => {
-      const parentKey = getKey(parent);
-      if (parentKey in childrenToParents) {
-        parent.children = childrenToParents[parentKey].map(child => trav(child));
-      }
-  
-      return parent;
+        const parentKey = getKey(parent);
+        if (parentKey in childrenToParents) {
+            parent.children = childrenToParents[parentKey].map(child => trav(child));
+        }
+
+        return parent;
     };
-  
+
     return childrenToParents[rootKey].map(child => trav(child));
-  }
+}
+
+
+const getQuarterValueObjet = (v) => {
+    const SPLIT_CHAR = "Q";
+    var value = {
+        year: null,
+        quarter: null
+    };
+    if (typeof v === "string" && v.length > 0) {
+        let arr = v.split(SPLIT_CHAR);
+        let y = Number(arr[0]),
+            q = Number(arr[1]);
+        if (!isNaN(y)) {
+            value.year = y;
+        }
+
+        if (!isNaN(q) && q < 5 && q > 0) {
+            value.quarter = q;
+        }
+    }
+    return value;
+};
+
+
+export function formatQuarterValue(value, format = "YYYY[Q]Q") {
+    if (typeof value === "string" && value.length > 0 && typeof format === "string" && format.length > 0) {
+
+        const QUARTER_CHAR = "Q";
+        const RESERVED_WORDS = "[Q]";
+
+        let formatted = value;
+        let obj = getQuarterValueObjet(value);
+        if (obj.year) {
+            formatted = format.replaceAll("YYYY", obj.year);
+        }
+        if (obj.quarter) {
+            //使用"[Q]"可保留"Q"字符
+            if (formatted.indexOf(RESERVED_WORDS) > -1) {
+                formatted = formatted.replaceAll(RESERVED_WORDS, "[T]");
+                formatted = formatted.replaceAll(QUARTER_CHAR, obj.quarter);
+                formatted = formatted.replaceAll("[T]", QUARTER_CHAR);
+            } else {
+                formatted = formatted.replaceAll(QUARTER_CHAR, obj.quarter);
+            }
+        }
+        return formatted;
+    } else {
+        return value;
+    }
+}
