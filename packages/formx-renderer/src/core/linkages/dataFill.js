@@ -269,7 +269,8 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
                         targetField.onInput(nextValue)
 
                     } else {
-                        targetField.onInput(value)
+                        //非表格组件不可使用onInput处理数据回填，会导致name字段被设置为空值
+                        targetField.setValue(value)
                     }
                 }
             }
