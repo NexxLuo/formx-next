@@ -439,7 +439,8 @@ export function MathAdd() {
     }
 
     if (args.length === 1) {
-        return args[0];
+        //避免返回值类型不正确
+        return tryGetNumberValue(args[0]);
     }
 
     let c = tryToDecimal(args[0]);
@@ -466,7 +467,7 @@ export function MathSubtract() {
     }
 
     if (args.length === 1) {
-        return args[0];
+        return tryGetNumberValue(args[0]);
     }
 
     let c = tryToDecimal(args[0]);
@@ -494,7 +495,7 @@ export function MathMultiply() {
     }
 
     if (args.length === 1) {
-        return args[0];
+        return tryGetNumberValue(args[0]);
     }
 
     let c = tryToDecimal(args[0]);
@@ -520,7 +521,7 @@ export function MathDivide() {
     }
 
     if (args.length === 1) {
-        return args[0];
+        return tryGetNumberValue(args[0]);
     }
 
     let c = tryToDecimal(args[0]);
