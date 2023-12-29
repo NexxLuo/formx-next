@@ -155,8 +155,7 @@ export function triggerItemActions(state, args, form) {
             }
             if (
                 actionType &&
-                actionTarget &&
-                typeof actionCall === "function"
+                actionTarget
             ) {
                 let runtime = {};
                 let fieldState = form.query(address).take();
@@ -165,11 +164,28 @@ export function triggerItemActions(state, args, form) {
                         fieldState.componentProps?.["x-runtime"] || {}
                     );
                 }
-                actionCall(
-                    actionTarget,
-                    { ...args, triggerPath: name, arrayName: runtime.arrayPath, arrayIndex: index, rowKey: runtime.rowKey },
-                    name
-                );
+
+                let actionArgs = { ...args, triggerPath: name, arrayName: runtime.arrayPath, arrayIndex: index, rowKey: runtime.rowKey }
+
+                if (typeof actionCall === "function") {
+                    actionCall(
+                        actionTarget,
+                        actionArgs,
+                        name
+                    );
+                } else {
+                    let targetField = form.query(actionTarget).take();
+                    if (targetField) {
+                        targetField.getState(s => {
+                            let fn = s.fieldActions?.[actionType];
+                            if (typeof fn === "function") {
+                                fn(actionArgs);
+                            } else {
+                                console.warn("action not found in this field:" + actionType)
+                            }
+                        })
+                    }
+                }
             }
         }
         triggerItemActionRequest(state, { ...args }, form);
