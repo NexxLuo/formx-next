@@ -6,7 +6,7 @@ import {
     useFieldSchema,
     connect
 } from "@formily/react";
-import { Field, FormPath } from "@formily/core";
+import { Field, FormPath, registerValidateRules } from "@formily/core";
 import { getParentPath } from "../core/utils";
 import { getRegistry } from "./registry";
 
@@ -104,6 +104,12 @@ export const getRegistryComponents = () => {
             }[item.originalType] || "";
 
         let Cmp = connect(createCustomField(item.original, cls));
+
+        //自定义组件通过options.validator注入验证规则
+        if (typeof item.options?.validator === "function") {
+            let validator_key = k + "_validator";
+            registerValidateRules({ [validator_key]: item.options.validator });
+        }
 
         components[k] = Cmp;
     }

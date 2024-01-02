@@ -7,6 +7,7 @@ import {
 import { SchemaValidatorKeys } from "@formily/json-schema/esm/shared"
 import {
     validate as validateBuiltIn,
+    getValidateRules as getValidateRulesBuiltIn
 } from '@formily/validator'
 
 function isNullOrEmpty(v) {
@@ -18,7 +19,8 @@ async function validateInternal(_value, context) {
     if (!rule) {
         return "";
     }
-    let res = await validateBuiltIn(_value, [rule], {});
+    let { id, form, ..._rule } = rule;
+    let res = await validateBuiltIn(_value, [_rule], { context: { id, form } });
     let msg = "";
     if (res?.error instanceof Array) {
         msg = res.error.join(",");
@@ -196,6 +198,7 @@ async function validateArrayTable(value, rule, context) {
                         let schema = {
                             name: _address,
                             extraProps,
+                            componentName: _schema["x-component"],
                             required:
                                 _schema.required === true ||
                                 _options?.[k]?.required === true
@@ -408,6 +411,19 @@ function getValidateRules(schema, instance, _evaluator, context) {
             });
         }
     }
+
+
+    //自定义组件会自动注册验证规则但不会体现在schema中，此处需要额外处理，将验证规则注入到字段中
+    let allValidateRules = getValidateRulesBuiltIn();
+    //验证规则名称固定格式为：组件名_validator
+    let custom_validator_key = schema.componentName?.toLowerCase() + "_validator";
+    if (typeof allValidateRules[custom_validator_key] === "function") {
+        rules.push({
+            validator: validateInternal,
+            validatorContext: { rule: { [custom_validator_key]: true, id: name, form: instance } }
+        });
+    }
+    //
 
     return rules;
 }
