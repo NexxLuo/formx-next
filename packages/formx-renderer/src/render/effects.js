@@ -34,7 +34,7 @@ function formatField(field, options) {
         required: field.required,
         extraProps,
         componentProps,
-        componentName: extraProps?.name,
+        componentName: field.componentType || extraProps?.name,
         displayName: field.displayName,
         unmounted: field.unmounted,
         mounted: field.mounted,
