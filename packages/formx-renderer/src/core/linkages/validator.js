@@ -403,6 +403,7 @@ function getValidateRules(schema, instance, _evaluator, context) {
         if (validateAsyncApi) {
             rules.push({
                 validator: asyncValidator,
+                triggerType: "onBlur",
                 validatorContext: {
                     api: validateAsyncApi,
                     message: validateAsyncMessage,
