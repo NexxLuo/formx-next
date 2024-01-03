@@ -395,16 +395,33 @@ export default class FormActions {
 
     transformCodeValues = values => {
         if (typeof values === "object" && values) {
-            let realValues = {};
-            Reflect.ownKeys(values).forEach(k => {
-                let id = this.getFieldSchemasByCode(k)[0]?.name;
-                if (id) {
-                    realValues[id] = values[k];
-                } else {
-                    realValues[k] = values[k];
-                }
-            });
-            return realValues;
+            if (values instanceof Array) {
+                let arr = [];
+                values.forEach(d => {
+                    let item = {};
+                    Reflect.ownKeys(d).forEach(k => {
+                        let id = this.getFieldSchemasByCode(k)[0]?.name;
+                        if (id) {
+                            item[id] = d[k];
+                        } else {
+                            item[k] = d[k];
+                        }
+                    });
+                    arr.push(item)
+                })
+                return arr;
+            } else {
+                let realValues = {};
+                Reflect.ownKeys(values).forEach(k => {
+                    let id = this.getFieldSchemasByCode(k)[0]?.name;
+                    if (id) {
+                        realValues[id] = values[k];
+                    } else {
+                        realValues[k] = values[k];
+                    }
+                });
+                return realValues;
+            }
         }
     };
 
