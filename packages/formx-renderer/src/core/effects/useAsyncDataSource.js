@@ -179,10 +179,15 @@ const getOutputTargetValues = ({ output, pathVars, item, form }) => {
             //如果目标表单项没有值方进行设置，否则会导致被覆盖
             let hasValue = false;
             if (field) {
-                let { allowOverwriteValue = false } =
-                    field.componentProps?.["x-extra-props"] || {};
+                let extraProps = field.componentProps?.["x-extra-props"] || {};
+                let { allowOverwriteValue = false } = extraProps;
                 if (!allowOverwriteValue) {
                     hasValue = typeof field.value !== "undefined";
+                }
+                if (extraProps.resetInitialValueWhenEmpty === true) {
+                    if (field.value === null || field.value === "") {
+                        hasValue = false;
+                    }
                 }
             }
             if (!hasValue) {

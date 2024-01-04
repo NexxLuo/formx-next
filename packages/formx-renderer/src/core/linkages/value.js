@@ -188,6 +188,13 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
     let name = schema.name;
 
     let hasValue = typeof schema.value !== "undefined";
+    
+    //如果开启了resetInitialValueWhenEmpty，则值为空时仍然重置值为初始值
+    if (extraProps.resetInitialValueWhenEmpty === true) {
+        if (schema.value === null || schema.value === "") {
+            hasValue = false;
+        }
+    }
 
     let expressionVar = getExpressionVar(name);
 
