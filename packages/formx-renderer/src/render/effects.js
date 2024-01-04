@@ -366,6 +366,13 @@ export const createEffects = ($, instance, _consumer) => {
         });
     });
 
+    //异步数据值加载完成后支持触发动作
+    $("onAsyncValueComplete").subscribe(({ name }, form) => {
+        let field = form.query(name).take();
+        let schema = formatField(field);
+        triggerItemActions(schema, {}, form);
+    });
+
     //列表数据删除事件
     $("onListItemDelete").subscribe(p => {
         let fn = getContext().onListItemDelete;
