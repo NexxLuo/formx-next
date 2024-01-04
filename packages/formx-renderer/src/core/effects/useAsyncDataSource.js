@@ -111,7 +111,7 @@ export const useAsyncData = (form, { name, service, extra }, filter) => {
             //注意不要覆盖componentProps
             state.componentProps = { ...state.componentProps };
             //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-            notify("requestAsyncDataSourceComplete", {
+            notify("onAsyncDataSourceComplete", {
                 name,
                 payload: res
             });
@@ -154,7 +154,7 @@ export const useAsyncListData = (
 
 
         //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-        notify("requestListDataSourceComplete", {
+        notify("onAsyncDataSourceComplete", {
             name,
             payload: res
         });
@@ -237,7 +237,7 @@ export const useAsyncValue = (form, { pathVars, name, service, extra }) => {
             //
 
             //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-            notify("requestAsyncValueComplete", {
+            notify("onAsyncValueComplete", {
                 name,
                 payload: res
             });
