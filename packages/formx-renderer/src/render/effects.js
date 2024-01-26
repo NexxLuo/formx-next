@@ -18,6 +18,9 @@ import {
 import { mapSchemaItems, getItemIndex, decryptString } from "../core/utils";
 
 import { setActions, triggerItemActions } from "../core/actions";
+import { EventFlow } from "../extensions/event-flow";
+import message from "../extensions/message";
+
 
 function formatField(field, options) {
     let componentProps = clone(field.componentProps || {});
@@ -80,6 +83,25 @@ export const createEffects = ($, instance, _consumer) => {
     }
     //创建表达式计算实例，并传递上下文
     let _evaluator = createEvaluator(instance);
+
+    function getEventFlowConfig() {
+        let { formSchema } = _consumer();
+        let arr = [];
+        let data = formSchema.additionalProperties.formEventFlow;
+        if (data instanceof Array) {
+            arr = data
+        }
+        return arr;
+    }
+
+    let _eventFlow = new EventFlow({
+        data: getEventFlowConfig(),
+        form: instance,
+        evaluator: _evaluator,
+        onReject: (msg) => {
+            message.error(msg)
+        }
+    });
 
     //由于unmounted后field.selfErrors会被清除
     //故在此记录以便表格非编辑状态下展示错误信息
@@ -259,6 +281,8 @@ export const createEffects = ($, instance, _consumer) => {
             );
         }
 
+        _eventFlow.dispatch(schema.name, "onValueChange");
+
     });
 
     $("onFieldValueDeferLoad").subscribe((field, form) => {
@@ -296,6 +320,8 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             getContext().options
         );
+
+        _eventFlow.dispatch(schema.name, "onInput");
     });
 
     //处理级联隐藏
@@ -308,6 +334,8 @@ export const createEffects = ($, instance, _consumer) => {
         if (payload?.cancelBubble === true && event?.stopPropagation) {
             event.stopPropagation();
         }
+
+        _eventFlow.dispatch(schema.name, "onClick");
 
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onClick", {
@@ -350,6 +378,9 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onSearch").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
+
+        _eventFlow.dispatch(schema.name, "onSearch");
+
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onSearch", {
             name: schema.name,
@@ -423,6 +454,11 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             itemsIndex
         );
+
+        _eventFlow.dispatch(schema.name, "onConfirm", {
+            arrayIndex: itemsIndex,
+            values: [true, "", { ...payload.data }]
+        });
     });
     //
 };
