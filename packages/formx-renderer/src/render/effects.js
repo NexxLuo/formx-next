@@ -87,7 +87,7 @@ export const createEffects = ($, instance, _consumer) => {
     function getEventFlowConfig() {
         let { formSchema } = _consumer();
         let arr = [];
-        let data = formSchema.additionalProperties.formEventFlow;
+        let data = formSchema.additionalProperties?.formEventFlow;
         if (data instanceof Array) {
             arr = data
         }
