@@ -369,6 +369,9 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onSelect").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
+
+        _eventFlow.dispatch(schema.name, "onSelect");
+
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onSelect", {
             name: schema.name,
@@ -390,6 +393,9 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onClose").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
+
+        _eventFlow.dispatch(schema.name, "onClose");
+
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onClose", {
             name: schema.name,
@@ -401,6 +407,9 @@ export const createEffects = ($, instance, _consumer) => {
     $("onAsyncValueComplete").subscribe(({ name }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
+
+        _eventFlow.dispatch(schema.name, "onAsyncValueLoad");
+
         triggerItemActions(schema, {}, form);
     });
 
@@ -410,13 +419,21 @@ export const createEffects = ($, instance, _consumer) => {
         if (typeof fn === "function") {
             fn(p);
         }
+
+        _eventFlow.dispatch(schema.name, "onListItemDelete");
+
     });
     //
 
     $("onDataSourceReload").subscribe(({ name, payload }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
+
+
         setTableDataSource(field, schema, form, {}, { triggerType: "fieldAction" });
+
+        _eventFlow.dispatch(schema.name, "onListDataSourceReload");
+
     });
 
     //列表分页
@@ -428,6 +445,8 @@ export const createEffects = ($, instance, _consumer) => {
         setTableDataSource(field, schema, form, extraParameters, {
             triggerType: "pageChange"
         }, pagination?.isServerSidePagination !== true);
+
+        _eventFlow.dispatch(schema.name, "onListPageChange");
 
     });
     //
