@@ -542,11 +542,18 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
 /** 在表单mount完成后再进行明细表数据加载，明细表数据较影响初始化mout效率 */
 const ArrayValues_Defer_Load = true;
 
+function deleteEmptyValue(values, k, bl) {
+    if (bl === true && values[k] === null) {
+        Reflect.deleteProperty(values, k)
+    }
+}
+
 /**
  * 此处为外部传递的嵌套数据，但是表单需接收平级数据，顾需要进行展平处理
  * @param {*} obj
+ * @param {boolean} ignoreSetEmptyValue 是否忽略空(null)值
  */
-function getValuesFromJson(obj) {
+function getValuesFromJson(obj, ignoreSetEmptyValue = false) {
     //需要深拷贝，否则第二次设置表单数据后，修改表单数据时会导致外部的源数据发生变化
     let _obj = clone(obj);
     let values = {};
@@ -567,6 +574,7 @@ function getValuesFromJson(obj) {
                     } else {
                         values[k] = value;
                     }
+                    deleteEmptyValue(values, k, ignoreSetEmptyValue);
                 } else if (typeof value === "object" && value) {
                     //数据如果为object，则进行数据展平
                     for (const sk in value) {
@@ -587,11 +595,13 @@ function getValuesFromJson(obj) {
                                 }
                             } else {
                                 values[sk] = value[sk];
+                                deleteEmptyValue(values, sk, ignoreSetEmptyValue)
                             }
                         }
                     }
                 } else {
                     values[k] = value;
+                    deleteEmptyValue(values, k, ignoreSetEmptyValue)
                 }
             }
         }
@@ -835,7 +845,7 @@ class Renderer extends React.Component {
             let _schema = nextProps.schema;
 
             let nextState = {
-                values: getValuesFromJson(nextProps.values, nextProps.schema)
+                values: getValuesFromJson(nextProps.values, nextProps.ignoreSetEmptyValue)
             };
 
             if (_schema !== prevState.sourceSchema) {
@@ -1219,14 +1229,14 @@ class Renderer extends React.Component {
         }
     }
 
-    transformValues = (data, schema) => {
-        return getValuesFromJson(data, schema);
+    transformValues = (data) => {
+        return getValuesFromJson(data);
     };
 
     setData = data => {
         let ins = this.formInstance;
         if (ins) {
-            let { allValues: values } = getValuesFromJson(data, this.state.sourceSchema);
+            let { allValues: values } = getValuesFromJson(data);
             //如果不清除缓存，会导致获取到之前缓存的数据，如：
             //表格显示隐藏，隐藏后暂存，再次让表格显示，表格获取到了之前的数据，实际上此条数据已经被删除
             //清除caches也可以，但是暂存时表格数据超过2000行可能导致Reaction报错 RangeError: Maximum call stack size exceeded
@@ -1310,14 +1320,21 @@ class Renderer extends React.Component {
         })
 
         if (bl) {
-            this.formInstance.setValues(_arrayValues, "merge");
             let formInstance = this.formInstance;
-            Reflect.ownKeys(_arrayValues).forEach(k => {
-                let field = formInstance.query(k).take();
-                if (field != null) {
-                    formInstance.notify("onFieldValueDeferLoad", field, formInstance)
-                }
-            })
+            if (this.props.ignoreSetEmptyValue === true) {
+                let formActions = this.formActions;
+                Reflect.ownKeys(_arrayValues).forEach(k => {
+                    formActions.setValue(k, _arrayValues[k], null, true);
+                })
+            } else {
+                formInstance.setValues(_arrayValues, "merge");
+                Reflect.ownKeys(_arrayValues).forEach(k => {
+                    let field = formInstance.query(k).take();
+                    if (field != null) {
+                        formInstance.notify("onFieldValueDeferLoad", field, formInstance)
+                    }
+                })
+            }
         }
 
         if (typeof this.props.onDataInit === "function") {
@@ -1405,7 +1422,8 @@ class Renderer extends React.Component {
 Renderer.defaultProps = {
     disabled: false,
     readOnly: false,
-    enabledSmallLayoutSize: false
+    enabledSmallLayoutSize: false,
+    ignoreSetEmptyValue: false
 };
 Renderer.propTypes = {
     components: PropTypes.object.isRequired,
@@ -1434,7 +1452,9 @@ Renderer.propTypes = {
     onSchemaChange: PropTypes.func,
     onInit: PropTypes.func,
     onDataInit: PropTypes.func,
-    onDataChange: PropTypes.func
+    onDataChange: PropTypes.func,
+    /** 是否忽略设置空值(null)数据，忽略后此字段会正常响应公式联动 */
+    ignoreSetEmptyValue: PropTypes.bool
 };
 
 export default Renderer;
