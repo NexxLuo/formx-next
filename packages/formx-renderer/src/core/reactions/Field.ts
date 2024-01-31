@@ -176,13 +176,13 @@ export class ArrayValues {
     return fields;
   };
 
-  setData = (data: any[]) => {
+  setData = (data: any[], nullAsDefault = false) => {
     if (data instanceof Array && data.length > 0) {
       let columns = this.columns;
       let _evaluator = this.evaluator;
       let _form = this.form;
 
-      for (let i = 0; i < data.length; i++) {}
+      for (let i = 0; i < data.length; i++) { }
       data.forEach((d, i) => {
         columns.forEach(item => {
           let k = item.name;
@@ -190,8 +190,13 @@ export class ArrayValues {
           let _value = this.getColumnValue(k, d, i);
           let field = this.graph[_path];
 
+          let bl = typeof _value === "undefined";
+          if (nullAsDefault === true && _value === null) {
+            bl = true;
+          }
+
           //如果当前行无值，则应该计算出配置的默认值
-          if (typeof _value === "undefined") {
+          if (bl) {
             _value = getValue(
               item.initialValue,
               _form,
@@ -209,9 +214,15 @@ export class ArrayValues {
     }
   };
 
-  init = (data: any[], dataIndexMap = {}) => {
+  /**
+   * 
+   * @param data 数据
+   * @param dataIndexMap 字段key和dataIndex的对应关系
+   * @param nullAsDefault null值是否视为需要加载默认值
+   */
+  init = (data: any[], dataIndexMap = {}, nullAsDefault = false) => {
     this.createFields(data, dataIndexMap);
-    this.setData(this.rawData);
+    this.setData(this.rawData, nullAsDefault);
   };
 
   /** 此方法只会处理联动值和同步的默认值计算，不会处理接口数据值 */
