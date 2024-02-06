@@ -879,7 +879,7 @@ export default class FormActions {
                         address: _address,
                         messages: messages,
                         path: _address,
-                        type: "error",
+                        type: "custom",
                         triggerType: "onInput",
                         code: "ValidateError"
                     });
@@ -892,10 +892,6 @@ export default class FormActions {
                     );
                     return;
                 }
-
-                arrayTable.data = {
-                    validateResult: _errors
-                };
 
                 setTableErrorsToExtraField(arrayPath, instance, _errors);
             }

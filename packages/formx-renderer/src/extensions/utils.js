@@ -659,7 +659,59 @@ export function getLabelMap(dataSource) {
 export function setTableErrorsToExtraField(arrayPath, instance, errors) {
     let extraField = instance.query("__DATA__").take();
 
-    let res = errors;
+    let arrayTable = instance.query(arrayPath).take();
+    let arrayValue = arrayTable?.value;
+
+    if (arrayTable) {
+        let errorsMap = {};
+        if (errors instanceof Array) {
+            errors.forEach(d => {
+                let { index: i } = getItemIndex(d.path);
+                if (errorsMap[i] instanceof Array) {
+                    errorsMap[i].push(d);
+                } else {
+                    errorsMap[i] = [d];
+                }
+            })
+        }
+        if (arrayValue instanceof Array && arrayValue.length > 0) {
+            arrayValue.forEach((d, i) => {
+                let e = errorsMap[i];
+                if (e instanceof Array && e.length > 0) {
+                    let item = d;
+                    let nextErrors = [];
+                    let prevErrors = item.__ERRORS__;
+                    if (prevErrors instanceof Array) {
+                        prevErrors.forEach(_d => {
+                            if (_d.type === "custom") {
+                                nextErrors.push(_d);
+                            }
+                        })
+                    }
+                    e.forEach(_d => {
+                        nextErrors.push(_d);
+                    })
+                    item.__ERRORS__ = nextErrors;
+                } else {
+                    let nextErrors = [];
+                    let prevErrors = d.__ERRORS__;
+                    if (prevErrors instanceof Array) {
+                        prevErrors.forEach(_d => {
+                            let columnField = instance.query(_d.path).take();
+                            if (!columnField) {
+                                nextErrors.push(_d);
+                            }
+                        })
+                    }
+                    d.__ERRORS__ = nextErrors;
+                }
+            })
+            arrayTable.setState(s => {
+                s.componentProps = { ...s.componentProps }
+            });
+        }
+    }
+
     if (extraField) {
         let prevErrors = extraField.selfErrors;
         let nextErrors = [];
@@ -676,10 +728,14 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
                 }
             });
 
-            if (res instanceof Array) {
-                if (res.length > 0) {
-                    res.forEach(d => {
-                        currentTableErrors.push(d);
+            if (arrayValue instanceof Array) {
+                if (arrayValue.length > 0) {
+                    arrayValue.forEach(d => {
+                        if (d.__ERRORS__ instanceof Array) {
+                            d.__ERRORS__.forEach(_d => {
+                                currentTableErrors.push(_d);
+                            })
+                        }
                     });
                 } else {
                     currentTableErrors = [];

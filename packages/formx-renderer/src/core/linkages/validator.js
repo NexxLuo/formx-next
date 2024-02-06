@@ -271,11 +271,7 @@ async function validateArrayTable(value, rule, context) {
         }
     }
 
-    let arrayPath = field.address.toString();
-    instance.query(arrayPath).take().data = {
-        validateResult: res
-    };
-    setTableErrorsToExtraField(arrayPath, instance, res);
+    setTableErrorsToExtraField(listPath, instance, res);
     return "";
 }
 
