@@ -677,12 +677,13 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
         if (arrayValue instanceof Array && arrayValue.length > 0) {
             arrayValue.forEach((d, i) => {
                 let e = errorsMap[i];
+                let item = d;
+                let nextErrors = [];
+                let prevErrors = item.__ERRORS__;
                 if (e instanceof Array && e.length > 0) {
-                    let item = d;
-                    let nextErrors = [];
-                    let prevErrors = item.__ERRORS__;
                     if (prevErrors instanceof Array) {
                         prevErrors.forEach(_d => {
+                            //自定义注入的表格错误，始终保留
                             if (_d.type === "custom") {
                                 nextErrors.push(_d);
                             }
@@ -691,19 +692,21 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors) {
                     e.forEach(_d => {
                         nextErrors.push(_d);
                     })
-                    item.__ERRORS__ = nextErrors;
                 } else {
-                    let nextErrors = [];
-                    let prevErrors = d.__ERRORS__;
                     if (prevErrors instanceof Array) {
                         prevErrors.forEach(_d => {
                             let columnField = instance.query(_d.path).take();
+                            //如果表格行进入过编辑状态，则删除自定义错误
                             if (!columnField) {
                                 nextErrors.push(_d);
                             }
                         })
                     }
-                    d.__ERRORS__ = nextErrors;
+                }
+                if (nextErrors.length > 0) {
+                    item.__ERRORS__ = nextErrors;
+                } else {
+                    Reflect.deleteProperty(item, "__ERRORS__")
                 }
             })
             arrayTable.setState(s => {
