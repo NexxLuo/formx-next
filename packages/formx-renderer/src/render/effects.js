@@ -103,27 +103,6 @@ export const createEffects = ($, instance, _consumer) => {
         }
     });
 
-    //由于unmounted后field.selfErrors会被清除
-    //故在此记录以便表格非编辑状态下展示错误信息
-    $("onFieldValidateEnd").subscribe(field => {
-        if (field.mounted) {
-            field.setState(state => {
-                let prev = state.data;
-                let next = {};
-                if (prev) {
-                    next = {
-                        ...prev,
-                        selfErrors: field.selfErrors
-                    };
-                } else {
-                    next = {
-                        selfErrors: field.selfErrors
-                    };
-                }
-                state.data = next;
-            });
-        }
-    });
 
     $("onFieldInit").subscribe((field, form) => {
         let schema = formatField(field, getContext().options);
@@ -420,7 +399,6 @@ export const createEffects = ($, instance, _consumer) => {
             fn(p);
         }
 
-        _eventFlow.dispatch(schema.name, "onListItemDelete");
 
     });
     //
