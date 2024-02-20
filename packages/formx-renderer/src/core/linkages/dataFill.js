@@ -234,7 +234,8 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
                         //如果存在字段映射，数组类型数据则进行字段对应
                         let valueFieldMap = d.fieldMap;
                         if (value instanceof Array) {
-                            value.forEach(d => {
+                            value = value.map(d => {
+                                let item = {};
                                 for (const k in valueFieldMap) {
                                     let fm = valueFieldMap[k];
                                     let _value = d[k];
@@ -245,10 +246,12 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
                                             d
                                         );
                                     }
-                                    d[fm.field] = _value;
+                                    //数据联动未配置目标回填字段时，则不设置此字段至目标表格
+                                    if (!isNull(fm.field)) {
+                                        item[fm.field] = _value;
+                                    }
                                 }
-                                //避免追加模式，表格rowKey重复
-                                Reflect.deleteProperty(d, "__KEY__");
+                                return item;
                             });
                         }
 
