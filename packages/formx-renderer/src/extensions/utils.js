@@ -218,6 +218,13 @@ export const requestApiById = async (params, pagination) => {
                 requestInfo
             };
         }
+    }).catch((e) => {
+        return {
+            State: 0,
+            Message: e?.message,
+            Data: null,
+            requestInfo
+        };
     });
 
     let arr = res.Data || [];
@@ -334,6 +341,12 @@ export const requestValidateApiById = async params => {
                 Code: response.status
             };
         }
+    }).catch((e) => {
+        return {
+            State: 0,
+            Message: e?.message,
+            Data: null
+        };
     });
 
     let msg = "";
@@ -535,6 +548,12 @@ export const requestPostApiById = async params => {
                 Code: response.status
             };
         }
+    }).catch((e) => {
+        return {
+            State: 0,
+            Message: e?.message,
+            Data: null
+        };
     });
 
     let msg = "";
