@@ -4,7 +4,9 @@ import {
     requestApiById,
     getLabelMap,
     setTableErrorsToExtraField,
-    isResponsiveSizeSmall
+    isResponsiveSizeSmall,
+    getRequestParams,
+    getFormEnvValue
 } from "../extensions/utils";
 import { batch, untracked } from "@formily/reactive";
 
@@ -202,6 +204,49 @@ export default class FormActions {
             } else {
                 resolve(data);
                 console.warn("requestDataSource :", "dataSourceId not found");
+            }
+        });
+    };
+
+    requestChildrenDataSource = (idOrCode, parentId) => {
+        let instance = this.getFormInstance();
+        return new Promise((resolve) => {
+            let fieldSchema =
+                this.getFieldSchema(idOrCode) ||
+                this.getFieldSchemaByCode(idOrCode);
+            let dataSourceConfig =
+                fieldSchema?.["x-component-props"]?.["x-extra-props"]
+                    ?.childrenDataSource;
+            let apiData = null;
+
+            if (dataSourceConfig) {
+                apiData = dataSourceConfig;
+            }
+            if (apiData) {
+                let _params = {
+                    id: apiData.dataSourceId,
+                    input: getRequestParams(
+                        apiData.input,
+                        instance,
+                        {
+                            parentId
+                        },
+                        getFormEnvValue,
+                        {}
+                    ),
+                    output: apiData.output
+                };
+                requestApiById(_params).then(res => {
+                    resolve(res.data);
+                }).catch(() => {
+                    resolve([])
+                });
+            } else {
+                resolve([]);
+                console.warn(
+                    "requestChildrenDataSource :",
+                    "dataSource configration not found"
+                );
             }
         });
     };

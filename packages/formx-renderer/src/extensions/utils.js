@@ -1,24 +1,24 @@
 import { Evaluator } from "../core/expression";
 import { getItemIndex, guid } from "../core/utils";
 
-export function createEvaluator(form, options) {
-    function getEnv(k, injectEnvs) {
-        try {
-            if (
-                typeof injectEnvs === "object" &&
-                injectEnvs &&
-                injectEnvs.hasOwnProperty(k)
-            ) {
-                return injectEnvs[k];
-            }
-            let formActions = form.getFormState().formActions;
-            return formActions.formEnvs.getItemValue(k);
-        } catch (error) {
-            console.error("get environment value error :", error);
-            return null;
+export function getFormEnvValue(form, k, injectEnvs) {
+    try {
+        if (
+            typeof injectEnvs === "object" &&
+            injectEnvs &&
+            injectEnvs.hasOwnProperty(k)
+        ) {
+            return injectEnvs[k];
         }
+        let formActions = form.getFormState().formActions;
+        return formActions.formEnvs.getItemValue(k);
+    } catch (error) {
+        console.error("get environment value error :", error);
+        return null;
     }
+}
 
+export function createEvaluator(form, options) {
     function callFunc() {
         let formActions = form.getFormState().formActions;
         try {
@@ -74,7 +74,7 @@ export function createEvaluator(form, options) {
                 return v;
             },
             env: k => {
-                return getEnv(k);
+                return getFormEnvValue(form, k);
             },
             CallFunc: callFunc
         },
@@ -265,6 +265,7 @@ export const requestApiById = async (params, pagination) => {
     let labelField = outputMap["label"];
     let valueField = outputMap["value"];
     let parentField = outputMap["parent"];
+    let leafField = outputMap["isLeaf"];
 
     if (hasFieldMap && arr instanceof Array) {
         let _arr = [];
@@ -273,6 +274,7 @@ export const requestApiById = async (params, pagination) => {
                 let _value = d[valueField];
                 let _parent = d[parentField];
                 let _label = d[labelField];
+                let _leaf = d[leafField];
 
                 //数据源返回数字时转为字符串，避免下拉控件匹配不到值
                 if (typeof _value === "number") {
@@ -290,6 +292,10 @@ export const requestApiById = async (params, pagination) => {
 
                 if (labelField) {
                     d.label = _label ?? "";
+                }
+
+                if (typeof _leaf === "boolean") {
+                    d.isLeaf = _leaf;
                 }
             }
             _arr.push(d);
