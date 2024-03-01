@@ -217,6 +217,7 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             _context
         );
+        _eventFlow.dispatch(schema.name, "onMount")
     });
 
     $("onFieldChange", "*", ["visited"]).subscribe((field, form) => {
@@ -232,6 +233,12 @@ export const createEffects = ($, instance, _consumer) => {
                     triggerIndex
                 );
             }
+        }
+    });
+
+    $("onFieldChange", "*", ["active"]).subscribe((field) => {
+        if (field.mounted) {
+            _eventFlow.dispatch(field.path.toString(), field.active === true ? "onFocus" : "onBlur")
         }
     });
 
@@ -314,8 +321,6 @@ export const createEffects = ($, instance, _consumer) => {
             event.stopPropagation();
         }
 
-        _eventFlow.dispatch(schema.name, "onClick");
-
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onClick", {
             name: schema.name,
@@ -344,52 +349,48 @@ export const createEffects = ($, instance, _consumer) => {
                 }
             }
         }
+        _eventFlow.dispatch(schema.name, "onClick");
     });
 
     $("onSelect").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
-
-        _eventFlow.dispatch(schema.name, "onSelect");
 
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onSelect", {
             name: schema.name,
             payload
         });
+        _eventFlow.dispatch(schema.name, "onSelect");
     });
 
     $("onSearch").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
-
-        _eventFlow.dispatch(schema.name, "onSearch");
 
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onSearch", {
             name: schema.name,
             payload
         });
+        _eventFlow.dispatch(schema.name, "onSearch");
     });
 
     $("onClose").subscribe(({ payload, field }, form) => {
         let schema = formatField(field);
-
-        _eventFlow.dispatch(schema.name, "onClose");
-
         triggerItemActions(schema, {}, form);
         form.notify(schema.name + "_" + "onClose", {
             name: schema.name,
             payload
         });
+        _eventFlow.dispatch(schema.name, "onClose");
     });
 
     //异步数据值加载完成后支持触发动作
     $("onAsyncValueComplete").subscribe(({ name }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-
+        triggerItemActions(schema, {}, form);
         _eventFlow.dispatch(schema.name, "onAsyncValueLoad");
 
-        triggerItemActions(schema, {}, form);
     });
 
     //列表数据删除事件
@@ -398,20 +399,14 @@ export const createEffects = ($, instance, _consumer) => {
         if (typeof fn === "function") {
             fn(p);
         }
-
-
     });
     //
 
     $("onDataSourceReload").subscribe(({ name, payload }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-
-
         setTableDataSource(field, schema, form, {}, { triggerType: "fieldAction" });
-
         _eventFlow.dispatch(schema.name, "onListDataSourceReload");
-
     });
 
     //列表分页
@@ -458,4 +453,11 @@ export const createEffects = ($, instance, _consumer) => {
         });
     });
     //
+
+    $("onCancel").subscribe(({ name }, form) => {
+        let field = form.query(name).take();
+        let schema = formatField(field);
+        _eventFlow.dispatch(schema.name, "onClose");
+    })
+
 };

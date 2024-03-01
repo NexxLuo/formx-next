@@ -1,8 +1,8 @@
-import type { Form, Field } from "@formily/core";
+import type { Field } from "@formily/core";
 import { requestApiById } from "./utils";
 import { linkageDataFill } from "../core/linkages/dataFill";
-import { linkageProps } from "../core/linkages/props";
 import { parseStyleString } from "../core/linkages/utils";
+import { getItemIndex } from "../core/utils";
 
 type ActionInfo = {
     type: string;
@@ -24,6 +24,9 @@ type ActionRuntimeContext = {
     form: any;
     evaluator: any;
     source: string;
+    expressionVar: {
+        items: number;
+    };
     runtimeParams: any;
     onReject: (msg: string) => void;
 };
@@ -79,13 +82,28 @@ async function dispatchAction(
     }: ActionInfo,
     actionContext: ActionRuntimeContext
 ) {
-    let { form, evaluator, source, onReject, runtimeParams } = actionContext;
+    let { form, evaluator, source, onReject, expressionVar, runtimeParams } =
+        actionContext;
     const actions = {
         queryData: function (name) {
             form.notify("onDataSourceReload", {
                 name,
                 payload: { pageIndex: 1 }
             });
+        },
+        setColumnVisible: function (name: string, args: boolean = false) {
+            if (typeof args === "boolean") {
+                let { parentKey: listPath, key: itemKey } = getItemIndex(name);
+                if (listPath) {
+                    let list = form.getFieldState(listPath);
+                    if (list && list.fieldActions) {
+                        let fn = list.fieldActions.toggleColumnVisibility;
+                        if (typeof fn === "function") {
+                            fn(itemKey, args);
+                        }
+                    }
+                }
+            }
         },
         filterData: function (name, args, sourcename) {
             let v = form.getFieldState(sourcename)?.value;
@@ -163,7 +181,7 @@ async function dispatchAction(
             });
         },
         callExpression: function (name, expr) {
-            let res = evaluator.evaluate(expr, {});
+            let res = evaluator.evaluate(expr, expressionVar);
             return res;
         },
         setValue: function (name, v) {
@@ -327,7 +345,7 @@ async function dispatchAction(
             _params.dataFill = dataFill;
         } else {
             if (typeof params === "string" && params.length > 0) {
-                _params = evaluator.evaluate(params, {});
+                _params = evaluator.evaluate(params, expressionVar);
             }
         }
 
@@ -364,6 +382,45 @@ async function dispatchAction(
 
     return res;
 }
+
+const transformItemsPath = (
+    sourceFieldPath: string,
+    targetFieldPath: string,
+    form: any
+) => {
+    let path = targetFieldPath;
+
+    let index = -1;
+
+    if (
+        typeof sourceFieldPath === "string" &&
+        sourceFieldPath &&
+        typeof targetFieldPath === "string" &&
+        targetFieldPath
+    ) {
+        let source = getItemIndex(sourceFieldPath);
+        let target = getItemIndex(targetFieldPath);
+
+        if (target.index === -1 && targetFieldPath.indexOf(".items.") > -1) {
+            if (target.parentKey && target.parentKey === source.parentKey) {
+                index = source.index;
+            } else {
+                index = getItemIndex(targetFieldPath, form).index;
+            }
+        }
+    }
+
+    if (index > -1) {
+        path = path.replace(".items.", "." + index.toString() + ".");
+    }
+
+    return {
+        targetPath: path,
+        expressionVar: {
+            items: index
+        }
+    };
+};
 
 export class EventFlow {
     data: EventFlowConfigType[] = [];
@@ -433,12 +490,15 @@ export class EventFlow {
                 if (d.type === type) {
                     if (d.actions instanceof Array) {
                         d.actions.forEach(_d => {
+                            let { targetPath, expressionVar } =
+                                transformItemsPath(target, _d.target, form);
+
                             dispatchAction(
                                 {
                                     type: _d.type,
                                     after: _d.after,
                                     before: _d.before,
-                                    target: _d.target,
+                                    target: targetPath,
                                     params: _d.params,
                                     expression: _d.expression,
                                     api: _d.api,
@@ -449,6 +509,7 @@ export class EventFlow {
                                     form,
                                     evaluator: _evaluator,
                                     source: target,
+                                    expressionVar,
                                     runtimeParams: runtimeParams,
                                     onReject
                                 }
