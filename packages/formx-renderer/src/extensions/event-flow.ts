@@ -34,7 +34,7 @@ type ActionRuntimeContext = {
 type EventTypes = string;
 
 type EventFlowConfigType = {
-    source: string;
+    source: string | string[];
     events: { type: string; actions: ActionInfo[] }[];
 };
 
@@ -453,69 +453,92 @@ export class EventFlow {
             }
         }
 
-        let events = arr.find(d => {
-            let _source = d.source;
-            if (typeof _source === "string") {
-                let arr = _source.split(".");
-                _source = arr[arr.length - 1];
-                if (typeof _source === "string") {
-                    _source = _source.replace(/additionalProperties_/g, "");
-                    _source = _source.replace(/toolbar_/g, "");
-                }
+        let configs = arr.filter(d => {
+            let _sources = [];
+            if (typeof d.source === "string" && d.source) {
+                _sources.push(d.source);
+            }
+            if (d.source instanceof Array) {
+                _sources = d.source;
+            }
+            let bl =
+                _sources.findIndex(_d => {
+                    let _source = _d;
+                    if (typeof _d === "string") {
+                        let arr = _d.split(".");
+                        _source = arr[arr.length - 1];
+                        if (typeof _source === "string") {
+                            _source = _source.replace(
+                                /additionalProperties_/g,
+                                ""
+                            );
+                            _source = _source.replace(/toolbar_/g, "");
+                        }
+                    }
+                    return _source === _target;
+                }) > -1;
+
+            return bl;
+        });
+
+        if (configs instanceof Array && configs.length > 0) {
+            let form = this.form,
+                _evaluator = this.evaluator,
+                onReject = this.onReject;
+
+            let runtime: any = {};
+            let fieldState = form.query(target).take();
+            if (fieldState) {
+                runtime = fieldState.componentProps?.["x-runtime"] || {};
             }
 
-            return _source === _target;
-        })?.events;
+            let runtimeParams = {
+                triggerPath: target,
+                arrayName: runtime.arrayPath,
+                arrayIndex: runtime.index,
+                rowKey: runtime.rowKey,
+                ...(resetArgs || {})
+            };
 
-        let form = this.form,
-            _evaluator = this.evaluator,
-            onReject = this.onReject;
+            configs.forEach(config => {
+                let events = config.events;
+                if (events instanceof Array) {
+                    events.forEach(d => {
+                        if (d.type === type) {
+                            if (d.actions instanceof Array) {
+                                d.actions.forEach(_d => {
+                                    let { targetPath, expressionVar } =
+                                        transformItemsPath(
+                                            target,
+                                            _d.target,
+                                            form
+                                        );
 
-        let runtime: any = {};
-        let fieldState = form.query(target).take();
-        if (fieldState) {
-            runtime = fieldState.componentProps?.["x-runtime"] || {};
-        }
-
-        let runtimeParams = {
-            triggerPath: target,
-            arrayName: runtime.arrayPath,
-            arrayIndex: runtime.index,
-            rowKey: runtime.rowKey,
-            ...(resetArgs || {})
-        };
-
-        if (events instanceof Array) {
-            events.forEach(d => {
-                if (d.type === type) {
-                    if (d.actions instanceof Array) {
-                        d.actions.forEach(_d => {
-                            let { targetPath, expressionVar } =
-                                transformItemsPath(target, _d.target, form);
-
-                            dispatchAction(
-                                {
-                                    type: _d.type,
-                                    after: _d.after,
-                                    before: _d.before,
-                                    target: targetPath,
-                                    params: _d.params,
-                                    expression: _d.expression,
-                                    api: _d.api,
-                                    dataFill: _d.dataFill,
-                                    rejectMessage: _d.rejectMessage
-                                },
-                                {
-                                    form,
-                                    evaluator: _evaluator,
-                                    source: target,
-                                    expressionVar,
-                                    runtimeParams: runtimeParams,
-                                    onReject
-                                }
-                            );
-                        });
-                    }
+                                    dispatchAction(
+                                        {
+                                            type: _d.type,
+                                            after: _d.after,
+                                            before: _d.before,
+                                            target: targetPath,
+                                            params: _d.params,
+                                            expression: _d.expression,
+                                            api: _d.api,
+                                            dataFill: _d.dataFill,
+                                            rejectMessage: _d.rejectMessage
+                                        },
+                                        {
+                                            form,
+                                            evaluator: _evaluator,
+                                            source: target,
+                                            expressionVar,
+                                            runtimeParams: runtimeParams,
+                                            onReject
+                                        }
+                                    );
+                                });
+                            }
+                        }
+                    });
                 }
             });
         }
