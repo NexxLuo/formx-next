@@ -956,9 +956,10 @@ export default class FormActions {
     setLoading = (id, loading) => {
         let formInstance = this.getFormInstance();
         if (id && formInstance) {
-            formInstance.setFieldState(id, state => {
-                state.loading = !!loading;
-            });
+            let field = formInstance.query(id).take();
+            if (field && typeof field.setLoading === "function") {
+                field.setLoading(!!loading)
+            }
         }
     };
 
