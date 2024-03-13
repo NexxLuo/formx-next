@@ -368,7 +368,6 @@ function callActionRequest(_name, form, resolving, resolve, reject) {
  */
 function bindItemEvent(field, schema, eventType, form, _evaluator) {
     let name = schema.name;
-    let extraProps = schema.extraProps;
 
     let state = field.getState(name);
 
@@ -381,7 +380,7 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
 
     function callPrepose(data) {
         //模板中配置的前置条件控制
-        let preposeEvent = extraProps?.preposeEvent;
+        let preposeEvent = data?.preposeExpression;
 
         if (preposeEvent) {
             let expr = preposeEvent.expression;
@@ -406,13 +405,7 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
         }
 
         //通过脚本注册的前置事件
-        let preFn = null;
-        let field = form.getFieldState(data?.name);
-        if (field) {
-            let componentProps = field.component[1];
-            preFn = componentProps?.["x-prepose-event"]?.[preEventType];
-        }
-
+        let preFn = data?.preposeEvent?.[preEventType];
         if (typeof preFn === "function") {
             return preFn(data);
         }
@@ -422,7 +415,9 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
 
     if (state && eventType) {
         field.setState(_state => {
-            let cancelBubble = _state.componentProps?.["x-runtime"]?.cancelBubble ?? false;
+            let componentProps = _state.componentProps || {};
+            let _extraProps = componentProps["x-extra-props"];
+            let cancelBubble = componentProps["x-runtime"]?.cancelBubble ?? false;
             _state.componentProps[eventType] = e => {
                 let { parentKey, index } = getItemIndex(name);
                 if (typeof e?.persist === "function") {
@@ -444,7 +439,8 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
                     callPrepose,
                     {
                         event: e,
-                        name,
+                        preposeEvent: componentProps?.["x-prepose-event"],
+                        preposeExpression: _extraProps?.preposeEvent,
                         listKey: parentKey,
                         index
                     }
