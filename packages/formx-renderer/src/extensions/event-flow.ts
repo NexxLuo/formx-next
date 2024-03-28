@@ -1,4 +1,4 @@
-import type { Field } from "@formily/core";
+import type { Field, Form } from "@formily/core";
 import { requestApiById } from "./utils";
 import { linkageDataFill } from "../core/linkages/dataFill";
 import { parseStyleString } from "../core/linkages/utils";
@@ -51,13 +51,6 @@ type ActionResultType = {
     data: any;
 };
 
-type FieldPropsActionParamsType = {
-    property: string;
-    type: "componentProps" | "extraProps";
-    name: string;
-    expression: string;
-};
-
 function setFieldLoading(field: Field, isLoading = true) {
     if (field) {
         let fn = field.setLoading;
@@ -67,6 +60,95 @@ function setFieldLoading(field: Field, isLoading = true) {
             field.setComponentProps({ loading: isLoading });
         }
     }
+}
+
+function apiPrepare(form: Form, output) {
+    let dataIndexMap = {};
+
+    let groups = [];
+    let groupsMap = {};
+    let items = [];
+    let subItems = [];
+    if (output instanceof Array) {
+        output.forEach(d => {
+            if (d.targetField) {
+                if (d.dataType === "array") {
+                    groups.push(d.targetField);
+                    groupsMap[d.id] = d.targetField;
+                }
+                let _field = d.field;
+                if (_field) {
+                    let arr = d.targetField.split(".");
+                    let fieldKey = arr[arr.length - 1];
+                    dataIndexMap[_field] = fieldKey;
+                }
+            }
+        });
+
+        output.forEach(d => {
+            let parentId = d.parentId;
+            if (groupsMap.hasOwnProperty(parentId)) {
+                subItems.push(d.targetField);
+            } else {
+                items.push(d.targetField);
+            }
+        });
+    }
+
+    [...groups, ...items].forEach(d => {
+        let field = form.query(d).take();
+        if (field) {
+            field.setState(s => {
+                s.componentProps = { ...(s.componentProps || {}) };
+                s.loading = true;
+            });
+        }
+    });
+
+    return { groups, items, dataIndexMap };
+}
+
+function apiCallback(form: Form, data, { dataIndexMap, groups, items }) {
+    let _data = [];
+    let _itemData = {};
+    if (data instanceof Array) {
+        data.forEach(item => {
+            let _item = { ...item };
+            for (const k in _item) {
+                let fieldKey = dataIndexMap[k];
+
+                if (fieldKey) {
+                    _item[fieldKey] = _item[k];
+                }
+            }
+            _data.push(_item);
+        });
+        _itemData = _data[0] || {};
+    }
+
+    groups.forEach(d => {
+        let field = form.query(d).take();
+        if (field) {
+            field.setState(s => {
+                s.componentProps = { ...(s.componentProps || {}) };
+                s.loading = false;
+                s.value = _data;
+            });
+        }
+    });
+
+    items.forEach(k => {
+        let field = form.query(k).take();
+        if (field) {
+            field.setState(s => {
+                s.componentProps = { ...(s.componentProps || {}) };
+                s.loading = false;
+                if (_itemData.hasOwnProperty(k)) {
+                    s.value = _itemData[k];
+                }
+            });
+        }
+    });
 }
 
 async function dispatchAction(
@@ -198,12 +280,21 @@ async function dispatchAction(
                         input: apiData.input,
                         output: apiData.output
                     };
+                    let { groups, items, dataIndexMap } = apiPrepare(
+                        form,
+                        _params.output
+                    );
                     requestApiById(_params)
                         .then(res => {
                             if (res.state === 0) {
                                 reject(res.message);
                             } else {
                                 resolve(res.data);
+                                apiCallback(form, res.data, {
+                                    groups,
+                                    items,
+                                    dataIndexMap
+                                });
                             }
                         })
                         .catch((e: any) => {
