@@ -583,10 +583,19 @@ export class EventFlow {
                 runtime = fieldState.componentProps?.["x-runtime"] || {};
             }
 
+            let { parentKey, index } = getItemIndex(target);
+
+            let _arrayIndex = runtime.index;
+            let _arrayName = runtime.arrayPath;
+            if (index > -1) {
+                _arrayIndex = index;
+                _arrayName = parentKey;
+            }
+
             let runtimeParams = {
                 triggerPath: target,
-                arrayName: runtime.arrayPath,
-                arrayIndex: runtime.index,
+                arrayName: _arrayName,
+                arrayIndex: _arrayIndex,
                 rowKey: runtime.rowKey,
                 ...(resetArgs || {})
             };
