@@ -619,7 +619,7 @@ export class EventFlow {
                                             type: _d.type,
                                             after: _d.after,
                                             before: _d.before,
-                                            target: targetPath,
+                                            target: targetPath || parentKey,
                                             params: _d.params,
                                             expression: _d.expression,
                                             api: _d.api,
