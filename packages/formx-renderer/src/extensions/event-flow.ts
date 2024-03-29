@@ -87,10 +87,12 @@ function apiPrepare(form: Form, output) {
 
         output.forEach(d => {
             let parentId = d.parentId;
-            if (groupsMap.hasOwnProperty(parentId)) {
-                subItems.push(d.targetField);
-            } else {
-                items.push(d.targetField);
+            if (d.targetField) {
+                if (groupsMap.hasOwnProperty(parentId)) {
+                    subItems.push(d.targetField);
+                } else {
+                    items.push(d.targetField);
+                }
             }
         });
     }
@@ -111,19 +113,30 @@ function apiPrepare(form: Form, output) {
 function apiCallback(form: Form, data, { dataIndexMap, groups, items }) {
     let _data = [];
     let _itemData = {};
-    if (data instanceof Array) {
-        data.forEach(item => {
-            let _item = { ...item };
-            for (const k in _item) {
-                let fieldKey = dataIndexMap[k];
 
+    if (typeof data === "object" && data) {
+        if (data instanceof Array) {
+            data.forEach(item => {
+                let _item = { ...item };
+                for (const k in _item) {
+                    let fieldKey = dataIndexMap[k];
+                    if (fieldKey) {
+                        _item[fieldKey] = _item[k];
+                    }
+                }
+                _data.push(_item);
+            });
+            _itemData = _data[0] || {};
+        } else {
+            let _item = {};
+            for (const k in data) {
+                let fieldKey = dataIndexMap[k];
                 if (fieldKey) {
-                    _item[fieldKey] = _item[k];
+                    _item[fieldKey] = data[k];
                 }
             }
-            _data.push(_item);
-        });
-        _itemData = _data[0] || {};
+            _itemData = _item;
+        }
     }
 
     groups.forEach(d => {
