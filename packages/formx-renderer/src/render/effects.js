@@ -217,7 +217,10 @@ export const createEffects = ($, instance, _consumer) => {
             _evaluator,
             _context
         );
-        _eventFlow.dispatch(schema.name, "onMount")
+        _eventFlow.dispatch(schema.name, "onMount");
+        if (typeof schema.initialValue === "undefined") {
+            _eventFlow.dispatch(schema.name, "onInitValue");
+        }
     });
 
     $("onFieldChange", "*", ["visited"]).subscribe((field, form) => {
