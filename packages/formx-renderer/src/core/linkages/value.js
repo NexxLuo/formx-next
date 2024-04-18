@@ -1,5 +1,5 @@
 import { getExpressionVar, getEnv } from "./utils";
-import { transformComponentValue } from "../utils";
+import { transformComponentValue, toFixed } from "../utils";
 import { requestApiById, getRequestParams } from "../../extensions/utils";
 
 import { useAsyncValue, getAsyncValue } from "../effects/useAsyncDataSource";
@@ -140,6 +140,14 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath, 
                 nextValue = Number(res.toFixed(precision));
             }
 
+            if (
+                typeof res == "string" &&
+                res &&
+                typeof precision === "number"
+            ) {
+                nextValue = toFixed(res, precision);
+            }
+
             //如果被隐藏值，则不再联动赋值,但要将值设置到caches中，以便显示出字段时拿到正确值
             if (field.selfDisplay === "none") {
                 if (typeof field.caches === "object" && field.caches) {
@@ -188,7 +196,6 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
     let name = schema.name;
 
     let hasValue = typeof schema.value !== "undefined";
-    
     //如果开启了resetInitialValueWhenEmpty，则值为空时仍然重置值为初始值
     if (extraProps.resetInitialValueWhenEmpty === true) {
         if (schema.value === null || schema.value === "") {
@@ -263,6 +270,15 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
                     ) {
                         _initialValue = Number(_initialValue.toFixed(precision));
                     }
+
+                    if (
+                        typeof _initialValue == "string" &&
+                        _initialValue &&
+                        typeof precision === "number"
+                    ) {
+                        _initialValue = toFixed(_initialValue, precision);
+                    }
+
                     s.value = _initialValue;
                 }
             });

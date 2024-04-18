@@ -2,12 +2,15 @@ import { v4 as uuid } from "uuid";
 import { each } from "@formily/shared";
 import dayjs from "dayjs";
 import { JSEncrypt } from "jsencrypt";
+import { ToDecimal } from "../expression/functions";
+
+const toFixed = ToDecimal;
 
 function isNum(v) {
     return isNaN(v) === false && v !== null;
 }
 
-export { each };
+export { each, toFixed };
 
 /**
  * 对表格设置的数据源进行转换
