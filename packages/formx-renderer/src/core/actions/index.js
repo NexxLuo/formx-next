@@ -369,7 +369,7 @@ function callActionRequest(_name, form, resolving, resolve, reject) {
 function bindItemEvent(field, schema, eventType, form, _evaluator) {
     let name = schema.name;
 
-    let state = field.getState(name);
+    let _field = field.query(name).take();
 
     let preEventType = {
         onClick: "onBeforeClick",
@@ -413,12 +413,12 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
         return true;
     }
 
-    if (state && eventType) {
+    if (_field && eventType) {
         field.setState(_state => {
-            let componentProps = _state.componentProps || {};
-            let _extraProps = componentProps["x-extra-props"];
-            let cancelBubble = componentProps["x-runtime"]?.cancelBubble ?? false;
             _state.componentProps[eventType] = e => {
+                let componentProps = _field.componentProps || {};
+                let _extraProps = componentProps["x-extra-props"];
+                let cancelBubble = componentProps["x-runtime"]?.cancelBubble ?? false;
                 let { parentKey, index } = getItemIndex(name);
                 if (typeof e?.persist === "function") {
                     e.persist();
