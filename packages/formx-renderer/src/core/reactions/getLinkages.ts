@@ -69,6 +69,13 @@ export const getLinkages = schema => {
       columnProps.initialValue = initialValue;
     }
 
+    if (
+      typeof _componentProps.precision === "number"
+    ) {
+      columnProps.precision = _componentProps.precision;
+    }
+
+
     columns.push({
       ...columnProps,
       name: o.name

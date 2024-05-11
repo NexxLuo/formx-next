@@ -1,16 +1,19 @@
 import { getLinkages, getLinkageItem, createEvaluator } from "./getLinkages";
 import { getValue } from "../linkages/value";
+import { toFixed } from "../utils";
 
 class Field {
   disposers = [];
   state = null;
   name: string = "";
+  precision: number = null;
   address: string = "";
   onChange = null;
   modified = false;
-  constructor(name: string, address: string, onChange) {
+  constructor(name: string, address: string, precision: number, onChange) {
     this.address = address;
     this.name = name;
+    this.precision = precision;
 
     let state = {
       value: undefined,
@@ -38,7 +41,11 @@ class Field {
 
   setValue = value => {
     if (typeof value !== "undefined") {
-      this.state.value = value;
+      if (typeof this.precision === "number") {
+        this.state.value = toFixed(value, this.precision);
+      } else {
+        this.state.value = value;
+      }
       this.modified = true;
     }
   };
@@ -161,7 +168,7 @@ export class ArrayValues {
         columns.forEach(item => {
           let k = item.name;
           let _path = this.transformPath(k, i);
-          let field = new Field(k, _path, this.onChange);
+          let field = new Field(k, _path, item.precision, this.onChange);
           field.setInitialValue(_d[k]);
           field.state.index = i;
           graph[_path] = field;
