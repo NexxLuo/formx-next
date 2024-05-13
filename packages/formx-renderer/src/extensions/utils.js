@@ -160,7 +160,7 @@ function getParams(queryString, bodyParams) {
     };
 }
 
-export const requestApiById = async (params, pagination) => {
+export const requestApiById = async (params, pagination, signal) => {
     let { id, input, output, runtime } = params;
 
     if (!id) {
@@ -195,7 +195,7 @@ export const requestApiById = async (params, pagination) => {
         body: options.body
     };
 
-    let res = await fetch(url, options).then(async response => {
+    let res = await fetch(url, { ...options, signal }).then(async response => {
         if (response.status >= 200 && response.status < 300) {
             try {
                 let jsonData = await response.json();

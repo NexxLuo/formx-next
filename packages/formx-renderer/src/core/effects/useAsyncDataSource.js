@@ -89,35 +89,59 @@ function formatter(data, output, form, name, pathVars) {
     return _data;
 }
 
+let datasource_timer = {};
+let datasource_aborter = {};
+
 export const useAsyncData = (form, { name, service, extra }, filter) => {
     const { notify, setFieldState } = form;
+    let timer = datasource_timer[name];
+    let aborter = datasource_aborter[name];
+    if (timer) {
+        clearTimeout(timer);
+    }
+    if (aborter) {
+        aborter.abort();
+    }
 
-    setFieldState(name, state => {
-        state.loading = true;
-        state.dataSource = [];
-        state.componentProps = { ...state.componentProps };
-        service(extra).then(res => {
-            state.loading = false;
-            state.loaded = true;
-            let data = res.data;
-            if (typeof filter === "function") {
-                data = filter(res.data);
-            }
-            data = formatter(data, extra.output, form, name);
-
-            state.dataSource = data;
-            //异步请求结束吼触发组件渲染，某些自定义组件如果未直接使用props.dataSource属性而是直接传入到内层组件，会导致组件无法进行依赖更新，
-            //故修改componentProps强制刷新组件
-            //注意不要覆盖componentProps
+    datasource_timer[name] = setTimeout(() => {
+        setFieldState(name, state => {
+            state.loading = true;
+            state.dataSource = [];
             state.componentProps = { ...state.componentProps };
-            //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-            notify("onAsyncDataSourceComplete", {
-                name,
-                payload: res
+
+            var ac = new AbortController();
+            datasource_aborter[name] = ac;
+
+            service(extra, {}, ac.signal).then(res => {
+                state.loading = false;
+                state.loaded = true;
+                let data = res.data;
+                if (typeof filter === "function") {
+                    data = filter(res.data);
+                }
+                data = formatter(data, extra.output, form, name);
+
+                state.dataSource = data;
+                //异步请求结束吼触发组件渲染，某些自定义组件如果未直接使用props.dataSource属性而是直接传入到内层组件，会导致组件无法进行依赖更新，
+                //故修改componentProps强制刷新组件
+                //注意不要覆盖componentProps
+                state.componentProps = { ...state.componentProps };
+                //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
+                notify("onAsyncDataSourceComplete", {
+                    name,
+                    payload: res
+                });
             });
+
         });
-    });
+
+    }, 100);
+
 };
+
+
+let listvalue_timer = {};
+let listvalue_aborter = {};
 
 export const useAsyncListData = (
     form,
@@ -126,39 +150,53 @@ export const useAsyncListData = (
     const { notify, setFieldState } = form;
     const linkage = useLinkageUtilsSync(form);
 
-    setFieldState(name, state => {
-        state.loading = true;
-        state.componentProps.loading = true;
-    });
+    let timer = listvalue_timer[name];
+    let aborter = listvalue_aborter[name];
+    if (timer) {
+        clearTimeout(timer);
+    }
+    if (aborter) {
+        aborter.abort();
+    }
 
-    service(extra, pagination).then(res => {
-        let targetField = form.query(name).take();
-        if (targetField) {
-            let _data = res.data;
-            _data = formatter(_data, extra.output, form, name);
-            targetField.setState((state) => {
-                state.loading = false;
-                state.componentProps.loading = false;
-                linkage.requestInfo(name, res?.requestInfo);
-                if (pagination && res.isServerSidePagination) {
-                    linkage.pagination(name, {
-                        total: res.total,
-                        isServerSidePagination: res.isServerSidePagination,
-                        pageIndex: pagination.pageIndex,
-                        pageSize: pagination.pageSize
-                    });
-                }
-            })
-            targetField.onInput(_data)
-        }
-
-
-        //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-        notify("onAsyncDataSourceComplete", {
-            name,
-            payload: res
+    listvalue_timer[name] = setTimeout(() => {
+        setFieldState(name, state => {
+            state.loading = true;
+            state.componentProps.loading = true;
         });
-    });
+
+        var ac = new AbortController();
+        listvalue_aborter[name] = ac;
+
+        service(extra, pagination, ac.signal).then(res => {
+            let targetField = form.query(name).take();
+            if (targetField) {
+                let _data = res.data;
+                _data = formatter(_data, extra.output, form, name);
+                targetField.setState((state) => {
+                    state.loading = false;
+                    state.componentProps.loading = false;
+                    linkage.requestInfo(name, res?.requestInfo);
+                    if (pagination && res.isServerSidePagination) {
+                        linkage.pagination(name, {
+                            total: res.total,
+                            isServerSidePagination: res.isServerSidePagination,
+                            pageIndex: pagination.pageIndex,
+                            pageSize: pagination.pageSize
+                        });
+                    }
+                })
+                targetField.onInput(_data)
+            }
+
+
+            //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
+            notify("onAsyncDataSourceComplete", {
+                name,
+                payload: res
+            });
+        });
+    }, 100);
 };
 
 const getOutputTargetValues = ({ output, pathVars, item, form }) => {
@@ -206,48 +244,65 @@ const getOutputTargetValues = ({ output, pathVars, item, form }) => {
     };
 };
 
+let value_timer = {};
+let value_aborter = {};
+
 export const useAsyncValue = (form, { pathVars, name, service, extra }) => {
     const { notify, setFieldState } = form;
     const linkage = useLinkageUtilsSync(form);
 
-    setFieldState(name, state => {
-        state.loading = true;
+    let timer = value_timer[name];
+    let aborter = value_aborter[name];
+    if (timer) {
+        clearTimeout(timer);
+    }
+    if (aborter) {
+        aborter.abort();
+    }
 
-        service(extra).then(res => {
-            state.loading = false;
+    value_timer[name] = setTimeout(() => {
+        setFieldState(name, state => {
+            state.loading = true;
 
-            //设置值
-            let data = res.data;
-            data = formatter(data, extra.output, form, name);
-            let item = data;
-            let output = extra.output;
+            var ac = new AbortController();
+            value_aborter[name] = ac;
 
-            if (data instanceof Array) {
-                item = data[0];
-            }
+            service(extra, {}, ac.signal).then(res => {
+                state.loading = false;
 
-            if (item && output instanceof Array) {
-                let { values: items, hasTargetField } = getOutputTargetValues({
-                    pathVars,
-                    output,
-                    item,
-                    form
-                });
-                if (hasTargetField) {
-                    for (const k in items) {
-                        linkage.value(k, items[k]);
+                //设置值
+                let data = res.data;
+                data = formatter(data, extra.output, form, name);
+                let item = data;
+                let output = extra.output;
+
+                if (data instanceof Array) {
+                    item = data[0];
+                }
+
+                if (item && output instanceof Array) {
+                    let { values: items, hasTargetField } = getOutputTargetValues({
+                        pathVars,
+                        output,
+                        item,
+                        form
+                    });
+                    if (hasTargetField) {
+                        for (const k in items) {
+                            linkage.value(k, items[k]);
+                        }
                     }
                 }
-            }
-            //
+                //
 
-            //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
-            notify("onAsyncValueComplete", {
-                name,
-                payload: res
+                //请求结束可以dispatch一个自定义事件收尾，方便后续针对该事件做联动
+                notify("onAsyncValueComplete", {
+                    name,
+                    payload: res
+                });
             });
         });
-    });
+    }, 100);
 };
 
 export const getAsyncValue = (form, { pathVars, name, service, extra }) => {
