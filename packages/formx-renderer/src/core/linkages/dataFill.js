@@ -1,6 +1,7 @@
 import { FormPath } from "@formily/shared";
 import { getExpressionVar } from "./utils";
 import { getItemIndex } from "../utils";
+import { ArrayValues } from "../reactions/Field";
 
 function formatDataFill(dataFill) {
     let arr = [];
@@ -253,6 +254,17 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
                                 }
                                 return item;
                             });
+
+                            //数据回填时是否执行数据联动逻辑
+                            if (schema.extraProps?.executeLinkageWhenDataFill === true) {
+                                let arraySchema = instance.formActions.getFieldSchema(targetField.path.toString());
+                                if (arraySchema) {
+                                    let array = new ArrayValues(arraySchema, instance);
+                                    array.init(value, {}, true);
+                                    value = array.getValue(true);
+                                }
+                            }
+                            //
                         }
 
                         let prevValue = targetField.getState().value;
