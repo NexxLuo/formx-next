@@ -1380,8 +1380,7 @@ class Renderer extends React.Component {
         if (typeof this.props.effects === "function") {
             _effects = this.props.effects;
         }
-
-        let { readOnly, disabled, getContext, setContext, className } =
+        let { readOnly, disabled, getContext, setContext, className, globalComponents = {} } =
             this.props;
         console.log("FormRenderRender")
         return (
@@ -1414,6 +1413,12 @@ class Renderer extends React.Component {
                 >
                     {this.props.children}
                 </FormRender>
+                {
+                    Object.keys(globalComponents).map(k => {
+                        let Cmp = globalComponents[k]
+                        return <Cmp key={k} getForm={() => { return this.formActions }} />
+                    })
+                }
             </FormContext.Provider>
         );
     }
