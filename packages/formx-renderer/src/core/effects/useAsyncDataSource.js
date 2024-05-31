@@ -199,7 +199,7 @@ export const useAsyncListData = (
     }, 100);
 };
 
-const getOutputTargetValues = ({ output, pathVars, item, form }) => {
+const getOutputTargetValues = ({ output, pathVars, item, form, isInit }) => {
     let items = {};
 
     let hasTargetField = false;
@@ -218,8 +218,16 @@ const getOutputTargetValues = ({ output, pathVars, item, form }) => {
             let hasValue = false;
             if (field) {
                 let extraProps = field.componentProps?.["x-extra-props"] || {};
+
+                if (extraProps.relatedKey) {
+                    let extraField = form.query(extraProps.relatedKey).take()
+                    if (extraField) {
+                        extraProps = extraField.componentProps?.["x-extra-props"] || {};
+                    }
+                }
+
                 let { allowOverwriteValue = false } = extraProps;
-                if (!allowOverwriteValue) {
+                if (!allowOverwriteValue && isInit) {
                     hasValue = typeof field.value !== "undefined";
                 }
                 if (extraProps.resetInitialValueWhenEmpty === true) {
@@ -247,7 +255,7 @@ const getOutputTargetValues = ({ output, pathVars, item, form }) => {
 let value_timer = {};
 let value_aborter = {};
 
-export const useAsyncValue = (form, { pathVars, name, service, extra }) => {
+export const useAsyncValue = (form, { pathVars, name, service, extra, isInit }) => {
     const { notify, setFieldState } = form;
     const linkage = useLinkageUtilsSync(form);
 
@@ -285,7 +293,8 @@ export const useAsyncValue = (form, { pathVars, name, service, extra }) => {
                         pathVars,
                         output,
                         item,
-                        form
+                        form,
+                        isInit
                     });
                     if (hasTargetField) {
                         for (const k in items) {

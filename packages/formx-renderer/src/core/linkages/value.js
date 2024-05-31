@@ -22,11 +22,12 @@ function formatState(field) {
     };
 }
 
-function setAsyncValue(name, initialValue, expressionVar, instance) {
+function setAsyncValue(name, initialValue, expressionVar, instance, isInit = false) {
     try {
         let apiData = JSON.parse(initialValue.api);
         useAsyncValue(instance, {
             name: name,
+            isInit,
             service: requestApiById,
             pathVars: expressionVar,
             extra: {
@@ -221,10 +222,10 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
                     if (hasValue) {
                         //字段存在值时，初始数据值如果为接口，应判断是否开启重写值，如果开启则应请求接口值
                         if (allowOverwriteValue === true) {
-                            setAsyncValue(name, initialValue, expressionVar, instance);
+                            setAsyncValue(name, initialValue, expressionVar, instance, true);
                         }
                     } else {
-                        setAsyncValue(name, initialValue, expressionVar, instance);
+                        setAsyncValue(name, initialValue, expressionVar, instance, true);
                     }
                 }
                 //
