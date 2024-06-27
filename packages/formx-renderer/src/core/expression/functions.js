@@ -354,6 +354,18 @@ export function ToNumber(v, precision) {
     return value;
 }
 
+export function ToFixed(v, precision) {
+    let value = Number(v);
+    if (!isNaN(value)) {
+        if (typeof precision === "number") {
+            value = value.toFixed(precision);
+            return value;
+        }
+        return v;
+    }
+    return v;
+}
+
 export function ToDecimal(v, precision) {
     let value = tryToDecimal(v);
     if (typeof precision === "number") {
