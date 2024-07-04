@@ -145,7 +145,7 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
 export function setAsyncDataSource(schema,
     instance,
     _evaluator,
-    triggerIndex) {
+    triggerIndex, injectEnvs = {}) {
 
     let extraProps = schema.extraProps || {};
     let name = schema.name;
@@ -175,6 +175,11 @@ export function setAsyncDataSource(schema,
         apiInput = apiData.input;
     }
 
+    let envs = {
+        dataSizeLimit: extraProps.dataSourceSizeLimit || null,
+        ...injectEnvs
+    };
+
     if (apiUrl || apiId) {
         useAsyncData(
             instance,
@@ -187,7 +192,7 @@ export function setAsyncDataSource(schema,
                     input: getRequestParams(
                         apiInput,
                         instance,
-                        {},
+                        envs,
                         getEnv,
                         { index: triggerIndex }
                     ),

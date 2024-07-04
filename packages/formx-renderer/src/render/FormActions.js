@@ -128,6 +128,14 @@ export default class FormActions {
         this.tasks = {};
     }
 
+    reloadFieldDataSource = (id, envs) => {
+        let form = this.getFormInstance();
+        let field = form.query(id).take();
+        if (field) {
+            form.notify("onFieldDataSourceLoad", { field, envs })
+        }
+    }
+
     requestFieldDataSource = (idOrCode, params) => {
         return new Promise((resolve, reject) => {
             let data = null;
@@ -152,15 +160,17 @@ export default class FormActions {
                 } else if (dataSource.type === "api") {
                     let apiData = dataSource.data?.api;
                     if (apiData) {
+                        let reqParams =
+                            getRequestParams(apiData.input, this.getFormInstance(), {}, getFormEnvValue) || {};
                         let _input = {};
                         if (typeof params === "function") {
-                            _input = params(apiData.input, apiData);
+                            _input = params(apiData.input, apiData, reqParams);
                         } else {
                             _input = params;
                         }
                         let _params = {
                             id: apiData.dataSourceId,
-                            input: _input,
+                            input: { ...reqParams, ..._input },
                             output: apiData.output
                         };
                         requestApiById(_params).then(res => {

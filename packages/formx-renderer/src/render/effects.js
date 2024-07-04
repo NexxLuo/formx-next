@@ -287,6 +287,21 @@ export const createEffects = ($, instance, _consumer) => {
         );
     })
 
+    $("onFieldDataSourceLoad").subscribe(({ field, envs }, form) => {
+        if (field.mounted) {
+            let schema = formatField(field, getContext().options);
+            let { index: triggerIndex } = getItemIndex(schema.path);
+            setAsyncDataSource(
+                schema,
+                form,
+                _evaluator,
+                triggerIndex,
+                envs
+            );
+        }
+    });
+
+
     $("onFieldInputValueChange").subscribe((field, form) => {
         let schema = formatField(field);
         //表格组件始终在onFieldInputValueChange中执行联动逻辑，避免引用发生变化产生不必要的联动
