@@ -128,14 +128,20 @@ async function validateArrayTable(value, rule, context) {
                 let columnVisibility = extraProps.columnVisibility;
                 if (
                     typeof columnVisibility === "object" &&
-                    columnVisibility &&
-                    columnVisibility.type === "expression" &&
-                    columnVisibility.expression
+                    columnVisibility
                 ) {
-                    columnHidden = _evaluator.evaluate(
-                        columnVisibility.expression,
-                        {}
-                    );
+                    if (
+                        columnVisibility.type === "expression" &&
+                        columnVisibility.expression
+                    ) {
+                        columnHidden = _evaluator.evaluate(
+                            columnVisibility.expression,
+                            {}
+                        );
+                    }
+                    if (columnVisibility.type === "hidden") {
+                        columnHidden = true;
+                    }
                 }
                 let hidden = false;
 
@@ -143,13 +149,17 @@ async function validateArrayTable(value, rule, context) {
                     let visibility = extraProps.visibility;
                     if (
                         typeof visibility === "object" &&
-                        visibility &&
-                        visibility.type === "expression" &&
-                        visibility.expression
+                        visibility
                     ) {
-                        hidden = _evaluator.evaluate(visibility.expression, {
-                            items: rowIndex
-                        });
+                        if (visibility.type === "expression" &&
+                            visibility.expression) {
+                            hidden = _evaluator.evaluate(visibility.expression, {
+                                items: rowIndex
+                            });
+                        }
+                        if (visibility.type === "hidden") {
+                            hidden = true;
+                        }
                     }
                 }
 
