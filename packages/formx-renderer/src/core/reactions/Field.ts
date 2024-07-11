@@ -1,6 +1,6 @@
 import { getLinkages, getLinkageItem, createEvaluator } from "./getLinkages";
 import { getValue } from "../linkages/value";
-import { toFixed } from "../utils";
+import { toFixed, isNum } from "../utils";
 
 class Field {
   disposers = [];
@@ -41,7 +41,7 @@ class Field {
 
   setValue = value => {
     if (typeof value !== "undefined") {
-      if (typeof this.precision === "number") {
+      if (typeof this.precision === "number" && isNum(value)) {
         this.state.value = toFixed(value, this.precision);
       } else {
         this.state.value = value;

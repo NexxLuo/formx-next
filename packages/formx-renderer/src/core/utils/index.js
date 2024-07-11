@@ -6,7 +6,7 @@ import { ToDecimal } from "../expression/functions";
 
 const toFixed = ToDecimal;
 
-function isNum(v) {
+export function isNum(v) {
     return isNaN(v) === false && v !== null;
 }
 
