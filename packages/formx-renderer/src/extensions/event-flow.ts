@@ -1,5 +1,5 @@
 import type { Field, Form } from "@formily/core";
-import { requestApiById } from "./utils";
+import { requestApiById, getRequestParams, getFormEnvValue } from "./utils";
 import { linkageDataFill } from "../core/linkages/dataFill";
 import { parseStyleString } from "../core/linkages/utils";
 import { getItemIndex } from "../core/utils";
@@ -291,7 +291,12 @@ async function dispatchAction(
                 if (apiData) {
                     let _params = {
                         id: apiData.dataSourceId,
-                        input: apiData.input,
+                        input: getRequestParams(
+                            apiData.input,
+                            form,
+                            {},
+                            getFormEnvValue
+                        ),
                         output: apiData.output
                     };
                     let { groups, items, dataIndexMap } = apiPrepare(
