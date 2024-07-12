@@ -3,6 +3,7 @@ import { requestApiById } from "./utils";
 import { linkageDataFill } from "../core/linkages/dataFill";
 import { parseStyleString } from "../core/linkages/utils";
 import { getItemIndex } from "../core/utils";
+import message from "./message";
 
 type ActionInfo = {
     type: string;
@@ -408,6 +409,19 @@ async function dispatchAction(
                 evaluator,
                 args?.arrayIndex
             );
+        },
+        showMessage: function (name, args) {
+            let msg = "";
+            let fn = message.info;
+            if (typeof args === "string") {
+                msg = args;
+            } else if (typeof args === "object" && args) {
+                msg = args.content;
+                if (typeof message[args.type] === "function") {
+                    fn = message[args.type];
+                }
+            }
+            fn(msg || "未知的提示消息");
         }
     };
 
