@@ -803,7 +803,6 @@ export function triggerExtraFieldValue(schema, instance) {
     //如果存在额外的显示字段项，当值改变时设置显示值
     if (
         schema.display !== "none" &&
-        schema.mounted === true &&
         extraProps &&
         extraProps.extraNameFieldKey
     ) {
