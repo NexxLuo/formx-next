@@ -10,6 +10,17 @@ import {
     getValidateRules as getValidateRulesBuiltIn
 } from '@formily/validator'
 
+import { registerValidateMessageTemplateEngine } from '@formily/core'
+
+registerValidateMessageTemplateEngine((message, context) => {
+    if (context?.field?.displayName === "ArrayField") {
+        if (message === "该字段是必填字段") {
+            return "数据不能为空"
+        }
+    }
+    return message
+})
+
 function isNullOrEmpty(v) {
     return v === undefined || v === null || v === "";
 }
@@ -34,7 +45,6 @@ async function validateArrayTable(value, rule, context) {
     let schemaMap = validatorContext?.formSchemaMap || {};
     let _evaluator = validatorContext?.evaluator;
     let _options = validatorContext?.options;
-
     let field = context.field;
     let instance = context.form;
     let listAddress = field.address.toString();
