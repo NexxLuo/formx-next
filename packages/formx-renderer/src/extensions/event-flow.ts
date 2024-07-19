@@ -427,6 +427,12 @@ async function dispatchAction(
                 }
             }
             fn(msg || "未知的提示消息");
+        },
+        reloadFieldDataSource: function (name, args) {
+            let field = form.query(name).take();
+            if (field) {
+                form.notify("onFieldDataSourceLoad", { field, envs: args });
+            }
         }
     };
 
