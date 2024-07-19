@@ -868,3 +868,16 @@ export function FormatMoneyToUpperChinese(money) {
     }
     return chineseStr;
 }
+
+/**
+ * 将字符串根据指定字符转换为数组
+ * @param {string} str 
+ * @param {string} char 
+ * @returns {string[]}
+ */
+export function StringSplitToArray(str, char = ",") {
+    if (typeof str === "string") {
+        return str.split(char)
+    }
+    return str;
+}
