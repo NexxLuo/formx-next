@@ -46,7 +46,7 @@ function formatField(field, options) {
         alwaysDisabled:
             controledOptions.disabled === true ||
             controledOptions.readonly === true,
-        requestDataSourceWhenDisabled: extraProps.requestDataSourceWhenDisabled
+        ignoreDataSourceWhenDisabled: extraProps.ignoreDataSourceWhenDisabled
     };
 }
 

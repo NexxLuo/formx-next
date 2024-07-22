@@ -240,7 +240,7 @@ export function setDataSource(
     if (
         ctype !== "arraytable" &&
         schema.alwaysDisabled === true &&
-        schema.requestDataSourceWhenDisabled === false
+        schema.ignoreDataSourceWhenDisabled === true
     ) {
         return;
     }
