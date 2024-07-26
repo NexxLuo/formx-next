@@ -1129,6 +1129,24 @@ export default class FormActions {
         return null;
     };
 
+    onFormSaveFailed = (id, fn) => {
+        if (id && typeof fn === "function") {
+            let next = this.tasks.saveFailed || {};
+            next[id] = fn;
+            this.tasks.saveFailed = next;
+        }
+        return null;
+    };
+
+    onFormSubmitFailed = (id, fn) => {
+        if (id && typeof fn === "function") {
+            let next = this.tasks.submitFailed || {};
+            next[id] = fn;
+            this.tasks.submitFailed = next;
+        }
+        return null;
+    };
+
     onBeforeSchemaSave = (id, fn) => {
         if (id && typeof fn === "function") {
             let next = this.tasks.beforeSchemaSave || {};
@@ -1155,7 +1173,9 @@ export default class FormActions {
             beforeSave: "beforeSaveTasks",
             afterSave: "afterSaveTasks",
             beforeSchemaSave: "beforeSchemaSave",
-            formLoad: "formLoad"
+            formLoad: "formLoad",
+            submitFailed: "submitFailed",
+            saveFailed: "saveFailed"
         }[taskType];
 
         let formTasks = this.tasks[type] || {};
