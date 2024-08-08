@@ -10,8 +10,6 @@ export const useDesigner = (effects?: IEffects): Engine => {
   const designer: Engine =
     globalThisPolyfill['__DESIGNABLE_ENGINE__'] ||
     useContext(DesignerEngineContext)
-
-    console.log("designer:",designer?.id)
   useEffect(() => {
     if (isFn(effects)) {
       return effects(designer)
