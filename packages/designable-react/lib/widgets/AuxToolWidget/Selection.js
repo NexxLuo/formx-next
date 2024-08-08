@@ -1,139 +1,94 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/AuxToolWidget/Selection.tsx
+var Selection_exports = {};
+__export(Selection_exports, {
+  Selection: () => Selection,
+  SelectionBox: () => SelectionBox
 });
-exports.Selection = exports.SelectionBox = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var Helpers_1 = require("./Helpers");
-
-var ResizeHandler_1 = require("./ResizeHandler");
-
-var hooks_1 = require("../../hooks");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var TranslateHandler_1 = require("./TranslateHandler");
-
-var SelectionBox = function SelectionBox(props) {
+module.exports = __toCommonJS(Selection_exports);
+var import_react = __toESM(require("react"));
+var import_Helpers = require("./Helpers");
+var import_ResizeHandler = require("./ResizeHandler");
+var import_hooks = require("../../hooks");
+var import_reactive_react = require("@formily/reactive-react");
+var import_TranslateHandler = require("./TranslateHandler");
+var SelectionBox = (props) => {
   var _a;
-
-  var _b;
-
-  var designer = (0, hooks_1.useDesigner)();
-  var prefix = (0, hooks_1.usePrefix)('aux-selection-box');
-  var innerPrefix = (0, hooks_1.usePrefix)('aux-selection-box-inner');
-  var nodeRect = (0, hooks_1.useValidNodeOffsetRect)(props.node);
-
-  var createSelectionStyle = function createSelectionStyle() {
-    var baseStyle = {
-      position: 'absolute',
+  const designer = (0, import_hooks.useDesigner)();
+  const prefix = (0, import_hooks.usePrefix)("aux-selection-box");
+  const innerPrefix = (0, import_hooks.usePrefix)("aux-selection-box-inner");
+  const nodeRect = (0, import_hooks.useValidNodeOffsetRect)(props.node);
+  const createSelectionStyle = () => {
+    const baseStyle = {
+      position: "absolute",
       top: 0,
       left: 0,
-      boxSizing: 'border-box'
+      boxSizing: "border-box"
     };
-
     if (nodeRect) {
-      baseStyle.transform = "perspective(1px) translate3d(".concat(nodeRect.x, "px,").concat(nodeRect.y, "px,0)");
+      baseStyle.transform = `perspective(1px) translate3d(${nodeRect.x}px,${nodeRect.y}px,0)`;
       baseStyle.height = nodeRect.height;
       baseStyle.width = nodeRect.width;
     }
-
     return baseStyle;
   };
-
   if (!nodeRect) return null;
   if (!nodeRect.width || !nodeRect.height) return null;
-  var selectionId = (_a = {}, _a[(_b = designer.props) === null || _b === void 0 ? void 0 : _b.nodeSelectionIdAttrName] = props.node.id, _a);
-  return react_1.default.createElement("div", __assign({}, selectionId, {
-    className: prefix,
-    style: createSelectionStyle()
-  }), react_1.default.createElement("div", {
-    className: innerPrefix
-  }), react_1.default.createElement(ResizeHandler_1.ResizeHandler, {
-    node: props.node
-  }), react_1.default.createElement(TranslateHandler_1.TranslateHandler, {
-    node: props.node
-  }), props.showHelpers && react_1.default.createElement(Helpers_1.Helpers, __assign({}, props, {
-    node: props.node,
-    nodeRect: nodeRect
-  })));
+  const selectionId = {
+    [(_a = designer.props) == null ? void 0 : _a.nodeSelectionIdAttrName]: props.node.id
+  };
+  return /* @__PURE__ */ import_react.default.createElement("div", { ...selectionId, className: prefix, style: createSelectionStyle() }, /* @__PURE__ */ import_react.default.createElement("div", { className: innerPrefix }), /* @__PURE__ */ import_react.default.createElement(import_ResizeHandler.ResizeHandler, { node: props.node }), /* @__PURE__ */ import_react.default.createElement(import_TranslateHandler.TranslateHandler, { node: props.node }), props.showHelpers && /* @__PURE__ */ import_react.default.createElement(import_Helpers.Helpers, { ...props, node: props.node, nodeRect }));
 };
-
-exports.SelectionBox = SelectionBox;
-exports.Selection = (0, reactive_react_1.observer)(function () {
-  var selection = (0, hooks_1.useSelection)();
-  var tree = (0, hooks_1.useTree)();
-  var cursor = (0, hooks_1.useCursor)();
-  var viewportDragon = (0, hooks_1.useDragon)();
-  if (cursor.status !== 'NORMAL' && viewportDragon.touchNode) return null;
-  return react_1.default.createElement(react_1.Fragment, null, selection.selected.map(function (id) {
-    var node = tree.findById(id);
+var Selection = (0, import_reactive_react.observer)(() => {
+  const selection = (0, import_hooks.useSelection)();
+  const tree = (0, import_hooks.useTree)();
+  const cursor = (0, import_hooks.useCursor)();
+  const viewportDragon = (0, import_hooks.useDragon)();
+  if (cursor.status !== "NORMAL" && viewportDragon.touchNode) return null;
+  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, selection.selected.map((id) => {
+    const node = tree.findById(id);
     if (!node) return;
     if (node.hidden) return;
-    return react_1.default.createElement(exports.SelectionBox, {
-      key: id,
-      node: node,
-      showHelpers: selection.selected.length === 1
-    });
+    return /* @__PURE__ */ import_react.default.createElement(
+      SelectionBox,
+      {
+        key: id,
+        node,
+        showHelpers: selection.selected.length === 1
+      }
+    );
   }));
 });
-exports.Selection.displayName = 'Selection';
+Selection.displayName = "Selection";
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Selection,
+  SelectionBox
+});

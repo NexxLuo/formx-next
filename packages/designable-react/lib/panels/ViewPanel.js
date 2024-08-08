@@ -1,98 +1,50 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  return ar;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/panels/ViewPanel.tsx
+var ViewPanel_exports = {};
+__export(ViewPanel_exports, {
+  ViewPanel: () => ViewPanel
 });
-exports.ViewPanel = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var hooks_1 = require("../hooks");
-
-var containers_1 = require("../containers");
-
-var shared_1 = require("@designable/shared");
-
-exports.ViewPanel = (0, reactive_react_1.observer)(function (props) {
-  var _a = __read((0, react_1.useState)(true), 2),
-      visible = _a[0],
-      setVisible = _a[1];
-
-  var workbench = (0, hooks_1.useWorkbench)();
-  var tree = (0, hooks_1.useTree)();
-  (0, react_1.useEffect)(function () {
+module.exports = __toCommonJS(ViewPanel_exports);
+var import_react = __toESM(require("react"));
+var import_reactive_react = require("@formily/reactive-react");
+var import_hooks = require("../hooks");
+var import_containers = require("../containers");
+var import_shared = require("@designable/shared");
+var ViewPanel = (0, import_reactive_react.observer)((props) => {
+  const [visible, setVisible] = (0, import_react.useState)(true);
+  const workbench = (0, import_hooks.useWorkbench)();
+  const tree = (0, import_hooks.useTree)();
+  (0, import_react.useEffect)(() => {
     if (workbench.type === props.type) {
-      (0, shared_1.requestIdle)(function () {
-        requestAnimationFrame(function () {
+      (0, import_shared.requestIdle)(() => {
+        requestAnimationFrame(() => {
           setVisible(true);
         });
       });
@@ -101,26 +53,31 @@ exports.ViewPanel = (0, reactive_react_1.observer)(function (props) {
     }
   }, [workbench.type]);
   if (workbench.type !== props.type) return null;
-
-  var render = function render() {
-    return props.children(tree, function (payload) {
+  const render = () => {
+    return props.children(tree, (payload) => {
       tree.from(payload);
       tree.takeSnapshot();
     });
   };
-
-  if (workbench.type === 'DESIGNABLE') return react_1.default.createElement(containers_1.Viewport, {
-    dragTipsDirection: props.dragTipsDirection
-  }, render());
-  return react_1.default.createElement("div", {
-    style: {
-      overflow: props.scrollable ? 'overlay' : 'hidden',
-      height: '100%',
-      cursor: 'auto',
-      userSelect: 'text'
-    }
-  }, visible && render());
+  if (workbench.type === "DESIGNABLE")
+    return /* @__PURE__ */ import_react.default.createElement(import_containers.Viewport, { dragTipsDirection: props.dragTipsDirection }, render());
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      style: {
+        overflow: props.scrollable ? "overlay" : "hidden",
+        height: "100%",
+        cursor: "auto",
+        userSelect: "text"
+      }
+    },
+    visible && render()
+  );
 });
-exports.ViewPanel.defaultProps = {
+ViewPanel.defaultProps = {
   scrollable: true
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ViewPanel
+});

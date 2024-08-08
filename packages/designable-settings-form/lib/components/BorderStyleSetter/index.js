@@ -1,187 +1,145 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
+// src/components/BorderStyleSetter/index.tsx
+var BorderStyleSetter_exports = {};
+__export(BorderStyleSetter_exports, {
+  BorderStyleSetter: () => BorderStyleSetter
 });
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+module.exports = __toCommonJS(BorderStyleSetter_exports);
+var import_react = __toESM(require("react"));
+var import_designable_react = require("@platform/designable-react");
+var import_shared = require("@formily/shared");
+var import_formx_antd = require("@platform/formx-antd");
+var import_reactive = require("@formily/reactive");
+var import_react2 = require("@formily/react");
+var import_FoldItem = require("../FoldItem");
+var import_ColorInput = require("../ColorInput");
+var import_SizeInput = require("../SizeInput");
+var import_PositionInput = require("../PositionInput");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var Positions = ["center", "top", "right", "bottom", "left"];
+var BorderStyleOptions = [
+  {
+    label: "None",
+    value: "none"
+  },
+  {
+    label: /* @__PURE__ */ import_react.default.createElement("span", { className: "border-style-solid-line" }),
+    value: "solid"
+  },
+  {
+    label: /* @__PURE__ */ import_react.default.createElement("span", { className: "border-style-dashed-line" }),
+    value: "dashed"
+  },
+  {
+    label: /* @__PURE__ */ import_react.default.createElement("span", { className: "border-style-dotted-line" }),
+    value: "dotted"
   }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+];
+var createBorderProp = (position, key) => {
+  const insert = position === "center" ? "" : `-${position}`;
+  return (0, import_shared.camelCase)(`border${insert}-${key}`);
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.BorderStyleSetter = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var designable_react_1 = require("@platform/designable-react");
-
-var shared_1 = require("@formily/shared");
-
-var formx_antd_1 = require("@platform/formx-antd");
-
-var reactive_1 = require("@formily/reactive");
-
-var react_2 = require("@formily/react");
-
-var FoldItem_1 = require("../FoldItem");
-
-var ColorInput_1 = require("../ColorInput");
-
-var SizeInput_1 = require("../SizeInput");
-
-var PositionInput_1 = require("../PositionInput");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var Positions = ['center', 'top', 'right', 'bottom', 'left'];
-var BorderStyleOptions = [{
-  label: 'None',
-  value: 'none'
-}, {
-  label: react_1.default.createElement("span", {
-    className: "border-style-solid-line"
-  }),
-  value: 'solid'
-}, {
-  label: react_1.default.createElement("span", {
-    className: "border-style-dashed-line"
-  }),
-  value: 'dashed'
-}, {
-  label: react_1.default.createElement("span", {
-    className: "border-style-dotted-line"
-  }),
-  value: 'dotted'
-}];
-
-var createBorderProp = function createBorderProp(position, key) {
-  var insert = position === 'center' ? '' : "-".concat(position);
-  return (0, shared_1.camelCase)("border".concat(insert, "-").concat(key));
-};
-
-var parseInitPosition = function parseInitPosition(field) {
-  var basePath = field.address.parent();
-
-  for (var i = 0; i < Positions.length; i++) {
-    var position = Positions[i];
-    var stylePath = "".concat(basePath, ".").concat(createBorderProp(position, 'style'));
-    var widthPath = "".concat(basePath, ".").concat(createBorderProp(position, 'width'));
-    var colorPath = "".concat(basePath, ".").concat(createBorderProp(position, 'color'));
-
+var parseInitPosition = (field) => {
+  const basePath = field.address.parent();
+  for (let i = 0; i < Positions.length; i++) {
+    const position = Positions[i];
+    const stylePath = `${basePath}.${createBorderProp(position, "style")}`;
+    const widthPath = `${basePath}.${createBorderProp(position, "width")}`;
+    const colorPath = `${basePath}.${createBorderProp(position, "color")}`;
     if (field.query(stylePath).value() || field.query(widthPath).value() || field.query(colorPath).value()) {
       return position;
     }
   }
-
-  return 'center';
+  return "center";
 };
-
-exports.BorderStyleSetter = (0, react_2.observer)(function (_a) {
-  var className = _a.className,
-      style = _a.style;
-  var field = (0, react_2.useField)();
-  var currentPosition = (0, react_1.useMemo)(function () {
-    return (0, reactive_1.observable)({
-      value: parseInitPosition(field)
-    });
-  }, [field.value]);
-  var prefix = (0, designable_react_1.usePrefix)('border-style-setter');
-
-  var createReaction = function createReaction(position) {
-    return function (field) {
-      field.display = currentPosition.value === position ? 'visible' : 'hidden';
-
-      if (position !== 'center') {
-        var borderStyle = field.query('.borderStyle').value();
-        var borderWidth = field.query('.borderWidth').value();
-        var borderColor = field.query('.borderColor').value();
-
+var BorderStyleSetter = (0, import_react2.observer)(
+  ({ className, style }) => {
+    const field = (0, import_react2.useField)();
+    const currentPosition = (0, import_react.useMemo)(
+      () => (0, import_reactive.observable)({
+        value: parseInitPosition(field)
+      }),
+      [field.value]
+    );
+    const prefix = (0, import_designable_react.usePrefix)("border-style-setter");
+    const createReaction = (position) => (field2) => {
+      field2.display = currentPosition.value === position ? "visible" : "hidden";
+      if (position !== "center") {
+        const borderStyle = field2.query(".borderStyle").value();
+        const borderWidth = field2.query(".borderWidth").value();
+        const borderColor = field2.query(".borderColor").value();
         if (borderStyle || borderWidth || borderColor) {
-          field.value = undefined;
+          field2.value = void 0;
         }
       }
     };
-  };
-
-  return react_1.default.createElement(FoldItem_1.FoldItem, {
-    label: field.title
-  }, react_1.default.createElement(FoldItem_1.FoldItem.Extra, null, react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, className),
-    style: style
-  }, react_1.default.createElement("div", {
-    className: prefix + '-position'
-  }, react_1.default.createElement(PositionInput_1.PositionInput, {
-    value: currentPosition.value,
-    onChange: function onChange(value) {
-      currentPosition.value = value;
-    }
-  })), react_1.default.createElement("div", {
-    className: prefix + '-input'
-  }, Positions.map(function (position, key) {
-    return react_1.default.createElement(react_1.Fragment, {
-      key: key
-    }, react_1.default.createElement(react_2.Field, {
-      name: createBorderProp(position, 'style'),
-      basePath: field.address.parent(),
-      dataSource: BorderStyleOptions,
-      reactions: createReaction(position),
-      component: [formx_antd_1.Select, {
-        placeholder: 'Please Select'
-      }]
-    }), react_1.default.createElement(react_2.Field, {
-      name: createBorderProp(position, 'width'),
-      basePath: field.address.parent(),
-      reactions: createReaction(position),
-      component: [SizeInput_1.SizeInput, {
-        exclude: ['auto']
-      }]
-    }), react_1.default.createElement(react_2.Field, {
-      name: createBorderProp(position, 'color'),
-      basePath: field.address.parent(),
-      reactions: createReaction(position),
-      component: [ColorInput_1.ColorInput]
-    }));
-  })))));
+    return /* @__PURE__ */ import_react.default.createElement(import_FoldItem.FoldItem, { label: field.title }, /* @__PURE__ */ import_react.default.createElement(import_FoldItem.FoldItem.Extra, null, /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, className), style }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-position" }, /* @__PURE__ */ import_react.default.createElement(
+      import_PositionInput.PositionInput,
+      {
+        value: currentPosition.value,
+        onChange: (value) => {
+          currentPosition.value = value;
+        }
+      }
+    )), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-input" }, Positions.map((position, key) => {
+      return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, { key }, /* @__PURE__ */ import_react.default.createElement(
+        import_react2.Field,
+        {
+          name: createBorderProp(position, "style"),
+          basePath: field.address.parent(),
+          dataSource: BorderStyleOptions,
+          reactions: createReaction(position),
+          component: [import_formx_antd.Select, { placeholder: "Please Select" }]
+        }
+      ), /* @__PURE__ */ import_react.default.createElement(
+        import_react2.Field,
+        {
+          name: createBorderProp(position, "width"),
+          basePath: field.address.parent(),
+          reactions: createReaction(position),
+          component: [import_SizeInput.SizeInput, { exclude: ["auto"] }]
+        }
+      ), /* @__PURE__ */ import_react.default.createElement(
+        import_react2.Field,
+        {
+          name: createBorderProp(position, "color"),
+          basePath: field.address.parent(),
+          reactions: createReaction(position),
+          component: [import_ColorInput.ColorInput]
+        }
+      ));
+    })))));
+  }
+);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  BorderStyleSetter
 });

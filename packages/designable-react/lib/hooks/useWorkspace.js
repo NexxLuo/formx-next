@@ -1,30 +1,43 @@
-"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/hooks/useWorkspace.ts
+var useWorkspace_exports = {};
+__export(useWorkspace_exports, {
+  useWorkspace: () => useWorkspace
 });
-exports.useWorkspace = void 0;
-
-var react_1 = require("react");
-
-var useDesigner_1 = require("./useDesigner");
-
-var context_1 = require("../context");
-
-var shared_1 = require("@designable/shared");
-
-var useWorkspace = function useWorkspace(id) {
+module.exports = __toCommonJS(useWorkspace_exports);
+var import_react = require("react");
+var import_useDesigner = require("./useDesigner");
+var import_context = require("../context");
+var import_shared = require("@designable/shared");
+var useWorkspace = (id) => {
   var _a;
-
-  var designer = (0, useDesigner_1.useDesigner)();
-  var workspaceId = id || ((_a = (0, react_1.useContext)(context_1.WorkspaceContext)) === null || _a === void 0 ? void 0 : _a.id);
-
+  const designer = (0, import_useDesigner.useDesigner)();
+  const workspaceId = id || ((_a = (0, import_react.useContext)(import_context.WorkspaceContext)) == null ? void 0 : _a.id);
   if (workspaceId) {
     return designer.workbench.findWorkspaceById(workspaceId);
   }
-
-  if (shared_1.globalThisPolyfill['__DESIGNABLE_WORKSPACE__']) return shared_1.globalThisPolyfill['__DESIGNABLE_WORKSPACE__'];
+  if (import_shared.globalThisPolyfill["__DESIGNABLE_WORKSPACE__"])
+    return import_shared.globalThisPolyfill["__DESIGNABLE_WORKSPACE__"];
   return designer.workbench.currentWorkspace;
 };
-
-exports.useWorkspace = useWorkspace;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useWorkspace
+});

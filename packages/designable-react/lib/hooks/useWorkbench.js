@@ -1,15 +1,33 @@
-"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/hooks/useWorkbench.ts
+var useWorkbench_exports = {};
+__export(useWorkbench_exports, {
+  useWorkbench: () => useWorkbench
 });
-exports.useWorkbench = void 0;
-
-var useDesigner_1 = require("./useDesigner");
-
-var useWorkbench = function useWorkbench() {
-  var designer = (0, useDesigner_1.useDesigner)();
+module.exports = __toCommonJS(useWorkbench_exports);
+var import_useDesigner = require("./useDesigner");
+var useWorkbench = () => {
+  const designer = (0, import_useDesigner.useDesigner)();
   return designer.workbench;
 };
-
-exports.useWorkbench = useWorkbench;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useWorkbench
+});

@@ -1,24 +1,41 @@
-"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/hooks/useDesigner.ts
+var useDesigner_exports = {};
+__export(useDesigner_exports, {
+  useDesigner: () => useDesigner
 });
-exports.useDesigner = void 0;
-
-var react_1 = require("react");
-
-var context_1 = require("../context");
-
-var shared_1 = require("@designable/shared");
-
-var useDesigner = function useDesigner(effects) {
-  var designer = shared_1.globalThisPolyfill['__DESIGNABLE_ENGINE__'] || (0, react_1.useContext)(context_1.DesignerEngineContext);
-  (0, react_1.useEffect)(function () {
-    if ((0, shared_1.isFn)(effects)) {
+module.exports = __toCommonJS(useDesigner_exports);
+var import_react = require("react");
+var import_context = require("../context");
+var import_shared = require("@designable/shared");
+var useDesigner = (effects) => {
+  const designer = import_shared.globalThisPolyfill["__DESIGNABLE_ENGINE__"] || (0, import_react.useContext)(import_context.DesignerEngineContext);
+  console.log("designer:", designer == null ? void 0 : designer.id);
+  (0, import_react.useEffect)(() => {
+    if ((0, import_shared.isFn)(effects)) {
       return effects(designer);
     }
   }, []);
   return designer;
 };
-
-exports.useDesigner = useDesigner;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useDesigner
+});

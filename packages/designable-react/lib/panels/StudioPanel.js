@@ -1,87 +1,74 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/panels/StudioPanel.tsx
+var StudioPanel_exports = {};
+__export(StudioPanel_exports, {
+  StudioPanel: () => StudioPanel
 });
-exports.StudioPanel = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var hooks_1 = require("../hooks");
-
-var containers_1 = require("../containers");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var StudioPanelInternal = function StudioPanelInternal(_a) {
-  var logo = _a.logo,
-      actions = _a.actions,
-      props = __rest(_a, ["logo", "actions"]);
-
-  var prefix = (0, hooks_1.usePrefix)('main-panel');
-  var position = (0, hooks_1.usePosition)();
-  var classNameBase = (0, classnames_1.default)('root', position, props.className);
-
+module.exports = __toCommonJS(StudioPanel_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../hooks");
+var import_containers = require("../containers");
+var import_classnames = __toESM(require("classnames"));
+var StudioPanelInternal = ({
+  logo,
+  actions,
+  ...props
+}) => {
+  const prefix = (0, import_hooks.usePrefix)("main-panel");
+  const position = (0, import_hooks.usePosition)();
+  const classNameBase = (0, import_classnames.default)("root", position, props.className);
   if (logo || actions) {
-    return react_1.default.createElement("div", __assign({}, props, {
-      className: (0, classnames_1.default)("".concat(prefix, "-container"), classNameBase)
-    }), react_1.default.createElement("div", {
-      className: prefix + '-header'
-    }, react_1.default.createElement("div", {
-      className: prefix + '-header-logo'
-    }, logo), react_1.default.createElement("div", {
-      className: prefix + '-header-actions'
-    }, actions)), react_1.default.createElement("div", {
-      className: prefix
-    }, props.children));
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        ...props,
+        className: (0, import_classnames.default)(`${prefix}-container`, classNameBase)
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-logo" }, logo), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-actions" }, actions)),
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix }, props.children)
+    );
   }
-
-  return react_1.default.createElement("div", __assign({}, props, {
-    className: (0, classnames_1.default)(prefix, classNameBase)
-  }), props.children);
+  return /* @__PURE__ */ import_react.default.createElement("div", { ...props, className: (0, import_classnames.default)(prefix, classNameBase) }, props.children);
 };
-
-var StudioPanel = function StudioPanel(props) {
-  return react_1.default.createElement(containers_1.Layout, {
-    theme: props.theme,
-    prefixCls: props.prefixCls,
-    position: props.position
-  }, react_1.default.createElement(StudioPanelInternal, __assign({}, props)));
+var StudioPanel = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement(
+    import_containers.Layout,
+    {
+      theme: props.theme,
+      prefixCls: props.prefixCls,
+      position: props.position
+    },
+    /* @__PURE__ */ import_react.default.createElement(StudioPanelInternal, { ...props })
+  );
 };
-
-exports.StudioPanel = StudioPanel;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  StudioPanel
+});

@@ -19,3 +19,4 @@ export interface IPolyType {
 }
 export declare type PolyTypes = IPolyType[];
 export declare function createPolyInput(polyTypes?: PolyTypes): React.FC<IInput>;
+//# sourceMappingURL=index.d.ts.map

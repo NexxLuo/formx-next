@@ -5,3 +5,4 @@ export interface IWorkspaceProps {
     description?: string;
 }
 export declare const Workspace: React.FC<IWorkspaceProps>;
+//# sourceMappingURL=Workspace.d.ts.map

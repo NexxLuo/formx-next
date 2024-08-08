@@ -14,3 +14,4 @@ export declare const TextAlignLeft: JSX.Element;
 export declare const TextAlignCenter: JSX.Element;
 export declare const TextAlignRight: JSX.Element;
 export declare const TextAlignJustify: JSX.Element;
+//# sourceMappingURL=font.d.ts.map

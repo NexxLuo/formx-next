@@ -1,35 +1,53 @@
-"use strict";
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/registry.ts
+var registry_exports = {};
+__export(registry_exports, {
+  getNpmCDNRegistry: () => getNpmCDNRegistry,
+  setNpmCDNRegistry: () => setNpmCDNRegistry
 });
-exports.getNpmCDNRegistry = exports.setNpmCDNRegistry = void 0;
-
-var loader_1 = __importDefault(require("@monaco-editor/loader"));
-
+module.exports = __toCommonJS(registry_exports);
+var import_loader = __toESM(require("@monaco-editor/loader"));
 var Registry = {
-  cdn: '//cdn.jsdelivr.net/npm'
+  cdn: "//cdn.jsdelivr.net/npm"
 };
-
-var setNpmCDNRegistry = function setNpmCDNRegistry(registry) {
+var setNpmCDNRegistry = (registry) => {
   Registry.cdn = registry;
-  loader_1.default.config({
+  import_loader.default.config({
     paths: {
-      vs: "".concat(registry, "/monaco-editor@0.30.1/min/vs")
+      vs: `${registry}/monaco-editor@0.30.1/min/vs`
     }
   });
 };
-
-exports.setNpmCDNRegistry = setNpmCDNRegistry;
-
-var getNpmCDNRegistry = function getNpmCDNRegistry() {
-  return String(Registry.cdn).replace(/\/$/, '');
-};
-
-exports.getNpmCDNRegistry = getNpmCDNRegistry;
+var getNpmCDNRegistry = () => String(Registry.cdn).replace(/\/$/, "");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  getNpmCDNRegistry,
+  setNpmCDNRegistry
+});

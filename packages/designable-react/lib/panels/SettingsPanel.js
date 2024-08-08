@@ -1,172 +1,107 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  return ar;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/panels/SettingsPanel.tsx
+var SettingsPanel_exports = {};
+__export(SettingsPanel_exports, {
+  SettingsPanel: () => SettingsPanel
 });
-exports.SettingsPanel = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var shared_1 = require("@designable/shared");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var widgets_1 = require("../widgets");
-
-var hooks_1 = require("../hooks");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-exports.SettingsPanel = (0, reactive_react_1.observer)(function (props) {
-  var prefix = (0, hooks_1.usePrefix)('settings-panel');
-  var workbench = (0, hooks_1.useWorkbench)();
-
-  var _a = __read((0, react_1.useState)(true), 2),
-      innerVisible = _a[0],
-      setInnerVisible = _a[1];
-
-  var _b = __read((0, react_1.useState)(false), 2),
-      pinning = _b[0],
-      setPinning = _b[1];
-
-  var _c = __read((0, react_1.useState)(true), 2),
-      visible = _c[0],
-      setVisible = _c[1];
-
-  (0, react_1.useEffect)(function () {
-    if (visible || workbench.type === 'DESIGNABLE') {
+module.exports = __toCommonJS(SettingsPanel_exports);
+var import_react = __toESM(require("react"));
+var import_shared = require("@designable/shared");
+var import_reactive_react = require("@formily/reactive-react");
+var import_widgets = require("../widgets");
+var import_hooks = require("../hooks");
+var import_classnames = __toESM(require("classnames"));
+var SettingsPanel = (0, import_reactive_react.observer)((props) => {
+  const prefix = (0, import_hooks.usePrefix)("settings-panel");
+  const workbench = (0, import_hooks.useWorkbench)();
+  const [innerVisible, setInnerVisible] = (0, import_react.useState)(true);
+  const [pinning, setPinning] = (0, import_react.useState)(false);
+  const [visible, setVisible] = (0, import_react.useState)(true);
+  (0, import_react.useEffect)(() => {
+    if (visible || workbench.type === "DESIGNABLE") {
       if (!innerVisible) {
-        (0, shared_1.requestIdle)(function () {
-          requestAnimationFrame(function () {
+        (0, import_shared.requestIdle)(() => {
+          requestAnimationFrame(() => {
             setInnerVisible(true);
           });
         });
       }
     }
   }, [visible, workbench.type]);
-
-  if (workbench.type !== 'DESIGNABLE') {
+  if (workbench.type !== "DESIGNABLE") {
     if (innerVisible) setInnerVisible(false);
     return null;
   }
-
   if (!visible) {
     if (innerVisible) setInnerVisible(false);
-    return react_1.default.createElement("div", {
-      className: prefix + '-opener',
-      onClick: function onClick() {
-        setVisible(true);
-      }
-    }, react_1.default.createElement(widgets_1.IconWidget, {
-      infer: "Setting",
-      size: 20
-    }));
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: prefix + "-opener",
+        onClick: () => {
+          setVisible(true);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_widgets.IconWidget, { infer: "Setting", size: 20 })
+    );
   }
-
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, {
-      pinning: pinning
-    })
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header'
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header-title'
-  }, react_1.default.createElement(widgets_1.TextWidget, null, props.title)), react_1.default.createElement("div", {
-    className: prefix + '-header-actions'
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header-extra'
-  }, props.extra), !pinning && react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "PushPinOutlined",
-    className: prefix + '-header-pin',
-    onClick: function onClick() {
-      setPinning(!pinning);
+  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, { pinning }) }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-title" }, /* @__PURE__ */ import_react.default.createElement(import_widgets.TextWidget, null, props.title)), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-actions" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-extra" }, props.extra), !pinning && /* @__PURE__ */ import_react.default.createElement(
+    import_widgets.IconWidget,
+    {
+      infer: "PushPinOutlined",
+      className: prefix + "-header-pin",
+      onClick: () => {
+        setPinning(!pinning);
+      }
     }
-  }), pinning && react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "PushPinFilled",
-    className: prefix + '-pin-filled',
-    onClick: function onClick() {
-      setPinning(!pinning);
+  ), pinning && /* @__PURE__ */ import_react.default.createElement(
+    import_widgets.IconWidget,
+    {
+      infer: "PushPinFilled",
+      className: prefix + "-pin-filled",
+      onClick: () => {
+        setPinning(!pinning);
+      }
     }
-  }), react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "Close",
-    className: prefix + '-header-close',
-    onClick: function onClick() {
-      setVisible(false);
+  ), /* @__PURE__ */ import_react.default.createElement(
+    import_widgets.IconWidget,
+    {
+      infer: "Close",
+      className: prefix + "-header-close",
+      onClick: () => {
+        setVisible(false);
+      }
     }
-  }))), react_1.default.createElement("div", {
-    className: prefix + '-body'
-  }, innerVisible && props.children));
+  ))), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-body" }, innerVisible && props.children));
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  SettingsPanel
 });

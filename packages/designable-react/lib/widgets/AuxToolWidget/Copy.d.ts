@@ -5,3 +5,4 @@ export interface ICopyProps {
     style?: React.CSSProperties;
 }
 export declare const Copy: React.FC<ICopyProps>;
+//# sourceMappingURL=Copy.d.ts.map

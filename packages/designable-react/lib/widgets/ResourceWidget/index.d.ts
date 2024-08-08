@@ -10,3 +10,4 @@ export interface IResourceWidgetProps {
     children?: SourceMapper | React.ReactElement;
 }
 export declare const ResourceWidget: React.FC<IResourceWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

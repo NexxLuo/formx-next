@@ -14,3 +14,4 @@ export interface MonacoInputProps extends EditorProps {
 export declare const MonacoInput: React.FC<MonacoInputProps> & {
     loader?: typeof loader;
 };
+//# sourceMappingURL=index.d.ts.map

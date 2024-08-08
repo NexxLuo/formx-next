@@ -5,3 +5,4 @@ export interface IResponsiveSimulatorProps extends React.HTMLAttributes<HTMLDivE
     style?: React.CSSProperties;
 }
 export declare const ResponsiveSimulator: React.FC<IResponsiveSimulatorProps>;
+//# sourceMappingURL=index.d.ts.map

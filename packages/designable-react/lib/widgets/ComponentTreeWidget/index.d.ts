@@ -13,3 +13,4 @@ export interface ITreeNodeWidgetProps {
 }
 export declare const TreeNodeWidget: React.FC<ITreeNodeWidgetProps>;
 export declare const ComponentTreeWidget: React.FC<IComponentTreeWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

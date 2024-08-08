@@ -1,20 +1,33 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.usePrefix = void 0;
-
-var useLayout_1 = require("./useLayout");
-
-var usePrefix = function usePrefix(after) {
-  var _a;
-
-  if (after === void 0) {
-    after = '';
-  }
-
-  return ((_a = (0, useLayout_1.useLayout)()) === null || _a === void 0 ? void 0 : _a.prefixCls) + after;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-exports.usePrefix = usePrefix;
+// src/hooks/usePrefix.ts
+var usePrefix_exports = {};
+__export(usePrefix_exports, {
+  usePrefix: () => usePrefix
+});
+module.exports = __toCommonJS(usePrefix_exports);
+var import_useLayout = require("./useLayout");
+var usePrefix = (after = "") => {
+  var _a;
+  return ((_a = (0, import_useLayout.useLayout)()) == null ? void 0 : _a.prefixCls) + after;
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  usePrefix
+});

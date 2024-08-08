@@ -6,3 +6,4 @@ export interface IWorkspaceItemProps {
 export declare const WorkspacePanel: React.FC & {
     Item?: React.FC<IWorkspaceItemProps>;
 };
+//# sourceMappingURL=WorkspacePanel.d.ts.map

@@ -7,3 +7,4 @@ export interface IViewPanelProps {
     dragTipsDirection?: 'left' | 'right';
 }
 export declare const ViewPanel: React.FC<IViewPanelProps>;
+//# sourceMappingURL=ViewPanel.d.ts.map

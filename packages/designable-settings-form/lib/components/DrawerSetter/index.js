@@ -1,184 +1,101 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/components/DrawerSetter/index.tsx
+var DrawerSetter_exports = {};
+__export(DrawerSetter_exports, {
+  DrawerSetter: () => DrawerSetter
 });
-exports.DrawerSetter = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var react_dom_1 = require("react-dom");
-
-var react_2 = require("@formily/react");
-
-var formx_antd_1 = require("@platform/formx-antd");
-
-var designable_react_1 = require("@platform/designable-react");
-
-var antd_1 = require("antd");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-exports.DrawerSetter = (0, react_2.observer)(function (props) {
-  var node = (0, designable_react_1.useTreeNode)();
-  var field = (0, react_2.useField)();
-
-  var _a = __read((0, react_1.useState)(false), 2),
-      visible = _a[0],
-      setVisible = _a[1];
-
-  var _b = __read((0, react_1.useState)(false), 2),
-      remove = _b[0],
-      setRemove = _b[1];
-
-  var _c = __read((0, react_1.useState)(), 2),
-      root = _c[0],
-      setRoot = _c[1];
-
-  var prefix = (0, designable_react_1.usePrefix)('drawer-setter');
-  var formWrapperCls = (0, designable_react_1.usePrefix)('settings-form-wrapper');
-  (0, react_1.useLayoutEffect)(function () {
-    var wrapper = document.querySelector('.' + formWrapperCls);
-
+module.exports = __toCommonJS(DrawerSetter_exports);
+var import_react = __toESM(require("react"));
+var import_react_dom = require("react-dom");
+var import_react2 = require("@formily/react");
+var import_formx_antd = require("@platform/formx-antd");
+var import_designable_react = require("@platform/designable-react");
+var import_antd = require("antd");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var DrawerSetter = (0, import_react2.observer)((props) => {
+  const node = (0, import_designable_react.useTreeNode)();
+  const field = (0, import_react2.useField)();
+  const [visible, setVisible] = (0, import_react.useState)(false);
+  const [remove, setRemove] = (0, import_react.useState)(false);
+  const [root, setRoot] = (0, import_react.useState)();
+  const prefix = (0, import_designable_react.usePrefix)("drawer-setter");
+  const formWrapperCls = (0, import_designable_react.usePrefix)("settings-form-wrapper");
+  (0, import_react.useLayoutEffect)(() => {
+    const wrapper = document.querySelector("." + formWrapperCls);
     if (wrapper) {
       setRoot(wrapper);
     }
   }, [node]);
-
-  var renderDrawer = function renderDrawer() {
+  const renderDrawer = () => {
     if (root && visible) {
-      return (0, react_dom_1.createPortal)(react_1.default.createElement("div", {
-        className: (0, classnames_1.default)(prefix, 'animate__animated animate__slideInRight', {
-          animate__slideOutRight: remove
-        })
-      }, react_1.default.createElement("div", {
-        className: prefix + '-header',
-        onClick: handleClose
-      }, react_1.default.createElement(designable_react_1.IconWidget, {
-        infer: "Return",
-        size: 18
-      }), react_1.default.createElement("span", {
-        className: prefix + '-header-text'
-      }, props.text || field.title)), react_1.default.createElement("div", {
-        className: prefix + '-body'
-      }, react_1.default.createElement(formx_antd_1.FormLayout, {
-        colon: false,
-        labelWidth: 120,
-        labelAlign: "left",
-        wrapperAlign: "right",
-        feedbackLayout: "none",
-        tooltipLayout: "text"
-      }, props.children))), root);
+      return (0, import_react_dom.createPortal)(
+        /* @__PURE__ */ import_react.default.createElement(
+          "div",
+          {
+            className: (0, import_classnames.default)(prefix, "animate__animated animate__slideInRight", {
+              animate__slideOutRight: remove
+            })
+          },
+          /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header", onClick: handleClose }, /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "Return", size: 18 }), /* @__PURE__ */ import_react.default.createElement("span", { className: prefix + "-header-text" }, props.text || field.title)),
+          /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-body" }, /* @__PURE__ */ import_react.default.createElement(
+            import_formx_antd.FormLayout,
+            {
+              colon: false,
+              labelWidth: 120,
+              labelAlign: "left",
+              wrapperAlign: "right",
+              feedbackLayout: "none",
+              tooltipLayout: "text"
+            },
+            props.children
+          ))
+        ),
+        root
+      );
     }
-
     return null;
   };
-
-  var handleOpen = function handleOpen() {
+  const handleOpen = () => {
     setVisible(true);
   };
-
-  var handleClose = function handleClose() {
+  const handleClose = () => {
     setRemove(true);
-    setTimeout(function () {
+    setTimeout(() => {
       setVisible(false);
       setRemove(false);
     }, 150);
   };
-
-  return react_1.default.createElement(react_1.Fragment, null, react_1.default.createElement(antd_1.Button, __assign({
-    block: true,
-    onClick: handleOpen
-  }, props.triggerProps), props.text || field.title), renderDrawer());
+  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, /* @__PURE__ */ import_react.default.createElement(import_antd.Button, { block: true, onClick: handleOpen, ...props.triggerProps }, props.text || field.title), renderDrawer());
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  DrawerSetter
 });

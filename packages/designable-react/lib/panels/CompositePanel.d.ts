@@ -20,3 +20,4 @@ export interface ICompositePanelItemProps {
 export declare const CompositePanel: React.FC<ICompositePanelProps> & {
     Item?: React.FC<ICompositePanelItemProps>;
 };
+//# sourceMappingURL=CompositePanel.d.ts.map

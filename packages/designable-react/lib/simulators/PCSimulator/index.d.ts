@@ -5,3 +5,4 @@ export interface IPCSimulatorProps extends React.HTMLAttributes<HTMLDivElement> 
     style?: React.CSSProperties;
 }
 export declare const PCSimulator: React.FC<IPCSimulatorProps>;
+//# sourceMappingURL=index.d.ts.map

@@ -131,3 +131,4 @@ declare const _default: {
     };
 };
 export default _default;
+//# sourceMappingURL=icons.d.ts.map

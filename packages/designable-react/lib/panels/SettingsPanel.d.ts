@@ -4,3 +4,4 @@ export interface ISettingPanelProps {
     extra?: React.ReactNode;
 }
 export declare const SettingsPanel: React.FC<ISettingPanelProps>;
+//# sourceMappingURL=SettingsPanel.d.ts.map

@@ -20,3 +20,4 @@ export declare const FlexAlignItemsStretch: JSX.Element;
 export declare const FlexAlignItemsBaseline: JSX.Element;
 export declare const FlexNoWrap: JSX.Element;
 export declare const FlexWrap: JSX.Element;
+//# sourceMappingURL=flex.d.ts.map

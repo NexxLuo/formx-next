@@ -8,3 +8,4 @@ export interface IOutlineTreeWidgetProps {
     renderActions?: (node: TreeNode) => React.ReactNode;
 }
 export declare const OutlineTreeWidget: React.FC<IOutlineTreeWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

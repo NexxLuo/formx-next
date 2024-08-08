@@ -4,3 +4,4 @@ export interface IFontStyleSetterProps {
     style?: React.CSSProperties;
 }
 export declare const FontStyleSetter: React.FC<IFontStyleSetterProps>;
+//# sourceMappingURL=index.d.ts.map

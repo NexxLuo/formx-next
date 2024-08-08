@@ -8,3 +8,4 @@ export interface IResizeHandleProps {
     type?: ResizeHandleType;
 }
 export declare const ResizeHandle: React.FC<IResizeHandleProps>;
+//# sourceMappingURL=handle.d.ts.map

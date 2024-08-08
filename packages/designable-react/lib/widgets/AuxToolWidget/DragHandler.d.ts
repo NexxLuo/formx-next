@@ -5,3 +5,4 @@ export interface IDragHandlerProps {
     style?: React.CSSProperties;
 }
 export declare const DragHandler: React.FC<IDragHandlerProps>;
+//# sourceMappingURL=DragHandler.d.ts.map

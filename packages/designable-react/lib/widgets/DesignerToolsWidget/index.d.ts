@@ -8,3 +8,4 @@ export declare type IDesignerToolsWidgetProps = {
 };
 export declare const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps>;
 export {};
+//# sourceMappingURL=index.d.ts.map

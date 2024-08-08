@@ -20,3 +20,4 @@ export declare const IconWidget: React.FC<IIconWidgetProps> & {
     Provider?: React.FC<IconProviderProps>;
     ShadowSVG?: React.FC<IShadowSVGProps>;
 };
+//# sourceMappingURL=index.d.ts.map

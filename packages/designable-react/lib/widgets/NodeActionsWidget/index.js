@@ -1,102 +1,74 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/NodeActionsWidget/index.tsx
+var NodeActionsWidget_exports = {};
+__export(NodeActionsWidget_exports, {
+  NodeActionsWidget: () => NodeActionsWidget
 });
-exports.NodeActionsWidget = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var antd_1 = require("antd");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var hooks_1 = require("../../hooks");
-
-var IconWidget_1 = require("../IconWidget");
-
-var TextWidget_1 = require("../TextWidget");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var Space = function Space(props) {
-  return react_1.default.createElement("div", __assign({}, props));
+module.exports = __toCommonJS(NodeActionsWidget_exports);
+var import_react = __toESM(require("react"));
+var import_antd = require("antd");
+var import_reactive_react = require("@formily/reactive-react");
+var import_hooks = require("../../hooks");
+var import_IconWidget = require("../IconWidget");
+var import_TextWidget = require("../TextWidget");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var Space = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement("div", { ...props });
 };
-
-var Typography = function Typography(props) {
-  return react_1.default.createElement("div", __assign({}, props));
+var Typography = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement("div", { ...props });
 };
-
-Typography.Link = function (props) {
-  return react_1.default.createElement("div", __assign({}, props));
+Typography.Link = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement("div", { ...props });
 };
-
-exports.NodeActionsWidget = (0, reactive_react_1.observer)(function (props) {
-  var node = (0, hooks_1.useTreeNode)();
-  var prefix = (0, hooks_1.usePrefix)('node-actions');
-  var selected = (0, hooks_1.useSelected)();
+var NodeActionsWidget = (0, import_reactive_react.observer)((props) => {
+  const node = (0, import_hooks.useTreeNode)();
+  const prefix = (0, import_hooks.usePrefix)("node-actions");
+  const selected = (0, import_hooks.useSelected)();
   if (selected.indexOf(node.id) === -1 && props.activeShown) return null;
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, props.className),
-    style: props.style
-  }, react_1.default.createElement("div", {
-    className: prefix + '-content'
-  }, react_1.default.createElement(Space, {
-    split: react_1.default.createElement(antd_1.Divider, {
-      type: "vertical"
-    })
-  }, props.children)));
+  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, props.className), style: props.style }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, /* @__PURE__ */ import_react.default.createElement(Space, { split: /* @__PURE__ */ import_react.default.createElement(import_antd.Divider, { type: "vertical" }) }, props.children)));
 });
-
-exports.NodeActionsWidget.Action = function (_a) {
-  var icon = _a.icon,
-      title = _a.title,
-      props = __rest(_a, ["icon", "title"]);
-
-  var prefix = (0, hooks_1.usePrefix)('node-actions-item');
-  return react_1.default.createElement(Typography.Link, __assign({}, props, {
-    className: (0, classnames_1.default)(props.className, prefix),
-    "data-click-stop-propagation": "true"
-  }), react_1.default.createElement("span", {
-    className: prefix + '-text'
-  }, react_1.default.createElement(IconWidget_1.IconWidget, {
-    infer: icon
-  }), react_1.default.createElement(TextWidget_1.TextWidget, null, title)));
+NodeActionsWidget.Action = ({ icon, title, ...props }) => {
+  const prefix = (0, import_hooks.usePrefix)("node-actions-item");
+  return /* @__PURE__ */ import_react.default.createElement(
+    Typography.Link,
+    {
+      ...props,
+      className: (0, import_classnames.default)(props.className, prefix),
+      "data-click-stop-propagation": "true"
+    },
+    /* @__PURE__ */ import_react.default.createElement("span", { className: prefix + "-text" }, /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: icon }), /* @__PURE__ */ import_react.default.createElement(import_TextWidget.TextWidget, null, title))
+  );
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  NodeActionsWidget
+});

@@ -7,3 +7,4 @@ export interface IMarginStyleSetterProps {
     onChange?: (value: string) => void;
 }
 export declare const BoxStyleSetter: React.FC<IMarginStyleSetterProps>;
+//# sourceMappingURL=index.d.ts.map

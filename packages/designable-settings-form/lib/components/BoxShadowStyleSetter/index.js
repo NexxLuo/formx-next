@@ -1,86 +1,98 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/components/BoxShadowStyleSetter/index.tsx
+var BoxShadowStyleSetter_exports = {};
+__export(BoxShadowStyleSetter_exports, {
+  BoxShadowStyleSetter: () => BoxShadowStyleSetter
 });
-exports.BoxShadowStyleSetter = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var designable_react_1 = require("@platform/designable-react");
-
-var react_2 = require("@formily/react");
-
-var FoldItem_1 = require("../FoldItem");
-
-var ColorInput_1 = require("../ColorInput");
-
-var SizeInput_1 = require("../SizeInput");
-
-var InputItems_1 = require("../InputItems");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-exports.BoxShadowStyleSetter = (0, react_2.observer)(function (props) {
-  var field = (0, react_2.useField)();
-  var prefix = (0, designable_react_1.usePrefix)('shadow-style-setter');
-
-  var createBoxShadowConnector = function createBoxShadowConnector(position) {
-    var splited = String(props.value || '').trim().split(' ');
+module.exports = __toCommonJS(BoxShadowStyleSetter_exports);
+var import_react = __toESM(require("react"));
+var import_designable_react = require("@platform/designable-react");
+var import_react2 = require("@formily/react");
+var import_FoldItem = require("../FoldItem");
+var import_ColorInput = require("../ColorInput");
+var import_SizeInput = require("../SizeInput");
+var import_InputItems = require("../InputItems");
+var import_classnames = __toESM(require("classnames"));
+var BoxShadowStyleSetter = (0, import_react2.observer)((props) => {
+  const field = (0, import_react2.useField)();
+  const prefix = (0, import_designable_react.usePrefix)("shadow-style-setter");
+  const createBoxShadowConnector = (position) => {
+    const splited = String(props.value || "").trim().split(" ");
     return {
       value: splited[position],
-      onChange: function onChange(value) {
+      onChange: (value) => {
         var _a;
-
         splited[position] = value;
-        (_a = props.onChange) === null || _a === void 0 ? void 0 : _a.call(props, "".concat(splited[0] || '', " ").concat(splited[1] || '', " ").concat(splited[2] || '', " ").concat(splited[3] || '', " ").concat(splited[4] || ''));
+        (_a = props.onChange) == null ? void 0 : _a.call(
+          props,
+          `${splited[0] || ""} ${splited[1] || ""} ${splited[2] || ""} ${splited[3] || ""} ${splited[4] || ""}`
+        );
       }
     };
   };
-
-  return react_1.default.createElement(FoldItem_1.FoldItem, {
-    className: (0, classnames_1.default)(prefix, props.className),
-    style: props.style,
-    label: field.title
-  }, react_1.default.createElement(FoldItem_1.FoldItem.Base, null, react_1.default.createElement(ColorInput_1.ColorInput, __assign({}, createBoxShadowConnector(4)))), react_1.default.createElement(FoldItem_1.FoldItem.Extra, null, react_1.default.createElement(InputItems_1.InputItems, {
-    width: "50%"
-  }, react_1.default.createElement(InputItems_1.InputItems.Item, {
-    icon: "AxisX"
-  }, react_1.default.createElement(SizeInput_1.SizeInput, __assign({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(0)))), react_1.default.createElement(InputItems_1.InputItems.Item, {
-    icon: "AxisY"
-  }, react_1.default.createElement(SizeInput_1.SizeInput, __assign({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(1)))), react_1.default.createElement(InputItems_1.InputItems.Item, {
-    icon: "Blur"
-  }, react_1.default.createElement(SizeInput_1.SizeInput, __assign({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(2)))), react_1.default.createElement(InputItems_1.InputItems.Item, {
-    icon: "Shadow"
-  }, react_1.default.createElement(SizeInput_1.SizeInput, __assign({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(3)))))));
+  return /* @__PURE__ */ import_react.default.createElement(
+    import_FoldItem.FoldItem,
+    {
+      className: (0, import_classnames.default)(prefix, props.className),
+      style: props.style,
+      label: field.title
+    },
+    /* @__PURE__ */ import_react.default.createElement(import_FoldItem.FoldItem.Base, null, /* @__PURE__ */ import_react.default.createElement(import_ColorInput.ColorInput, { ...createBoxShadowConnector(4) })),
+    /* @__PURE__ */ import_react.default.createElement(import_FoldItem.FoldItem.Extra, null, /* @__PURE__ */ import_react.default.createElement(import_InputItems.InputItems, { width: "50%" }, /* @__PURE__ */ import_react.default.createElement(import_InputItems.InputItems.Item, { icon: "AxisX" }, /* @__PURE__ */ import_react.default.createElement(
+      import_SizeInput.SizeInput,
+      {
+        exclude: ["inherit", "auto"],
+        ...createBoxShadowConnector(0)
+      }
+    )), /* @__PURE__ */ import_react.default.createElement(import_InputItems.InputItems.Item, { icon: "AxisY" }, /* @__PURE__ */ import_react.default.createElement(
+      import_SizeInput.SizeInput,
+      {
+        exclude: ["inherit", "auto"],
+        ...createBoxShadowConnector(1)
+      }
+    )), /* @__PURE__ */ import_react.default.createElement(import_InputItems.InputItems.Item, { icon: "Blur" }, /* @__PURE__ */ import_react.default.createElement(
+      import_SizeInput.SizeInput,
+      {
+        exclude: ["inherit", "auto"],
+        ...createBoxShadowConnector(2)
+      }
+    )), /* @__PURE__ */ import_react.default.createElement(import_InputItems.InputItems.Item, { icon: "Shadow" }, /* @__PURE__ */ import_react.default.createElement(
+      import_SizeInput.SizeInput,
+      {
+        exclude: ["inherit", "auto"],
+        ...createBoxShadowConnector(3)
+      }
+    ))))
+  );
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  BoxShadowStyleSetter
 });

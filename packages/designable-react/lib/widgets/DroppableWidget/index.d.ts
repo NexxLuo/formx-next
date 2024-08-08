@@ -12,3 +12,4 @@ export interface IDroppableWidgetProps {
     hasChildren?: boolean;
 }
 export declare const DroppableWidget: React.FC<IDroppableWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

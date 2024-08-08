@@ -6,3 +6,4 @@ export interface IDrawerSetterProps {
     triggerProps: ButtonProps;
 }
 export declare const DrawerSetter: React.FC<IDrawerSetterProps>;
+//# sourceMappingURL=index.d.ts.map

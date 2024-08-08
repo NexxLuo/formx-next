@@ -1,42 +1,44 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/panels/ViewportPanel.tsx
+var ViewportPanel_exports = {};
+__export(ViewportPanel_exports, {
+  ViewportPanel: () => ViewportPanel
 });
-exports.ViewportPanel = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var WorkspacePanel_1 = require("./WorkspacePanel");
-
-var containers_1 = require("../containers");
-
-var ViewportPanel = function ViewportPanel(props) {
-  return react_1.default.createElement(WorkspacePanel_1.WorkspacePanel.Item, __assign({}, props, {
-    flexable: true
-  }), react_1.default.createElement(containers_1.Simulator, null, props.children));
+module.exports = __toCommonJS(ViewportPanel_exports);
+var import_react = __toESM(require("react"));
+var import_WorkspacePanel = require("./WorkspacePanel");
+var import_containers = require("../containers");
+var ViewportPanel = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement(import_WorkspacePanel.WorkspacePanel.Item, { ...props, flexable: true }, /* @__PURE__ */ import_react.default.createElement(import_containers.Simulator, null, props.children));
 };
-
-exports.ViewportPanel = ViewportPanel;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ViewportPanel
+});

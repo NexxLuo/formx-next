@@ -1,206 +1,125 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
+// src/widgets/ComponentTreeWidget/index.tsx
+var ComponentTreeWidget_exports = {};
+__export(ComponentTreeWidget_exports, {
+  ComponentTreeWidget: () => ComponentTreeWidget,
+  TreeNodeWidget: () => TreeNodeWidget
 });
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __spreadArray = void 0 && (void 0).__spreadArray || function (to, from, pack) {
-  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-    if (ar || !(i in from)) {
-      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-      ar[i] = from[i];
-    }
-  }
-  return to.concat(ar || Array.prototype.slice.call(from));
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ComponentTreeWidget = exports.TreeNodeWidget = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var hooks_1 = require("../../hooks");
-
-var context_1 = require("../../context");
-
-var core_1 = require("@designable/core");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-exports.TreeNodeWidget = (0, reactive_react_1.observer)(function (props) {
-  var _a, _b;
-
-  var designer = (0, hooks_1.useDesigner)((_b = (_a = props.node) === null || _a === void 0 ? void 0 : _a.designerProps) === null || _b === void 0 ? void 0 : _b.effects);
-  var components = (0, hooks_1.useComponents)();
-  var node = props.node;
-
-  var renderChildren = function renderChildren() {
+module.exports = __toCommonJS(ComponentTreeWidget_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../../hooks");
+var import_context = require("../../context");
+var import_core = require("@designable/core");
+var import_reactive_react = require("@formily/reactive-react");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var TreeNodeWidget = (0, import_reactive_react.observer)(
+  (props) => {
     var _a, _b;
-
-    if ((_a = node === null || node === void 0 ? void 0 : node.designerProps) === null || _a === void 0 ? void 0 : _a.selfRenderChildren) return [];
-    return (_b = node === null || node === void 0 ? void 0 : node.children) === null || _b === void 0 ? void 0 : _b.map(function (child) {
-      return react_1.default.createElement(exports.TreeNodeWidget, {
-        key: child.id,
-        node: child
+    const designer = (0, import_hooks.useDesigner)((_b = (_a = props.node) == null ? void 0 : _a.designerProps) == null ? void 0 : _b.effects);
+    const components = (0, import_hooks.useComponents)();
+    const node = props.node;
+    const renderChildren = () => {
+      var _a2, _b2;
+      if ((_a2 = node == null ? void 0 : node.designerProps) == null ? void 0 : _a2.selfRenderChildren) return [];
+      return (_b2 = node == null ? void 0 : node.children) == null ? void 0 : _b2.map((child) => {
+        return /* @__PURE__ */ import_react.default.createElement(TreeNodeWidget, { key: child.id, node: child });
       });
-    });
-  };
-
-  var renderProps = function renderProps(extendsProps) {
-    var _a, _b, _c;
-
-    if (extendsProps === void 0) {
-      extendsProps = {};
-    }
-
-    var props = __assign(__assign(__assign(__assign({}, (_a = node.designerProps) === null || _a === void 0 ? void 0 : _a.defaultProps), extendsProps), node.props), (_c = (_b = node.designerProps) === null || _b === void 0 ? void 0 : _b.getComponentProps) === null || _c === void 0 ? void 0 : _c.call(_b, node));
-
-    if (node.depth === 0) {
-      delete props.style;
-    }
-
-    return props;
-  };
-
-  var renderComponent = function renderComponent() {
-    var _a, _b;
-
-    var componentName = node.componentName;
-    var Component = components[componentName];
-    var dataId = {};
-
-    if (Component) {
-      if (designer) {
-        dataId[(_a = designer === null || designer === void 0 ? void 0 : designer.props) === null || _a === void 0 ? void 0 : _a.nodeIdAttrName] = node.id;
+    };
+    const renderProps = (extendsProps = {}) => {
+      var _a2, _b2, _c;
+      const props2 = {
+        ...(_a2 = node.designerProps) == null ? void 0 : _a2.defaultProps,
+        ...extendsProps,
+        ...node.props,
+        ...(_c = (_b2 = node.designerProps) == null ? void 0 : _b2.getComponentProps) == null ? void 0 : _c.call(_b2, node)
+      };
+      if (node.depth === 0) {
+        delete props2.style;
       }
-
-      return react_1.default.createElement.apply(react_1.default, __spreadArray([Component, renderProps(dataId)], __read(renderChildren()), false));
-    } else {
-      if ((_b = node === null || node === void 0 ? void 0 : node.children) === null || _b === void 0 ? void 0 : _b.length) {
-        return react_1.default.createElement(react_1.Fragment, null, renderChildren());
+      return props2;
+    };
+    const renderComponent = () => {
+      var _a2, _b2;
+      const componentName = node.componentName;
+      const Component = components[componentName];
+      const dataId = {};
+      if (Component) {
+        if (designer) {
+          dataId[(_a2 = designer == null ? void 0 : designer.props) == null ? void 0 : _a2.nodeIdAttrName] = node.id;
+        }
+        return import_react.default.createElement(
+          Component,
+          renderProps(dataId),
+          ...renderChildren()
+        );
+      } else {
+        if ((_b2 = node == null ? void 0 : node.children) == null ? void 0 : _b2.length) {
+          return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, renderChildren());
+        }
       }
-    }
-  };
-
-  if (!node) return null;
-  if (node.hidden) return null;
-  return react_1.default.createElement(context_1.TreeNodeContext.Provider, {
-    value: node
-  }, renderComponent());
-});
-exports.ComponentTreeWidget = (0, reactive_react_1.observer)(function (props) {
-  var _a, _b;
-
-  var tree = (0, hooks_1.useTree)();
-  var prefix = (0, hooks_1.usePrefix)('component-tree');
-  var designer = (0, hooks_1.useDesigner)();
-  var dataId = {};
-
-  if (designer && tree) {
-    dataId[(_a = designer === null || designer === void 0 ? void 0 : designer.props) === null || _a === void 0 ? void 0 : _a.nodeIdAttrName] = tree.id;
+    };
+    if (!node) return null;
+    if (node.hidden) return null;
+    return import_react.default.createElement(
+      import_context.TreeNodeContext.Provider,
+      { value: node },
+      renderComponent()
+    );
   }
-
-  (0, react_1.useEffect)(function () {
-    core_1.GlobalRegistry.registerDesignerBehaviors(props.components);
+);
+var ComponentTreeWidget = (0, import_reactive_react.observer)((props) => {
+  var _a, _b;
+  const tree = (0, import_hooks.useTree)();
+  const prefix = (0, import_hooks.usePrefix)("component-tree");
+  const designer = (0, import_hooks.useDesigner)();
+  const dataId = {};
+  if (designer && tree) {
+    dataId[(_a = designer == null ? void 0 : designer.props) == null ? void 0 : _a.nodeIdAttrName] = tree.id;
+  }
+  (0, import_react.useEffect)(() => {
+    import_core.GlobalRegistry.registerDesignerBehaviors(props.components);
   }, []);
-  return react_1.default.createElement("div", __assign({
-    style: __assign(__assign({}, props.style), (_b = tree === null || tree === void 0 ? void 0 : tree.props) === null || _b === void 0 ? void 0 : _b.style),
-    className: (0, classnames_1.default)(prefix, props.className)
-  }, dataId), react_1.default.createElement(context_1.DesignerComponentsContext.Provider, {
-    value: props.components
-  }, react_1.default.createElement(exports.TreeNodeWidget, {
-    node: tree
-  })));
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      style: { ...props.style, ...(_b = tree == null ? void 0 : tree.props) == null ? void 0 : _b.style },
+      className: (0, import_classnames.default)(prefix, props.className),
+      ...dataId
+    },
+    /* @__PURE__ */ import_react.default.createElement(import_context.DesignerComponentsContext.Provider, { value: props.components }, /* @__PURE__ */ import_react.default.createElement(TreeNodeWidget, { node: tree }))
+  );
 });
-exports.ComponentTreeWidget.displayName = 'ComponentTreeWidget';
+ComponentTreeWidget.displayName = "ComponentTreeWidget";
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ComponentTreeWidget,
+  TreeNodeWidget
+});

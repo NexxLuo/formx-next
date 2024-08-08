@@ -1,70 +1,61 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __exportStar = void 0 && (void 0).__exportStar || function (m, exports) {
-  for (var p in m) {
-    if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-  }
+  return to;
 };
+var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/components/index.ts
+var components_exports = {};
+module.exports = __toCommonJS(components_exports);
+__reExport(components_exports, require("./ColorInput"), module.exports);
+__reExport(components_exports, require("./CornerInput"), module.exports);
+__reExport(components_exports, require("./ImageInput"), module.exports);
+__reExport(components_exports, require("./PositionInput"), module.exports);
+__reExport(components_exports, require("./SizeInput"), module.exports);
+__reExport(components_exports, require("./PolyInput"), module.exports);
+__reExport(components_exports, require("./ValueInput"), module.exports);
+__reExport(components_exports, require("./MonacoInput"), module.exports);
+__reExport(components_exports, require("./DrawerSetter"), module.exports);
+__reExport(components_exports, require("./BoxStyleSetter"), module.exports);
+__reExport(components_exports, require("./BorderStyleSetter"), module.exports);
+__reExport(components_exports, require("./BorderRadiusStyleSetter"), module.exports);
+__reExport(components_exports, require("./BackgroundStyleSetter"), module.exports);
+__reExport(components_exports, require("./BoxShadowStyleSetter"), module.exports);
+__reExport(components_exports, require("./FontStyleSetter"), module.exports);
+__reExport(components_exports, require("./DisplayStyleSetter"), module.exports);
+__reExport(components_exports, require("./FlexStyleSetter"), module.exports);
+__reExport(components_exports, require("./FoldItem"), module.exports);
+__reExport(components_exports, require("./CollapseItem"), module.exports);
+__reExport(components_exports, require("./InputItems"), module.exports);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ...require("./ColorInput"),
+  ...require("./CornerInput"),
+  ...require("./ImageInput"),
+  ...require("./PositionInput"),
+  ...require("./SizeInput"),
+  ...require("./PolyInput"),
+  ...require("./ValueInput"),
+  ...require("./MonacoInput"),
+  ...require("./DrawerSetter"),
+  ...require("./BoxStyleSetter"),
+  ...require("./BorderStyleSetter"),
+  ...require("./BorderRadiusStyleSetter"),
+  ...require("./BackgroundStyleSetter"),
+  ...require("./BoxShadowStyleSetter"),
+  ...require("./FontStyleSetter"),
+  ...require("./DisplayStyleSetter"),
+  ...require("./FlexStyleSetter"),
+  ...require("./FoldItem"),
+  ...require("./CollapseItem"),
+  ...require("./InputItems")
 });
-
-__exportStar(require("./ColorInput"), exports);
-
-__exportStar(require("./CornerInput"), exports);
-
-__exportStar(require("./ImageInput"), exports);
-
-__exportStar(require("./PositionInput"), exports);
-
-__exportStar(require("./SizeInput"), exports);
-
-__exportStar(require("./PolyInput"), exports);
-
-__exportStar(require("./ValueInput"), exports);
-
-__exportStar(require("./MonacoInput"), exports);
-
-__exportStar(require("./DrawerSetter"), exports);
-
-__exportStar(require("./BoxStyleSetter"), exports);
-
-__exportStar(require("./BorderStyleSetter"), exports);
-
-__exportStar(require("./BorderRadiusStyleSetter"), exports);
-
-__exportStar(require("./BackgroundStyleSetter"), exports);
-
-__exportStar(require("./BoxShadowStyleSetter"), exports);
-
-__exportStar(require("./FontStyleSetter"), exports);
-
-__exportStar(require("./DisplayStyleSetter"), exports);
-
-__exportStar(require("./FlexStyleSetter"), exports);
-
-__exportStar(require("./FoldItem"), exports);
-
-__exportStar(require("./CollapseItem"), exports);
-
-__exportStar(require("./InputItems"), exports);

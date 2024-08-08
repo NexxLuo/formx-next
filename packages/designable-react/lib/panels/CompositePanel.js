@@ -1,261 +1,180 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/panels/CompositePanel.tsx
+var CompositePanel_exports = {};
+__export(CompositePanel_exports, {
+  CompositePanel: () => CompositePanel
 });
-exports.CompositePanel = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var shared_1 = require("@designable/shared");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var widgets_1 = require("../widgets");
-
-var hooks_1 = require("../hooks");
-
-var parseItems = function parseItems(children) {
-  var items = [];
-  react_1.default.Children.forEach(children, function (child, index) {
-    var _a;
-
-    if ((child === null || child === void 0 ? void 0 : child['type']) === exports.CompositePanel.Item) {
-      items.push(__assign({
-        key: (_a = child['key']) !== null && _a !== void 0 ? _a : index
-      }, child['props']));
+module.exports = __toCommonJS(CompositePanel_exports);
+var import_react = __toESM(require("react"));
+var import_shared = require("@designable/shared");
+var import_classnames = __toESM(require("classnames"));
+var import_widgets = require("../widgets");
+var import_hooks = require("../hooks");
+var parseItems = (children) => {
+  const items = [];
+  import_react.default.Children.forEach(children, (child, index) => {
+    if ((child == null ? void 0 : child["type"]) === CompositePanel.Item) {
+      items.push({ key: child["key"] ?? index, ...child["props"] });
     }
   });
   return items;
 };
-
-var findItem = function findItem(items, key) {
-  for (var index = 0; index < items.length; index++) {
-    var item = items[index];
+var findItem = (items, key) => {
+  for (let index = 0; index < items.length; index++) {
+    const item = items[index];
     if (key === index) return item;
     if (key === item.key) return item;
   }
 };
-
-var getDefaultKey = function getDefaultKey(children) {
-  var items = parseItems(children);
-  return items === null || items === void 0 ? void 0 : items[0].key;
+var getDefaultKey = (children) => {
+  const items = parseItems(children);
+  return items == null ? void 0 : items[0].key;
 };
-
-var CompositePanel = function CompositePanel(props) {
-  var _a;
-
-  var _b, _c, _d;
-
-  var prefix = (0, hooks_1.usePrefix)('composite-panel');
-
-  var _e = __read((0, react_1.useState)((_b = props.defaultActiveKey) !== null && _b !== void 0 ? _b : getDefaultKey(props.children)), 2),
-      activeKey = _e[0],
-      setActiveKey = _e[1];
-
-  var activeKeyRef = (0, react_1.useRef)(null);
-
-  var _f = __read((0, react_1.useState)((_c = props.defaultPinning) !== null && _c !== void 0 ? _c : false), 2),
-      pinning = _f[0],
-      setPinning = _f[1];
-
-  var _g = __read((0, react_1.useState)((_d = props.defaultOpen) !== null && _d !== void 0 ? _d : true), 2),
-      visible = _g[0],
-      setVisible = _g[1];
-
-  var items = parseItems(props.children);
-  var currentItem = findItem(items, activeKey);
-  var content = currentItem === null || currentItem === void 0 ? void 0 : currentItem.children;
+var CompositePanel = (props) => {
+  const prefix = (0, import_hooks.usePrefix)("composite-panel");
+  const [activeKey, setActiveKey] = (0, import_react.useState)(
+    props.defaultActiveKey ?? getDefaultKey(props.children)
+  );
+  const activeKeyRef = (0, import_react.useRef)(null);
+  const [pinning, setPinning] = (0, import_react.useState)(props.defaultPinning ?? false);
+  const [visible, setVisible] = (0, import_react.useState)(props.defaultOpen ?? true);
+  const items = parseItems(props.children);
+  const currentItem = findItem(items, activeKey);
+  const content = currentItem == null ? void 0 : currentItem.children;
   activeKeyRef.current = activeKey;
-  (0, react_1.useEffect)(function () {
-    if ((0, shared_1.isValid)(props.activeKey)) {
+  (0, import_react.useEffect)(() => {
+    if ((0, import_shared.isValid)(props.activeKey)) {
       if (props.activeKey !== activeKeyRef.current) {
         setActiveKey(props.activeKey);
       }
     }
   }, [props.activeKey]);
-
-  var renderContent = function renderContent() {
+  const renderContent = () => {
     if (!content || !visible) return;
-    return react_1.default.createElement("div", {
-      className: (0, classnames_1.default)(prefix + '-tabs-content', {
-        pinning: pinning
-      })
-    }, react_1.default.createElement("div", {
-      className: prefix + '-tabs-header'
-    }, react_1.default.createElement("div", {
-      className: prefix + '-tabs-header-title'
-    }, react_1.default.createElement(widgets_1.TextWidget, null, currentItem.title)), react_1.default.createElement("div", {
-      className: prefix + '-tabs-header-actions'
-    }, react_1.default.createElement("div", {
-      className: prefix + '-tabs-header-extra'
-    }, currentItem.extra), !pinning && react_1.default.createElement(widgets_1.IconWidget, {
-      infer: "PushPinOutlined",
-      className: prefix + '-tabs-header-pin',
-      onClick: function onClick() {
-        setPinning(!pinning);
-      }
-    }), pinning && react_1.default.createElement(widgets_1.IconWidget, {
-      infer: "PushPinFilled",
-      className: prefix + '-tabs-header-pin-filled',
-      onClick: function onClick() {
-        setPinning(!pinning);
-      }
-    }), react_1.default.createElement(widgets_1.IconWidget, {
-      infer: "Close",
-      className: prefix + '-tabs-header-close',
-      onClick: function onClick() {
-        setVisible(false);
-      }
-    }))), react_1.default.createElement("div", {
-      className: prefix + '-tabs-body'
-    }, content));
-  };
-
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, (_a = {}, _a["direction-".concat(props.direction)] = !!props.direction, _a))
-  }, react_1.default.createElement("div", {
-    className: prefix + '-tabs'
-  }, items.map(function (item, index) {
-    var _a;
-
-    var takeTab = function takeTab() {
-      if (item.href) {
-        return react_1.default.createElement("a", {
-          href: item.href
-        }, item.icon);
-      }
-
-      return react_1.default.createElement(widgets_1.IconWidget, {
-        tooltip: props.showNavTitle ? null : {
-          title: react_1.default.createElement(widgets_1.TextWidget, null, item.title),
-          placement: props.direction === 'right' ? 'left' : 'right'
-        },
-        infer: item.icon
-      });
-    };
-
-    var shape = (_a = item.shape) !== null && _a !== void 0 ? _a : 'tab';
-    var Comp = shape === 'link' ? 'a' : 'div';
-    return react_1.default.createElement(Comp, {
-      className: (0, classnames_1.default)(prefix + '-tabs-pane', {
-        active: activeKey === item.key
-      }),
-      key: index,
-      href: item.href,
-      onClick: function onClick(e) {
-        var _a, _b;
-
-        if (shape === 'tab') {
-          if (activeKey === item.key) {
-            setVisible(!visible);
-          } else {
-            setVisible(true);
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: (0, import_classnames.default)(prefix + "-tabs-content", {
+          pinning
+        })
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-header-title" }, /* @__PURE__ */ import_react.default.createElement(import_widgets.TextWidget, null, currentItem.title)), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-header-actions" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-header-extra" }, currentItem.extra), !pinning && /* @__PURE__ */ import_react.default.createElement(
+        import_widgets.IconWidget,
+        {
+          infer: "PushPinOutlined",
+          className: prefix + "-tabs-header-pin",
+          onClick: () => {
+            setPinning(!pinning);
           }
-
-          if (!(props === null || props === void 0 ? void 0 : props.activeKey) || !(props === null || props === void 0 ? void 0 : props.onChange)) setActiveKey(item.key);
         }
-
-        (_a = item.onClick) === null || _a === void 0 ? void 0 : _a.call(item, e);
-        (_b = props.onChange) === null || _b === void 0 ? void 0 : _b.call(props, item.key);
-      }
-    }, takeTab(), props.showNavTitle && item.title ? react_1.default.createElement("div", {
-      className: prefix + '-tabs-pane-title'
-    }, react_1.default.createElement(widgets_1.TextWidget, null, item.title)) : null);
-  })), renderContent());
+      ), pinning && /* @__PURE__ */ import_react.default.createElement(
+        import_widgets.IconWidget,
+        {
+          infer: "PushPinFilled",
+          className: prefix + "-tabs-header-pin-filled",
+          onClick: () => {
+            setPinning(!pinning);
+          }
+        }
+      ), /* @__PURE__ */ import_react.default.createElement(
+        import_widgets.IconWidget,
+        {
+          infer: "Close",
+          className: prefix + "-tabs-header-close",
+          onClick: () => {
+            setVisible(false);
+          }
+        }
+      ))),
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-body" }, content)
+    );
+  };
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      className: (0, import_classnames.default)(prefix, {
+        [`direction-${props.direction}`]: !!props.direction
+      })
+    },
+    /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs" }, items.map((item, index) => {
+      const takeTab = () => {
+        if (item.href) {
+          return /* @__PURE__ */ import_react.default.createElement("a", { href: item.href }, item.icon);
+        }
+        return /* @__PURE__ */ import_react.default.createElement(
+          import_widgets.IconWidget,
+          {
+            tooltip: props.showNavTitle ? null : {
+              title: /* @__PURE__ */ import_react.default.createElement(import_widgets.TextWidget, null, item.title),
+              placement: props.direction === "right" ? "left" : "right"
+            },
+            infer: item.icon
+          }
+        );
+      };
+      const shape = item.shape ?? "tab";
+      const Comp = shape === "link" ? "a" : "div";
+      return /* @__PURE__ */ import_react.default.createElement(
+        Comp,
+        {
+          className: (0, import_classnames.default)(prefix + "-tabs-pane", {
+            active: activeKey === item.key
+          }),
+          key: index,
+          href: item.href,
+          onClick: (e) => {
+            var _a, _b;
+            if (shape === "tab") {
+              if (activeKey === item.key) {
+                setVisible(!visible);
+              } else {
+                setVisible(true);
+              }
+              if (!(props == null ? void 0 : props.activeKey) || !(props == null ? void 0 : props.onChange))
+                setActiveKey(item.key);
+            }
+            (_a = item.onClick) == null ? void 0 : _a.call(item, e);
+            (_b = props.onChange) == null ? void 0 : _b.call(props, item.key);
+          }
+        },
+        takeTab(),
+        props.showNavTitle && item.title ? /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-tabs-pane-title" }, /* @__PURE__ */ import_react.default.createElement(import_widgets.TextWidget, null, item.title)) : null
+      );
+    })),
+    renderContent()
+  );
 };
-
-exports.CompositePanel = CompositePanel;
-
-exports.CompositePanel.Item = function () {
-  return react_1.default.createElement(react_1.default.Fragment, null);
+CompositePanel.Item = () => {
+  return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null);
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  CompositePanel
+});

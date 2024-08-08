@@ -1,136 +1,127 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __exportStar = void 0 && (void 0).__exportStar || function (m, exports) {
-  for (var p in m) {
-    if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-  }
+  return to;
 };
+var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/icons/index.ts
+var icons_exports = {};
+module.exports = __toCommonJS(icons_exports);
+__reExport(icons_exports, require("./clone"), module.exports);
+__reExport(icons_exports, require("./component"), module.exports);
+__reExport(icons_exports, require("./container"), module.exports);
+__reExport(icons_exports, require("./hidden"), module.exports);
+__reExport(icons_exports, require("./page"), module.exports);
+__reExport(icons_exports, require("./remove"), module.exports);
+__reExport(icons_exports, require("./setting"), module.exports);
+__reExport(icons_exports, require("./undo"), module.exports);
+__reExport(icons_exports, require("./redo"), module.exports);
+__reExport(icons_exports, require("./pc"), module.exports);
+__reExport(icons_exports, require("./mobile"), module.exports);
+__reExport(icons_exports, require("./responsive"), module.exports);
+__reExport(icons_exports, require("./move"), module.exports);
+__reExport(icons_exports, require("./freemove"), module.exports);
+__reExport(icons_exports, require("./selection"), module.exports);
+__reExport(icons_exports, require("./recover"), module.exports);
+__reExport(icons_exports, require("./flip"), module.exports);
+__reExport(icons_exports, require("./close"), module.exports);
+__reExport(icons_exports, require("./expand"), module.exports);
+__reExport(icons_exports, require("./menu"), module.exports);
+__reExport(icons_exports, require("./dragmove"), module.exports);
+__reExport(icons_exports, require("./pushpin"), module.exports);
+__reExport(icons_exports, require("./outline"), module.exports);
+__reExport(icons_exports, require("./design"), module.exports);
+__reExport(icons_exports, require("./json"), module.exports);
+__reExport(icons_exports, require("./code"), module.exports);
+__reExport(icons_exports, require("./eyes"), module.exports);
+__reExport(icons_exports, require("./logo"), module.exports);
+__reExport(icons_exports, require("./command"), module.exports);
+__reExport(icons_exports, require("./delete"), module.exports);
+__reExport(icons_exports, require("./shift"), module.exports);
+__reExport(icons_exports, require("./animations"), module.exports);
+__reExport(icons_exports, require("./upload"), module.exports);
+__reExport(icons_exports, require("./boolean"), module.exports);
+__reExport(icons_exports, require("./number"), module.exports);
+__reExport(icons_exports, require("./text"), module.exports);
+__reExport(icons_exports, require("./expression"), module.exports);
+__reExport(icons_exports, require("./formula"), module.exports);
+__reExport(icons_exports, require("./position"), module.exports);
+__reExport(icons_exports, require("./corner"), module.exports);
+__reExport(icons_exports, require("./image"), module.exports);
+__reExport(icons_exports, require("./shadow"), module.exports);
+__reExport(icons_exports, require("./font"), module.exports);
+__reExport(icons_exports, require("./display"), module.exports);
+__reExport(icons_exports, require("./flex"), module.exports);
+__reExport(icons_exports, require("./focus"), module.exports);
+__reExport(icons_exports, require("./return"), module.exports);
+__reExport(icons_exports, require("./history"), module.exports);
+__reExport(icons_exports, require("./play"), module.exports);
+__reExport(icons_exports, require("./add"), module.exports);
+__reExport(icons_exports, require("./help"), module.exports);
+__reExport(icons_exports, require("./sources"), module.exports);
+__reExport(icons_exports, require("./actions"), module.exports);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ...require("./clone"),
+  ...require("./component"),
+  ...require("./container"),
+  ...require("./hidden"),
+  ...require("./page"),
+  ...require("./remove"),
+  ...require("./setting"),
+  ...require("./undo"),
+  ...require("./redo"),
+  ...require("./pc"),
+  ...require("./mobile"),
+  ...require("./responsive"),
+  ...require("./move"),
+  ...require("./freemove"),
+  ...require("./selection"),
+  ...require("./recover"),
+  ...require("./flip"),
+  ...require("./close"),
+  ...require("./expand"),
+  ...require("./menu"),
+  ...require("./dragmove"),
+  ...require("./pushpin"),
+  ...require("./outline"),
+  ...require("./design"),
+  ...require("./json"),
+  ...require("./code"),
+  ...require("./eyes"),
+  ...require("./logo"),
+  ...require("./command"),
+  ...require("./delete"),
+  ...require("./shift"),
+  ...require("./animations"),
+  ...require("./upload"),
+  ...require("./boolean"),
+  ...require("./number"),
+  ...require("./text"),
+  ...require("./expression"),
+  ...require("./formula"),
+  ...require("./position"),
+  ...require("./corner"),
+  ...require("./image"),
+  ...require("./shadow"),
+  ...require("./font"),
+  ...require("./display"),
+  ...require("./flex"),
+  ...require("./focus"),
+  ...require("./return"),
+  ...require("./history"),
+  ...require("./play"),
+  ...require("./add"),
+  ...require("./help"),
+  ...require("./sources"),
+  ...require("./actions")
 });
-
-__exportStar(require("./clone"), exports);
-
-__exportStar(require("./component"), exports);
-
-__exportStar(require("./container"), exports);
-
-__exportStar(require("./hidden"), exports);
-
-__exportStar(require("./page"), exports);
-
-__exportStar(require("./remove"), exports);
-
-__exportStar(require("./setting"), exports);
-
-__exportStar(require("./undo"), exports);
-
-__exportStar(require("./redo"), exports);
-
-__exportStar(require("./pc"), exports);
-
-__exportStar(require("./mobile"), exports);
-
-__exportStar(require("./responsive"), exports);
-
-__exportStar(require("./move"), exports);
-
-__exportStar(require("./freemove"), exports);
-
-__exportStar(require("./selection"), exports);
-
-__exportStar(require("./recover"), exports);
-
-__exportStar(require("./flip"), exports);
-
-__exportStar(require("./close"), exports);
-
-__exportStar(require("./expand"), exports);
-
-__exportStar(require("./menu"), exports);
-
-__exportStar(require("./dragmove"), exports);
-
-__exportStar(require("./pushpin"), exports);
-
-__exportStar(require("./outline"), exports);
-
-__exportStar(require("./design"), exports);
-
-__exportStar(require("./json"), exports);
-
-__exportStar(require("./code"), exports);
-
-__exportStar(require("./eyes"), exports);
-
-__exportStar(require("./logo"), exports);
-
-__exportStar(require("./command"), exports);
-
-__exportStar(require("./delete"), exports);
-
-__exportStar(require("./shift"), exports);
-
-__exportStar(require("./animations"), exports);
-
-__exportStar(require("./upload"), exports);
-
-__exportStar(require("./boolean"), exports);
-
-__exportStar(require("./number"), exports);
-
-__exportStar(require("./text"), exports);
-
-__exportStar(require("./expression"), exports);
-
-__exportStar(require("./formula"), exports);
-
-__exportStar(require("./position"), exports);
-
-__exportStar(require("./corner"), exports);
-
-__exportStar(require("./image"), exports);
-
-__exportStar(require("./shadow"), exports);
-
-__exportStar(require("./font"), exports);
-
-__exportStar(require("./display"), exports);
-
-__exportStar(require("./flex"), exports);
-
-__exportStar(require("./focus"), exports);
-
-__exportStar(require("./return"), exports);
-
-__exportStar(require("./history"), exports);
-
-__exportStar(require("./play"), exports);
-
-__exportStar(require("./add"), exports);
-
-__exportStar(require("./help"), exports);
-
-__exportStar(require("./sources"), exports);
-
-__exportStar(require("./actions"), exports);

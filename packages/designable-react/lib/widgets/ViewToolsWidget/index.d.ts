@@ -6,3 +6,4 @@ export interface IViewToolsWidget {
     className?: string;
 }
 export declare const ViewToolsWidget: React.FC<IViewToolsWidget>;
+//# sourceMappingURL=index.d.ts.map

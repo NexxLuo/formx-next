@@ -10,3 +10,4 @@ export interface IStudioPanelProps {
     position?: React.ComponentProps<typeof Layout>['position'];
 }
 export declare const StudioPanel: React.FC<IStudioPanelProps>;
+//# sourceMappingURL=StudioPanel.d.ts.map

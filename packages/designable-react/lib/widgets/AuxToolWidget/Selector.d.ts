@@ -5,3 +5,4 @@ export interface ISelectorProps {
     style?: React.CSSProperties;
 }
 export declare const Selector: React.FC<ISelectorProps>;
+//# sourceMappingURL=Selector.d.ts.map

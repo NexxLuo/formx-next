@@ -1,154 +1,90 @@
-"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+// src/widgets/OutlineWidget/index.tsx
+var OutlineWidget_exports = {};
+__export(OutlineWidget_exports, {
+  OutlineTreeWidget: () => OutlineTreeWidget
+});
+module.exports = __toCommonJS(OutlineWidget_exports);
+var import_react = __toESM(require("react"));
+var import_classnames = __toESM(require("classnames"));
+var import_hooks = require("../../hooks");
+var import_reactive_react = require("@formily/reactive-react");
+var import_OutlineNode = require("./OutlineNode");
+var import_Insertion = require("./Insertion");
+var import_context = require("./context");
+var import_shared = require("@designable/shared");
+var OutlineTreeWidget = (0, import_reactive_react.observer)(
+  ({ onClose, style, renderActions, renderTitle, className, ...props }) => {
+    const ref = (0, import_react.useRef)();
+    const prefix = (0, import_hooks.usePrefix)("outline-tree");
+    const workbench = (0, import_hooks.useWorkbench)();
+    const current = (workbench == null ? void 0 : workbench.activeWorkspace) || (workbench == null ? void 0 : workbench.currentWorkspace);
+    const workspaceId = current == null ? void 0 : current.id;
+    const tree = (0, import_hooks.useTree)(workspaceId);
+    const outline = (0, import_hooks.useOutline)(workspaceId);
+    const outlineRef = (0, import_react.useRef)();
+    (0, import_react.useLayoutEffect)(() => {
+      if (!workspaceId) return;
+      if (outlineRef.current && outlineRef.current !== outline) {
+        outlineRef.current.onUnmount();
       }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
+      if (ref.current && outline) {
+        outline.onMount(ref.current, import_shared.globalThisPolyfill);
       }
-    };
+      outlineRef.current = outline;
+      return () => {
+        outline.onUnmount();
+      };
+    }, [workspaceId, outline]);
+    if (!outline || !workspaceId) return null;
+    return /* @__PURE__ */ import_react.default.createElement(import_context.NodeContext.Provider, { value: { renderActions, renderTitle } }, /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        ...props,
+        className: (0, import_classnames.default)(prefix + "-container", className),
+        style
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content", ref }, /* @__PURE__ */ import_react.default.createElement(import_OutlineNode.OutlineTreeNode, { node: tree, workspaceId }), /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          className: prefix + "-aux",
+          style: {
+            pointerEvents: "none"
+          }
+        },
+        /* @__PURE__ */ import_react.default.createElement(import_Insertion.Insertion, { workspaceId })
+      ))
+    ));
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.OutlineTreeWidget = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var hooks_1 = require("../../hooks");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var OutlineNode_1 = require("./OutlineNode");
-
-var Insertion_1 = require("./Insertion");
-
-var context_1 = require("./context");
-
-var shared_1 = require("@designable/shared");
-
-exports.OutlineTreeWidget = (0, reactive_react_1.observer)(function (_a) {
-  var onClose = _a.onClose,
-      style = _a.style,
-      renderActions = _a.renderActions,
-      renderTitle = _a.renderTitle,
-      className = _a.className,
-      props = __rest(_a, ["onClose", "style", "renderActions", "renderTitle", "className"]);
-
-  var ref = (0, react_1.useRef)();
-  var prefix = (0, hooks_1.usePrefix)('outline-tree');
-  var workbench = (0, hooks_1.useWorkbench)();
-  var current = (workbench === null || workbench === void 0 ? void 0 : workbench.activeWorkspace) || (workbench === null || workbench === void 0 ? void 0 : workbench.currentWorkspace);
-  var workspaceId = current === null || current === void 0 ? void 0 : current.id;
-  var tree = (0, hooks_1.useTree)(workspaceId);
-  var outline = (0, hooks_1.useOutline)(workspaceId);
-  var outlineRef = (0, react_1.useRef)();
-  (0, react_1.useLayoutEffect)(function () {
-    if (!workspaceId) return;
-
-    if (outlineRef.current && outlineRef.current !== outline) {
-      outlineRef.current.onUnmount();
-    }
-
-    if (ref.current && outline) {
-      outline.onMount(ref.current, shared_1.globalThisPolyfill);
-    }
-
-    outlineRef.current = outline;
-    return function () {
-      outline.onUnmount();
-    };
-  }, [workspaceId, outline]);
-  if (!outline || !workspaceId) return null;
-  return react_1.default.createElement(context_1.NodeContext.Provider, {
-    value: {
-      renderActions: renderActions,
-      renderTitle: renderTitle
-    }
-  }, react_1.default.createElement("div", __assign({}, props, {
-    className: (0, classnames_1.default)(prefix + '-container', className),
-    style: style
-  }), react_1.default.createElement("div", {
-    className: prefix + '-content',
-    ref: ref
-  }, react_1.default.createElement(OutlineNode_1.OutlineTreeNode, {
-    node: tree,
-    workspaceId: workspaceId
-  }), react_1.default.createElement("div", {
-    className: prefix + '-aux',
-    style: {
-      pointerEvents: 'none'
-    }
-  }, react_1.default.createElement(Insertion_1.Insertion, {
-    workspaceId: workspaceId
-  })))));
+);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  OutlineTreeWidget
 });

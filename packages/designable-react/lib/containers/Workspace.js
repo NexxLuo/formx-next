@@ -1,97 +1,66 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/containers/Workspace.tsx
+var Workspace_exports = {};
+__export(Workspace_exports, {
+  Workspace: () => Workspace
 });
-exports.Workspace = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var hooks_1 = require("../hooks");
-
-var context_1 = require("../context");
-
-var Workspace = function Workspace(_a) {
-  var id = _a.id,
-      title = _a.title,
-      description = _a.description,
-      props = __rest(_a, ["id", "title", "description"]);
-
-  var oldId = (0, react_1.useRef)();
-  var designer = (0, hooks_1.useDesigner)();
-  var workspace = (0, react_1.useMemo)(function () {
+module.exports = __toCommonJS(Workspace_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../hooks");
+var import_context = require("../context");
+var Workspace = ({
+  id,
+  title,
+  description,
+  ...props
+}) => {
+  const oldId = (0, import_react.useRef)();
+  const designer = (0, import_hooks.useDesigner)();
+  const workspace = (0, import_react.useMemo)(() => {
     if (!designer) return;
-
     if (oldId.current && oldId.current !== id) {
-      var old = designer.workbench.findWorkspaceById(oldId.current);
+      const old = designer.workbench.findWorkspaceById(oldId.current);
       if (old) old.viewport.detachEvents();
     }
-
-    var workspace = {
-      id: id || 'index',
-      title: title,
-      description: description
+    const workspace2 = {
+      id: id || "index",
+      title,
+      description
     };
-    designer.workbench.ensureWorkspace(workspace);
-    oldId.current = workspace.id;
-    return workspace;
+    designer.workbench.ensureWorkspace(workspace2);
+    oldId.current = workspace2.id;
+    return workspace2;
   }, [id, designer]);
-  return react_1.default.createElement(react_1.Fragment, null, react_1.default.createElement(context_1.WorkspaceContext.Provider, {
-    value: workspace
-  }, props.children));
+  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, /* @__PURE__ */ import_react.default.createElement(import_context.WorkspaceContext.Provider, { value: workspace }, props.children));
 };
-
-exports.Workspace = Workspace;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Workspace
+});

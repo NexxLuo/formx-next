@@ -8,3 +8,4 @@ export interface IOutlineTreeNodeProps {
     workspaceId?: string;
 }
 export declare const OutlineTreeNode: React.FC<IOutlineTreeNodeProps>;
+//# sourceMappingURL=OutlineNode.d.ts.map

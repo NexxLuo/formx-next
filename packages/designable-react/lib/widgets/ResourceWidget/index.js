@@ -1,181 +1,118 @@
-"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
+// src/widgets/ResourceWidget/index.tsx
+var ResourceWidget_exports = {};
+__export(ResourceWidget_exports, {
+  ResourceWidget: () => ResourceWidget
+});
+module.exports = __toCommonJS(ResourceWidget_exports);
+var import_react = __toESM(require("react"));
+var import_core = require("@designable/core");
+var import_shared = require("@designable/shared");
+var import_reactive_react = require("@formily/reactive-react");
+var import_hooks = require("../../hooks");
+var import_IconWidget = require("../IconWidget");
+var import_TextWidget = require("../TextWidget");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var ResourceWidget = (0, import_reactive_react.observer)(
+  (props) => {
+    const prefix = (0, import_hooks.usePrefix)("resource");
+    const [expand, setExpand] = (0, import_react.useState)(props.defaultExpand);
+    const renderNode = (source) => {
+      var _a;
+      const { node, icon, title, thumb, span } = source;
+      return /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          className: prefix + "-item",
+          style: { gridColumnStart: `span ${span || 1}` },
+          key: node.id,
+          "data-designer-source-id": node.id
+        },
+        thumb && /* @__PURE__ */ import_react.default.createElement("img", { className: prefix + "-item-thumb", src: thumb }),
+        icon && import_react.default.isValidElement(icon) ? /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, icon) : /* @__PURE__ */ import_react.default.createElement(
+          import_IconWidget.IconWidget,
+          {
+            className: prefix + "-item-icon",
+            infer: icon,
+            style: { width: 150, height: 40 }
+          }
+        ),
+        /* @__PURE__ */ import_react.default.createElement("span", { className: prefix + "-item-text" }, /* @__PURE__ */ import_react.default.createElement(import_TextWidget.TextWidget, null, title || ((_a = node.children[0]) == null ? void 0 : _a.getMessage("title"))))
+      );
+    };
+    const sources = props.sources.reduce((buf, source) => {
+      if ((0, import_core.isResourceList)(source)) {
+        return buf.concat(source);
+      } else if ((0, import_core.isResourceHost)(source)) {
+        return buf.concat(source.Resource);
       }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ResourceWidget = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var core_1 = require("@designable/core");
-
-var shared_1 = require("@designable/shared");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var hooks_1 = require("../../hooks");
-
-var IconWidget_1 = require("../IconWidget");
-
-var TextWidget_1 = require("../TextWidget");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-exports.ResourceWidget = (0, reactive_react_1.observer)(function (props) {
-  var prefix = (0, hooks_1.usePrefix)('resource');
-
-  var _a = __read((0, react_1.useState)(props.defaultExpand), 2),
-      expand = _a[0],
-      setExpand = _a[1];
-
-  var renderNode = function renderNode(source) {
-    var _a;
-
-    var node = source.node,
-        icon = source.icon,
-        title = source.title,
-        thumb = source.thumb,
-        span = source.span;
-    return react_1.default.createElement("div", {
-      className: prefix + '-item',
-      style: {
-        gridColumnStart: "span ".concat(span || 1)
+      return buf;
+    }, []);
+    const remainItems = sources.reduce((length, source) => {
+      return length + (source.span ?? 1);
+    }, 0) % 3;
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: (0, import_classnames.default)(prefix, props.className, {
+          expand
+        })
       },
-      key: node.id,
-      "data-designer-source-id": node.id
-    }, thumb && react_1.default.createElement("img", {
-      className: prefix + '-item-thumb',
-      src: thumb
-    }), icon && react_1.default.isValidElement(icon) ? react_1.default.createElement(react_1.default.Fragment, null, icon) : react_1.default.createElement(IconWidget_1.IconWidget, {
-      className: prefix + '-item-icon',
-      infer: icon,
-      style: {
-        width: 150,
-        height: 40
-      }
-    }), react_1.default.createElement("span", {
-      className: prefix + '-item-text'
-    }, react_1.default.createElement(TextWidget_1.TextWidget, null, title || ((_a = node.children[0]) === null || _a === void 0 ? void 0 : _a.getMessage('title')))));
-  };
-
-  var sources = props.sources.reduce(function (buf, source) {
-    if ((0, core_1.isResourceList)(source)) {
-      return buf.concat(source);
-    } else if ((0, core_1.isResourceHost)(source)) {
-      return buf.concat(source.Resource);
-    }
-
-    return buf;
-  }, []);
-  var remainItems = sources.reduce(function (length, source) {
-    var _a;
-
-    return length + ((_a = source.span) !== null && _a !== void 0 ? _a : 1);
-  }, 0) % 3;
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, props.className, {
-      expand: expand
-    })
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header',
-    onClick: function onClick(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      setExpand(!expand);
-    }
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header-expand'
-  }, react_1.default.createElement(IconWidget_1.IconWidget, {
-    infer: "Expand",
-    size: 10
-  })), react_1.default.createElement("div", {
-    className: prefix + '-header-content'
-  }, react_1.default.createElement(TextWidget_1.TextWidget, null, props.title))), react_1.default.createElement("div", {
-    className: prefix + '-content-wrapper'
-  }, react_1.default.createElement("div", {
-    className: prefix + '-content'
-  }, sources.map((0, shared_1.isFn)(props.children) ? props.children : renderNode), remainItems ? react_1.default.createElement("div", {
-    className: prefix + '-item-remain',
-    style: {
-      gridColumnStart: "span ".concat(3 - remainItems)
-    }
-  }) : null)));
-});
-exports.ResourceWidget.defaultProps = {
+      /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          className: prefix + "-header",
+          onClick: (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            setExpand(!expand);
+          }
+        },
+        /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-expand" }, /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Expand", size: 10 })),
+        /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-content" }, /* @__PURE__ */ import_react.default.createElement(import_TextWidget.TextWidget, null, props.title))
+      ),
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content-wrapper" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, sources.map((0, import_shared.isFn)(props.children) ? props.children : renderNode), remainItems ? /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          className: prefix + "-item-remain",
+          style: { gridColumnStart: `span ${3 - remainItems}` }
+        }
+      ) : null))
+    );
+  }
+);
+ResourceWidget.defaultProps = {
   defaultExpand: true
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ResourceWidget
+});

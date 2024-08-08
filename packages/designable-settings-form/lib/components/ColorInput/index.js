@@ -1,97 +1,86 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/components/ColorInput/index.tsx
+var ColorInput_exports = {};
+__export(ColorInput_exports, {
+  ColorInput: () => ColorInput
 });
-exports.ColorInput = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var antd_1 = require("antd");
-
-var designable_react_1 = require("@platform/designable-react");
-
-var react_color_1 = require("react-color");
-
-require("./styles.less");
-
-var ColorInput = function ColorInput(props) {
-  var container = (0, react_1.useRef)();
-  var prefix = (0, designable_react_1.usePrefix)('color-input');
-  var color = props.value;
-  return react_1.default.createElement("div", {
-    ref: container,
-    className: prefix
-  }, react_1.default.createElement(antd_1.Input, {
-    value: props.value,
-    onChange: function onChange(e) {
-      var _a;
-
-      (_a = props.onChange) === null || _a === void 0 ? void 0 : _a.call(props, e.target.value);
-    },
-    placeholder: "Color",
-    prefix: react_1.default.createElement(antd_1.Popover, {
-      autoAdjustOverflow: true,
-      trigger: "click",
-      getPopupContainer: function getPopupContainer() {
-        return container.current;
+module.exports = __toCommonJS(ColorInput_exports);
+var import_react = __toESM(require("react"));
+var import_antd = require("antd");
+var import_designable_react = require("@platform/designable-react");
+var import_react_color = require("react-color");
+var import_styles = require("./styles.less");
+var ColorInput = (props) => {
+  const container = (0, import_react.useRef)();
+  const prefix = (0, import_designable_react.usePrefix)("color-input");
+  const color = props.value;
+  return /* @__PURE__ */ import_react.default.createElement("div", { ref: container, className: prefix }, /* @__PURE__ */ import_react.default.createElement(
+    import_antd.Input,
+    {
+      value: props.value,
+      onChange: (e) => {
+        var _a;
+        (_a = props.onChange) == null ? void 0 : _a.call(props, e.target.value);
       },
-      content: react_1.default.createElement(react_color_1.SketchPicker, {
-        color: color,
-        onChange: function onChange(_a) {
-          var _b;
-
-          var rgb = _a.rgb;
-          (_b = props.onChange) === null || _b === void 0 ? void 0 : _b.call(props, "rgba(".concat(rgb.r, ",").concat(rgb.g, ",").concat(rgb.b, ",").concat(rgb.a, ")"));
-        }
-      })
-    }, react_1.default.createElement("div", {
-      className: prefix + '-color-tips',
-      style: {
-        backgroundColor: color
-      }
-    }))
-  }));
+      placeholder: "Color",
+      prefix: /* @__PURE__ */ import_react.default.createElement(
+        import_antd.Popover,
+        {
+          autoAdjustOverflow: true,
+          trigger: "click",
+          getPopupContainer: () => container.current,
+          content: /* @__PURE__ */ import_react.default.createElement(
+            import_react_color.SketchPicker,
+            {
+              color,
+              onChange: ({ rgb }) => {
+                var _a;
+                (_a = props.onChange) == null ? void 0 : _a.call(props, `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`);
+              }
+            }
+          )
+        },
+        /* @__PURE__ */ import_react.default.createElement(
+          "div",
+          {
+            className: prefix + "-color-tips",
+            style: {
+              backgroundColor: color
+            }
+          }
+        )
+      )
+    }
+  ));
 };
-
-exports.ColorInput = ColorInput;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ColorInput
+});

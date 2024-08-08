@@ -18,3 +18,4 @@ export declare const NodeActionsWidget: React.FC<INodeActionsWidgetProps> & {
     Action?: React.FC<INodeActionsWidgetActionProps>;
 };
 export {};
+//# sourceMappingURL=index.d.ts.map

@@ -6,3 +6,4 @@ export interface ISelectionBoxProps {
 }
 export declare const SelectionBox: React.FC<ISelectionBoxProps>;
 export declare const Selection: React.MemoExoticComponent<import("@formily/reactive-react").ReactFC<unknown>>;
+//# sourceMappingURL=Selection.d.ts.map

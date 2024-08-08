@@ -4,3 +4,4 @@ export interface IEmptyWidgetProps {
     dragTipsDirection?: 'left' | 'right';
 }
 export declare const EmptyWidget: React.FC<IEmptyWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

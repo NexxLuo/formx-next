@@ -1,111 +1,75 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/containers/Designer.tsx
+var Designer_exports = {};
+__export(Designer_exports, {
+  Designer: () => Designer
 });
-exports.Designer = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var core_1 = require("@designable/core");
-
-var context_1 = require("../context");
-
-var widgets_1 = require("../widgets");
-
-var hooks_1 = require("../hooks");
-
-var Layout_1 = require("./Layout");
-
-var icons = __importStar(require("../icons"));
-
-core_1.GlobalRegistry.registerDesignerIcons(icons);
-
-var Designer = function Designer(props) {
-  var engine = (0, hooks_1.useDesigner)();
-  var ref = (0, react_1.useRef)();
-  (0, react_1.useEffect)(function () {
+module.exports = __toCommonJS(Designer_exports);
+var import_react = __toESM(require("react"));
+var import_core = require("@designable/core");
+var import_context = require("../context");
+var import_widgets = require("../widgets");
+var import_hooks = require("../hooks");
+var import_Layout = require("./Layout");
+var icons = __toESM(require("../icons"));
+import_core.GlobalRegistry.registerDesignerIcons(icons);
+var Designer = (props) => {
+  const engine = (0, import_hooks.useDesigner)();
+  const ref = (0, import_react.useRef)();
+  (0, import_react.useEffect)(() => {
     if (props.engine) {
       if (props.engine && ref.current) {
         if (props.engine !== ref.current) {
           ref.current.unmount();
         }
       }
-
       props.engine.mount();
       ref.current = props.engine;
     }
-
-    return function () {
+    return () => {
       if (props.engine) {
         props.engine.unmount();
       }
     };
   }, [props.engine]);
-  if (engine) throw new Error('There can only be one Designable Engine Context in the React Tree');
-  return react_1.default.createElement(Layout_1.Layout, __assign({}, props), react_1.default.createElement(context_1.DesignerEngineContext.Provider, {
-    value: props.engine
-  }, props.children, react_1.default.createElement(widgets_1.GhostWidget, null)));
+  if (engine)
+    throw new Error(
+      "There can only be one Designable Engine Context in the React Tree"
+    );
+  return /* @__PURE__ */ import_react.default.createElement(import_Layout.Layout, { ...props }, /* @__PURE__ */ import_react.default.createElement(import_context.DesignerEngineContext.Provider, { value: props.engine }, props.children, /* @__PURE__ */ import_react.default.createElement(import_widgets.GhostWidget, null)));
 };
-
-exports.Designer = Designer;
-exports.Designer.defaultProps = {
-  prefixCls: 'dn-',
-  theme: 'light'
+Designer.defaultProps = {
+  prefixCls: "dn-",
+  theme: "light"
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Designer
+});

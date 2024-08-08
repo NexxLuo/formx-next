@@ -1,112 +1,98 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/effects/useLocales.tsx
+var useLocales_exports = {};
+__export(useLocales_exports, {
+  useLocales: () => useLocales
 });
-exports.useLocales = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var core_1 = require("@formily/core");
-
-var core_2 = require("@designable/core");
-
-var shared_1 = require("@designable/shared");
-
-var designable_react_1 = require("@platform/designable-react");
-
-var takeIcon = function takeIcon(message) {
-  if (!(0, shared_1.isStr)(message)) return;
-  var matched = message.match(/@([^:\s]+)(?:\s*\:\s*([\s\S]+))?/);
+module.exports = __toCommonJS(useLocales_exports);
+var import_react = __toESM(require("react"));
+var import_core = require("@formily/core");
+var import_core2 = require("@designable/core");
+var import_shared = require("@designable/shared");
+var import_designable_react = require("@platform/designable-react");
+var takeIcon = (message) => {
+  if (!(0, import_shared.isStr)(message)) return;
+  const matched = message.match(/@([^:\s]+)(?:\s*\:\s*([\s\S]+))?/);
   if (matched) return [matched[1], matched[2]];
   return;
 };
-
-var mapEnum = function mapEnum(dataSource) {
-  return function (item, index) {
-    var _a, _b, _c;
-
-    var label = dataSource[index] || dataSource[item.value] || item.label;
-    var icon = takeIcon(label);
-    return __assign(__assign({}, item), {
-      value: (_a = item === null || item === void 0 ? void 0 : item.value) !== null && _a !== void 0 ? _a : null,
-      label: icon ? react_1.default.createElement(designable_react_1.IconWidget, {
-        infer: icon[0],
-        tooltip: icon[1]
-      }) : (_c = (_b = label === null || label === void 0 ? void 0 : label.label) !== null && _b !== void 0 ? _b : label) !== null && _c !== void 0 ? _c : 'Unknow'
-    });
+var mapEnum = (dataSource) => (item, index) => {
+  const label = dataSource[index] || dataSource[item.value] || item.label;
+  const icon = takeIcon(label);
+  return {
+    ...item,
+    value: (item == null ? void 0 : item.value) ?? null,
+    label: icon ? /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: icon[0], tooltip: icon[1] }) : (label == null ? void 0 : label.label) ?? label ?? "Unknow"
   };
 };
-
-var useLocales = function useLocales(node) {
-  (0, core_1.onFieldReact)('*', function (field) {
+var useLocales = (node) => {
+  (0, import_core.onFieldReact)("*", (field) => {
     var _a, _b;
-
-    var path = field.path.toString().replace(/\.[\d+]/g, '');
-
-    var takeMessage = function takeMessage(prop) {
-      var token = "settings.".concat(path).concat(prop ? ".".concat(prop) : '');
-      return node.getMessage(token) || core_2.GlobalRegistry.getDesignerMessage(token);
+    const path = field.path.toString().replace(/\.[\d+]/g, "");
+    const takeMessage = (prop) => {
+      const token = `settings.${path}${prop ? `.${prop}` : ""}`;
+      return node.getMessage(token) || import_core2.GlobalRegistry.getDesignerMessage(token);
     };
-
-    var title = takeMessage('title') || takeMessage();
-    var description = takeMessage('description');
-    var tooltip = takeMessage('tooltip');
-    var dataSource = takeMessage('dataSource');
-    var placeholder = takeMessage('placeholder');
-
+    const title = takeMessage("title") || takeMessage();
+    const description = takeMessage("description");
+    const tooltip = takeMessage("tooltip");
+    const dataSource = takeMessage("dataSource");
+    const placeholder = takeMessage("placeholder");
     if (title) {
       field.title = title;
     }
-
     if (description) {
       field.description = description;
     }
-
     if (tooltip) {
       field.decorator[1] = field.decorator[1] || [];
       field.decorator[1].tooltip = tooltip;
     }
-
     if (placeholder) {
       field.component[1] = field.component[1] || [];
       field.component[1].placeholder = placeholder;
     }
-
-    if (!(0, core_1.isVoidField)(field)) {
-      if (dataSource === null || dataSource === void 0 ? void 0 : dataSource.length) {
-        if ((_a = field.dataSource) === null || _a === void 0 ? void 0 : _a.length) {
+    if (!(0, import_core.isVoidField)(field)) {
+      if (dataSource == null ? void 0 : dataSource.length) {
+        if ((_a = field.dataSource) == null ? void 0 : _a.length) {
           field.dataSource = field.dataSource.map(mapEnum(dataSource));
         } else {
           field.dataSource = dataSource.slice();
         }
       } else {
-        field.dataSource = (_b = field.dataSource) === null || _b === void 0 ? void 0 : _b.filter(Boolean);
+        field.dataSource = (_b = field.dataSource) == null ? void 0 : _b.filter(Boolean);
       }
     }
   });
 };
-
-exports.useLocales = useLocales;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useLocales
+});

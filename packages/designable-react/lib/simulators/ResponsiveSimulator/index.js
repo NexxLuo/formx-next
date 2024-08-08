@@ -1,157 +1,115 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/simulators/ResponsiveSimulator/index.tsx
+var ResponsiveSimulator_exports = {};
+__export(ResponsiveSimulator_exports, {
+  ResponsiveSimulator: () => ResponsiveSimulator
 });
-exports.ResponsiveSimulator = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var core_1 = require("@designable/core");
-
-var shared_1 = require("@designable/shared");
-
-var hooks_1 = require("../../hooks");
-
-var widgets_1 = require("../../widgets");
-
-var handle_1 = require("./handle");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var useResizeEffect = function useResizeEffect(container, content, engine) {
-  var status = null;
-  var startX = 0;
-  var startY = 0;
-  var startWidth = 0;
-  var startHeight = 0;
-  var animationX = null;
-  var animationY = null;
-
-  var getStyle = function getStyle(status) {
-    if (status === handle_1.ResizeHandleType.Resize) return 'nwse-resize';
-    if (status === handle_1.ResizeHandleType.ResizeHeight) return 'ns-resize';
-    if (status === handle_1.ResizeHandleType.ResizeWidth) return 'ew-resize';
+module.exports = __toCommonJS(ResponsiveSimulator_exports);
+var import_react = __toESM(require("react"));
+var import_reactive_react = require("@formily/reactive-react");
+var import_core = require("@designable/core");
+var import_shared = require("@designable/shared");
+var import_hooks = require("../../hooks");
+var import_widgets = require("../../widgets");
+var import_handle = require("./handle");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var useResizeEffect = (container, content, engine) => {
+  let status = null;
+  let startX = 0;
+  let startY = 0;
+  let startWidth = 0;
+  let startHeight = 0;
+  let animationX = null;
+  let animationY = null;
+  const getStyle = (status2) => {
+    if (status2 === import_handle.ResizeHandleType.Resize) return "nwse-resize";
+    if (status2 === import_handle.ResizeHandleType.ResizeHeight) return "ns-resize";
+    if (status2 === import_handle.ResizeHandleType.ResizeWidth) return "ew-resize";
   };
-
-  var updateSize = function updateSize(deltaX, deltaY) {
+  const updateSize = (deltaX, deltaY) => {
     var _a;
-
-    var containerRect = (_a = container.current) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
-
-    if (status === handle_1.ResizeHandleType.Resize) {
+    const containerRect = (_a = container.current) == null ? void 0 : _a.getBoundingClientRect();
+    if (status === import_handle.ResizeHandleType.Resize) {
       engine.screen.setSize(startWidth + deltaX, startHeight + deltaY);
-      container.current.scrollBy(containerRect.width + deltaX, containerRect.height + deltaY);
-    } else if (status === handle_1.ResizeHandleType.ResizeHeight) {
+      container.current.scrollBy(
+        containerRect.width + deltaX,
+        containerRect.height + deltaY
+      );
+    } else if (status === import_handle.ResizeHandleType.ResizeHeight) {
       engine.screen.setSize(startWidth, startHeight + deltaY);
-      container.current.scrollBy(container.current.scrollLeft, containerRect.height + deltaY);
-    } else if (status === handle_1.ResizeHandleType.ResizeWidth) {
+      container.current.scrollBy(
+        container.current.scrollLeft,
+        containerRect.height + deltaY
+      );
+    } else if (status === import_handle.ResizeHandleType.ResizeWidth) {
       engine.screen.setSize(startWidth + deltaX, startHeight);
-      container.current.scrollBy(containerRect.width + deltaX, container.current.scrollTop);
+      container.current.scrollBy(
+        containerRect.width + deltaX,
+        container.current.scrollTop
+      );
     }
   };
-
-  engine.subscribeTo(core_1.DragStartEvent, function (e) {
+  engine.subscribeTo(import_core.DragStartEvent, (e) => {
     var _a, _b;
-
-    if (!((_a = engine.workbench.currentWorkspace) === null || _a === void 0 ? void 0 : _a.viewport)) return;
-    var target = e.data.target;
-
-    if (target === null || target === void 0 ? void 0 : target.closest('*[data-designer-resize-handle]')) {
-      var rect = (_b = content.current) === null || _b === void 0 ? void 0 : _b.getBoundingClientRect();
+    if (!((_a = engine.workbench.currentWorkspace) == null ? void 0 : _a.viewport)) return;
+    const target = e.data.target;
+    if (target == null ? void 0 : target.closest("*[data-designer-resize-handle]")) {
+      const rect = (_b = content.current) == null ? void 0 : _b.getBoundingClientRect();
       if (!rect) return;
-      status = target.getAttribute('data-designer-resize-handle');
+      status = target.getAttribute(
+        "data-designer-resize-handle"
+      );
       engine.cursor.setStyle(getStyle(status));
       startX = e.data.topClientX;
       startY = e.data.topClientY;
       startWidth = rect.width;
       startHeight = rect.height;
-      engine.screen.setStatus(core_1.ScreenStatus.Resizing);
+      engine.screen.setStatus(import_core.ScreenStatus.Resizing);
     }
   });
-  engine.subscribeTo(core_1.DragMoveEvent, function (e) {
+  engine.subscribeTo(import_core.DragMoveEvent, (e) => {
     var _a, _b;
-
-    if (!((_a = engine.workbench.currentWorkspace) === null || _a === void 0 ? void 0 : _a.viewport)) return;
+    if (!((_a = engine.workbench.currentWorkspace) == null ? void 0 : _a.viewport)) return;
     if (!status) return;
-    var deltaX = e.data.topClientX - startX;
-    var deltaY = e.data.topClientY - startY;
-    var containerRect = (_b = container.current) === null || _b === void 0 ? void 0 : _b.getBoundingClientRect();
-    var distanceX = Math.floor(containerRect.right - e.data.topClientX);
-    var distanceY = Math.floor(containerRect.bottom - e.data.topClientY);
-    var factorX = (0, shared_1.calcSpeedFactor)(distanceX, 10);
-    var factorY = (0, shared_1.calcSpeedFactor)(distanceY, 10);
+    const deltaX = e.data.topClientX - startX;
+    const deltaY = e.data.topClientY - startY;
+    const containerRect = (_b = container.current) == null ? void 0 : _b.getBoundingClientRect();
+    const distanceX = Math.floor(containerRect.right - e.data.topClientX);
+    const distanceY = Math.floor(containerRect.bottom - e.data.topClientY);
+    const factorX = (0, import_shared.calcSpeedFactor)(distanceX, 10);
+    const factorY = (0, import_shared.calcSpeedFactor)(distanceY, 10);
     updateSize(deltaX, deltaY);
-
     if (distanceX <= 10) {
       if (!animationX) {
-        animationX = (0, shared_1.createUniformSpeedAnimation)(1000 * factorX, function (delta) {
+        animationX = (0, import_shared.createUniformSpeedAnimation)(1e3 * factorX, (delta) => {
           updateSize(deltaX + delta, deltaY);
         });
       }
@@ -160,10 +118,9 @@ var useResizeEffect = function useResizeEffect(container, content, engine) {
         animationX = animationX();
       }
     }
-
     if (distanceY <= 10) {
       if (!animationY) {
-        animationY = (0, shared_1.createUniformSpeedAnimation)(300 * factorY, function (delta) {
+        animationY = (0, import_shared.createUniformSpeedAnimation)(300 * factorY, (delta) => {
           updateSize(deltaX, deltaY + delta);
         });
       }
@@ -173,79 +130,76 @@ var useResizeEffect = function useResizeEffect(container, content, engine) {
       }
     }
   });
-  engine.subscribeTo(core_1.DragStopEvent, function () {
+  engine.subscribeTo(import_core.DragStopEvent, () => {
     if (!status) return;
     status = null;
-    engine.cursor.setStyle('');
-    engine.screen.setStatus(core_1.ScreenStatus.Normal);
-
+    engine.cursor.setStyle("");
+    engine.screen.setStatus(import_core.ScreenStatus.Normal);
     if (animationX) {
       animationX = animationX();
     }
-
     if (animationY) {
       animationY = animationY();
     }
   });
 };
-
-exports.ResponsiveSimulator = (0, reactive_react_1.observer)(function (props) {
-  var container = (0, react_1.useRef)();
-  var content = (0, react_1.useRef)();
-  var prefix = (0, hooks_1.usePrefix)('responsive-simulator');
-  var screen = (0, hooks_1.useScreen)();
-  (0, hooks_1.useDesigner)(function (engine) {
+var ResponsiveSimulator = (0, import_reactive_react.observer)((props) => {
+  const container = (0, import_react.useRef)();
+  const content = (0, import_react.useRef)();
+  const prefix = (0, import_hooks.usePrefix)("responsive-simulator");
+  const screen = (0, import_hooks.useScreen)();
+  (0, import_hooks.useDesigner)((engine) => {
     useResizeEffect(container, content, engine);
   });
-  return react_1.default.createElement("div", __assign({}, props, {
-    className: (0, classnames_1.default)(prefix, props.className),
-    style: __assign({
-      height: '100%',
-      width: '100%',
-      minHeight: 100,
-      position: 'relative'
-    }, props.style)
-  }), react_1.default.createElement("div", {
-    ref: container,
-    style: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      height: '100%',
-      width: '100%',
-      overflow: 'overlay'
-    }
-  }, react_1.default.createElement("div", {
-    ref: content,
-    style: {
-      width: screen.width,
-      height: screen.height,
-      paddingRight: 15,
-      paddingBottom: 15,
-      position: 'relative',
-      boxSizing: 'border-box',
-      overflow: 'hidden'
-    }
-  }, props.children, react_1.default.createElement(handle_1.ResizeHandle, {
-    type: handle_1.ResizeHandleType.Resize
-  }, react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "DragMove",
-    style: {
-      pointerEvents: 'none'
-    }
-  })), react_1.default.createElement(handle_1.ResizeHandle, {
-    type: handle_1.ResizeHandleType.ResizeHeight
-  }, react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "Menu",
-    style: {
-      pointerEvents: 'none'
-    }
-  })), react_1.default.createElement(handle_1.ResizeHandle, {
-    type: handle_1.ResizeHandleType.ResizeWidth
-  }, react_1.default.createElement(widgets_1.IconWidget, {
-    infer: "Menu",
-    style: {
-      pointerEvents: 'none'
-    }
-  })))));
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      ...props,
+      className: (0, import_classnames.default)(prefix, props.className),
+      style: {
+        height: "100%",
+        width: "100%",
+        minHeight: 100,
+        position: "relative",
+        ...props.style
+      }
+    },
+    /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        ref: container,
+        style: {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: "100%",
+          width: "100%",
+          overflow: "overlay"
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          ref: content,
+          style: {
+            width: screen.width,
+            height: screen.height,
+            paddingRight: 15,
+            paddingBottom: 15,
+            position: "relative",
+            boxSizing: "border-box",
+            overflow: "hidden"
+          }
+        },
+        props.children,
+        /* @__PURE__ */ import_react.default.createElement(import_handle.ResizeHandle, { type: import_handle.ResizeHandleType.Resize }, /* @__PURE__ */ import_react.default.createElement(import_widgets.IconWidget, { infer: "DragMove", style: { pointerEvents: "none" } })),
+        /* @__PURE__ */ import_react.default.createElement(import_handle.ResizeHandle, { type: import_handle.ResizeHandleType.ResizeHeight }, /* @__PURE__ */ import_react.default.createElement(import_widgets.IconWidget, { infer: "Menu", style: { pointerEvents: "none" } })),
+        /* @__PURE__ */ import_react.default.createElement(import_handle.ResizeHandle, { type: import_handle.ResizeHandleType.ResizeWidth }, /* @__PURE__ */ import_react.default.createElement(import_widgets.IconWidget, { infer: "Menu", style: { pointerEvents: "none" } }))
+      )
+    )
+  );
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ResponsiveSimulator
 });

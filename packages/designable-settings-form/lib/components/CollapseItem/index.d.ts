@@ -6,3 +6,4 @@ export interface ICollapseItemProps {
     defaultExpand?: boolean;
 }
 export declare const CollapseItem: React.FC<ICollapseItemProps>;
+//# sourceMappingURL=index.d.ts.map

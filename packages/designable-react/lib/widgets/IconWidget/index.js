@@ -1,202 +1,153 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/IconWidget/index.tsx
+var IconWidget_exports = {};
+__export(IconWidget_exports, {
+  IconWidget: () => IconWidget
 });
-exports.IconWidget = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var shared_1 = require("@designable/shared");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var antd_1 = require("antd");
-
-var hooks_1 = require("../../hooks");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var IconContext = (0, react_1.createContext)(null);
-
-var isNumSize = function isNumSize(val) {
-  return /^[\d.]+$/.test(val);
-};
-
-exports.IconWidget = (0, reactive_react_1.observer)(function (props) {
+module.exports = __toCommonJS(IconWidget_exports);
+var import_react = __toESM(require("react"));
+var import_shared = require("@designable/shared");
+var import_reactive_react = require("@formily/reactive-react");
+var import_antd = require("antd");
+var import_hooks = require("../../hooks");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var IconContext = (0, import_react.createContext)(null);
+var isNumSize = (val) => /^[\d.]+$/.test(val);
+var IconWidget = (0, import_reactive_react.observer)((props) => {
   var _a, _b, _c;
-
-  var theme = (0, hooks_1.useTheme)();
-  var context = (0, react_1.useContext)(IconContext);
-  var registry = (0, hooks_1.useRegistry)();
-  var prefix = (0, hooks_1.usePrefix)('icon');
-  var size = props.size || '1em';
-  var height = ((_a = props.style) === null || _a === void 0 ? void 0 : _a.height) || size;
-  var width = ((_b = props.style) === null || _b === void 0 ? void 0 : _b.width) || size;
-
-  var takeIcon = function takeIcon(infer) {
-    if ((0, shared_1.isStr)(infer)) {
-      var finded = registry.getDesignerIcon(infer);
-
+  const theme = (0, import_hooks.useTheme)();
+  const context = (0, import_react.useContext)(IconContext);
+  const registry = (0, import_hooks.useRegistry)();
+  const prefix = (0, import_hooks.usePrefix)("icon");
+  const size = props.size || "1em";
+  const height = ((_a = props.style) == null ? void 0 : _a.height) || size;
+  const width = ((_b = props.style) == null ? void 0 : _b.width) || size;
+  const takeIcon = (infer) => {
+    if ((0, import_shared.isStr)(infer)) {
+      const finded = registry.getDesignerIcon(infer);
       if (finded) {
         return takeIcon(finded);
       }
-
-      return react_1.default.createElement("img", {
-        src: infer,
-        height: height,
-        width: width
+      return /* @__PURE__ */ import_react.default.createElement("img", { src: infer, height, width });
+    } else if ((0, import_shared.isFn)(infer)) {
+      return import_react.default.createElement(infer, {
+        height,
+        width,
+        fill: "currentColor"
       });
-    } else if ((0, shared_1.isFn)(infer)) {
-      return react_1.default.createElement(infer, {
-        height: height,
-        width: width,
-        fill: 'currentColor'
-      });
-    } else if (react_1.default.isValidElement(infer)) {
-      if (infer.type === 'svg') {
-        return react_1.default.cloneElement(infer, {
-          height: height,
-          width: width,
-          fill: 'currentColor',
-          viewBox: infer.props.viewBox || '0 0 1024 1024',
-          focusable: 'false',
-          'aria-hidden': 'true'
-        });
-      } else if (infer.type === 'path' || infer.type === 'g') {
-        return react_1.default.createElement("svg", {
-          viewBox: "0 0 1024 1024",
-          height: height,
-          width: width,
+    } else if (import_react.default.isValidElement(infer)) {
+      if (infer.type === "svg") {
+        return import_react.default.cloneElement(infer, {
+          height,
+          width,
           fill: "currentColor",
+          viewBox: infer.props.viewBox || "0 0 1024 1024",
           focusable: "false",
           "aria-hidden": "true"
-        }, infer);
+        });
+      } else if (infer.type === "path" || infer.type === "g") {
+        return /* @__PURE__ */ import_react.default.createElement(
+          "svg",
+          {
+            viewBox: "0 0 1024 1024",
+            height,
+            width,
+            fill: "currentColor",
+            focusable: "false",
+            "aria-hidden": "true"
+          },
+          infer
+        );
       }
-
       return infer;
-    } else if ((0, shared_1.isPlainObj)(infer)) {
+    } else if ((0, import_shared.isPlainObj)(infer)) {
       if (infer[theme]) {
         return takeIcon(infer[theme]);
-      } else if (infer['shadow']) {
-        return react_1.default.createElement(exports.IconWidget.ShadowSVG, {
-          width: width,
-          height: height,
-          content: infer['shadow']
-        });
+      } else if (infer["shadow"]) {
+        return /* @__PURE__ */ import_react.default.createElement(
+          IconWidget.ShadowSVG,
+          {
+            width,
+            height,
+            content: infer["shadow"]
+          }
+        );
       }
-
       return null;
     }
   };
-
-  var renderTooltips = function renderTooltips(children) {
-    if (!(0, shared_1.isStr)(props.infer) && (context === null || context === void 0 ? void 0 : context.tooltip)) return children;
-    var tooltip = props.tooltip || registry.getDesignerMessage("icons.".concat(props.infer));
-
+  const renderTooltips = (children) => {
+    if (!(0, import_shared.isStr)(props.infer) && (context == null ? void 0 : context.tooltip)) return children;
+    const tooltip = props.tooltip || registry.getDesignerMessage(`icons.${props.infer}`);
     if (tooltip) {
-      var title = react_1.default.isValidElement(tooltip) || (0, shared_1.isStr)(tooltip) ? tooltip : tooltip.title;
-      var props_1 = react_1.default.isValidElement(tooltip) || (0, shared_1.isStr)(tooltip) ? {} : (0, shared_1.isObj)(tooltip) ? tooltip : {};
-      return react_1.default.createElement(antd_1.Tooltip, __assign({}, props_1, {
-        title: title
-      }), children);
+      const title = import_react.default.isValidElement(tooltip) || (0, import_shared.isStr)(tooltip) ? tooltip : tooltip.title;
+      const props2 = import_react.default.isValidElement(tooltip) || (0, import_shared.isStr)(tooltip) ? {} : (0, import_shared.isObj)(tooltip) ? tooltip : {};
+      return /* @__PURE__ */ import_react.default.createElement(import_antd.Tooltip, { ...props2, title }, children);
     }
-
     return children;
   };
-
   if (!props.infer) return null;
-  return renderTooltips(react_1.default.createElement("span", __assign({}, props, {
-    className: (0, classnames_1.default)(prefix, props.className),
-    style: __assign(__assign({}, props.style), {
-      cursor: props.onClick ? 'pointer' : (_c = props.style) === null || _c === void 0 ? void 0 : _c.cursor
-    })
-  }), takeIcon(props.infer)));
+  return renderTooltips(
+    /* @__PURE__ */ import_react.default.createElement(
+      "span",
+      {
+        ...props,
+        className: (0, import_classnames.default)(prefix, props.className),
+        style: {
+          ...props.style,
+          cursor: props.onClick ? "pointer" : (_c = props.style) == null ? void 0 : _c.cursor
+        }
+      },
+      takeIcon(props.infer)
+    )
+  );
 });
-
-exports.IconWidget.ShadowSVG = function (props) {
-  var ref = (0, react_1.useRef)();
-  var width = isNumSize(props.width) ? "".concat(props.width, "px") : props.width;
-  var height = isNumSize(props.height) ? "".concat(props.height, "px") : props.height;
-  (0, react_1.useEffect)(function () {
+IconWidget.ShadowSVG = (props) => {
+  const ref = (0, import_react.useRef)();
+  const width = isNumSize(props.width) ? `${props.width}px` : props.width;
+  const height = isNumSize(props.height) ? `${props.height}px` : props.height;
+  (0, import_react.useEffect)(() => {
     if (ref.current) {
-      var root = ref.current.attachShadow({
-        mode: 'open'
+      const root = ref.current.attachShadow({
+        mode: "open"
       });
-      root.innerHTML = "<svg viewBox=\"0 0 1024 1024\" style=\"width:".concat(width, ";height:").concat(height, "\">").concat(props.content, "</svg>");
+      root.innerHTML = `<svg viewBox="0 0 1024 1024" style="width:${width};height:${height}">${props.content}</svg>`;
     }
   }, []);
-  return react_1.default.createElement("div", {
-    ref: ref
-  });
+  return /* @__PURE__ */ import_react.default.createElement("div", { ref });
 };
-
-exports.IconWidget.Provider = function (props) {
-  return react_1.default.createElement(IconContext.Provider, {
-    value: props
-  }, props.children);
+IconWidget.Provider = (props) => {
+  return /* @__PURE__ */ import_react.default.createElement(IconContext.Provider, { value: props }, props.children);
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  IconWidget
+});

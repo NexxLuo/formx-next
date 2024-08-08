@@ -22,3 +22,4 @@ export declare const BatchDragAnimation: {
         shadow: string;
     };
 };
+//# sourceMappingURL=animations.d.ts.map

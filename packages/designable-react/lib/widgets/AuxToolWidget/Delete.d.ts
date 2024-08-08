@@ -5,3 +5,4 @@ export interface IDeleteProps {
     style?: React.CSSProperties;
 }
 export declare const Delete: React.FC<IDeleteProps>;
+//# sourceMappingURL=Delete.d.ts.map

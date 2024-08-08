@@ -1,115 +1,66 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
+// src/components/InputItems/index.tsx
+var InputItems_exports = {};
+__export(InputItems_exports, {
+  InputItems: () => InputItems
 });
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
+module.exports = __toCommonJS(InputItems_exports);
+var import_react = __toESM(require("react"));
+var import_designable_react = require("@platform/designable-react");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var InputItemsContext = import_react.default.createContext(null);
+var InputItems = (props) => {
+  const prefix = (0, import_designable_react.usePrefix)("input-items");
+  return /* @__PURE__ */ import_react.default.createElement(InputItemsContext.Provider, { value: props }, /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, props.className), style: props.style }, props.children));
+};
+InputItems.defaultProps = {
+  width: "100%"
+};
+InputItems.Item = (props) => {
+  const prefix = (0, import_designable_react.usePrefix)("input-items-item");
+  const ctx = (0, import_react.useContext)(InputItemsContext);
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      className: (0, import_classnames.default)(prefix, props.className, {
+        vertical: props.vertical || ctx.vertical
+      }),
+      style: { width: props.width || ctx.width, ...props.style }
+    },
+    props.icon && /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-icon" }, /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: props.icon, size: 16 })),
+    props.title && /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-title" }, props.title),
+    /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-controller" }, props.children)
+  );
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  InputItems
 });
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.InputItems = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var designable_react_1 = require("@platform/designable-react");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var InputItemsContext = react_1.default.createContext(null);
-
-var InputItems = function InputItems(props) {
-  var prefix = (0, designable_react_1.usePrefix)('input-items');
-  return react_1.default.createElement(InputItemsContext.Provider, {
-    value: props
-  }, react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, props.className),
-    style: props.style
-  }, props.children));
-};
-
-exports.InputItems = InputItems;
-exports.InputItems.defaultProps = {
-  width: '100%'
-};
-
-exports.InputItems.Item = function (props) {
-  var prefix = (0, designable_react_1.usePrefix)('input-items-item');
-  var ctx = (0, react_1.useContext)(InputItemsContext);
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, props.className, {
-      vertical: props.vertical || ctx.vertical
-    }),
-    style: __assign({
-      width: props.width || ctx.width
-    }, props.style)
-  }, props.icon && react_1.default.createElement("div", {
-    className: prefix + '-icon'
-  }, react_1.default.createElement(designable_react_1.IconWidget, {
-    infer: props.icon,
-    size: 16
-  })), props.title && react_1.default.createElement("div", {
-    className: prefix + '-title'
-  }, props.title), react_1.default.createElement("div", {
-    className: prefix + '-controller'
-  }, props.children));
-};

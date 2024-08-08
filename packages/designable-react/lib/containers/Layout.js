@@ -1,96 +1,82 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/containers/Layout.tsx
+var Layout_exports = {};
+__export(Layout_exports, {
+  Layout: () => Layout
 });
-exports.Layout = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var shared_1 = require("@designable/shared");
-
-var context_1 = require("../context");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var Layout = function Layout(props) {
-  var _a;
-
-  var layout = (0, react_1.useContext)(context_1.DesignerLayoutContext);
-  var ref = (0, react_1.useRef)();
-  (0, react_1.useLayoutEffect)(function () {
+module.exports = __toCommonJS(Layout_exports);
+var import_react = __toESM(require("react"));
+var import_shared = require("@designable/shared");
+var import_context = require("../context");
+var import_classnames = __toESM(require("classnames"));
+var Layout = (props) => {
+  const layout = (0, import_react.useContext)(import_context.DesignerLayoutContext);
+  const ref = (0, import_react.useRef)();
+  (0, import_react.useLayoutEffect)(() => {
     if (ref.current) {
-      (0, shared_1.each)(props.variables, function (value, key) {
-        ref.current.style.setProperty("--".concat(key), value);
+      (0, import_shared.each)(props.variables, (value, key) => {
+        ref.current.style.setProperty(`--${key}`, value);
       });
     }
   }, []);
-
   if (layout) {
-    return react_1.default.createElement(react_1.Fragment, null, props.children);
+    return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, props.children);
   }
-
-  return react_1.default.createElement("div", {
-    ref: ref,
-    className: (0, classnames_1.default)((_a = {}, _a["".concat(props.prefixCls, "app")] = true, _a["".concat(props.prefixCls).concat(props.theme)] = props.theme, _a))
-  }, react_1.default.createElement(context_1.DesignerLayoutContext.Provider, {
-    value: {
-      theme: props.theme,
-      prefixCls: props.prefixCls,
-      position: props.position
-    }
-  }, props.children));
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      ref,
+      className: (0, import_classnames.default)({
+        [`${props.prefixCls}app`]: true,
+        [`${props.prefixCls}${props.theme}`]: props.theme
+      })
+    },
+    /* @__PURE__ */ import_react.default.createElement(
+      import_context.DesignerLayoutContext.Provider,
+      {
+        value: {
+          theme: props.theme,
+          prefixCls: props.prefixCls,
+          position: props.position
+        }
+      },
+      props.children
+    )
+  );
 };
-
-exports.Layout = Layout;
-exports.Layout.defaultProps = {
-  theme: 'light',
-  prefixCls: 'dn-',
-  position: 'fixed'
+Layout.defaultProps = {
+  theme: "light",
+  prefixCls: "dn-",
+  position: "fixed"
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Layout
+});

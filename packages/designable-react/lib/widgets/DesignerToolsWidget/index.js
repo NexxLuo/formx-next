@@ -1,242 +1,217 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/DesignerToolsWidget/index.tsx
+var DesignerToolsWidget_exports = {};
+__export(DesignerToolsWidget_exports, {
+  DesignerToolsWidget: () => DesignerToolsWidget
 });
-exports.DesignerToolsWidget = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var antd_1 = require("antd");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var core_1 = require("@designable/core");
-
-var hooks_1 = require("../../hooks");
-
-var IconWidget_1 = require("../IconWidget");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-exports.DesignerToolsWidget = (0, reactive_react_1.observer)(function (props) {
-  var screen = (0, hooks_1.useScreen)();
-  var cursor = (0, hooks_1.useCursor)();
-  var workbench = (0, hooks_1.useWorkbench)();
-  var history = (0, hooks_1.useHistory)();
-  var sizeRef = (0, react_1.useRef)({});
-  var prefix = (0, hooks_1.usePrefix)('designer-tools');
-
-  var renderHistoryController = function renderHistoryController() {
-    if (!props.use.includes('HISTORY')) return null;
-    return react_1.default.createElement(antd_1.Button.Group, {
-      size: "small",
-      style: {
-        marginRight: 20
-      }
-    }, react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: !(history === null || history === void 0 ? void 0 : history.allowUndo),
-      onClick: function onClick() {
-        history.undo();
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Undo"
-    })), react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: !(history === null || history === void 0 ? void 0 : history.allowRedo),
-      onClick: function onClick() {
-        history.redo();
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Redo"
-    })));
+module.exports = __toCommonJS(DesignerToolsWidget_exports);
+var import_react = __toESM(require("react"));
+var import_antd = require("antd");
+var import_reactive_react = require("@formily/reactive-react");
+var import_core = require("@designable/core");
+var import_hooks = require("../../hooks");
+var import_IconWidget = require("../IconWidget");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var DesignerToolsWidget = (0, import_reactive_react.observer)((props) => {
+  const screen = (0, import_hooks.useScreen)();
+  const cursor = (0, import_hooks.useCursor)();
+  const workbench = (0, import_hooks.useWorkbench)();
+  const history = (0, import_hooks.useHistory)();
+  const sizeRef = (0, import_react.useRef)({});
+  const prefix = (0, import_hooks.usePrefix)("designer-tools");
+  const renderHistoryController = () => {
+    if (!props.use.includes("HISTORY")) return null;
+    return /* @__PURE__ */ import_react.default.createElement(import_antd.Button.Group, { size: "small", style: { marginRight: 20 } }, /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: !(history == null ? void 0 : history.allowUndo),
+        onClick: () => {
+          history.undo();
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Undo" })
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: !(history == null ? void 0 : history.allowRedo),
+        onClick: () => {
+          history.redo();
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Redo" })
+    ));
   };
-
-  var renderCursorController = function renderCursorController() {
-    if (workbench.type !== 'DESIGNABLE') return null;
-    if (!props.use.includes('CURSOR')) return null;
-    return react_1.default.createElement(antd_1.Button.Group, {
-      size: "small",
-      style: {
-        marginRight: 20
-      }
-    }, react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: cursor.type === core_1.CursorType.Move,
-      onClick: function onClick() {
-        cursor.setType(core_1.CursorType.Move);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Move"
-    })), react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: cursor.type === core_1.CursorType.Selection,
-      onClick: function onClick() {
-        cursor.setType(core_1.CursorType.Selection);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Selection"
-    })));
+  const renderCursorController = () => {
+    if (workbench.type !== "DESIGNABLE") return null;
+    if (!props.use.includes("CURSOR")) return null;
+    return /* @__PURE__ */ import_react.default.createElement(import_antd.Button.Group, { size: "small", style: { marginRight: 20 } }, /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: cursor.type === import_core.CursorType.Move,
+        onClick: () => {
+          cursor.setType(import_core.CursorType.Move);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Move" })
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: cursor.type === import_core.CursorType.Selection,
+        onClick: () => {
+          cursor.setType(import_core.CursorType.Selection);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Selection" })
+    ));
   };
-
-  var renderResponsiveController = function renderResponsiveController() {
-    if (!props.use.includes('SCREEN_TYPE')) return null;
-    if (screen.type !== core_1.ScreenType.Responsive) return null;
-    return react_1.default.createElement(react_1.Fragment, null, react_1.default.createElement(antd_1.InputNumber, {
-      size: "small",
-      value: screen.width,
-      style: {
-        width: 70,
-        textAlign: 'center'
-      },
-      onChange: function onChange(value) {
-        sizeRef.current.width = value;
-      },
-      onPressEnter: function onPressEnter() {
-        screen.setSize(sizeRef.current.width, screen.height);
+  const renderResponsiveController = () => {
+    if (!props.use.includes("SCREEN_TYPE")) return null;
+    if (screen.type !== import_core.ScreenType.Responsive) return null;
+    return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, /* @__PURE__ */ import_react.default.createElement(
+      import_antd.InputNumber,
+      {
+        size: "small",
+        value: screen.width,
+        style: { width: 70, textAlign: "center" },
+        onChange: (value) => {
+          sizeRef.current.width = value;
+        },
+        onPressEnter: () => {
+          screen.setSize(sizeRef.current.width, screen.height);
+        }
       }
-    }), react_1.default.createElement(IconWidget_1.IconWidget, {
-      size: 10,
-      infer: "Close",
-      style: {
-        padding: '0 3px',
-        color: '#999'
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_IconWidget.IconWidget,
+      {
+        size: 10,
+        infer: "Close",
+        style: { padding: "0 3px", color: "#999" }
       }
-    }), react_1.default.createElement(antd_1.InputNumber, {
-      value: screen.height,
-      size: "small",
-      style: {
-        width: 70,
-        textAlign: 'center',
-        marginRight: 10
-      },
-      onChange: function onChange(value) {
-        sizeRef.current.height = value;
-      },
-      onPressEnter: function onPressEnter() {
-        screen.setSize(screen.width, sizeRef.current.height);
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.InputNumber,
+      {
+        value: screen.height,
+        size: "small",
+        style: {
+          width: 70,
+          textAlign: "center",
+          marginRight: 10
+        },
+        onChange: (value) => {
+          sizeRef.current.height = value;
+        },
+        onPressEnter: () => {
+          screen.setSize(screen.width, sizeRef.current.height);
+        }
       }
-    }), (screen.width !== '100%' || screen.height !== '100%') && react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      style: {
-        marginRight: 20
+    ), (screen.width !== "100%" || screen.height !== "100%") && /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        style: { marginRight: 20 },
+        onClick: () => {
+          screen.resetSize();
+        }
       },
-      onClick: function onClick() {
-        screen.resetSize();
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Recover"
-    })));
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Recover" })
+    ));
   };
-
-  var renderScreenTypeController = function renderScreenTypeController() {
-    if (!props.use.includes('SCREEN_TYPE')) return null;
-    return react_1.default.createElement(antd_1.Button.Group, {
-      size: "small",
-      style: {
-        marginRight: 20
-      }
-    }, react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: screen.type === core_1.ScreenType.PC,
-      onClick: function onClick() {
-        screen.setType(core_1.ScreenType.PC);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "PC"
-    })), react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: screen.type === core_1.ScreenType.Mobile,
-      onClick: function onClick() {
-        screen.setType(core_1.ScreenType.Mobile);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Mobile"
-    })), react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      disabled: screen.type === core_1.ScreenType.Responsive,
-      onClick: function onClick() {
-        screen.setType(core_1.ScreenType.Responsive);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Responsive"
-    })));
-  };
-
-  var renderMobileController = function renderMobileController() {
-    if (!props.use.includes('SCREEN_TYPE')) return null;
-    if (screen.type !== core_1.ScreenType.Mobile) return;
-    return react_1.default.createElement(antd_1.Button, {
-      size: "small",
-      style: {
-        marginRight: 20
+  const renderScreenTypeController = () => {
+    if (!props.use.includes("SCREEN_TYPE")) return null;
+    return /* @__PURE__ */ import_react.default.createElement(import_antd.Button.Group, { size: "small", style: { marginRight: 20 } }, /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: screen.type === import_core.ScreenType.PC,
+        onClick: () => {
+          screen.setType(import_core.ScreenType.PC);
+        }
       },
-      onClick: function onClick() {
-        screen.setFlip(!screen.flip);
-      }
-    }, react_1.default.createElement(IconWidget_1.IconWidget, {
-      infer: "Flip",
-      style: {
-        transition: 'all .15s ease-in',
-        transform: screen.flip ? 'rotate(-90deg)' : ''
-      }
-    }));
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "PC" })
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: screen.type === import_core.ScreenType.Mobile,
+        onClick: () => {
+          screen.setType(import_core.ScreenType.Mobile);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Mobile" })
+    ), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        disabled: screen.type === import_core.ScreenType.Responsive,
+        onClick: () => {
+          screen.setType(import_core.ScreenType.Responsive);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Responsive" })
+    ));
   };
-
-  return react_1.default.createElement("div", {
-    style: props.style,
-    className: (0, classnames_1.default)(prefix, props.className)
-  }, renderHistoryController(), renderCursorController(), renderScreenTypeController(), renderMobileController(), renderResponsiveController());
+  const renderMobileController = () => {
+    if (!props.use.includes("SCREEN_TYPE")) return null;
+    if (screen.type !== import_core.ScreenType.Mobile) return;
+    return /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        size: "small",
+        style: { marginRight: 20 },
+        onClick: () => {
+          screen.setFlip(!screen.flip);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement(
+        import_IconWidget.IconWidget,
+        {
+          infer: "Flip",
+          style: {
+            transition: "all .15s ease-in",
+            transform: screen.flip ? "rotate(-90deg)" : ""
+          }
+        }
+      )
+    );
+  };
+  return /* @__PURE__ */ import_react.default.createElement("div", { style: props.style, className: (0, import_classnames.default)(prefix, props.className) }, renderHistoryController(), renderCursorController(), renderScreenTypeController(), renderMobileController(), renderResponsiveController());
 });
-exports.DesignerToolsWidget.defaultProps = {
-  use: ['HISTORY', 'CURSOR', 'SCREEN_TYPE']
+DesignerToolsWidget.defaultProps = {
+  use: ["HISTORY", "CURSOR", "SCREEN_TYPE"]
 };
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  DesignerToolsWidget
+});

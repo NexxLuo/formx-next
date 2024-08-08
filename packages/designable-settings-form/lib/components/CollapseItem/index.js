@@ -1,123 +1,69 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  return ar;
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/components/CollapseItem/index.tsx
+var CollapseItem_exports = {};
+__export(CollapseItem_exports, {
+  CollapseItem: () => CollapseItem
 });
-exports.CollapseItem = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var react_2 = require("@formily/react");
-
-var designable_react_1 = require("@platform/designable-react");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-exports.CollapseItem = (0, react_2.observer)(function (props) {
-  var _a;
-
-  var prefix = (0, designable_react_1.usePrefix)('collapse-item');
-  var field = (0, react_2.useField)();
-
-  var _b = __read((0, react_1.useState)((_a = props.defaultExpand) !== null && _a !== void 0 ? _a : true), 2),
-      expand = _b[0],
-      setExpand = _b[1];
-
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, props.className, {
-      expand: expand
-    }),
-    style: props.style
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header',
-    onClick: function onClick(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      setExpand(!expand);
-    }
-  }, react_1.default.createElement("div", {
-    className: prefix + '-header-expand'
-  }, react_1.default.createElement(designable_react_1.IconWidget, {
-    infer: "Expand",
-    size: 10
-  })), react_1.default.createElement("div", {
-    className: prefix + '-header-content'
-  }, field.title)), react_1.default.createElement("div", {
-    className: prefix + '-content'
-  }, props.children));
+module.exports = __toCommonJS(CollapseItem_exports);
+var import_react = __toESM(require("react"));
+var import_react2 = require("@formily/react");
+var import_designable_react = require("@platform/designable-react");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var CollapseItem = (0, import_react2.observer)((props) => {
+  const prefix = (0, import_designable_react.usePrefix)("collapse-item");
+  const field = (0, import_react2.useField)();
+  const [expand, setExpand] = (0, import_react.useState)(props.defaultExpand ?? true);
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      className: (0, import_classnames.default)(prefix, props.className, { expand }),
+      style: props.style
+    },
+    /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: prefix + "-header",
+        onClick: (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          setExpand(!expand);
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-expand" }, /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "Expand", size: 10 })),
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-content" }, field.title)
+    ),
+    /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, props.children)
+  );
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  CollapseItem
 });

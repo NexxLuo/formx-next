@@ -1,120 +1,89 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
-  }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/AuxToolWidget/Cover.tsx
+var Cover_exports = {};
+__export(Cover_exports, {
+  Cover: () => Cover
 });
-exports.Cover = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var hooks_1 = require("../../hooks");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var core_1 = require("@designable/core");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var CoverRect = function CoverRect(props) {
-  var prefix = (0, hooks_1.usePrefix)('aux-cover-rect');
-  var rect = (0, hooks_1.useValidNodeOffsetRect)(props.node);
-
-  var createCoverStyle = function createCoverStyle() {
-    var baseStyle = {
-      position: 'absolute',
+module.exports = __toCommonJS(Cover_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../../hooks");
+var import_reactive_react = require("@formily/reactive-react");
+var import_core = require("@designable/core");
+var import_classnames = __toESM(require("classnames"));
+var CoverRect = (props) => {
+  const prefix = (0, import_hooks.usePrefix)("aux-cover-rect");
+  const rect = (0, import_hooks.useValidNodeOffsetRect)(props.node);
+  const createCoverStyle = () => {
+    const baseStyle = {
+      position: "absolute",
       top: 0,
       left: 0,
-      pointerEvents: 'none'
+      pointerEvents: "none"
     };
-
     if (rect) {
-      baseStyle.transform = "perspective(1px) translate3d(".concat(rect.x, "px,").concat(rect.y, "px,0)");
+      baseStyle.transform = `perspective(1px) translate3d(${rect.x}px,${rect.y}px,0)`;
       baseStyle.height = rect.height;
       baseStyle.width = rect.width;
     }
-
     return baseStyle;
   };
-
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, {
-      dragging: props.dragging,
-      dropping: props.dropping
-    }),
-    style: createCoverStyle()
-  });
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      className: (0, import_classnames.default)(prefix, {
+        dragging: props.dragging,
+        dropping: props.dropping
+      }),
+      style: createCoverStyle()
+    }
+  );
 };
-
-exports.Cover = (0, reactive_react_1.observer)(function () {
-  var viewportDragon = (0, hooks_1.useDragon)();
-  var viewport = (0, hooks_1.useViewport)();
-  var cursor = (0, hooks_1.useCursor)();
-
-  var renderDropCover = function renderDropCover() {
+var Cover = (0, import_reactive_react.observer)(() => {
+  const viewportDragon = (0, import_hooks.useDragon)();
+  const viewport = (0, import_hooks.useViewport)();
+  const cursor = (0, import_hooks.useCursor)();
+  const renderDropCover = () => {
     var _a;
-
-    if (!viewportDragon.closestNode || !((_a = viewportDragon.closestNode) === null || _a === void 0 ? void 0 : _a.allowAppend(viewportDragon.dragNodes)) || viewportDragon.closestDirection !== core_1.ClosestPosition.Inner) return null;
-    return react_1.default.createElement(CoverRect, {
-      node: viewportDragon.closestNode,
-      dropping: true
-    });
+    if (!viewportDragon.closestNode || !((_a = viewportDragon.closestNode) == null ? void 0 : _a.allowAppend(viewportDragon.dragNodes)) || viewportDragon.closestDirection !== import_core.ClosestPosition.Inner)
+      return null;
+    return /* @__PURE__ */ import_react.default.createElement(CoverRect, { node: viewportDragon.closestNode, dropping: true });
   };
-
-  if (cursor.status !== core_1.CursorStatus.Dragging) return null;
-  return react_1.default.createElement(react_1.Fragment, null, viewportDragon.dragNodes.map(function (node) {
+  if (cursor.status !== import_core.CursorStatus.Dragging) return null;
+  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, viewportDragon.dragNodes.map((node) => {
     if (!node) return;
     if (!viewport.findElementById(node.id)) return;
-    return react_1.default.createElement(CoverRect, {
-      key: node.id,
-      node: node,
-      dragging: true
-    });
+    return /* @__PURE__ */ import_react.default.createElement(CoverRect, { key: node.id, node, dragging: true });
   }), renderDropCover());
 });
-exports.Cover.displayName = 'Cover';
+Cover.displayName = "Cover";
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Cover
+});

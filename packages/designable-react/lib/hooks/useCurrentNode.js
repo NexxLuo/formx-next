@@ -1,20 +1,36 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.useCurrentNode = void 0;
-
-var useSelected_1 = require("./useSelected");
-
-var useTree_1 = require("./useTree");
-
-var useCurrentNode = function useCurrentNode(workspaceId) {
-  var _a;
-
-  var selected = (0, useSelected_1.useSelected)(workspaceId);
-  var tree = (0, useTree_1.useTree)(workspaceId);
-  return (_a = tree === null || tree === void 0 ? void 0 : tree.findById) === null || _a === void 0 ? void 0 : _a.call(tree, selected[0]);
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-exports.useCurrentNode = useCurrentNode;
+// src/hooks/useCurrentNode.ts
+var useCurrentNode_exports = {};
+__export(useCurrentNode_exports, {
+  useCurrentNode: () => useCurrentNode
+});
+module.exports = __toCommonJS(useCurrentNode_exports);
+var import_useSelected = require("./useSelected");
+var import_useTree = require("./useTree");
+var useCurrentNode = (workspaceId) => {
+  var _a;
+  const selected = (0, import_useSelected.useSelected)(workspaceId);
+  const tree = (0, import_useTree.useTree)(workspaceId);
+  return (_a = tree == null ? void 0 : tree.findById) == null ? void 0 : _a.call(tree, selected[0]);
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useCurrentNode
+});

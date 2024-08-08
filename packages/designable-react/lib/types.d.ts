@@ -30,3 +30,4 @@ export declare type DnComponent<P = {}> = React.ComponentType<P> & {
     Resource?: IResource[];
     Behavior?: IBehavior[];
 };
+//# sourceMappingURL=types.d.ts.map

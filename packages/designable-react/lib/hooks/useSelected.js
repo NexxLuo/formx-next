@@ -1,15 +1,33 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.useSelected = void 0;
-
-var useSelection_1 = require("./useSelection");
-
-var useSelected = function useSelected(workspaceId) {
-  var selection = (0, useSelection_1.useSelection)(workspaceId);
-  return (selection === null || selection === void 0 ? void 0 : selection.selected) || [];
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-exports.useSelected = useSelected;
+// src/hooks/useSelected.ts
+var useSelected_exports = {};
+__export(useSelected_exports, {
+  useSelected: () => useSelected
+});
+module.exports = __toCommonJS(useSelected_exports);
+var import_useSelection = require("./useSelection");
+var useSelected = (workspaceId) => {
+  const selection = (0, import_useSelection.useSelection)(workspaceId);
+  return (selection == null ? void 0 : selection.selected) || [];
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  useSelected
+});

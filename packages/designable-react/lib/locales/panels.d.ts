@@ -25,3 +25,4 @@ declare const _default: {
     };
 };
 export default _default;
+//# sourceMappingURL=panels.d.ts.map

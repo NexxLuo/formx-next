@@ -1,65 +1,84 @@
-"use strict";
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/AuxToolWidget/DashedBox.tsx
+var DashedBox_exports = {};
+__export(DashedBox_exports, {
+  DashedBox: () => DashedBox
 });
-exports.DashedBox = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var hooks_1 = require("../../hooks");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-exports.DashedBox = (0, reactive_react_1.observer)(function () {
-  var hover = (0, hooks_1.useHover)();
-  var prefix = (0, hooks_1.usePrefix)('aux-dashed-box');
-  var selection = (0, hooks_1.useSelection)();
-  var rect = (0, hooks_1.useValidNodeOffsetRect)(hover === null || hover === void 0 ? void 0 : hover.node);
-
-  var createTipsStyle = function createTipsStyle() {
-    var baseStyle = {
+module.exports = __toCommonJS(DashedBox_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../../hooks");
+var import_reactive_react = require("@formily/reactive-react");
+var DashedBox = (0, import_reactive_react.observer)(() => {
+  const hover = (0, import_hooks.useHover)();
+  const prefix = (0, import_hooks.usePrefix)("aux-dashed-box");
+  const selection = (0, import_hooks.useSelection)();
+  const rect = (0, import_hooks.useValidNodeOffsetRect)(hover == null ? void 0 : hover.node);
+  const createTipsStyle = () => {
+    const baseStyle = {
       top: 0,
       left: 0,
-      pointerEvents: 'none',
-      boxSizing: 'border-box',
-      visibility: 'hidden',
+      pointerEvents: "none",
+      boxSizing: "border-box",
+      visibility: "hidden",
       zIndex: 2
     };
-
     if (rect) {
-      baseStyle.transform = "perspective(1px) translate3d(".concat(rect.x, "px,").concat(rect.y, "px,0)");
+      baseStyle.transform = `perspective(1px) translate3d(${rect.x}px,${rect.y}px,0)`;
       baseStyle.height = rect.height;
       baseStyle.width = rect.width;
-      baseStyle.visibility = 'visible';
+      baseStyle.visibility = "visible";
     }
-
     return baseStyle;
   };
-
   if (!hover.node) return null;
   if (hover.node.hidden) return null;
   if (selection.selected.includes(hover.node.id)) return null;
-  return react_1.default.createElement("div", {
-    className: prefix,
-    style: createTipsStyle()
-  }, react_1.default.createElement("span", {
-    className: prefix + '-title',
-    style: {
-      position: 'absolute',
-      bottom: '100%',
-      left: 0,
-      fontSize: 12,
-      userSelect: 'none',
-      fontWeight: 'lighter',
-      whiteSpace: 'nowrap'
-    }
-  }, hover === null || hover === void 0 ? void 0 : hover.node.getMessage('title')));
+  return /* @__PURE__ */ import_react.default.createElement("div", { className: prefix, style: createTipsStyle() }, /* @__PURE__ */ import_react.default.createElement(
+    "span",
+    {
+      className: prefix + "-title",
+      style: {
+        position: "absolute",
+        bottom: "100%",
+        left: 0,
+        fontSize: 12,
+        userSelect: "none",
+        fontWeight: "lighter",
+        whiteSpace: "nowrap"
+      }
+    },
+    hover == null ? void 0 : hover.node.getMessage("title")
+  ));
 });
-exports.DashedBox.displayName = 'DashedBox';
+DashedBox.displayName = "DashedBox";
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  DashedBox
+});

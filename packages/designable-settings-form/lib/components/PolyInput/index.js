@@ -1,233 +1,127 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
+// src/components/PolyInput/index.tsx
+var PolyInput_exports = {};
+__export(PolyInput_exports, {
+  createPolyInput: () => createPolyInput
 });
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createPolyInput = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var antd_1 = require("antd");
-
-var designable_react_1 = require("@platform/designable-react");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-var isValid = function isValid(val) {
-  return val !== undefined && val !== null;
-};
-
-var getEventValue = function getEventValue(event) {
-  if (event === null || event === void 0 ? void 0 : event.target) {
+module.exports = __toCommonJS(PolyInput_exports);
+var import_react = __toESM(require("react"));
+var import_antd = require("antd");
+var import_designable_react = require("@platform/designable-react");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var isValid = (val) => val !== void 0 && val !== null;
+var getEventValue = (event) => {
+  if (event == null ? void 0 : event.target) {
     if (isValid(event.target.value)) return event.target.value;
     if (isValid(event.target.checked)) return event.target.checked;
     return;
   }
-
   return event;
 };
-
-var createTypes = function createTypes(types, exclude, include) {
-  return types.filter(function (_a) {
-    var type = _a.type;
-
+var createTypes = (types, exclude, include) => {
+  return types.filter(({ type }) => {
     if (Array.isArray(include) && include.length) {
       return include.includes(type);
     }
-
     if (Array.isArray(exclude) && exclude.length) {
       return !exclude.includes(type);
     }
-
     return true;
   });
 };
-
-function createPolyInput(polyTypes) {
-  if (polyTypes === void 0) {
-    polyTypes = [];
-  }
-
-  return function (_a) {
-    var _b;
-
-    var className = _a.className,
-        style = _a.style,
-        value = _a.value,
-        _onChange = _a.onChange,
-        exclude = _a.exclude,
-        include = _a.include,
-        props = __rest(_a, ["className", "style", "value", "onChange", "exclude", "include"]);
-
-    var prefix = (0, designable_react_1.usePrefix)('poly-input');
-    var types = createTypes(polyTypes, exclude, include);
-
-    var _c = __read((0, react_1.useState)((_b = types[0]) === null || _b === void 0 ? void 0 : _b.type), 2),
-        current = _c[0],
-        setCurrent = _c[1];
-
-    var type = types === null || types === void 0 ? void 0 : types.find(function (_a) {
-      var type = _a.type;
-      return type === current;
-    });
-    var component = type === null || type === void 0 ? void 0 : type.component;
-    var typesValue = (0, react_1.useRef)({});
-    (0, react_1.useEffect)(function () {
-      types === null || types === void 0 ? void 0 : types.forEach(function (_a) {
-        var checker = _a.checker,
-            type = _a.type;
-
+function createPolyInput(polyTypes = []) {
+  return ({
+    className,
+    style,
+    value,
+    onChange,
+    exclude,
+    include,
+    ...props
+  }) => {
+    var _a;
+    const prefix = (0, import_designable_react.usePrefix)("poly-input");
+    const types = createTypes(polyTypes, exclude, include);
+    const [current, setCurrent] = (0, import_react.useState)((_a = types[0]) == null ? void 0 : _a.type);
+    const type = types == null ? void 0 : types.find(({ type: type2 }) => type2 === current);
+    const component = type == null ? void 0 : type.component;
+    const typesValue = (0, import_react.useRef)({});
+    (0, import_react.useEffect)(() => {
+      types == null ? void 0 : types.forEach(({ checker, type: type2 }) => {
         if (checker(value)) {
-          setCurrent(type);
+          setCurrent(type2);
         }
       });
     }, [value]);
-
-    var getNextType = function getNextType() {
-      var currentIndex = types === null || types === void 0 ? void 0 : types.findIndex(function (_a) {
-        var type = _a.type;
-        return type === current;
-      });
-      var nextIndex = currentIndex + 1 > (types === null || types === void 0 ? void 0 : types.length) - 1 ? 0 : currentIndex + 1;
+    const getNextType = () => {
+      const currentIndex = types == null ? void 0 : types.findIndex(({ type: type2 }) => type2 === current);
+      const nextIndex = currentIndex + 1 > (types == null ? void 0 : types.length) - 1 ? 0 : currentIndex + 1;
       return types[nextIndex];
     };
-
-    var transformOnChangeValue = function transformOnChangeValue(value, type) {
-      return (type === null || type === void 0 ? void 0 : type.toChangeValue) ? type === null || type === void 0 ? void 0 : type.toChangeValue(value) : value;
+    const transformOnChangeValue = (value2, type2) => {
+      return (type2 == null ? void 0 : type2.toChangeValue) ? type2 == null ? void 0 : type2.toChangeValue(value2) : value2;
     };
-
-    return react_1.default.createElement("div", {
-      className: (0, classnames_1.default)(prefix, className),
-      style: style
-    }, component && react_1.default.createElement("div", {
-      className: prefix + '-content'
-    }, react_1.default.createElement(component, __assign(__assign({}, props), {
-      value: (type === null || type === void 0 ? void 0 : type.toInputValue) ? type === null || type === void 0 ? void 0 : type.toInputValue(value) : value,
-      onChange: function onChange(event) {
-        var value = getEventValue(event);
-        typesValue.current[type === null || type === void 0 ? void 0 : type.type] = value;
-        _onChange === null || _onChange === void 0 ? void 0 : _onChange(transformOnChangeValue(value, type));
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, className), style }, component && /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, import_react.default.createElement(component, {
+      ...props,
+      value: (type == null ? void 0 : type.toInputValue) ? type == null ? void 0 : type.toInputValue(value) : value,
+      onChange: (event) => {
+        const value2 = getEventValue(event);
+        typesValue.current[type == null ? void 0 : type.type] = value2;
+        onChange == null ? void 0 : onChange(transformOnChangeValue(value2, type));
       }
-    }))), react_1.default.createElement(antd_1.Button, {
-      className: prefix + '-controller',
-      style: {
-        width: !component ? '100%' : 'auto'
+    })), /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Button,
+      {
+        className: prefix + "-controller",
+        style: {
+          width: !component ? "100%" : "auto"
+        },
+        block: true,
+        onClick: () => {
+          const nextType = getNextType();
+          if (nextType === type) return;
+          setCurrent(nextType == null ? void 0 : nextType.type);
+          onChange == null ? void 0 : onChange(
+            transformOnChangeValue(
+              typesValue.current[nextType == null ? void 0 : nextType.type],
+              nextType
+            )
+          );
+        }
       },
-      block: true,
-      onClick: function onClick() {
-        var nextType = getNextType();
-        if (nextType === type) return;
-        setCurrent(nextType === null || nextType === void 0 ? void 0 : nextType.type);
-        _onChange === null || _onChange === void 0 ? void 0 : _onChange(transformOnChangeValue(typesValue.current[nextType === null || nextType === void 0 ? void 0 : nextType.type], nextType));
-      }
-    }, (type === null || type === void 0 ? void 0 : type.icon) ? react_1.default.createElement(designable_react_1.IconWidget, {
-      infer: type.icon
-    }) : (type === null || type === void 0 ? void 0 : type.title) || (type === null || type === void 0 ? void 0 : type.type)));
+      (type == null ? void 0 : type.icon) ? /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: type.icon }) : (type == null ? void 0 : type.title) || (type == null ? void 0 : type.type)
+    ));
   };
 }
-
-exports.createPolyInput = createPolyInput;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  createPolyInput
+});

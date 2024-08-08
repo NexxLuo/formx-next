@@ -1,54 +1,63 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/simulators/ResponsiveSimulator/handle.tsx
+var handle_exports = {};
+__export(handle_exports, {
+  ResizeHandle: () => ResizeHandle,
+  ResizeHandleType: () => ResizeHandleType
 });
-exports.ResizeHandle = exports.ResizeHandleType = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var hooks_1 = require("../../hooks");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-var ResizeHandleType;
-
-(function (ResizeHandleType) {
-  ResizeHandleType["Resize"] = "RESIZE";
-  ResizeHandleType["ResizeWidth"] = "RESIZE_WIDTH";
-  ResizeHandleType["ResizeHeight"] = "RESIZE_HEIGHT";
-})(ResizeHandleType = exports.ResizeHandleType || (exports.ResizeHandleType = {}));
-
-var ResizeHandle = function ResizeHandle(props) {
-  var _a;
-
-  var prefix = (0, hooks_1.usePrefix)('resize-handle');
-  return react_1.default.createElement("div", __assign({}, props, {
-    "data-designer-resize-handle": props.type,
-    className: (0, classnames_1.default)(prefix, (_a = {}, _a["".concat(prefix, "-").concat(props.type)] = !!props.type, _a))
-  }), props.children);
+module.exports = __toCommonJS(handle_exports);
+var import_react = __toESM(require("react"));
+var import_hooks = require("../../hooks");
+var import_classnames = __toESM(require("classnames"));
+var ResizeHandleType = /* @__PURE__ */ ((ResizeHandleType2) => {
+  ResizeHandleType2["Resize"] = "RESIZE";
+  ResizeHandleType2["ResizeWidth"] = "RESIZE_WIDTH";
+  ResizeHandleType2["ResizeHeight"] = "RESIZE_HEIGHT";
+  return ResizeHandleType2;
+})(ResizeHandleType || {});
+var ResizeHandle = (props) => {
+  const prefix = (0, import_hooks.usePrefix)("resize-handle");
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      ...props,
+      "data-designer-resize-handle": props.type,
+      className: (0, import_classnames.default)(prefix, {
+        [`${prefix}-${props.type}`]: !!props.type
+      })
+    },
+    props.children
+  );
 };
-
-exports.ResizeHandle = ResizeHandle;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ResizeHandle,
+  ResizeHandleType
+});

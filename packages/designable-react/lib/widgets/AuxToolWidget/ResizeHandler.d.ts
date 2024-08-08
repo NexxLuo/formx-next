@@ -4,3 +4,4 @@ export interface IResizeHandlerProps {
     node: TreeNode;
 }
 export declare const ResizeHandler: React.FC<IResizeHandlerProps>;
+//# sourceMappingURL=ResizeHandler.d.ts.map

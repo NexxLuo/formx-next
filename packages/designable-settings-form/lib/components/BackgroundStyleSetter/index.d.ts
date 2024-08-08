@@ -4,3 +4,4 @@ export interface IBackgroundStyleSetterProps {
     style?: React.CSSProperties;
 }
 export declare const BackgroundStyleSetter: React.FC<IBackgroundStyleSetterProps>;
+//# sourceMappingURL=index.d.ts.map

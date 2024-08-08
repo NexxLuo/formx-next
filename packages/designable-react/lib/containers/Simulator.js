@@ -1,50 +1,59 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/containers/Simulator.tsx
+var Simulator_exports = {};
+__export(Simulator_exports, {
+  Simulator: () => Simulator
 });
-exports.Simulator = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var core_1 = require("@designable/core");
-
-var shared_1 = require("@designable/shared");
-
-var reactive_react_1 = require("@formily/reactive-react");
-
-var hooks_1 = require("../hooks");
-
-var simulators_1 = require("../simulators");
-
-exports.Simulator = (0, reactive_react_1.observer)(function (props) {
-  var screen = (0, hooks_1.useScreen)();
-  if (screen.type === core_1.ScreenType.PC) return react_1.default.createElement(simulators_1.PCSimulator, __assign({}, props), props.children);
-  if (screen.type === core_1.ScreenType.Mobile) return react_1.default.createElement(simulators_1.MobileSimulator, __assign({}, props), props.children);
-  if (screen.type === core_1.ScreenType.Responsive) return react_1.default.createElement(simulators_1.ResponsiveSimulator, __assign({}, props), props.children);
-  return react_1.default.createElement(simulators_1.PCSimulator, __assign({}, props), props.children);
-}, {
-  scheduler: shared_1.requestIdle
+module.exports = __toCommonJS(Simulator_exports);
+var import_react = __toESM(require("react"));
+var import_core = require("@designable/core");
+var import_shared = require("@designable/shared");
+var import_reactive_react = require("@formily/reactive-react");
+var import_hooks = require("../hooks");
+var import_simulators = require("../simulators");
+var Simulator = (0, import_reactive_react.observer)(
+  (props) => {
+    const screen = (0, import_hooks.useScreen)();
+    if (screen.type === import_core.ScreenType.PC)
+      return /* @__PURE__ */ import_react.default.createElement(import_simulators.PCSimulator, { ...props }, props.children);
+    if (screen.type === import_core.ScreenType.Mobile)
+      return /* @__PURE__ */ import_react.default.createElement(import_simulators.MobileSimulator, { ...props }, props.children);
+    if (screen.type === import_core.ScreenType.Responsive)
+      return /* @__PURE__ */ import_react.default.createElement(import_simulators.ResponsiveSimulator, { ...props }, props.children);
+    return /* @__PURE__ */ import_react.default.createElement(import_simulators.PCSimulator, { ...props }, props.children);
+  },
+  {
+    scheduler: import_shared.requestIdle
+  }
+);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  Simulator
 });

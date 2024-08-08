@@ -4,3 +4,4 @@ export interface INodeTitleWidgetProps {
     node: TreeNode;
 }
 export declare const NodeTitleWidget: React.FC<INodeTitleWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

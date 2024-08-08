@@ -1,60 +1,51 @@
-"use strict";
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __exportStar = void 0 && (void 0).__exportStar || function (m, exports) {
-  for (var p in m) {
-    if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-  }
+  return to;
 };
+var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+// src/widgets/index.ts
+var widgets_exports = {};
+module.exports = __toCommonJS(widgets_exports);
+__reExport(widgets_exports, require("./AuxToolWidget"), module.exports);
+__reExport(widgets_exports, require("./ComponentTreeWidget"), module.exports);
+__reExport(widgets_exports, require("./DesignerToolsWidget"), module.exports);
+__reExport(widgets_exports, require("./ViewToolsWidget"), module.exports);
+__reExport(widgets_exports, require("./ResourceWidget"), module.exports);
+__reExport(widgets_exports, require("./GhostWidget"), module.exports);
+__reExport(widgets_exports, require("./EmptyWidget"), module.exports);
+__reExport(widgets_exports, require("./OutlineWidget"), module.exports);
+__reExport(widgets_exports, require("./IconWidget"), module.exports);
+__reExport(widgets_exports, require("./TextWidget"), module.exports);
+__reExport(widgets_exports, require("./HistoryWidget"), module.exports);
+__reExport(widgets_exports, require("./NodePathWidget"), module.exports);
+__reExport(widgets_exports, require("./NodeTitleWidget"), module.exports);
+__reExport(widgets_exports, require("./DroppableWidget"), module.exports);
+__reExport(widgets_exports, require("./NodeActionsWidget"), module.exports);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  ...require("./AuxToolWidget"),
+  ...require("./ComponentTreeWidget"),
+  ...require("./DesignerToolsWidget"),
+  ...require("./ViewToolsWidget"),
+  ...require("./ResourceWidget"),
+  ...require("./GhostWidget"),
+  ...require("./EmptyWidget"),
+  ...require("./OutlineWidget"),
+  ...require("./IconWidget"),
+  ...require("./TextWidget"),
+  ...require("./HistoryWidget"),
+  ...require("./NodePathWidget"),
+  ...require("./NodeTitleWidget"),
+  ...require("./DroppableWidget"),
+  ...require("./NodeActionsWidget")
 });
-
-__exportStar(require("./AuxToolWidget"), exports);
-
-__exportStar(require("./ComponentTreeWidget"), exports);
-
-__exportStar(require("./DesignerToolsWidget"), exports);
-
-__exportStar(require("./ViewToolsWidget"), exports);
-
-__exportStar(require("./ResourceWidget"), exports);
-
-__exportStar(require("./GhostWidget"), exports);
-
-__exportStar(require("./EmptyWidget"), exports);
-
-__exportStar(require("./OutlineWidget"), exports);
-
-__exportStar(require("./IconWidget"), exports);
-
-__exportStar(require("./TextWidget"), exports);
-
-__exportStar(require("./HistoryWidget"), exports);
-
-__exportStar(require("./NodePathWidget"), exports);
-
-__exportStar(require("./NodeTitleWidget"), exports);
-
-__exportStar(require("./DroppableWidget"), exports);
-
-__exportStar(require("./NodeActionsWidget"), exports);

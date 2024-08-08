@@ -49,3 +49,4 @@ declare const _default: {
     };
 };
 export default _default;
+//# sourceMappingURL=operations.d.ts.map

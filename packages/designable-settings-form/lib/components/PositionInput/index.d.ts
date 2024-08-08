@@ -7,3 +7,4 @@ export interface IPositionInputProps {
     onChange?: (value: string) => void;
 }
 export declare const PositionInput: React.FC<IPositionInputProps>;
+//# sourceMappingURL=index.d.ts.map

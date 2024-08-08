@@ -1,396 +1,326 @@
-"use strict";
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
-
-var __createBinding = void 0 && (void 0).__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-    desc = {
-      enumerable: true,
-      get: function get() {
-        return m[k];
-      }
-    };
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  Object.defineProperty(o, k2, desc);
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
+// src/components/MonacoInput/index.tsx
+var MonacoInput_exports = {};
+__export(MonacoInput_exports, {
+  MonacoInput: () => MonacoInput
 });
-
-var __setModuleDefault = void 0 && (void 0).__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = void 0 && (void 0).__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MonacoInput = void 0;
-
-var react_1 = __importStar(require("react"));
-
-var react_2 = __importStar(require("@monaco-editor/react"));
-
-var designable_react_1 = require("@platform/designable-react");
-
-var antd_1 = require("antd");
-
-var parser_1 = require("@babel/parser");
-
-var shared_1 = require("@designable/shared");
-
-var format_1 = require("./format");
-
-var classnames_1 = __importDefault(require("classnames"));
-
-require("./styles.less");
-
-require("./config");
-
-var config_1 = require("./config");
-
-var MonacoInput = function MonacoInput(_a) {
-  var className = _a.className,
-      language = _a.language,
-      defaultLanguage = _a.defaultLanguage,
-      width = _a.width,
-      helpLink = _a.helpLink,
-      helpCode = _a.helpCode,
-      helpCodeViewWidth = _a.helpCodeViewWidth,
-      height = _a.height,
-      onMount = _a.onMount,
-      onChange = _a.onChange,
-      props = __rest(_a, ["className", "language", "defaultLanguage", "width", "helpLink", "helpCode", "helpCodeViewWidth", "height", "onMount", "onChange"]);
-
-  var _b = __read((0, react_1.useState)(false), 2),
-      loaded = _b[0],
-      setLoaded = _b[1];
-
-  var theme = (0, designable_react_1.useTheme)();
-  var valueRef = (0, react_1.useRef)('');
-  var validateRef = (0, react_1.useRef)(null);
-  var submitRef = (0, react_1.useRef)(null);
-  var declarationRef = (0, react_1.useRef)([]);
-  var extraLibRef = (0, react_1.useRef)(null);
-  var monacoRef = (0, react_1.useRef)();
-  var editorRef = (0, react_1.useRef)();
-  var computedLanguage = (0, react_1.useRef)(language || defaultLanguage);
-  var realLanguage = (0, react_1.useRef)('');
-  var unmountedRef = (0, react_1.useRef)(false);
-  var changedRef = (0, react_1.useRef)(false);
-  var uidRef = (0, react_1.useRef)((0, shared_1.uid)());
-  var prefix = (0, designable_react_1.usePrefix)('monaco-input');
-  var input = props.value || props.defaultValue;
-  (0, react_1.useEffect)(function () {
+module.exports = __toCommonJS(MonacoInput_exports);
+var import_react = __toESM(require("react"));
+var import_react2 = __toESM(require("@monaco-editor/react"));
+var import_designable_react = require("@platform/designable-react");
+var import_antd = require("antd");
+var import_parser = require("@babel/parser");
+var import_shared = require("@designable/shared");
+var import_format = require("./format");
+var import_classnames = __toESM(require("classnames"));
+var import_styles = require("./styles.less");
+var import_config = require("./config");
+var import_config2 = require("./config");
+var MonacoInput = ({
+  className,
+  language,
+  defaultLanguage,
+  width,
+  helpLink,
+  helpCode,
+  helpCodeViewWidth,
+  height,
+  onMount,
+  onChange,
+  ...props
+}) => {
+  const [loaded, setLoaded] = (0, import_react.useState)(false);
+  const theme = (0, import_designable_react.useTheme)();
+  const valueRef = (0, import_react.useRef)("");
+  const validateRef = (0, import_react.useRef)(null);
+  const submitRef = (0, import_react.useRef)(null);
+  const declarationRef = (0, import_react.useRef)([]);
+  const extraLibRef = (0, import_react.useRef)(null);
+  const monacoRef = (0, import_react.useRef)();
+  const editorRef = (0, import_react.useRef)();
+  const computedLanguage = (0, import_react.useRef)(language || defaultLanguage);
+  const realLanguage = (0, import_react.useRef)("");
+  const unmountedRef = (0, import_react.useRef)(false);
+  const changedRef = (0, import_react.useRef)(false);
+  const uidRef = (0, import_react.useRef)((0, import_shared.uid)());
+  const prefix = (0, import_designable_react.usePrefix)("monaco-input");
+  const input = props.value || props.defaultValue;
+  (0, import_react.useEffect)(() => {
     unmountedRef.current = false;
-    (0, config_1.initMonaco)();
-    return function () {
+    (0, import_config2.initMonaco)();
+    return () => {
       if (extraLibRef.current) {
         extraLibRef.current.dispose();
       }
-
       unmountedRef.current = true;
     };
   }, []);
-  (0, react_1.useEffect)(function () {
+  (0, import_react.useEffect)(() => {
     if (monacoRef.current && props.extraLib) {
       updateExtraLib();
     }
   }, [props.extraLib]);
-
-  var updateExtraLib = function updateExtraLib() {
+  const updateExtraLib = () => {
     if (extraLibRef.current) {
       extraLibRef.current.dispose();
     }
-
-    extraLibRef.current = monacoRef.current.languages.typescript.typescriptDefaults.addExtraLib(props.extraLib, "".concat(uidRef.current, ".d.ts"));
+    extraLibRef.current = monacoRef.current.languages.typescript.typescriptDefaults.addExtraLib(
+      props.extraLib,
+      `${uidRef.current}.d.ts`
+    );
   };
-
-  var isFileLanguage = function isFileLanguage() {
-    var lang = computedLanguage.current;
-    return lang === 'javascript' || lang === 'typescript';
+  const isFileLanguage = () => {
+    const lang = computedLanguage.current;
+    return lang === "javascript" || lang === "typescript";
   };
-
-  var isExpLanguage = function isExpLanguage() {
-    var lang = computedLanguage.current;
-    return lang === 'javascript.expression' || lang === 'typescript.expression';
+  const isExpLanguage = () => {
+    const lang = computedLanguage.current;
+    return lang === "javascript.expression" || lang === "typescript.expression";
   };
-
-  var renderHelper = function renderHelper() {
-    var getHref = function getHref() {
-      if (typeof helpLink === 'string') return helpLink;
-
+  const renderHelper = () => {
+    const getHref = () => {
+      if (typeof helpLink === "string") return helpLink;
       if (isFileLanguage()) {
-        return 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript';
+        return "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript";
       }
-
       if (isExpLanguage()) {
-        return 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators';
+        return "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators";
       }
     };
-
     if (helpLink === false) return null;
-    var href = getHref();
-    return href && react_1.default.createElement(antd_1.Tooltip, {
-      title: react_1.default.createElement(designable_react_1.TextWidget, {
-        token: "SettingComponents.MonacoInput.helpDocument"
-      })
-    }, react_1.default.createElement("div", {
-      className: prefix + '-helper'
-    }, react_1.default.createElement("a", {
-      target: "_blank",
-      href: href,
-      rel: "noreferrer"
-    }, react_1.default.createElement(designable_react_1.IconWidget, {
-      infer: "Help"
-    }))));
+    const href = getHref();
+    return href && /* @__PURE__ */ import_react.default.createElement(
+      import_antd.Tooltip,
+      {
+        title: /* @__PURE__ */ import_react.default.createElement(import_designable_react.TextWidget, { token: "SettingComponents.MonacoInput.helpDocument" })
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-helper" }, /* @__PURE__ */ import_react.default.createElement("a", { target: "_blank", href, rel: "noreferrer" }, /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "Help" })))
+    );
   };
-
-  var onMountHandler = function onMountHandler(editor, monaco) {
+  const onMountHandler = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    onMount === null || onMount === void 0 ? void 0 : onMount(editor, monaco);
-    var model = editor.getModel();
-    var currentValue = editor.getValue();
-
-    model['getDesignerLanguage'] = function () {
-      return computedLanguage.current;
-    };
-
+    onMount == null ? void 0 : onMount(editor, monaco);
+    const model = editor.getModel();
+    const currentValue = editor.getValue();
+    model["getDesignerLanguage"] = () => computedLanguage.current;
     if (currentValue) {
-      (0, format_1.format)(computedLanguage.current, currentValue).then(function (content) {
+      (0, import_format.format)(computedLanguage.current, currentValue).then((content) => {
         editor.setValue(content);
         setLoaded(true);
-      }).catch(function () {
+      }).catch(() => {
         setLoaded(true);
       });
     } else {
       setLoaded(true);
     }
-
     if (props.extraLib) {
       updateExtraLib();
     }
-
-    editor.onDidChangeModelContent(function () {
+    editor.onDidChangeModelContent(() => {
       onChangeHandler(editor.getValue());
     });
   };
-
-  var submit = function submit() {
+  const submit = () => {
     clearTimeout(submitRef.current);
-    submitRef.current = setTimeout(function () {
-      onChange === null || onChange === void 0 ? void 0 : onChange(valueRef.current);
-    }, 1000);
+    submitRef.current = setTimeout(() => {
+      onChange == null ? void 0 : onChange(valueRef.current);
+    }, 1e3);
   };
-
-  var validate = function validate() {
-    if (realLanguage.current === 'typescript') {
+  const validate = () => {
+    if (realLanguage.current === "typescript") {
       clearTimeout(validateRef.current);
-      validateRef.current = setTimeout(function () {
+      validateRef.current = setTimeout(() => {
         try {
           if (valueRef.current) {
             if (isFileLanguage()) {
-              (0, parser_1.parse)(valueRef.current, {
-                sourceType: 'module',
-                plugins: ['typescript', 'jsx']
+              (0, import_parser.parse)(valueRef.current, {
+                sourceType: "module",
+                plugins: ["typescript", "jsx"]
               });
             } else if (isExpLanguage()) {
-              (0, parser_1.parseExpression)(valueRef.current, {
-                plugins: ['typescript', 'jsx']
+              (0, import_parser.parseExpression)(valueRef.current, {
+                plugins: ["typescript", "jsx"]
               });
             }
           }
-
-          monacoRef.current.editor.setModelMarkers(editorRef.current.getModel(), computedLanguage.current, []);
-          declarationRef.current = editorRef.current.deltaDecorations(declarationRef.current, [{
-            range: new monacoRef.current.Range(1, 1, 1, 1),
-            options: {}
-          }]);
+          monacoRef.current.editor.setModelMarkers(
+            editorRef.current.getModel(),
+            computedLanguage.current,
+            []
+          );
+          declarationRef.current = editorRef.current.deltaDecorations(
+            declarationRef.current,
+            [
+              {
+                range: new monacoRef.current.Range(1, 1, 1, 1),
+                options: {}
+              }
+            ]
+          );
           submit();
         } catch (e) {
-          declarationRef.current = editorRef.current.deltaDecorations(declarationRef.current, [{
-            range: new monacoRef.current.Range(e.loc.line, e.loc.column, e.loc.line, e.loc.column),
-            options: {
-              isWholeLine: true,
-              glyphMarginClassName: 'monaco-error-highline'
-            }
-          }]);
-          monacoRef.current.editor.setModelMarkers(editorRef.current.getModel(), computedLanguage.current, [{
-            code: '1003',
-            severity: 8,
-            startLineNumber: e.loc.line,
-            startColumn: e.loc.column,
-            endLineNumber: e.loc.line,
-            endColumn: e.loc.column,
-            message: e.message
-          }]);
+          declarationRef.current = editorRef.current.deltaDecorations(
+            declarationRef.current,
+            [
+              {
+                range: new monacoRef.current.Range(
+                  e.loc.line,
+                  e.loc.column,
+                  e.loc.line,
+                  e.loc.column
+                ),
+                options: {
+                  isWholeLine: true,
+                  glyphMarginClassName: "monaco-error-highline"
+                }
+              }
+            ]
+          );
+          monacoRef.current.editor.setModelMarkers(
+            editorRef.current.getModel(),
+            computedLanguage.current,
+            [
+              {
+                code: "1003",
+                severity: 8,
+                startLineNumber: e.loc.line,
+                startColumn: e.loc.column,
+                endLineNumber: e.loc.line,
+                endColumn: e.loc.column,
+                message: e.message
+              }
+            ]
+          );
         }
       }, 240);
     } else {
       submit();
-      declarationRef.current = editorRef.current.deltaDecorations(declarationRef.current, [{
-        range: new monacoRef.current.Range(1, 1, 1, 1),
-        options: {}
-      }]);
+      declarationRef.current = editorRef.current.deltaDecorations(
+        declarationRef.current,
+        [
+          {
+            range: new monacoRef.current.Range(1, 1, 1, 1),
+            options: {}
+          }
+        ]
+      );
     }
   };
-
-  var onChangeHandler = function onChangeHandler(value) {
+  const onChangeHandler = (value) => {
     changedRef.current = true;
     valueRef.current = value;
     validate();
   };
-
   computedLanguage.current = language || defaultLanguage;
-  realLanguage.current = /(?:javascript|typescript)/gi.test(computedLanguage.current) ? 'typescript' : computedLanguage.current;
-
-  var renderHelpCode = function renderHelpCode() {
+  realLanguage.current = /(?:javascript|typescript)/gi.test(
+    computedLanguage.current
+  ) ? "typescript" : computedLanguage.current;
+  const renderHelpCode = () => {
     if (!helpCode) return null;
-    return react_1.default.createElement("div", {
-      className: prefix + '-view',
-      style: {
-        width: helpCodeViewWidth || '50%'
-      }
-    }, react_1.default.createElement(react_2.default, {
-      value: helpCode,
-      theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
-      defaultLanguage: realLanguage.current,
-      language: realLanguage.current,
-      options: __assign(__assign({}, props.options), {
-        lineNumbers: 'off',
-        readOnly: true,
-        glyphMargin: false,
-        folding: false,
-        lineDecorationsWidth: 0,
-        lineNumbersMinChars: 0,
-        minimap: {
-          enabled: false
-        },
-        tabSize: 2,
-        smoothScrolling: true,
-        scrollbar: {
-          verticalScrollbarSize: 5,
-          horizontalScrollbarSize: 5,
-          alwaysConsumeMouseWheel: false
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: prefix + "-view",
+        style: { width: helpCodeViewWidth || "50%" }
+      },
+      /* @__PURE__ */ import_react.default.createElement(
+        import_react2.default,
+        {
+          value: helpCode,
+          theme: theme === "dark" ? "monokai" : "chrome-devtools",
+          defaultLanguage: realLanguage.current,
+          language: realLanguage.current,
+          options: {
+            ...props.options,
+            lineNumbers: "off",
+            readOnly: true,
+            glyphMargin: false,
+            folding: false,
+            lineDecorationsWidth: 0,
+            lineNumbersMinChars: 0,
+            minimap: {
+              enabled: false
+            },
+            tabSize: 2,
+            smoothScrolling: true,
+            scrollbar: {
+              verticalScrollbarSize: 5,
+              horizontalScrollbarSize: 5,
+              alwaysConsumeMouseWheel: false
+            }
+          },
+          width: "100%",
+          height: "100%"
         }
-      }),
-      width: "100%",
-      height: "100%"
-    }));
+      )
+    );
   };
-
-  return react_1.default.createElement("div", {
-    className: (0, classnames_1.default)(prefix, className, {
-      loaded: loaded
-    }),
-    style: {
-      width: width,
-      height: height
-    }
-  }, renderHelper(), react_1.default.createElement("div", {
-    className: prefix + '-view'
-  }, react_1.default.createElement(react_2.default, __assign({}, props, {
-    theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
-    defaultLanguage: realLanguage.current,
-    language: realLanguage.current,
-    options: __assign(__assign({
-      glyphMargin: true
-    }, props.options), {
-      tabSize: 2,
-      smoothScrolling: true,
-      scrollbar: {
-        verticalScrollbarSize: 5,
-        horizontalScrollbarSize: 5,
-        alwaysConsumeMouseWheel: false
+  return /* @__PURE__ */ import_react.default.createElement(
+    "div",
+    {
+      className: (0, import_classnames.default)(prefix, className, {
+        loaded
+      }),
+      style: { width, height }
+    },
+    renderHelper(),
+    /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-view" }, /* @__PURE__ */ import_react.default.createElement(
+      import_react2.default,
+      {
+        ...props,
+        theme: theme === "dark" ? "monokai" : "chrome-devtools",
+        defaultLanguage: realLanguage.current,
+        language: realLanguage.current,
+        options: {
+          glyphMargin: true,
+          ...props.options,
+          tabSize: 2,
+          smoothScrolling: true,
+          scrollbar: {
+            verticalScrollbarSize: 5,
+            horizontalScrollbarSize: 5,
+            alwaysConsumeMouseWheel: false
+          }
+        },
+        value: input,
+        width: "100%",
+        height: "100%",
+        onMount: onMountHandler
       }
-    }),
-    value: input,
-    width: "100%",
-    height: "100%",
-    onMount: onMountHandler
-  }))), renderHelpCode());
+    )),
+    renderHelpCode()
+  );
 };
-
-exports.MonacoInput = MonacoInput;
-exports.MonacoInput.loader = react_2.loader;
+MonacoInput.loader = import_react2.loader;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  MonacoInput
+});

@@ -8,3 +8,4 @@ export interface ISettingFormProps {
     effects?: (form: Form) => void;
     scope?: any;
 }
+//# sourceMappingURL=types.d.ts.map

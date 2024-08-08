@@ -7,3 +7,4 @@ export interface ImageInputProps extends Omit<InputProps, 'onChange'> {
 }
 export declare const ImageInput: React.FC<ImageInputProps>;
 export declare const BackgroundImageInput: React.FC<ImageInputProps>;
+//# sourceMappingURL=index.d.ts.map

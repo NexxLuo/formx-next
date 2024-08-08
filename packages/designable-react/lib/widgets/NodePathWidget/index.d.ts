@@ -5,3 +5,4 @@ export interface INodePathWidgetProps {
     maxItems?: number;
 }
 export declare const NodePathWidget: React.FC<INodePathWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

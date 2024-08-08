@@ -7,3 +7,4 @@ export interface ITextWidgetProps {
     defaultMessage?: string | IDesignerMiniLocales;
 }
 export declare const TextWidget: React.FC<ITextWidgetProps>;
+//# sourceMappingURL=index.d.ts.map

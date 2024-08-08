@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Slider } from 'antd';
 export declare const SchemaField: {
     <Decorator extends import("@formily/react").JSXComponent, Component extends import("@formily/react").JSXComponent>(props: import("@formily/react").ISchemaFieldProps<Decorator, Component, import("@formily/core").ObjectField<Decorator, Component>>): JSX.Element;
@@ -372,3 +373,4 @@ export declare const SchemaField: {
         displayName: string;
     };
 };
+//# sourceMappingURL=SchemaField.d.ts.map
