@@ -1,30 +1,50 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/index.ts
-var src_exports = {};
-module.exports = __toCommonJS(src_exports);
-var import_locales = require("./locales");
-__reExport(src_exports, require("./registry"), module.exports);
-__reExport(src_exports, require("./components"), module.exports);
-__reExport(src_exports, require("./SchemaField"), module.exports);
-__reExport(src_exports, require("./SettingsForm"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./registry"),
-  ...require("./components"),
-  ...require("./SchemaField"),
-  ...require("./SettingsForm")
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+require("./locales");
+var _registry = require("./registry");
+Object.keys(_registry).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _registry[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _registry[key];
+    }
+  });
+});
+var _components = require("./components");
+Object.keys(_components).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _components[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _components[key];
+    }
+  });
+});
+var _SchemaField = require("./SchemaField");
+Object.keys(_SchemaField).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _SchemaField[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SchemaField[key];
+    }
+  });
+});
+var _SettingsForm = require("./SettingsForm");
+Object.keys(_SettingsForm).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _SettingsForm[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SettingsForm[key];
+    }
+  });
 });

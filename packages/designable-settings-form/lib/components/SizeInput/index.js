@@ -1,39 +1,20 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/SizeInput/index.tsx
-var SizeInput_exports = {};
-__export(SizeInput_exports, {
-  BackgroundSizeInput: () => BackgroundSizeInput,
-  SizeInput: () => SizeInput
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(SizeInput_exports);
-var import_antd = require("antd");
-var import_PolyInput = require("../PolyInput");
-var takeNumber = (value) => {
-  const num = String(value).trim().replace(/[^\d\.]+/, "");
-  if (num === "") return;
+exports.SizeInput = exports.BackgroundSizeInput = void 0;
+var _antd = require("antd");
+var _PolyInput = require("../PolyInput");
+const takeNumber = value => {
+  const num = String(value).trim().replace(/[^\d\.]+/, '');
+  if (num === '') return;
   return Number(num);
 };
-var createUnitType = (type) => {
+const createUnitType = type => {
   return {
     type,
-    component: import_antd.InputNumber,
+    component: _antd.InputNumber,
     checker(value) {
       return String(value).includes(type);
     },
@@ -45,8 +26,8 @@ var createUnitType = (type) => {
     }
   };
 };
-var createSpecialSizeOption = (type) => ({
-  type,
+const createSpecialSizeOption = type => ({
+  type: type,
   checker(value) {
     if (value === type) return true;
     return false;
@@ -55,25 +36,6 @@ var createSpecialSizeOption = (type) => ({
     return type;
   }
 });
-var NormalSizeOptions = [
-  createSpecialSizeOption("inherit"),
-  createSpecialSizeOption("auto"),
-  createUnitType("px"),
-  createUnitType("%"),
-  createUnitType("vh"),
-  createUnitType("em")
-];
-var SizeInput = (0, import_PolyInput.createPolyInput)(NormalSizeOptions);
-var BackgroundSizeInput = (0, import_PolyInput.createPolyInput)([
-  createSpecialSizeOption("cover"),
-  createSpecialSizeOption("contain"),
-  createUnitType("px"),
-  createUnitType("%"),
-  createUnitType("vh"),
-  createUnitType("em")
-]);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  BackgroundSizeInput,
-  SizeInput
-});
+const NormalSizeOptions = [createSpecialSizeOption('inherit'), createSpecialSizeOption('auto'), createUnitType('px'), createUnitType('%'), createUnitType('vh'), createUnitType('em')];
+const SizeInput = exports.SizeInput = (0, _PolyInput.createPolyInput)(NormalSizeOptions);
+const BackgroundSizeInput = exports.BackgroundSizeInput = (0, _PolyInput.createPolyInput)([createSpecialSizeOption('cover'), createSpecialSizeOption('contain'), createUnitType('px'), createUnitType('%'), createUnitType('vh'), createUnitType('em')]);

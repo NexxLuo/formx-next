@@ -1,53 +1,30 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/PolyInput/index.tsx
-var PolyInput_exports = {};
-__export(PolyInput_exports, {
-  createPolyInput: () => createPolyInput
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(PolyInput_exports);
-var import_react = __toESM(require("react"));
-var import_antd = require("antd");
-var import_designable_react = require("@platform/designable-react");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var isValid = (val) => val !== void 0 && val !== null;
-var getEventValue = (event) => {
-  if (event == null ? void 0 : event.target) {
+exports.createPolyInput = createPolyInput;
+var _react = _interopRequireWildcard(require("react"));
+var _antd = require("antd");
+var _designableReact = require("@platform/designable-react");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const isValid = val => val !== undefined && val !== null;
+const getEventValue = event => {
+  if (event?.target) {
     if (isValid(event.target.value)) return event.target.value;
     if (isValid(event.target.checked)) return event.target.checked;
     return;
   }
   return event;
 };
-var createTypes = (types, exclude, include) => {
-  return types.filter(({ type }) => {
+const createTypes = (types, exclude, include) => {
+  return types.filter(({
+    type
+  }) => {
     if (Array.isArray(include) && include.length) {
       return include.includes(type);
     }
@@ -67,61 +44,61 @@ function createPolyInput(polyTypes = []) {
     include,
     ...props
   }) => {
-    var _a;
-    const prefix = (0, import_designable_react.usePrefix)("poly-input");
+    const prefix = (0, _designableReact.usePrefix)('poly-input');
     const types = createTypes(polyTypes, exclude, include);
-    const [current, setCurrent] = (0, import_react.useState)((_a = types[0]) == null ? void 0 : _a.type);
-    const type = types == null ? void 0 : types.find(({ type: type2 }) => type2 === current);
-    const component = type == null ? void 0 : type.component;
-    const typesValue = (0, import_react.useRef)({});
-    (0, import_react.useEffect)(() => {
-      types == null ? void 0 : types.forEach(({ checker, type: type2 }) => {
+    const [current, setCurrent] = (0, _react.useState)(types[0]?.type);
+    const type = types?.find(({
+      type
+    }) => type === current);
+    const component = type?.component;
+    const typesValue = (0, _react.useRef)({});
+    (0, _react.useEffect)(() => {
+      types?.forEach(({
+        checker,
+        type
+      }) => {
         if (checker(value)) {
-          setCurrent(type2);
+          setCurrent(type);
         }
       });
     }, [value]);
     const getNextType = () => {
-      const currentIndex = types == null ? void 0 : types.findIndex(({ type: type2 }) => type2 === current);
-      const nextIndex = currentIndex + 1 > (types == null ? void 0 : types.length) - 1 ? 0 : currentIndex + 1;
+      const currentIndex = types?.findIndex(({
+        type
+      }) => type === current);
+      const nextIndex = currentIndex + 1 > types?.length - 1 ? 0 : currentIndex + 1;
       return types[nextIndex];
     };
-    const transformOnChangeValue = (value2, type2) => {
-      return (type2 == null ? void 0 : type2.toChangeValue) ? type2 == null ? void 0 : type2.toChangeValue(value2) : value2;
+    const transformOnChangeValue = (value, type) => {
+      return type?.toChangeValue ? type?.toChangeValue(value) : value;
     };
-    return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, className), style }, component && /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, import_react.default.createElement(component, {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: (0, _classnames.default)(prefix, className),
+      style: style
+    }, component && /*#__PURE__*/_react.default.createElement("div", {
+      className: prefix + '-content'
+    }, /*#__PURE__*/_react.default.createElement(component, {
       ...props,
-      value: (type == null ? void 0 : type.toInputValue) ? type == null ? void 0 : type.toInputValue(value) : value,
-      onChange: (event) => {
-        const value2 = getEventValue(event);
-        typesValue.current[type == null ? void 0 : type.type] = value2;
-        onChange == null ? void 0 : onChange(transformOnChangeValue(value2, type));
+      value: type?.toInputValue ? type?.toInputValue(value) : value,
+      onChange: event => {
+        const value = getEventValue(event);
+        typesValue.current[type?.type] = value;
+        onChange?.(transformOnChangeValue(value, type));
       }
-    })), /* @__PURE__ */ import_react.default.createElement(
-      import_antd.Button,
-      {
-        className: prefix + "-controller",
-        style: {
-          width: !component ? "100%" : "auto"
-        },
-        block: true,
-        onClick: () => {
-          const nextType = getNextType();
-          if (nextType === type) return;
-          setCurrent(nextType == null ? void 0 : nextType.type);
-          onChange == null ? void 0 : onChange(
-            transformOnChangeValue(
-              typesValue.current[nextType == null ? void 0 : nextType.type],
-              nextType
-            )
-          );
-        }
+    })), /*#__PURE__*/_react.default.createElement(_antd.Button, {
+      className: prefix + '-controller',
+      style: {
+        width: !component ? '100%' : 'auto'
       },
-      (type == null ? void 0 : type.icon) ? /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: type.icon }) : (type == null ? void 0 : type.title) || (type == null ? void 0 : type.type)
-    ));
+      block: true,
+      onClick: () => {
+        const nextType = getNextType();
+        if (nextType === type) return;
+        setCurrent(nextType?.type);
+        onChange?.(transformOnChangeValue(typesValue.current[nextType?.type], nextType));
+      }
+    }, type?.icon ? /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: type.icon
+    }) : type?.title || type?.type));
   };
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  createPolyInput
-});

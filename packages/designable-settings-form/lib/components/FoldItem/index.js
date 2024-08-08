@@ -1,113 +1,80 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/FoldItem/index.tsx
-var FoldItem_exports = {};
-__export(FoldItem_exports, {
-  FoldItem: () => FoldItem
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(FoldItem_exports);
-var import_react = __toESM(require("react"));
-var import_formx_antd = require("@platform/formx-antd");
-var import_react2 = require("@formily/react");
-var import_reactive = require("@formily/reactive");
-var import_designable_react = require("@platform/designable-react");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var ExpandedMap = /* @__PURE__ */ new Map();
-var FoldItem = (0, import_react2.observer)(({ className, style, children, ...props }) => {
-  const prefix = (0, import_designable_react.usePrefix)("fold-item");
-  const field = (0, import_react2.useField)();
-  const expand = (0, import_react.useMemo)(
-    () => import_reactive.observable.ref(ExpandedMap.get(field.address.toString())),
-    []
-  );
-  const slots = (0, import_react.useRef)({ base: null, extra: null });
-  import_react.default.Children.forEach(children, (node) => {
-    var _a, _b;
-    if (import_react.default.isValidElement(node)) {
+exports.FoldItem = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _formxAntd = require("@platform/formx-antd");
+var _react2 = require("@formily/react");
+var _reactive = require("@formily/reactive");
+var _designableReact = require("@platform/designable-react");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+const ExpandedMap = new Map();
+const FoldItem = exports.FoldItem = (0, _react2.observer)(({
+  className,
+  style,
+  children,
+  ...props
+}) => {
+  const prefix = (0, _designableReact.usePrefix)('fold-item');
+  const field = (0, _react2.useField)();
+  const expand = (0, _react.useMemo)(() => _reactive.observable.ref(ExpandedMap.get(field.address.toString())), []);
+  const slots = (0, _react.useRef)({
+    base: null,
+    extra: null
+  });
+  _react.default.Children.forEach(children, node => {
+    if ( /*#__PURE__*/_react.default.isValidElement(node)) {
       let _node = node;
-      if (((_a = _node == null ? void 0 : _node["type"]) == null ? void 0 : _a["displayName"]) === "FoldItem.Base") {
-        slots.current.base = _node["props"].children;
+      if (_node?.['type']?.['displayName'] === 'FoldItem.Base') {
+        slots.current.base = _node['props'].children;
       }
-      if (((_b = _node == null ? void 0 : _node["type"]) == null ? void 0 : _b["displayName"]) === "FoldItem.Extra") {
-        slots.current.extra = _node["props"].children;
+      if (_node?.['type']?.['displayName'] === 'FoldItem.Extra') {
+        slots.current.extra = _node['props'].children;
       }
     }
   });
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, className) }, /* @__PURE__ */ import_react.default.createElement(
-    "div",
-    {
-      className: prefix + "-base",
-      onClick: () => {
-        expand.value = !expand.value;
-        ExpandedMap.set(field.address.toString(), expand.value);
-      }
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: (0, _classnames.default)(prefix, className)
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-base',
+    onClick: () => {
+      expand.value = !expand.value;
+      ExpandedMap.set(field.address.toString(), expand.value);
+    }
+  }, /*#__PURE__*/_react.default.createElement(_formxAntd.FormItem.BaseItem, _extends({}, props, {
+    label: /*#__PURE__*/_react.default.createElement("span", {
+      className: (0, _classnames.default)(prefix + '-title', {
+        expand: expand.value
+      })
+    }, slots.current.extra && /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "Expand",
+      size: 10
+    }), props.label)
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: '100%'
     },
-    /* @__PURE__ */ import_react.default.createElement(
-      import_formx_antd.FormItem.BaseItem,
-      {
-        ...props,
-        label: /* @__PURE__ */ import_react.default.createElement(
-          "span",
-          {
-            className: (0, import_classnames.default)(prefix + "-title", {
-              expand: expand.value
-            })
-          },
-          slots.current.extra && /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "Expand", size: 10 }),
-          props.label
-        )
-      },
-      /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          style: { width: "100%" },
-          onClick: (e) => {
-            e.stopPropagation();
-          }
-        },
-        slots.current.base
-      )
-    )
-  ), expand.value && slots.current.extra && /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-extra" }, slots.current.extra));
+    onClick: e => {
+      e.stopPropagation();
+    }
+  }, slots.current.base))), expand.value && slots.current.extra && /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-extra'
+  }, slots.current.extra));
 });
-var Base = () => {
-  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null);
+const Base = () => {
+  return /*#__PURE__*/_react.default.createElement(_react.Fragment, null);
 };
-Base.displayName = "FoldItem.Base";
-var Extra = () => {
-  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null);
+Base.displayName = 'FoldItem.Base';
+const Extra = () => {
+  return /*#__PURE__*/_react.default.createElement(_react.Fragment, null);
 };
-Extra.displayName = "FoldItem.Extra";
+Extra.displayName = 'FoldItem.Extra';
 FoldItem.Base = Base;
 FoldItem.Extra = Extra;
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  FoldItem
-});

@@ -1,49 +1,23 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/containers/Designer.tsx
-var Designer_exports = {};
-__export(Designer_exports, {
-  Designer: () => Designer
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(Designer_exports);
-var import_react = __toESM(require("react"));
-var import_core = require("@designable/core");
-var import_context = require("../context");
-var import_widgets = require("../widgets");
-var import_hooks = require("../hooks");
-var import_Layout = require("./Layout");
-var icons = __toESM(require("../icons"));
-import_core.GlobalRegistry.registerDesignerIcons(icons);
-var Designer = (props) => {
-  const engine = (0, import_hooks.useDesigner)();
-  const ref = (0, import_react.useRef)();
-  (0, import_react.useEffect)(() => {
+exports.Designer = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _core = require("@designable/core");
+var _context = require("../context");
+var _widgets = require("../widgets");
+var _hooks = require("../hooks");
+var _Layout = require("./Layout");
+var icons = _interopRequireWildcard(require("../icons"));
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+_core.GlobalRegistry.registerDesignerIcons(icons);
+const Designer = props => {
+  const engine = (0, _hooks.useDesigner)();
+  const ref = (0, _react.useRef)();
+  (0, _react.useEffect)(() => {
     if (props.engine) {
       if (props.engine && ref.current) {
         if (props.engine !== ref.current) {
@@ -59,17 +33,13 @@ var Designer = (props) => {
       }
     };
   }, [props.engine]);
-  if (engine)
-    throw new Error(
-      "There can only be one Designable Engine Context in the React Tree"
-    );
-  return /* @__PURE__ */ import_react.default.createElement(import_Layout.Layout, { ...props }, /* @__PURE__ */ import_react.default.createElement(import_context.DesignerEngineContext.Provider, { value: props.engine }, props.children, /* @__PURE__ */ import_react.default.createElement(import_widgets.GhostWidget, null)));
+  if (engine) throw new Error('There can only be one Designable Engine Context in the React Tree');
+  return /*#__PURE__*/_react.default.createElement(_Layout.Layout, props, /*#__PURE__*/_react.default.createElement(_context.DesignerEngineContext.Provider, {
+    value: props.engine
+  }, props.children, /*#__PURE__*/_react.default.createElement(_widgets.GhostWidget, null)));
 };
+exports.Designer = Designer;
 Designer.defaultProps = {
-  prefixCls: "dn-",
-  theme: "light"
+  prefixCls: 'dn-',
+  theme: 'light'
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Designer
-});

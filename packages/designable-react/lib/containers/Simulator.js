@@ -1,59 +1,22 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/containers/Simulator.tsx
-var Simulator_exports = {};
-__export(Simulator_exports, {
-  Simulator: () => Simulator
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(Simulator_exports);
-var import_react = __toESM(require("react"));
-var import_core = require("@designable/core");
-var import_shared = require("@designable/shared");
-var import_reactive_react = require("@formily/reactive-react");
-var import_hooks = require("../hooks");
-var import_simulators = require("../simulators");
-var Simulator = (0, import_reactive_react.observer)(
-  (props) => {
-    const screen = (0, import_hooks.useScreen)();
-    if (screen.type === import_core.ScreenType.PC)
-      return /* @__PURE__ */ import_react.default.createElement(import_simulators.PCSimulator, { ...props }, props.children);
-    if (screen.type === import_core.ScreenType.Mobile)
-      return /* @__PURE__ */ import_react.default.createElement(import_simulators.MobileSimulator, { ...props }, props.children);
-    if (screen.type === import_core.ScreenType.Responsive)
-      return /* @__PURE__ */ import_react.default.createElement(import_simulators.ResponsiveSimulator, { ...props }, props.children);
-    return /* @__PURE__ */ import_react.default.createElement(import_simulators.PCSimulator, { ...props }, props.children);
-  },
-  {
-    scheduler: import_shared.requestIdle
-  }
-);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Simulator
+exports.Simulator = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _core = require("@designable/core");
+var _shared = require("@designable/shared");
+var _reactiveReact = require("@formily/reactive-react");
+var _hooks = require("../hooks");
+var _simulators = require("../simulators");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Simulator = exports.Simulator = (0, _reactiveReact.observer)(props => {
+  const screen = (0, _hooks.useScreen)();
+  if (screen.type === _core.ScreenType.PC) return /*#__PURE__*/_react.default.createElement(_simulators.PCSimulator, props, props.children);
+  if (screen.type === _core.ScreenType.Mobile) return /*#__PURE__*/_react.default.createElement(_simulators.MobileSimulator, props, props.children);
+  if (screen.type === _core.ScreenType.Responsive) return /*#__PURE__*/_react.default.createElement(_simulators.ResponsiveSimulator, props, props.children);
+  return /*#__PURE__*/_react.default.createElement(_simulators.PCSimulator, props, props.children);
+}, {
+  scheduler: _shared.requestIdle
 });

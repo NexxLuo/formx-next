@@ -1,36 +1,83 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/panels/index.ts
-var panels_exports = {};
-module.exports = __toCommonJS(panels_exports);
-var import_styles = require("./styles.less");
-__reExport(panels_exports, require("./StudioPanel"), module.exports);
-__reExport(panels_exports, require("./CompositePanel"), module.exports);
-__reExport(panels_exports, require("./SettingsPanel"), module.exports);
-__reExport(panels_exports, require("./WorkspacePanel"), module.exports);
-__reExport(panels_exports, require("./ToolbarPanel"), module.exports);
-__reExport(panels_exports, require("./ViewportPanel"), module.exports);
-__reExport(panels_exports, require("./ViewPanel"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./StudioPanel"),
-  ...require("./CompositePanel"),
-  ...require("./SettingsPanel"),
-  ...require("./WorkspacePanel"),
-  ...require("./ToolbarPanel"),
-  ...require("./ViewportPanel"),
-  ...require("./ViewPanel")
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+require("./styles.less");
+var _StudioPanel = require("./StudioPanel");
+Object.keys(_StudioPanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _StudioPanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _StudioPanel[key];
+    }
+  });
+});
+var _CompositePanel = require("./CompositePanel");
+Object.keys(_CompositePanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _CompositePanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _CompositePanel[key];
+    }
+  });
+});
+var _SettingsPanel = require("./SettingsPanel");
+Object.keys(_SettingsPanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _SettingsPanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _SettingsPanel[key];
+    }
+  });
+});
+var _WorkspacePanel = require("./WorkspacePanel");
+Object.keys(_WorkspacePanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _WorkspacePanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _WorkspacePanel[key];
+    }
+  });
+});
+var _ToolbarPanel = require("./ToolbarPanel");
+Object.keys(_ToolbarPanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ToolbarPanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ToolbarPanel[key];
+    }
+  });
+});
+var _ViewportPanel = require("./ViewportPanel");
+Object.keys(_ViewportPanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ViewportPanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ViewportPanel[key];
+    }
+  });
+});
+var _ViewPanel = require("./ViewPanel");
+Object.keys(_ViewPanel).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ViewPanel[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ViewPanel[key];
+    }
+  });
 });

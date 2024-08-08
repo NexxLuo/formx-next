@@ -1,55 +1,33 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/BorderRadiusStyleSetter/index.tsx
-var BorderRadiusStyleSetter_exports = {};
-__export(BorderRadiusStyleSetter_exports, {
-  BorderRadiusStyleSetter: () => BorderRadiusStyleSetter
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(BorderRadiusStyleSetter_exports);
-var import_react = __toESM(require("react"));
-var import_designable_react = require("@platform/designable-react");
-var import_BoxStyleSetter = require("../BoxStyleSetter");
-var BorderRadiusStyleSetter = (props) => {
-  return /* @__PURE__ */ import_react.default.createElement(
-    import_BoxStyleSetter.BoxStyleSetter,
-    {
-      ...props,
-      labels: [
-        /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "TopLeft", size: 16, key: "1" }),
-        /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "TopRight", size: 16, key: "2" }),
-        /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "BottomRight", size: 16, key: "3" }),
-        /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "BottomLeft", size: 16, key: "4" })
-      ]
-    }
-  );
+exports.BorderRadiusStyleSetter = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _designableReact = require("@platform/designable-react");
+var _BoxStyleSetter = require("../BoxStyleSetter");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+const BorderRadiusStyleSetter = props => {
+  return /*#__PURE__*/_react.default.createElement(_BoxStyleSetter.BoxStyleSetter, _extends({}, props, {
+    labels: [/*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "TopLeft",
+      size: 16,
+      key: "1"
+    }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "TopRight",
+      size: 16,
+      key: "2"
+    }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "BottomRight",
+      size: 16,
+      key: "3"
+    }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "BottomLeft",
+      size: 16,
+      key: "4"
+    })]
+  }));
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  BorderRadiusStyleSetter
-});
+exports.BorderRadiusStyleSetter = BorderRadiusStyleSetter;

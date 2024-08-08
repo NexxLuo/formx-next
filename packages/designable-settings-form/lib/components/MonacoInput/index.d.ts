@@ -3,7 +3,7 @@ import { EditorProps, loader } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import './styles.less';
 import './config';
-export declare type Monaco = typeof monaco;
+export type Monaco = typeof monaco;
 export interface MonacoInputProps extends EditorProps {
     helpLink?: string | boolean;
     helpCode?: string;

@@ -1,46 +1,20 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/TextWidget/index.tsx
-var TextWidget_exports = {};
-__export(TextWidget_exports, {
-  TextWidget: () => TextWidget
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(TextWidget_exports);
-var import_react = __toESM(require("react"));
-var import_shared = require("@designable/shared");
-var import_core = require("@designable/core");
-var import_reactive_react = require("@formily/reactive-react");
-var TextWidget = (0, import_reactive_react.observer)((props) => {
-  const takeLocale = (message) => {
-    if ((0, import_shared.isStr)(message)) return message;
-    if ((0, import_shared.isPlainObj)(message)) {
-      const lang = import_core.GlobalRegistry.getDesignerLanguage();
+exports.TextWidget = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _shared = require("@designable/shared");
+var _core = require("@designable/core");
+var _reactiveReact = require("@formily/reactive-react");
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const TextWidget = exports.TextWidget = (0, _reactiveReact.observer)(props => {
+  const takeLocale = message => {
+    if ((0, _shared.isStr)(message)) return message;
+    if ((0, _shared.isPlainObj)(message)) {
+      const lang = _core.GlobalRegistry.getDesignerLanguage();
       for (let key in message) {
         if (key.toLocaleLowerCase() === lang) return message[key];
       }
@@ -48,15 +22,11 @@ var TextWidget = (0, import_reactive_react.observer)((props) => {
     }
     return message;
   };
-  const takeMessage = (token) => {
+  const takeMessage = token => {
     if (!token) return;
-    const message = (0, import_shared.isStr)(token) ? import_core.GlobalRegistry.getDesignerMessage(token) : token;
+    const message = (0, _shared.isStr)(token) ? _core.GlobalRegistry.getDesignerMessage(token) : token;
     if (message) return takeLocale(message);
     return token;
   };
-  return /* @__PURE__ */ import_react.default.createElement(import_react.Fragment, null, takeMessage(props.children) || takeMessage(props.token) || takeMessage(props.defaultMessage));
-});
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  TextWidget
+  return /*#__PURE__*/_react.default.createElement(_react.Fragment, null, takeMessage(props.children) || takeMessage(props.token) || takeMessage(props.defaultMessage));
 });

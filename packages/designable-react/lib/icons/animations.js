@@ -1,30 +1,10 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/icons/animations.tsx
-var animations_exports = {};
-__export(animations_exports, {
-  BatchDragAnimation: () => BatchDragAnimation,
-  DragLeftSourceAnimation: () => DragLeftSourceAnimation,
-  DragRightSourceAnimation: () => DragRightSourceAnimation
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(animations_exports);
-var DragLeftSourceAnimation = {
+exports.DragRightSourceAnimation = exports.DragLeftSourceAnimation = exports.BatchDragAnimation = void 0;
+const DragLeftSourceAnimation = exports.DragLeftSourceAnimation = {
   light: {
     shadow: `
       <style>
@@ -130,7 +110,7 @@ var DragLeftSourceAnimation = {
         `
   }
 };
-var DragRightSourceAnimation = {
+const DragRightSourceAnimation = exports.DragRightSourceAnimation = {
   light: {
     shadow: `
 <style>
@@ -235,7 +215,7 @@ var DragRightSourceAnimation = {
     </g>`
   }
 };
-var BatchDragAnimation = {
+const BatchDragAnimation = exports.BatchDragAnimation = {
   light: {
     shadow: `
         <style>
@@ -347,9 +327,3 @@ var BatchDragAnimation = {
             `
   }
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  BatchDragAnimation,
-  DragLeftSourceAnimation,
-  DragRightSourceAnimation
-});

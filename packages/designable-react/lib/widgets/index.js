@@ -1,51 +1,170 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/index.ts
-var widgets_exports = {};
-module.exports = __toCommonJS(widgets_exports);
-__reExport(widgets_exports, require("./AuxToolWidget"), module.exports);
-__reExport(widgets_exports, require("./ComponentTreeWidget"), module.exports);
-__reExport(widgets_exports, require("./DesignerToolsWidget"), module.exports);
-__reExport(widgets_exports, require("./ViewToolsWidget"), module.exports);
-__reExport(widgets_exports, require("./ResourceWidget"), module.exports);
-__reExport(widgets_exports, require("./GhostWidget"), module.exports);
-__reExport(widgets_exports, require("./EmptyWidget"), module.exports);
-__reExport(widgets_exports, require("./OutlineWidget"), module.exports);
-__reExport(widgets_exports, require("./IconWidget"), module.exports);
-__reExport(widgets_exports, require("./TextWidget"), module.exports);
-__reExport(widgets_exports, require("./HistoryWidget"), module.exports);
-__reExport(widgets_exports, require("./NodePathWidget"), module.exports);
-__reExport(widgets_exports, require("./NodeTitleWidget"), module.exports);
-__reExport(widgets_exports, require("./DroppableWidget"), module.exports);
-__reExport(widgets_exports, require("./NodeActionsWidget"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./AuxToolWidget"),
-  ...require("./ComponentTreeWidget"),
-  ...require("./DesignerToolsWidget"),
-  ...require("./ViewToolsWidget"),
-  ...require("./ResourceWidget"),
-  ...require("./GhostWidget"),
-  ...require("./EmptyWidget"),
-  ...require("./OutlineWidget"),
-  ...require("./IconWidget"),
-  ...require("./TextWidget"),
-  ...require("./HistoryWidget"),
-  ...require("./NodePathWidget"),
-  ...require("./NodeTitleWidget"),
-  ...require("./DroppableWidget"),
-  ...require("./NodeActionsWidget")
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _AuxToolWidget = require("./AuxToolWidget");
+Object.keys(_AuxToolWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _AuxToolWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _AuxToolWidget[key];
+    }
+  });
+});
+var _ComponentTreeWidget = require("./ComponentTreeWidget");
+Object.keys(_ComponentTreeWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ComponentTreeWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ComponentTreeWidget[key];
+    }
+  });
+});
+var _DesignerToolsWidget = require("./DesignerToolsWidget");
+Object.keys(_DesignerToolsWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _DesignerToolsWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DesignerToolsWidget[key];
+    }
+  });
+});
+var _ViewToolsWidget = require("./ViewToolsWidget");
+Object.keys(_ViewToolsWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ViewToolsWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ViewToolsWidget[key];
+    }
+  });
+});
+var _ResourceWidget = require("./ResourceWidget");
+Object.keys(_ResourceWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _ResourceWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _ResourceWidget[key];
+    }
+  });
+});
+var _GhostWidget = require("./GhostWidget");
+Object.keys(_GhostWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _GhostWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _GhostWidget[key];
+    }
+  });
+});
+var _EmptyWidget = require("./EmptyWidget");
+Object.keys(_EmptyWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _EmptyWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _EmptyWidget[key];
+    }
+  });
+});
+var _OutlineWidget = require("./OutlineWidget");
+Object.keys(_OutlineWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _OutlineWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _OutlineWidget[key];
+    }
+  });
+});
+var _IconWidget = require("./IconWidget");
+Object.keys(_IconWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _IconWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _IconWidget[key];
+    }
+  });
+});
+var _TextWidget = require("./TextWidget");
+Object.keys(_TextWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _TextWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _TextWidget[key];
+    }
+  });
+});
+var _HistoryWidget = require("./HistoryWidget");
+Object.keys(_HistoryWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _HistoryWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _HistoryWidget[key];
+    }
+  });
+});
+var _NodePathWidget = require("./NodePathWidget");
+Object.keys(_NodePathWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _NodePathWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _NodePathWidget[key];
+    }
+  });
+});
+var _NodeTitleWidget = require("./NodeTitleWidget");
+Object.keys(_NodeTitleWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _NodeTitleWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _NodeTitleWidget[key];
+    }
+  });
+});
+var _DroppableWidget = require("./DroppableWidget");
+Object.keys(_DroppableWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _DroppableWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _DroppableWidget[key];
+    }
+  });
+});
+var _NodeActionsWidget = require("./NodeActionsWidget");
+Object.keys(_NodeActionsWidget).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _NodeActionsWidget[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _NodeActionsWidget[key];
+    }
+  });
 });

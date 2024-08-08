@@ -1,60 +1,42 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/CornerInput/index.tsx
-var CornerInput_exports = {};
-__export(CornerInput_exports, {
-  CornerInput: () => CornerInput
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(CornerInput_exports);
-var import_react = __toESM(require("react"));
-var import_designable_react = require("@platform/designable-react");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var CornerInput = (props) => {
-  const prefix = (0, import_designable_react.usePrefix)("corner-input");
-  const [current, setCurrent] = (0, import_react.useState)(props.value);
-  (0, import_react.useEffect)(() => {
+exports.CornerInput = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _designableReact = require("@platform/designable-react");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const CornerInput = props => {
+  const prefix = (0, _designableReact.usePrefix)('corner-input');
+  const [current, setCurrent] = (0, _react.useState)(props.value);
+  (0, _react.useEffect)(() => {
     if (!props.value) {
-      setCurrent("all");
+      setCurrent('all');
     }
   }, [props.value]);
-  const createCellProps = (type) => ({
-    className: (0, import_classnames.default)(prefix + "-cell", { active: current === type }),
+  const createCellProps = type => ({
+    className: (0, _classnames.default)(prefix + '-cell', {
+      active: current === type
+    }),
     onClick() {
-      var _a;
       setCurrent(type);
-      (_a = props.onChange) == null ? void 0 : _a.call(props, type);
+      props.onChange?.(type);
     }
   });
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, props.className), style: props.style }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-column" }, /* @__PURE__ */ import_react.default.createElement("div", { ...createCellProps("topLeft") }, "┏"), /* @__PURE__ */ import_react.default.createElement("div", { ...createCellProps("bottomLeft") }, "┗")), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-column" }, /* @__PURE__ */ import_react.default.createElement("div", { ...createCellProps("all") }, "╋")), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-column" }, /* @__PURE__ */ import_react.default.createElement("div", { ...createCellProps("topRight") }, "┓"), /* @__PURE__ */ import_react.default.createElement("div", { ...createCellProps("bottomRight") }, "┛")));
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: (0, _classnames.default)(prefix, props.className),
+    style: props.style
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-column'
+  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('topLeft'), "\u250F"), /*#__PURE__*/_react.default.createElement("div", createCellProps('bottomLeft'), "\u2517")), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-column'
+  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('all'), "\u254B")), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-column'
+  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('topRight'), "\u2513"), /*#__PURE__*/_react.default.createElement("div", createCellProps('bottomRight'), "\u251B")));
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  CornerInput
-});
+exports.CornerInput = CornerInput;

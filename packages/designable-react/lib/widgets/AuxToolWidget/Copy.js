@@ -1,60 +1,31 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/AuxToolWidget/Copy.tsx
-var Copy_exports = {};
-__export(Copy_exports, {
-  Copy: () => Copy
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(Copy_exports);
-var import_react = __toESM(require("react"));
-var import_hooks = require("../../hooks");
-var import_IconWidget = require("../IconWidget");
-var import_antd = require("antd");
-var Copy = ({ node, style }) => {
-  const operation = (0, import_hooks.useOperation)();
-  const prefix = (0, import_hooks.usePrefix)("aux-copy");
+exports.Copy = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _hooks = require("../../hooks");
+var _IconWidget = require("../IconWidget");
+var _antd = require("antd");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Copy = ({
+  node,
+  style
+}) => {
+  const operation = (0, _hooks.useOperation)();
+  const prefix = (0, _hooks.usePrefix)('aux-copy');
   if (node === node.root) return null;
-  return /* @__PURE__ */ import_react.default.createElement(
-    import_antd.Button,
-    {
-      className: prefix,
-      style,
-      type: "primary",
-      onClick: () => {
-        operation.cloneNodes([node]);
-      }
-    },
-    /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Clone" })
-  );
+  return /*#__PURE__*/_react.default.createElement(_antd.Button, {
+    className: prefix,
+    style: style,
+    type: "primary",
+    onClick: () => {
+      operation.cloneNodes([node]);
+    }
+  }, /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+    infer: "Clone"
+  }));
 };
-Copy.displayName = "Copy";
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Copy
-});
+exports.Copy = Copy;
+Copy.displayName = 'Copy';

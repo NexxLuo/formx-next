@@ -1,34 +1,72 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/containers/index.ts
-var containers_exports = {};
-module.exports = __toCommonJS(containers_exports);
-var import_styles = require("./styles.less");
-__reExport(containers_exports, require("./Layout"), module.exports);
-__reExport(containers_exports, require("./Designer"), module.exports);
-__reExport(containers_exports, require("./Workspace"), module.exports);
-__reExport(containers_exports, require("./Simulator"), module.exports);
-__reExport(containers_exports, require("./Viewport"), module.exports);
-__reExport(containers_exports, require("./Workbench"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./Layout"),
-  ...require("./Designer"),
-  ...require("./Workspace"),
-  ...require("./Simulator"),
-  ...require("./Viewport"),
-  ...require("./Workbench")
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+require("./styles.less");
+var _Layout = require("./Layout");
+Object.keys(_Layout).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Layout[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Layout[key];
+    }
+  });
+});
+var _Designer = require("./Designer");
+Object.keys(_Designer).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Designer[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Designer[key];
+    }
+  });
+});
+var _Workspace = require("./Workspace");
+Object.keys(_Workspace).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Workspace[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Workspace[key];
+    }
+  });
+});
+var _Simulator = require("./Simulator");
+Object.keys(_Simulator).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Simulator[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Simulator[key];
+    }
+  });
+});
+var _Viewport = require("./Viewport");
+Object.keys(_Viewport).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Viewport[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Viewport[key];
+    }
+  });
+});
+var _Workbench = require("./Workbench");
+Object.keys(_Workbench).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _Workbench[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _Workbench[key];
+    }
+  });
 });

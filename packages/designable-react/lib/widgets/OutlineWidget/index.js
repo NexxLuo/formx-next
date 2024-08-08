@@ -1,90 +1,71 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/OutlineWidget/index.tsx
-var OutlineWidget_exports = {};
-__export(OutlineWidget_exports, {
-  OutlineTreeWidget: () => OutlineTreeWidget
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(OutlineWidget_exports);
-var import_react = __toESM(require("react"));
-var import_classnames = __toESM(require("classnames"));
-var import_hooks = require("../../hooks");
-var import_reactive_react = require("@formily/reactive-react");
-var import_OutlineNode = require("./OutlineNode");
-var import_Insertion = require("./Insertion");
-var import_context = require("./context");
-var import_shared = require("@designable/shared");
-var OutlineTreeWidget = (0, import_reactive_react.observer)(
-  ({ onClose, style, renderActions, renderTitle, className, ...props }) => {
-    const ref = (0, import_react.useRef)();
-    const prefix = (0, import_hooks.usePrefix)("outline-tree");
-    const workbench = (0, import_hooks.useWorkbench)();
-    const current = (workbench == null ? void 0 : workbench.activeWorkspace) || (workbench == null ? void 0 : workbench.currentWorkspace);
-    const workspaceId = current == null ? void 0 : current.id;
-    const tree = (0, import_hooks.useTree)(workspaceId);
-    const outline = (0, import_hooks.useOutline)(workspaceId);
-    const outlineRef = (0, import_react.useRef)();
-    (0, import_react.useLayoutEffect)(() => {
-      if (!workspaceId) return;
-      if (outlineRef.current && outlineRef.current !== outline) {
-        outlineRef.current.onUnmount();
-      }
-      if (ref.current && outline) {
-        outline.onMount(ref.current, import_shared.globalThisPolyfill);
-      }
-      outlineRef.current = outline;
-      return () => {
-        outline.onUnmount();
-      };
-    }, [workspaceId, outline]);
-    if (!outline || !workspaceId) return null;
-    return /* @__PURE__ */ import_react.default.createElement(import_context.NodeContext.Provider, { value: { renderActions, renderTitle } }, /* @__PURE__ */ import_react.default.createElement(
-      "div",
-      {
-        ...props,
-        className: (0, import_classnames.default)(prefix + "-container", className),
-        style
-      },
-      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content", ref }, /* @__PURE__ */ import_react.default.createElement(import_OutlineNode.OutlineTreeNode, { node: tree, workspaceId }), /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          className: prefix + "-aux",
-          style: {
-            pointerEvents: "none"
-          }
-        },
-        /* @__PURE__ */ import_react.default.createElement(import_Insertion.Insertion, { workspaceId })
-      ))
-    ));
-  }
-);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  OutlineTreeWidget
+exports.OutlineTreeWidget = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _hooks = require("../../hooks");
+var _reactiveReact = require("@formily/reactive-react");
+var _OutlineNode = require("./OutlineNode");
+var _Insertion = require("./Insertion");
+var _context = require("./context");
+var _shared = require("@designable/shared");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+const OutlineTreeWidget = exports.OutlineTreeWidget = (0, _reactiveReact.observer)(({
+  onClose,
+  style,
+  renderActions,
+  renderTitle,
+  className,
+  ...props
+}) => {
+  const ref = (0, _react.useRef)();
+  const prefix = (0, _hooks.usePrefix)('outline-tree');
+  const workbench = (0, _hooks.useWorkbench)();
+  const current = workbench?.activeWorkspace || workbench?.currentWorkspace;
+  const workspaceId = current?.id;
+  const tree = (0, _hooks.useTree)(workspaceId);
+  const outline = (0, _hooks.useOutline)(workspaceId);
+  const outlineRef = (0, _react.useRef)();
+  (0, _react.useLayoutEffect)(() => {
+    if (!workspaceId) return;
+    if (outlineRef.current && outlineRef.current !== outline) {
+      outlineRef.current.onUnmount();
+    }
+    if (ref.current && outline) {
+      outline.onMount(ref.current, _shared.globalThisPolyfill);
+    }
+    outlineRef.current = outline;
+    return () => {
+      outline.onUnmount();
+    };
+  }, [workspaceId, outline]);
+  if (!outline || !workspaceId) return null;
+  return /*#__PURE__*/_react.default.createElement(_context.NodeContext.Provider, {
+    value: {
+      renderActions,
+      renderTitle
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", _extends({}, props, {
+    className: (0, _classnames.default)(prefix + '-container', className),
+    style: style
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-content',
+    ref: ref
+  }, /*#__PURE__*/_react.default.createElement(_OutlineNode.OutlineTreeNode, {
+    node: tree,
+    workspaceId: workspaceId
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-aux',
+    style: {
+      pointerEvents: 'none'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_Insertion.Insertion, {
+    workspaceId: workspaceId
+  })))));
 });

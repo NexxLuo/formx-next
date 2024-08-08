@@ -1,122 +1,91 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/SettingsForm.tsx
-var SettingsForm_exports = {};
-__export(SettingsForm_exports, {
-  SettingsForm: () => SettingsForm
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(SettingsForm_exports);
-var import_react = __toESM(require("react"));
-var import_core = require("@formily/core");
-var import_formx_antd = require("@platform/formx-antd");
-var import_react2 = require("@formily/react");
-var import_shared = require("@designable/shared");
-var import_designable_react = require("@platform/designable-react");
-var import_SchemaField = require("./SchemaField");
-var import_context = require("./shared/context");
-var import_effects = require("./effects");
-var import_antd = require("antd");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var GlobalState = {
+exports.SettingsForm = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _core = require("@formily/core");
+var _formxAntd = require("@platform/formx-antd");
+var _react2 = require("@formily/react");
+var _shared = require("@designable/shared");
+var _designableReact = require("@platform/designable-react");
+var _SchemaField = require("./SchemaField");
+var _context = require("./shared/context");
+var _effects = require("./effects");
+var _antd = require("antd");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const GlobalState = {
   idleRequest: null
 };
-var SettingsForm = (0, import_react2.observer)(
-  (props) => {
-    var _a, _b;
-    const workbench = (0, import_designable_react.useWorkbench)();
-    const currentWorkspace = (workbench == null ? void 0 : workbench.activeWorkspace) || (workbench == null ? void 0 : workbench.currentWorkspace);
-    const currentWorkspaceId = currentWorkspace == null ? void 0 : currentWorkspace.id;
-    const operation = (0, import_designable_react.useOperation)(currentWorkspaceId);
-    const node = (0, import_designable_react.useCurrentNode)(currentWorkspaceId);
-    const selected = (0, import_designable_react.useSelected)(currentWorkspaceId);
-    const prefix = (0, import_designable_react.usePrefix)("settings-form");
-    const schema = (_a = node == null ? void 0 : node.designerProps) == null ? void 0 : _a.propsSchema;
-    const isEmpty = !(node && ((_b = node.designerProps) == null ? void 0 : _b.propsSchema) && selected.length === 1);
-    const form = (0, import_react.useMemo)(() => {
-      var _a2;
-      return (0, import_core.createForm)({
-        initialValues: (_a2 = node == null ? void 0 : node.designerProps) == null ? void 0 : _a2.defaultProps,
-        values: node == null ? void 0 : node.props,
-        effects(form2) {
-          var _a3;
-          (0, import_effects.useLocales)(node);
-          (0, import_effects.useSnapshot)(operation);
-          (_a3 = props.effects) == null ? void 0 : _a3.call(props, form2);
-        }
-      });
-    }, [node, node == null ? void 0 : node.props, schema, operation, isEmpty]);
-    const render = () => {
-      if (!isEmpty) {
-        return /* @__PURE__ */ import_react.default.createElement(
-          "div",
-          {
-            className: (0, import_classnames.default)(prefix, props.className),
-            style: props.style,
-            key: node.id
-          },
-          /* @__PURE__ */ import_react.default.createElement(import_context.SettingsFormContext.Provider, { value: props }, /* @__PURE__ */ import_react.default.createElement(
-            import_formx_antd.Form,
-            {
-              form,
-              colon: false,
-              labelWidth: 120,
-              labelAlign: "left",
-              wrapperAlign: "right",
-              feedbackLayout: "none",
-              tooltipLayout: "text"
-            },
-            /* @__PURE__ */ import_react.default.createElement(
-              import_SchemaField.SchemaField,
-              {
-                schema,
-                components: props.components,
-                scope: { $node: node, ...props.scope }
-              }
-            )
-          ))
-        );
+const SettingsForm = exports.SettingsForm = (0, _react2.observer)(props => {
+  const workbench = (0, _designableReact.useWorkbench)();
+  const currentWorkspace = workbench?.activeWorkspace || workbench?.currentWorkspace;
+  const currentWorkspaceId = currentWorkspace?.id;
+  const operation = (0, _designableReact.useOperation)(currentWorkspaceId);
+  const node = (0, _designableReact.useCurrentNode)(currentWorkspaceId);
+  const selected = (0, _designableReact.useSelected)(currentWorkspaceId);
+  const prefix = (0, _designableReact.usePrefix)('settings-form');
+  const schema = node?.designerProps?.propsSchema;
+  const isEmpty = !(node && node.designerProps?.propsSchema && selected.length === 1);
+  const form = (0, _react.useMemo)(() => {
+    return (0, _core.createForm)({
+      initialValues: node?.designerProps?.defaultProps,
+      values: node?.props,
+      effects(form) {
+        (0, _effects.useLocales)(node);
+        (0, _effects.useSnapshot)(operation);
+        props.effects?.(form);
       }
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-empty" }, /* @__PURE__ */ import_react.default.createElement(import_antd.Empty, null));
-    };
-    return /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget.Provider, { tooltip: true }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-wrapper" }, !isEmpty && /* @__PURE__ */ import_react.default.createElement(import_designable_react.NodePathWidget, { workspaceId: currentWorkspaceId }), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-content" }, render())));
-  },
-  {
-    scheduler: (update) => {
-      (0, import_shared.cancelIdle)(GlobalState.idleRequest);
-      GlobalState.idleRequest = (0, import_shared.requestIdle)(update, {
-        timeout: 500
-      });
+    });
+  }, [node, node?.props, schema, operation, isEmpty]);
+  const render = () => {
+    if (!isEmpty) {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: (0, _classnames.default)(prefix, props.className),
+        style: props.style,
+        key: node.id
+      }, /*#__PURE__*/_react.default.createElement(_context.SettingsFormContext.Provider, {
+        value: props
+      }, /*#__PURE__*/_react.default.createElement(_formxAntd.Form, {
+        form: form,
+        colon: false,
+        labelWidth: 120,
+        labelAlign: "left",
+        wrapperAlign: "right",
+        feedbackLayout: "none",
+        tooltipLayout: "text"
+      }, /*#__PURE__*/_react.default.createElement(_SchemaField.SchemaField, {
+        schema: schema,
+        components: props.components,
+        scope: {
+          $node: node,
+          ...props.scope
+        }
+      }))));
     }
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: prefix + '-empty'
+    }, /*#__PURE__*/_react.default.createElement(_antd.Empty, null));
+  };
+  return /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget.Provider, {
+    tooltip: true
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-wrapper'
+  }, !isEmpty && /*#__PURE__*/_react.default.createElement(_designableReact.NodePathWidget, {
+    workspaceId: currentWorkspaceId
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-content'
+  }, render())));
+}, {
+  scheduler: update => {
+    (0, _shared.cancelIdle)(GlobalState.idleRequest);
+    GlobalState.idleRequest = (0, _shared.requestIdle)(update, {
+      timeout: 500
+    });
   }
-);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  SettingsForm
 });

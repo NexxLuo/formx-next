@@ -1,36 +1,14 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/hooks/useCurrentNode.ts
-var useCurrentNode_exports = {};
-__export(useCurrentNode_exports, {
-  useCurrentNode: () => useCurrentNode
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(useCurrentNode_exports);
-var import_useSelected = require("./useSelected");
-var import_useTree = require("./useTree");
-var useCurrentNode = (workspaceId) => {
-  var _a;
-  const selected = (0, import_useSelected.useSelected)(workspaceId);
-  const tree = (0, import_useTree.useTree)(workspaceId);
-  return (_a = tree == null ? void 0 : tree.findById) == null ? void 0 : _a.call(tree, selected[0]);
+exports.useCurrentNode = void 0;
+var _useSelected = require("./useSelected");
+var _useTree = require("./useTree");
+const useCurrentNode = workspaceId => {
+  const selected = (0, _useSelected.useSelected)(workspaceId);
+  const tree = (0, _useTree.useTree)(workspaceId);
+  return tree?.findById?.(selected[0]);
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  useCurrentNode
-});
+exports.useCurrentNode = useCurrentNode;

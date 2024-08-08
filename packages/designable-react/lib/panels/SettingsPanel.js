@@ -1,53 +1,28 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/panels/SettingsPanel.tsx
-var SettingsPanel_exports = {};
-__export(SettingsPanel_exports, {
-  SettingsPanel: () => SettingsPanel
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(SettingsPanel_exports);
-var import_react = __toESM(require("react"));
-var import_shared = require("@designable/shared");
-var import_reactive_react = require("@formily/reactive-react");
-var import_widgets = require("../widgets");
-var import_hooks = require("../hooks");
-var import_classnames = __toESM(require("classnames"));
-var SettingsPanel = (0, import_reactive_react.observer)((props) => {
-  const prefix = (0, import_hooks.usePrefix)("settings-panel");
-  const workbench = (0, import_hooks.useWorkbench)();
-  const [innerVisible, setInnerVisible] = (0, import_react.useState)(true);
-  const [pinning, setPinning] = (0, import_react.useState)(false);
-  const [visible, setVisible] = (0, import_react.useState)(true);
-  (0, import_react.useEffect)(() => {
-    if (visible || workbench.type === "DESIGNABLE") {
+exports.SettingsPanel = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _shared = require("@designable/shared");
+var _reactiveReact = require("@formily/reactive-react");
+var _widgets = require("../widgets");
+var _hooks = require("../hooks");
+var _classnames = _interopRequireDefault(require("classnames"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const SettingsPanel = exports.SettingsPanel = (0, _reactiveReact.observer)(props => {
+  const prefix = (0, _hooks.usePrefix)('settings-panel');
+  const workbench = (0, _hooks.useWorkbench)();
+  const [innerVisible, setInnerVisible] = (0, _react.useState)(true);
+  const [pinning, setPinning] = (0, _react.useState)(false);
+  const [visible, setVisible] = (0, _react.useState)(true);
+  (0, _react.useEffect)(() => {
+    if (visible || workbench.type === 'DESIGNABLE') {
       if (!innerVisible) {
-        (0, import_shared.requestIdle)(() => {
+        (0, _shared.requestIdle)(() => {
           requestAnimationFrame(() => {
             setInnerVisible(true);
           });
@@ -55,53 +30,53 @@ var SettingsPanel = (0, import_reactive_react.observer)((props) => {
       }
     }
   }, [visible, workbench.type]);
-  if (workbench.type !== "DESIGNABLE") {
+  if (workbench.type !== 'DESIGNABLE') {
     if (innerVisible) setInnerVisible(false);
     return null;
   }
   if (!visible) {
     if (innerVisible) setInnerVisible(false);
-    return /* @__PURE__ */ import_react.default.createElement(
-      "div",
-      {
-        className: prefix + "-opener",
-        onClick: () => {
-          setVisible(true);
-        }
-      },
-      /* @__PURE__ */ import_react.default.createElement(import_widgets.IconWidget, { infer: "Setting", size: 20 })
-    );
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: prefix + '-opener',
+      onClick: () => {
+        setVisible(true);
+      }
+    }, /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
+      infer: "Setting",
+      size: 20
+    }));
   }
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, { pinning }) }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-title" }, /* @__PURE__ */ import_react.default.createElement(import_widgets.TextWidget, null, props.title)), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-actions" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-extra" }, props.extra), !pinning && /* @__PURE__ */ import_react.default.createElement(
-    import_widgets.IconWidget,
-    {
-      infer: "PushPinOutlined",
-      className: prefix + "-header-pin",
-      onClick: () => {
-        setPinning(!pinning);
-      }
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: (0, _classnames.default)(prefix, {
+      pinning
+    })
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header'
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-title'
+  }, /*#__PURE__*/_react.default.createElement(_widgets.TextWidget, null, props.title)), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-actions'
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-extra'
+  }, props.extra), !pinning && /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
+    infer: "PushPinOutlined",
+    className: prefix + '-header-pin',
+    onClick: () => {
+      setPinning(!pinning);
     }
-  ), pinning && /* @__PURE__ */ import_react.default.createElement(
-    import_widgets.IconWidget,
-    {
-      infer: "PushPinFilled",
-      className: prefix + "-pin-filled",
-      onClick: () => {
-        setPinning(!pinning);
-      }
+  }), pinning && /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
+    infer: "PushPinFilled",
+    className: prefix + '-pin-filled',
+    onClick: () => {
+      setPinning(!pinning);
     }
-  ), /* @__PURE__ */ import_react.default.createElement(
-    import_widgets.IconWidget,
-    {
-      infer: "Close",
-      className: prefix + "-header-close",
-      onClick: () => {
-        setVisible(false);
-      }
+  }), /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
+    infer: "Close",
+    className: prefix + '-header-close',
+    onClick: () => {
+      setVisible(false);
     }
-  ))), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-body" }, innerVisible && props.children));
-});
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  SettingsPanel
+  }))), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-body'
+  }, innerVisible && props.children));
 });

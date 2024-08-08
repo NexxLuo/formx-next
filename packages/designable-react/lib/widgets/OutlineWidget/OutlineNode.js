@@ -1,201 +1,176 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/OutlineWidget/OutlineNode.tsx
-var OutlineNode_exports = {};
-__export(OutlineNode_exports, {
-  OutlineTreeNode: () => OutlineTreeNode
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(OutlineNode_exports);
-var import_react = __toESM(require("react"));
-var import_core = require("@designable/core");
-var import_shared = require("@designable/shared");
-var import_reactive = require("@formily/reactive");
-var import_reactive_react = require("@formily/reactive-react");
-var import_hooks = require("../../hooks");
-var import_IconWidget = require("../IconWidget");
-var import_NodeTitleWidget = require("../NodeTitleWidget");
-var import_context = require("./context");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var OutlineTreeNode = (0, import_reactive_react.observer)(
-  ({ node, className, style, workspaceId }) => {
-    var _a, _b;
-    const prefix = (0, import_hooks.usePrefix)("outline-tree-node");
-    const engine = (0, import_hooks.useDesigner)();
-    const ref = (0, import_react.useRef)();
-    const ctx = (0, import_react.useContext)(import_context.NodeContext);
-    const request = (0, import_react.useRef)(null);
-    const cursor = (0, import_hooks.useCursor)();
-    const selection = (0, import_hooks.useSelection)(workspaceId);
-    const outlineDragon = (0, import_hooks.useOutlineDragon)(workspaceId);
-    (0, import_react.useEffect)(() => {
-      return engine.subscribeTo(import_core.DragMoveEvent, () => {
-        var _a2;
-        const closestNodeId = (_a2 = outlineDragon == null ? void 0 : outlineDragon.closestNode) == null ? void 0 : _a2.id;
-        const closestDirection = outlineDragon == null ? void 0 : outlineDragon.closestDirection;
-        const id = node.id;
-        if (!ref.current) return;
-        if (closestNodeId === id && closestDirection === import_core.ClosestPosition.Inner) {
-          if (!ref.current.classList.contains("droppable")) {
-            ref.current.classList.add("droppable");
-          }
-          if (!ref.current.classList.contains("expanded")) {
-            if (request.current) {
-              clearTimeout(request.current);
-              request.current = null;
-            }
-            request.current = setTimeout(() => {
-              ref.current.classList.add("expanded");
-            }, 600);
-          }
-        } else {
+exports.OutlineTreeNode = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _core = require("@designable/core");
+var _shared = require("@designable/shared");
+var _reactive = require("@formily/reactive");
+var _reactiveReact = require("@formily/reactive-react");
+var _hooks = require("../../hooks");
+var _IconWidget = require("../IconWidget");
+var _NodeTitleWidget = require("../NodeTitleWidget");
+var _context = require("./context");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const OutlineTreeNode = exports.OutlineTreeNode = (0, _reactiveReact.observer)(({
+  node,
+  className,
+  style,
+  workspaceId
+}) => {
+  const prefix = (0, _hooks.usePrefix)('outline-tree-node');
+  const engine = (0, _hooks.useDesigner)();
+  const ref = (0, _react.useRef)();
+  const ctx = (0, _react.useContext)(_context.NodeContext);
+  const request = (0, _react.useRef)(null);
+  const cursor = (0, _hooks.useCursor)();
+  const selection = (0, _hooks.useSelection)(workspaceId);
+  const outlineDragon = (0, _hooks.useOutlineDragon)(workspaceId);
+  (0, _react.useEffect)(() => {
+    return engine.subscribeTo(_core.DragMoveEvent, () => {
+      const closestNodeId = outlineDragon?.closestNode?.id;
+      const closestDirection = outlineDragon?.closestDirection;
+      const id = node.id;
+      if (!ref.current) return;
+      if (closestNodeId === id && closestDirection === _core.ClosestPosition.Inner) {
+        if (!ref.current.classList.contains('droppable')) {
+          ref.current.classList.add('droppable');
+        }
+        if (!ref.current.classList.contains('expanded')) {
           if (request.current) {
             clearTimeout(request.current);
             request.current = null;
           }
-          if (ref.current.classList.contains("droppable")) {
-            ref.current.classList.remove("droppable");
-          }
+          request.current = setTimeout(() => {
+            ref.current.classList.add('expanded');
+          }, 600);
         }
-      });
-    }, [node, outlineDragon, cursor]);
-    (0, import_react.useEffect)(() => {
-      return (0, import_reactive.autorun)(() => {
-        var _a2;
-        const selectedIds = (selection == null ? void 0 : selection.selected) || [];
-        const id = node.id;
-        if (!ref.current) return;
-        if (selectedIds.includes(id)) {
-          if (!ref.current.classList.contains("selected")) {
-            ref.current.classList.add("selected");
-          }
-        } else {
-          if (ref.current.classList.contains("selected")) {
-            ref.current.classList.remove("selected");
-          }
+      } else {
+        if (request.current) {
+          clearTimeout(request.current);
+          request.current = null;
         }
-        if (cursor.status === import_core.CursorStatus.Dragging && ((_a2 = outlineDragon == null ? void 0 : outlineDragon.dragNodes) == null ? void 0 : _a2.length)) {
-          if (ref.current.classList.contains("selected")) {
-            ref.current.classList.remove("selected");
-          }
+        if (ref.current.classList.contains('droppable')) {
+          ref.current.classList.remove('droppable');
         }
-      });
-    }, [node, selection, outlineDragon]);
-    if (!node) return null;
-    const renderIcon = (node2) => {
-      var _a2;
-      const icon = node2.designerProps.icon;
-      if (icon) {
-        return /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: icon, size: 12 });
       }
-      if (node2 === (node2 == null ? void 0 : node2.root)) {
-        return /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Page", size: 12 });
-      } else if ((_a2 = node2.designerProps) == null ? void 0 : _a2.droppable) {
-        return /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Container", size: 12 });
-      }
-      return /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Component", size: 12 });
-    };
-    const renderTitle = (node2) => {
-      if ((0, import_shared.isFn)(ctx.renderTitle)) return ctx.renderTitle(node2);
-      return /* @__PURE__ */ import_react.default.createElement("span", null, /* @__PURE__ */ import_react.default.createElement(import_NodeTitleWidget.NodeTitleWidget, { node: node2 }));
-    };
-    const renderActions = (node2) => {
-      if ((0, import_shared.isFn)(ctx.renderActions)) return ctx.renderActions(node2);
-    };
-    return /* @__PURE__ */ import_react.default.createElement(
-      "div",
-      {
-        style,
-        ref,
-        className: (0, import_classnames.default)(prefix, className, "expanded"),
-        "data-designer-outline-node-id": node.id
-      },
-      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header" }, /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          className: prefix + "-header-head",
-          style: {
-            left: -node.depth * 16,
-            width: node.depth * 16
-          }
+    });
+  }, [node, outlineDragon, cursor]);
+  (0, _react.useEffect)(() => {
+    return (0, _reactive.autorun)(() => {
+      const selectedIds = selection?.selected || [];
+      const id = node.id;
+      if (!ref.current) return;
+      if (selectedIds.includes(id)) {
+        if (!ref.current.classList.contains('selected')) {
+          ref.current.classList.add('selected');
         }
-      ), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-content" }, /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-header-base" }, (((_a = node == null ? void 0 : node.children) == null ? void 0 : _a.length) > 0 || node === node.root) && /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          className: prefix + "-expand",
-          onClick: (e) => {
-            var _a2, _b2, _c, _d;
-            e.preventDefault();
-            e.stopPropagation();
-            if ((_b2 = (_a2 = ref.current) == null ? void 0 : _a2.classList) == null ? void 0 : _b2.contains("expanded")) {
-              (_c = ref.current) == null ? void 0 : _c.classList.remove("expanded");
-            } else {
-              (_d = ref.current) == null ? void 0 : _d.classList.add("expanded");
-            }
-          }
-        },
-        /* @__PURE__ */ import_react.default.createElement(import_IconWidget.IconWidget, { infer: "Expand", size: 10 })
-      ), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-icon" }, renderIcon(node)), /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-title" }, renderTitle(node))), /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          className: prefix + "-header-actions",
-          "data-click-stop-propagation": true
-        },
-        renderActions(node),
-        node !== node.root && /* @__PURE__ */ import_react.default.createElement(
-          import_IconWidget.IconWidget,
-          {
-            className: (0, import_classnames.default)(prefix + "-hidden-icon", {
-              hidden: node.hidden
-            }),
-            infer: node.hidden ? "EyeClose" : "Eye",
-            size: 14,
-            onClick: () => {
-              node.hidden = !node.hidden;
-            }
-          }
-        )
-      ))),
-      /* @__PURE__ */ import_react.default.createElement("div", { className: prefix + "-children" }, (_b = node.children) == null ? void 0 : _b.map((child) => {
-        return /* @__PURE__ */ import_react.default.createElement(
-          OutlineTreeNode,
-          {
-            node: child,
-            key: child.id,
-            workspaceId
-          }
-        );
-      }))
-    );
-  }
-);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  OutlineTreeNode
+      } else {
+        if (ref.current.classList.contains('selected')) {
+          ref.current.classList.remove('selected');
+        }
+      }
+      if (cursor.status === _core.CursorStatus.Dragging && outlineDragon?.dragNodes?.length) {
+        if (ref.current.classList.contains('selected')) {
+          ref.current.classList.remove('selected');
+        }
+      }
+    });
+  }, [node, selection, outlineDragon]);
+  if (!node) return null;
+  const renderIcon = node => {
+    const icon = node.designerProps.icon;
+    if (icon) {
+      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+        infer: icon,
+        size: 12
+      });
+    }
+    if (node === node?.root) {
+      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+        infer: "Page",
+        size: 12
+      });
+    } else if (node.designerProps?.droppable) {
+      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+        infer: "Container",
+        size: 12
+      });
+    }
+    return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+      infer: "Component",
+      size: 12
+    });
+  };
+  const renderTitle = node => {
+    if ((0, _shared.isFn)(ctx.renderTitle)) return ctx.renderTitle(node);
+    return /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement(_NodeTitleWidget.NodeTitleWidget, {
+      node: node
+    }));
+  };
+  const renderActions = node => {
+    if ((0, _shared.isFn)(ctx.renderActions)) return ctx.renderActions(node);
+  };
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: style,
+    ref: ref,
+    className: (0, _classnames.default)(prefix, className, 'expanded'),
+    "data-designer-outline-node-id": node.id
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header'
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-head',
+    style: {
+      left: -node.depth * 16,
+      width: node.depth * 16
+    }
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-content'
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-base'
+  }, (node?.children?.length > 0 || node === node.root) && /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-expand',
+    onClick: e => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (ref.current?.classList?.contains('expanded')) {
+        ref.current?.classList.remove('expanded');
+      } else {
+        ref.current?.classList.add('expanded');
+      }
+    }
+  }, /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+    infer: "Expand",
+    size: 10
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-icon'
+  }, renderIcon(node)), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-title'
+  }, renderTitle(node))), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-header-actions',
+    "data-click-stop-propagation": true
+  }, renderActions(node), node !== node.root && /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+    className: (0, _classnames.default)(prefix + '-hidden-icon', {
+      hidden: node.hidden
+    }),
+    infer: node.hidden ? 'EyeClose' : 'Eye',
+    size: 14,
+    onClick: () => {
+      node.hidden = !node.hidden;
+    }
+  })))), /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix + '-children'
+  }, node.children?.map(child => {
+    return /*#__PURE__*/_react.default.createElement(OutlineTreeNode, {
+      node: child,
+      key: child.id,
+      workspaceId: workspaceId
+    });
+  })));
 });

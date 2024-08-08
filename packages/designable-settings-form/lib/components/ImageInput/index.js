@@ -1,103 +1,69 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/components/ImageInput/index.tsx
-var ImageInput_exports = {};
-__export(ImageInput_exports, {
-  BackgroundImageInput: () => BackgroundImageInput,
-  ImageInput: () => ImageInput
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(ImageInput_exports);
-var import_react = __toESM(require("react"));
-var import_antd = require("antd");
-var import_designable_react = require("@platform/designable-react");
-var import_context = require("../../shared/context");
-var import_classnames = __toESM(require("classnames"));
-var import_styles = require("./styles.less");
-var ImageInput = ({
+exports.ImageInput = exports.BackgroundImageInput = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _antd = require("antd");
+var _designableReact = require("@platform/designable-react");
+var _context = require("../../shared/context");
+var _classnames = _interopRequireDefault(require("classnames"));
+require("./styles.less");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+const ImageInput = ({
   className,
   style,
   ...props
 }) => {
-  const prefix = (0, import_designable_react.usePrefix)("image-input");
-  const context = (0, import_react.useContext)(import_context.SettingsFormContext);
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: (0, import_classnames.default)(prefix, className), style }, /* @__PURE__ */ import_react.default.createElement(
-    import_antd.Input,
-    {
-      ...props,
-      onChange: (e) => {
-        var _a, _b;
-        (_b = props.onChange) == null ? void 0 : _b.call(props, (_a = e == null ? void 0 : e.target) == null ? void 0 : _a["value"]);
-      },
-      prefix: /* @__PURE__ */ import_react.default.createElement(
-        import_antd.Upload,
-        {
-          action: context.uploadAction,
-          onChange: (params) => {
-            var _a, _b;
-            const response = (_a = params.file) == null ? void 0 : _a.response;
-            const url = (response == null ? void 0 : response.url) || (response == null ? void 0 : response.downloadURL) || (response == null ? void 0 : response.imageURL) || (response == null ? void 0 : response.thumbUrl);
-            if (!url) return;
-            (_b = props.onChange) == null ? void 0 : _b.call(props, url);
-          }
-        },
-        /* @__PURE__ */ import_react.default.createElement(import_designable_react.IconWidget, { infer: "CloudUpload", style: { cursor: "pointer" } })
-      )
-    }
-  ));
+  const prefix = (0, _designableReact.usePrefix)('image-input');
+  const context = (0, _react.useContext)(_context.SettingsFormContext);
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: (0, _classnames.default)(prefix, className),
+    style: style
+  }, /*#__PURE__*/_react.default.createElement(_antd.Input, _extends({}, props, {
+    onChange: e => {
+      props.onChange?.(e?.target?.['value']);
+    },
+    prefix: /*#__PURE__*/_react.default.createElement(_antd.Upload, {
+      action: context.uploadAction,
+      onChange: params => {
+        const response = params.file?.response;
+        const url = response?.url || response?.downloadURL || response?.imageURL || response?.thumbUrl;
+        if (!url) return;
+        props.onChange?.(url);
+      }
+    }, /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+      infer: "CloudUpload",
+      style: {
+        cursor: 'pointer'
+      }
+    }))
+  })));
 };
-var BackgroundImageInput = (props) => {
-  const addBgValue = (value) => {
+exports.ImageInput = ImageInput;
+const BackgroundImageInput = props => {
+  const addBgValue = value => {
     if (/url\([^)]+\)/.test(value)) {
       return value;
     }
     return `url(${value})`;
   };
-  const removeBgValue = (value) => {
+  const removeBgValue = value => {
     const matched = String(value).match(/url\(\s*([^)]+)\s*\)/);
-    if (matched == null ? void 0 : matched[1]) {
-      return matched == null ? void 0 : matched[1];
+    if (matched?.[1]) {
+      return matched?.[1];
     }
     return value;
   };
-  return /* @__PURE__ */ import_react.default.createElement(
-    ImageInput,
-    {
-      value: removeBgValue(props.value),
-      onChange: (url) => {
-        var _a;
-        (_a = props.onChange) == null ? void 0 : _a.call(props, addBgValue(url));
-      }
+  return /*#__PURE__*/_react.default.createElement(ImageInput, {
+    value: removeBgValue(props.value),
+    onChange: url => {
+      props.onChange?.(addBgValue(url));
     }
-  );
+  });
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  BackgroundImageInput,
-  ImageInput
-});
+exports.BackgroundImageInput = BackgroundImageInput;

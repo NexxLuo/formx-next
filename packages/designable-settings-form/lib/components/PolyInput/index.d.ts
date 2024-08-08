@@ -17,6 +17,6 @@ export interface IPolyType {
     toInputValue?: (value: any) => any;
     toChangeValue?: (value: any) => any;
 }
-export declare type PolyTypes = IPolyType[];
+export type PolyTypes = IPolyType[];
 export declare function createPolyInput(polyTypes?: PolyTypes): React.FC<IInput>;
 //# sourceMappingURL=index.d.ts.map

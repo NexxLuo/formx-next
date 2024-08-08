@@ -1,64 +1,37 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+"use strict";
 
-// src/widgets/AuxToolWidget/Insertion.tsx
-var Insertion_exports = {};
-__export(Insertion_exports, {
-  Insertion: () => Insertion
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = __toCommonJS(Insertion_exports);
-var import_react = __toESM(require("react"));
-var import_hooks = require("../../hooks");
-var import_core = require("@designable/core");
-var import_reactive_react = require("@formily/reactive-react");
-var Insertion = (0, import_reactive_react.observer)(() => {
-  const viewportDragon = (0, import_hooks.useDragon)();
-  const prefix = (0, import_hooks.usePrefix)("aux-insertion");
+exports.Insertion = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _hooks = require("../../hooks");
+var _core = require("@designable/core");
+var _reactiveReact = require("@formily/reactive-react");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Insertion = exports.Insertion = (0, _reactiveReact.observer)(() => {
+  const viewportDragon = (0, _hooks.useDragon)();
+  const prefix = (0, _hooks.usePrefix)('aux-insertion');
   const createInsertionStyle = () => {
     const closestDirection = viewportDragon.closestDirection;
     const closestRect = viewportDragon.closestOffsetRect;
-    const isInlineLayout = viewportDragon.getClosestLayout() === "horizontal";
+    const isInlineLayout = viewportDragon.getClosestLayout() === 'horizontal';
     const baseStyle = {
-      position: "absolute",
-      transform: "perspective(1px) translate3d(0,0,0)",
+      position: 'absolute',
+      transform: 'perspective(1px) translate3d(0,0,0)',
       top: 0,
       left: 0
     };
     if (!closestRect) return baseStyle;
-    if (closestDirection === import_core.ClosestPosition.Before || closestDirection === import_core.ClosestPosition.ForbidBefore) {
+    if (closestDirection === _core.ClosestPosition.Before || closestDirection === _core.ClosestPosition.ForbidBefore) {
       baseStyle.width = 2;
       baseStyle.height = closestRect.height;
       baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y}px,0)`;
-    } else if (closestDirection === import_core.ClosestPosition.After || closestDirection === import_core.ClosestPosition.ForbidAfter) {
+    } else if (closestDirection === _core.ClosestPosition.After || closestDirection === _core.ClosestPosition.ForbidAfter) {
       baseStyle.width = 2;
       baseStyle.height = closestRect.height;
       baseStyle.transform = `perspective(1px) translate3d(${closestRect.x + closestRect.width - 2}px,${closestRect.y}px,0)`;
-    } else if (closestDirection === import_core.ClosestPosition.InnerAfter || closestDirection === import_core.ClosestPosition.Under || closestDirection === import_core.ClosestPosition.ForbidInnerAfter || closestDirection === import_core.ClosestPosition.ForbidUnder) {
+    } else if (closestDirection === _core.ClosestPosition.InnerAfter || closestDirection === _core.ClosestPosition.Under || closestDirection === _core.ClosestPosition.ForbidInnerAfter || closestDirection === _core.ClosestPosition.ForbidUnder) {
       if (isInlineLayout) {
         baseStyle.width = 2;
         baseStyle.height = closestRect.height;
@@ -68,7 +41,7 @@ var Insertion = (0, import_reactive_react.observer)(() => {
         baseStyle.height = 2;
         baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y + closestRect.height - 2}px,0)`;
       }
-    } else if (closestDirection === import_core.ClosestPosition.InnerBefore || closestDirection === import_core.ClosestPosition.Upper || closestDirection === import_core.ClosestPosition.ForbidInnerBefore || closestDirection === import_core.ClosestPosition.ForbidUpper) {
+    } else if (closestDirection === _core.ClosestPosition.InnerBefore || closestDirection === _core.ClosestPosition.Upper || closestDirection === _core.ClosestPosition.ForbidInnerBefore || closestDirection === _core.ClosestPosition.ForbidUpper) {
       if (isInlineLayout) {
         baseStyle.width = 2;
         baseStyle.height = closestRect.height;
@@ -79,15 +52,14 @@ var Insertion = (0, import_reactive_react.observer)(() => {
         baseStyle.transform = `perspective(1px) translate3d(${closestRect.x}px,${closestRect.y}px,0)`;
       }
     }
-    if (closestDirection.includes("FORBID")) {
-      baseStyle.backgroundColor = "red";
+    if (closestDirection.includes('FORBID')) {
+      baseStyle.backgroundColor = 'red';
     }
     return baseStyle;
   };
-  return /* @__PURE__ */ import_react.default.createElement("div", { className: prefix, style: createInsertionStyle() });
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: prefix,
+    style: createInsertionStyle()
+  });
 });
-Insertion.displayName = "Insertion";
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  Insertion
-});
+Insertion.displayName = 'Insertion';
