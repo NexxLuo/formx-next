@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "lerna": "^4.0.0",
+    "father": "4.1.2",
     "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11"
   },
