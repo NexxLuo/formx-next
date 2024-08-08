@@ -24,12 +24,10 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
-    "build2": "father-build build",
-    "dev": "father-build build --watch"
+    "build": "father build",
+    "dev": "father dev"
   },
-  "devDependencies": {
-    "father-build": "^1.18.0"
-  },
+
   "peerDependencies": {
     "@formily/core": "2.0.8",
     "@formily/grid": "2.0.8",

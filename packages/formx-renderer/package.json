@@ -10,10 +10,10 @@
     "main": "lib/index.js",
     "module": "es/index.js",
     "scripts": {
-        "build": "father-build build",
-        "dev": "father-build build --watch",
+        "build": "father build",
+        "dev": "father dev",
         "pub": "yarn pub-pro",
-        "pub-pro": "father-build build&&npm version patch &&npm publish",
+        "pub-pro": "father build&&npm version patch &&npm publish",
         "updateWP": "cross-env yarn add webpack@latest webpack-cli@latest webpack-dev-server@latest -D"
     },
     "dependencies": {
@@ -31,7 +31,6 @@
         "react-dom": "16.x || 17.x || 18.x"
     },
     "devDependencies": {
-        "cross-env": "^7.0.0",
-        "father-build": "^1.18.0"
+        "cross-env": "^7.0.0"
     }
 }

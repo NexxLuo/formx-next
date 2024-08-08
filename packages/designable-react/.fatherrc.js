@@ -1,3 +1,5 @@
 export default {
-  cjs: "babel"
+  cjs: {
+    output: 'lib'
+  },
 };

@@ -12,13 +12,12 @@
   },
   "module": "lib",
   "scripts": {
-    "build": "father-build build",
-    "dev": "father-build build --watch"
+    "build": "father build",
+    "dev": "father dev"
   },
   "devDependencies": {
     "@formily/reactive": "^2.1.2",
-    "@formily/reactive-react": "^2.1.2",
-    "father-build": "^1.18.0"
+    "@formily/reactive-react": "^2.1.2"
   },
   "peerDependencies": {
     "antd": "3.26.20",
