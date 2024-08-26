@@ -14,7 +14,7 @@ import {
     onFieldValidateEnd
 } from "@formily/core";
 import { getRegistryComponents } from "./getRegistryComponents";
-import "./validator/rule"
+import "./validator/rule";
 
 let eachSchema = (schema, fn) => {
     if (schema) {
@@ -118,7 +118,7 @@ const FormRender = ({
                     formSchemaMap,
                     formGraphMap: {},
                     ...contextRef.current
-                }
+                };
 
                 const _consumer = () => {
                     return _consumerData;
@@ -136,17 +136,17 @@ const FormRender = ({
                 }
             }
         });
-    }, [schema]);
+    }, [schema, context?.loading]);
 
     let SchemaField = useMemo(() => {
         return createSchemaField({
             components: getComponents(components),
             scope: {}
         });
-    }, [schema]);
+    }, [schema, context?.loading]);
 
     let FormComponent = form;
-    console.log("SchemaFieldRender")
+    console.log("SchemaFieldRender");
     return (
         <FormProvider form={_form}>
             <FormComponent className="formx-form">
