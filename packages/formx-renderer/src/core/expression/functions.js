@@ -369,7 +369,7 @@ export function ToFixed(v, precision) {
 export function ToDecimal(v, precision) {
     let value = tryToDecimal(v);
     if (typeof precision === "number") {
-        value = tryGetNumberValue(tryToDecimal(value.toFixed(precision)))
+        value = tryGetNumberValue(tryToDecimal(value.toFixed(precision,Decimal.ROUND_HALF_UP)))
     } else {
         value = tryGetNumberValue(value)
     }
