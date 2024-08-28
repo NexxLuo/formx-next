@@ -1,4 +1,5 @@
 import { getItemIndex } from "../utils";
+import Decimal from "decimal.js";
 
 export function getExpressionVar(name: string) {
     //由于表格的行数据联动时需要指定index，故将表达式内容中的items替换为当前的行index
@@ -131,3 +132,136 @@ export function replacePathKey(path: string, key: string) {
     }
     return key;
 }
+
+export const isValidNumber = (v: any) => {
+    if (typeof v === "string" && v.indexOf(".") === v.length - 1) {
+        return false;
+    }
+    if (v === null || isNaN(Number(v))) {
+        return false;
+    }
+    return true;
+};
+
+type NumberUnitOptionsType = {
+    value: any;
+    unit:
+        | "percentage"
+        | "thousand"
+        | "tenThousand"
+        | "million"
+        | "tenMillion"
+        | "oneHundredMillion";
+    precision?: number;
+};
+
+const getNumberDisplayValueByUnit = ({
+    value,
+    unit,
+    precision
+}: NumberUnitOptionsType) => {
+    let realValue = value;
+    let displayValue = realValue;
+
+    let isZero = Number(realValue) === Number(0);
+
+    if (isValidNumber(realValue) && !isZero) {
+        let num: Decimal = new Decimal(realValue);
+
+        switch (unit) {
+            case "percentage":
+                displayValue = num.mul(100);
+                break;
+            case "thousand":
+                displayValue = num.div(1000);
+                break;
+            case "tenThousand":
+                displayValue = num.div(10000);
+                break;
+            case "million":
+                displayValue = num.div(1000000);
+                break;
+            case "tenMillion":
+                displayValue = num.div(10000000);
+                break;
+            case "oneHundredMillion":
+                displayValue = num.div(100000000);
+                break;
+            default:
+                break;
+        }
+
+        if (Decimal.isDecimal(displayValue)) {
+            if (typeof precision === "number") {
+                displayValue = displayValue
+                    .toDP(precision, Decimal.ROUND_HALF_UP)
+                    .toNumber();
+            } else {
+                displayValue = displayValue.toString();
+            }
+        }
+    }
+
+    return displayValue;
+};
+
+const getNumberRealValueByUnit = ({
+    value,
+    unit,
+    precision
+}: NumberUnitOptionsType) => {
+    let displayValue = value;
+    let realValue = displayValue;
+
+    let isZero = Number(displayValue) === Number(0);
+
+    if (isValidNumber(displayValue) && !isZero) {
+        let num: Decimal = null;
+
+        //需将原值进行小数位保留，否则会导致计算后的值不正确
+        if (typeof precision === "number") {
+            num = new Decimal(displayValue).toDP(precision);
+        } else {
+            num = new Decimal(displayValue);
+        }
+
+        switch (unit) {
+            case "percentage":
+                realValue = num.div(100);
+                break;
+            case "thousand":
+                realValue = num.mul(1000);
+                break;
+            case "tenThousand":
+                realValue = num.mul(10000);
+                break;
+            case "million":
+                realValue = num.mul(1000000);
+                break;
+            case "tenMillion":
+                realValue = num.mul(10000000);
+                break;
+            case "oneHundredMillion":
+                realValue = num.mul(100000000);
+                break;
+            default:
+                break;
+        }
+
+        if (Decimal.isDecimal(realValue)) {
+            realValue = realValue.toNumber();
+        }
+    }
+
+    return realValue;
+};
+
+export const getNumberValueByUnit = (
+    options: NumberUnitOptionsType & { type: "real" | "display" }
+) => {
+    if (options.type === "real") {
+        return getNumberRealValueByUnit(options);
+    } else {
+        return getNumberDisplayValueByUnit(options);
+    }
+};

@@ -1,4 +1,4 @@
-import { getExpressionVar, getEnv } from "./utils";
+import { getExpressionVar, getEnv, getNumberValueByUnit } from "./utils";
 import { transformComponentValue, toFixed } from "../utils";
 import { requestApiById, getRequestParams } from "../../extensions/utils";
 
@@ -149,6 +149,23 @@ const setExpressionValue = (name, expression, _evaluator, instance, sourcePath, 
                 nextValue = toFixed(res, precision);
             }
 
+            let displayUnit = field.componentProps?.displayUnit;
+            if (displayUnit) {
+                let displayValue = getNumberValueByUnit({
+                    type: "display",
+                    precision: precision,
+                    value: nextValue,
+                    unit: displayUnit
+                });
+
+                nextValue = getNumberValueByUnit({
+                    type: "real",
+                    precision: precision,
+                    value: displayValue,
+                    unit: displayUnit
+                });
+            }
+
             //如果被隐藏值，则不再联动赋值,但要将值设置到caches中，以便显示出字段时拿到正确值
             if (field.selfDisplay === "none") {
                 if (typeof field.caches === "object" && field.caches) {
@@ -280,6 +297,24 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
                         _initialValue = toFixed(_initialValue, precision);
                     }
 
+                    let displayUnit = s.componentProps?.displayUnit;
+                    if (displayUnit) {
+                        //将真实值转换为显示值并进行小数位保留后，再转换为真实值，否则会导致显示值和真实值不一致；
+                        //如：单位为千，控件设置保留两位小数，默认值设置为2.5，此时真实值为0.0025，但若保留两位小数，控件显示值将会为0
+                        let displayValue = getNumberValueByUnit({
+                            type: "display",
+                            precision: precision,
+                            value: _initialValue,
+                            unit: displayUnit
+                        });
+
+                        _initialValue = getNumberValueByUnit({
+                            type: "real",
+                            precision: precision,
+                            value: displayValue,
+                            unit: displayUnit
+                        });
+                    }
                     s.value = _initialValue;
                 }
             });
