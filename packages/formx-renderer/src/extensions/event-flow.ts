@@ -363,7 +363,7 @@ async function dispatchAction(
                 });
             }
         },
-        setStyle: function (name: string, args: boolean = false) {
+        setStyle: function (name: string, args: string) {
             if (typeof args !== "undefined") {
                 let targetField: Field = form.query(name).take();
                 let styles = parseStyleString(args);
