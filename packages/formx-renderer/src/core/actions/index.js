@@ -419,7 +419,7 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
                 let componentProps = _field.componentProps || {};
                 let _extraProps = componentProps["x-extra-props"];
                 let cancelBubble = componentProps["x-runtime"]?.cancelBubble ?? false;
-                let { parentKey, index } = getItemIndex(name);
+                let { parentKey, index, key, dataIndex } = getItemIndex(name);
                 if (typeof e?.persist === "function") {
                     e.persist();
                 }
@@ -442,6 +442,9 @@ function bindItemEvent(field, schema, eventType, form, _evaluator) {
                         preposeEvent: componentProps?.["x-prepose-event"],
                         preposeExpression: _extraProps?.preposeEvent,
                         listKey: parentKey,
+                        key,
+                        dataIndex,
+                        name,
                         index
                     }
                 );
