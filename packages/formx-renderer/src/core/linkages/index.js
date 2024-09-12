@@ -21,6 +21,7 @@ import { linkageProps, linkageRequired } from "./props";
 import { getExpressionVar, replacePathKey } from "./utils";
 
 import { initValidator } from "./validator";
+import { linkageDisplayText, setLinkageDisplayText } from "./other";
 
 export {
     linkageDataFill,
@@ -44,7 +45,9 @@ function getLinkageItem(name, store = {}, instance, options) {
     function itemIsValid(_state) {
         if (_state) {
             //如果触发联动的是表格，则不应触发当前表格列本身的联动
-            let { index: targetIndex, parentKey: tableKey } = getItemIndex(_state.path);
+            let { index: targetIndex, parentKey: tableKey } = getItemIndex(
+                _state.path
+            );
             if (targetIndex > -1) {
                 if (tableKey === name) {
                     return false;
@@ -181,11 +184,32 @@ function getLinkageItem(name, store = {}, instance, options) {
     return item;
 }
 
+const getItemsFromExpression = expr => {
+    let expressionItems = {};
+
+    if (expr) {
+        let matched = expr.match(
+            /value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.)+'\)/g
+        );
+        if (matched) {
+            matched.forEach(i => {
+                let v = i.replace(/value\('([^<]*?)'\)/g, "$1");
+                expressionItems[v] = {
+                    type: "value",
+                    value: v
+                };
+            });
+        }
+    }
+    return expressionItems;
+};
+
 //添加所有被引用的表单项
 export function addLinkageItem(targets, store, type, item) {
     let name = item.name;
     let path = item.path;
     let extraProps = item.extraProps || {};
+    let componentProps = item.componentProps || {};
     let ctype = item.componentName;
     let hiddenValue = false;
 
@@ -207,6 +231,10 @@ export function addLinkageItem(targets, store, type, item) {
             extraProps.columnVisibility.type === "expression"
         ) {
             expression = extraProps.columnVisibility.expression;
+        }
+    } else if (type === "displayText") {
+        if (componentProps.displayText) {
+            expression = componentProps.displayText;
         }
     } else if (type === "value") {
         if (
@@ -390,19 +418,7 @@ export function addLinkageItem(targets, store, type, item) {
         }
 
         //匹配出的表单项使用map方式进行去重
-        let expressionItems = {};
-
-        //匹配出表达式中的所有相关表单项
-        let matched = expression.match(/value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.)+'\)/g);
-        if (matched) {
-            matched.forEach(i => {
-                let v = i.replace(/value\('([^<]*?)'\)/g, "$1");
-                expressionItems[v] = {
-                    type: "value",
-                    value: v
-                };
-            });
-        }
+        let expressionItems = getItemsFromExpression(expression);
 
         for (const p in expressionItems) {
             const d = expressionItems[p];
@@ -448,7 +464,7 @@ export function addLinkageItem(targets, store, type, item) {
     }
 }
 
-const enabledTriggerLinkage = (schema) => {
+const enabledTriggerLinkage = schema => {
     let componentProps = schema.componentProps || {};
     let extraProps = schema.extraProps || {};
     let runtime = componentProps["x-runtime"] || {};
@@ -458,7 +474,7 @@ const enabledTriggerLinkage = (schema) => {
         }
     }
     return true;
-}
+};
 
 function triggerLinkage(
     schema,
@@ -481,12 +497,20 @@ function triggerLinkage(
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
 
     if (linkageItem) {
-        linkageValue(linkageItem, instance, _evaluator, "", schema, ignoreInitValue);
+        linkageValue(
+            linkageItem,
+            instance,
+            _evaluator,
+            "",
+            schema,
+            ignoreInitValue
+        );
         linkageVisibility(linkageItem, instance, _evaluator);
         linkageAvailability(linkageItem, instance, _evaluator);
         linkageProps(linkageItem, schema, instance, _evaluator);
         linkageRequired(linkageItem, instance, _evaluator);
         linkageColumnVisibility(linkageItem, instance, _evaluator);
+        linkageDisplayText(linkageItem, instance, _evaluator);
         linkageDataSource(
             schema,
             linkageItem,
@@ -547,7 +571,8 @@ function getFieldInitOptions(schema, _evaluator) {
         if (extraProps.hidden === true) {
             initOptions.hidden = true;
         } else if (typeof visibility === "object" && visibility) {
-            let defaultHiddenValue = schema.displayName === "VoidField" ? false : true;
+            let defaultHiddenValue =
+                schema.displayName === "VoidField" ? false : true;
             //初始表单时，始终都不隐藏值，避免值被条件隐藏更改导致触发联动，值和接口返回的初始数据对应不上
             //如果不隐藏值，如果此字段存在默认值，隐藏时依然会参与公式联动计算
             //综上两种情况会导致冲突，故判断是否存在接口返回设置的初始值，如果存在初始值则不隐藏值
@@ -622,7 +647,6 @@ function getFieldInitOptions(schema, _evaluator) {
             if (typeof res === "boolean") {
                 initOptions.required = res;
             }
-
         }
     }
 
@@ -886,8 +910,20 @@ function setInitialRelatedInputValues(schema, instance, initialValue) {
     }
 }
 
-export function refreshInitialValue(field, schema, instance, loading, _evaluator) {
-    let initialValue = setInitialValue(field, schema, instance, loading, _evaluator);
+export function refreshInitialValue(
+    field,
+    schema,
+    instance,
+    loading,
+    _evaluator
+) {
+    let initialValue = setInitialValue(
+        field,
+        schema,
+        instance,
+        loading,
+        _evaluator
+    );
     //必须设置inputValues,因为第二次打开表单时，values已经传递给form的initialValues，未触发onFieldValueChange，
     //所以必须在此手动设置
     setInitialRelatedInputValues(schema, instance, initialValue);
@@ -909,6 +945,12 @@ export function setInitialOptions(
     refreshInitialValue(field, schema, instance, loading, _evaluator);
     setInitialDataSource(field, schema, instance, _evaluator, triggerIndex);
     setSelectable(field, schema, instance, _evaluator);
+    setLinkageDisplayText(
+        instance,
+        schema.name,
+        schema.componentProps?.displayText,
+        _evaluator
+    );
 }
 
 export function linkageAsyncValue(

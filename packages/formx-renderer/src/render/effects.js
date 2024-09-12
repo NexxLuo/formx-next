@@ -124,6 +124,7 @@ export const createEffects = ($, instance, _consumer) => {
         addLinkageItem(linkageTargetMap, linkageItemMap, "fieldProps", schema);
 
         addLinkageItem(linkageTargetMap, linkageItemMap, "dataSource", schema);
+        addLinkageItem(linkageTargetMap, linkageItemMap, "displayText", schema);
 
         //表格列隐藏条件表达式
         if (schema.componentName === "ArrayTable") {
