@@ -93,7 +93,6 @@ export default class FormActions {
             return schemas;
         };
 
-
         this.getFieldGraphByCode = code => {
             let graphs = [];
             let graphMap = _consumer()?.formGraphMap;
@@ -106,7 +105,6 @@ export default class FormActions {
                         graphs.push(item);
                     }
                 }
-
             }
 
             //如果依然没找到graph，则可能字段是懒渲染的，此时需要通过表单实例获取graph
@@ -117,7 +115,11 @@ export default class FormActions {
                         const item = _graphMap[k];
                         const extraProps =
                             item?.["component"]?.[1]?.["x-extra-props"];
-                        if (item.mounted === true && extraProps && extraProps.formItemCode === code) {
+                        if (
+                            item.mounted === true &&
+                            extraProps &&
+                            extraProps.formItemCode === code
+                        ) {
                             graphs.push(item);
                         }
                     }
@@ -134,9 +136,9 @@ export default class FormActions {
         let form = this.getFormInstance();
         let field = form.query(id).take();
         if (field) {
-            form.notify("onFieldDataSourceLoad", { field, envs })
+            form.notify("onFieldDataSourceLoad", { field, envs });
         }
-    }
+    };
 
     requestFieldDataSource = (idOrCode, params) => {
         return new Promise((resolve, reject) => {
@@ -163,7 +165,12 @@ export default class FormActions {
                     let apiData = dataSource.data?.api;
                     if (apiData) {
                         let reqParams =
-                            getRequestParams(apiData.input, this.getFormInstance(), {}, getFormEnvValue) || {};
+                            getRequestParams(
+                                apiData.input,
+                                this.getFormInstance(),
+                                {},
+                                getFormEnvValue
+                            ) || {};
                         let _input = {};
                         if (typeof params === "function") {
                             _input = params(apiData.input, apiData, reqParams);
@@ -222,7 +229,7 @@ export default class FormActions {
 
     requestChildrenDataSource = (idOrCode, parentId) => {
         let instance = this.getFormInstance();
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             let fieldSchema =
                 this.getFieldSchema(idOrCode) ||
                 this.getFieldSchemaByCode(idOrCode);
@@ -248,11 +255,13 @@ export default class FormActions {
                     ),
                     output: apiData.output
                 };
-                requestApiById(_params).then(res => {
-                    resolve(res.data);
-                }).catch(() => {
-                    resolve([])
-                });
+                requestApiById(_params)
+                    .then(res => {
+                        resolve(res.data);
+                    })
+                    .catch(() => {
+                        resolve([]);
+                    });
             } else {
                 resolve([]);
                 console.warn(
@@ -464,8 +473,8 @@ export default class FormActions {
                             item[k] = d[k];
                         }
                     });
-                    arr.push(item)
-                })
+                    arr.push(item);
+                });
                 return arr;
             } else {
                 let realValues = {};
@@ -765,7 +774,7 @@ export default class FormActions {
 
     /**
      * 获取已设置的业务数据
-     * @param {string?} type 类型 
+     * @param {string?} type 类型
      * @returns {{}} 业务数据
      */
     getBusinessData = type => {
@@ -805,7 +814,7 @@ export default class FormActions {
                 let typed = this.businessData[type];
                 if (typed) {
                     if (Reflect.has(typed, id)) {
-                        Reflect.deleteProperty(this.businessData[type], id)
+                        Reflect.deleteProperty(this.businessData[type], id);
                     }
                 }
             } else {
@@ -813,20 +822,20 @@ export default class FormActions {
                     let typed = this.businessData[k];
                     if (typed) {
                         if (Reflect.has(typed, id)) {
-                            Reflect.deleteProperty(this.businessData[k], id)
+                            Reflect.deleteProperty(this.businessData[k], id);
                         }
                     }
-                })
+                });
             }
         } else {
             if (type) {
                 if (Reflect.has(this.businessData, type)) {
-                    Reflect.deleteProperty(this.businessData, type)
+                    Reflect.deleteProperty(this.businessData, type);
                 }
             }
         }
         return this.businessData;
-    }
+    };
 
     getExtraData = () => {
         let formInstance = this.getFormInstance();
@@ -932,11 +941,13 @@ export default class FormActions {
                     }
 
                     let _address = arrayPath + "." + index + "." + dataIndex;
+
                     _errors.push({
                         address: _address,
                         messages: messages,
                         path: _address,
                         type: "custom",
+                        title: d.title ?? "",
                         triggerType: "onInput",
                         code: "ValidateError"
                     });
@@ -970,7 +981,7 @@ export default class FormActions {
         if (id && formInstance) {
             let field = formInstance.query(id).take();
             if (field && typeof field.setLoading === "function") {
-                field.setLoading(!!loading)
+                field.setLoading(!!loading);
             }
         }
     };
@@ -980,8 +991,8 @@ export default class FormActions {
         if (formInstance && path) {
             let field = formInstance.query(path).take();
             if (field) {
-                field.setState((s) => {
-                    s.loading = loading
+                field.setState(s => {
+                    s.loading = loading;
                 });
             }
         }
