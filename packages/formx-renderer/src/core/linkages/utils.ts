@@ -134,6 +134,9 @@ export function replacePathKey(path: string, key: string) {
 }
 
 export const isValidNumber = (v: any) => {
+    if (typeof v !== "string" && typeof v !== "number") {
+        return false;
+    }
     if (typeof v === "string" && v.indexOf(".") === v.length - 1) {
         return false;
     }
@@ -146,12 +149,12 @@ export const isValidNumber = (v: any) => {
 type NumberUnitOptionsType = {
     value: any;
     unit:
-        | "percentage"
-        | "thousand"
-        | "tenThousand"
-        | "million"
-        | "tenMillion"
-        | "oneHundredMillion";
+    | "percentage"
+    | "thousand"
+    | "tenThousand"
+    | "million"
+    | "tenMillion"
+    | "oneHundredMillion";
     precision?: number;
 };
 
