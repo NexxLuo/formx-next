@@ -21,7 +21,11 @@ import { linkageProps, linkageRequired } from "./props";
 import { getExpressionVar, replacePathKey } from "./utils";
 
 import { initValidator } from "./validator";
-import { linkageDisplayText, setLinkageDisplayText } from "./other";
+import {
+    linkageDisplayText,
+    setLinkageDisplayText,
+    linkageRenderBydependencies
+} from "./other";
 
 export {
     linkageDataFill,
@@ -235,6 +239,41 @@ export function addLinkageItem(targets, store, type, item) {
     } else if (type === "displayText") {
         if (componentProps.displayText) {
             expression = componentProps.displayText;
+        }
+    } else if (type === "renderBydependencies") {
+        let deps = item.data?.renderBydependencies;
+        if (deps instanceof Array) {
+            deps.forEach(expr => {
+                if (typeof expr === "string" && expr) {
+                    let _items = getItemsFromExpression(expr);
+                    let _currExpression = {
+                        name: name,
+                        path: path,
+                        component: ctype,
+                        expression: expr,
+                        hiddenValue: !!hiddenValue
+                    };
+                    for (const p in _items) {
+                        const d = _items[p];
+                        let k = d.value;
+
+                        if (d && d.type === "value") {
+                            if (store[k]) {
+                                let prev = store[k][type];
+                                if (prev) {
+                                    store[k][type] = [...prev, _currExpression];
+                                } else {
+                                    store[k][type] = [_currExpression];
+                                }
+                            } else {
+                                store[k] = {
+                                    [type]: [_currExpression]
+                                };
+                            }
+                        }
+                    }
+                }
+            });
         }
     } else if (type === "value") {
         if (
@@ -511,6 +550,7 @@ function triggerLinkage(
         linkageRequired(linkageItem, instance, _evaluator);
         linkageColumnVisibility(linkageItem, instance, _evaluator);
         linkageDisplayText(linkageItem, instance, _evaluator);
+        linkageRenderBydependencies(linkageItem, instance, _evaluator);
         linkageDataSource(
             schema,
             linkageItem,

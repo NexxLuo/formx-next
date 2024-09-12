@@ -21,7 +21,6 @@ import { setActions, triggerItemActions } from "../core/actions";
 import { EventFlow } from "../extensions/event-flow";
 import message from "../extensions/message";
 
-
 function formatField(field, options) {
     let componentProps = clone(field.componentProps || {});
     let extraProps = componentProps["x-extra-props"] || {};
@@ -29,6 +28,7 @@ function formatField(field, options) {
     return {
         name: field.path.toString(),
         path: field.address.toString(),
+        data: field.data,
         modified: field.modified,
         selfModified: field.selfModified,
         initialValue: field.initialValue,
@@ -89,7 +89,7 @@ export const createEffects = ($, instance, _consumer) => {
         let arr = [];
         let data = formSchema.additionalProperties?.formEventFlow;
         if (data instanceof Array) {
-            arr = data
+            arr = data;
         }
         return arr;
     }
@@ -98,11 +98,10 @@ export const createEffects = ($, instance, _consumer) => {
         data: getEventFlowConfig(),
         form: instance,
         evaluator: _evaluator,
-        onReject: (msg) => {
-            message.error(msg)
+        onReject: msg => {
+            message.error(msg);
         }
     });
-
 
     $("onFieldInit").subscribe((field, form) => {
         let schema = formatField(field, getContext().options);
@@ -115,12 +114,7 @@ export const createEffects = ($, instance, _consumer) => {
             "availability",
             schema
         );
-        addLinkageItem(
-            linkageTargetMap,
-            linkageItemMap,
-            "required",
-            schema
-        );
+        addLinkageItem(linkageTargetMap, linkageItemMap, "required", schema);
         addLinkageItem(linkageTargetMap, linkageItemMap, "fieldProps", schema);
 
         addLinkageItem(linkageTargetMap, linkageItemMap, "dataSource", schema);
@@ -128,7 +122,6 @@ export const createEffects = ($, instance, _consumer) => {
 
         //表格列隐藏条件表达式
         if (schema.componentName === "ArrayTable") {
-
             //不加载初始数据时，将初始值设置为undefined，以便后续数据源接口进行设置值
             let _dataHandleMode = schema.extraProps.dataHandleMode ?? "default";
             if (["onlySave", "none"].indexOf(_dataHandleMode) > -1) {
@@ -225,24 +218,44 @@ export const createEffects = ($, instance, _consumer) => {
     });
 
     $("onFieldChange", "*", ["visited"]).subscribe((field, form) => {
-        if (field.mounted && field.visited && field.loaded !== true && field.loading !== true) {
+        if (
+            field.mounted &&
+            field.visited &&
+            field.loaded !== true &&
+            field.loading !== true
+        ) {
             let schema = formatField(field, getContext().options);
-            let dataSourceLoadMode = schema.extraProps.dataSourceLoadMode ?? "mount"
+            let dataSourceLoadMode =
+                schema.extraProps.dataSourceLoadMode ?? "mount";
             if (dataSourceLoadMode === "focus") {
                 let { index: triggerIndex } = getItemIndex(schema.path);
-                setAsyncDataSource(
-                    schema,
-                    form,
-                    _evaluator,
-                    triggerIndex
-                );
+                setAsyncDataSource(schema, form, _evaluator, triggerIndex);
             }
         }
     });
 
-    $("onFieldChange", "*", ["active"]).subscribe((field) => {
+    $("onFieldChange", "*", ["active"]).subscribe(field => {
         if (field.mounted) {
-            _eventFlow.dispatch(field.path.toString(), field.active === true ? "onFocus" : "onBlur")
+            _eventFlow.dispatch(
+                field.path.toString(),
+                field.active === true ? "onFocus" : "onBlur"
+            );
+        }
+    });
+
+    $("onFieldChange", "*", ["data"]).subscribe(field => {
+        if (
+            field.data !== null &&
+            field.data !== undefined &&
+            field.data !== ""
+        ) {
+            let schema = formatField(field, getContext().options);
+            addLinkageItem(
+                linkageTargetMap,
+                linkageItemMap,
+                "renderBydependencies",
+                schema
+            );
         }
     });
 
@@ -272,7 +285,6 @@ export const createEffects = ($, instance, _consumer) => {
         }
 
         _eventFlow.dispatch(schema.name, "onValueChange");
-
     });
 
     $("onFieldValueDeferLoad").subscribe((field, form) => {
@@ -286,22 +298,15 @@ export const createEffects = ($, instance, _consumer) => {
             getContext().options,
             false
         );
-    })
+    });
 
     $("onFieldDataSourceLoad").subscribe(({ field, envs }, form) => {
         if (field.mounted) {
             let schema = formatField(field, getContext().options);
             let { index: triggerIndex } = getItemIndex(schema.path);
-            setAsyncDataSource(
-                schema,
-                form,
-                _evaluator,
-                triggerIndex,
-                envs
-            );
+            setAsyncDataSource(schema, form, _evaluator, triggerIndex, envs);
         }
     });
-
 
     $("onFieldInputValueChange").subscribe((field, form) => {
         let schema = formatField(field);
@@ -409,7 +414,6 @@ export const createEffects = ($, instance, _consumer) => {
         let schema = formatField(field);
         triggerItemActions(schema, {}, form);
         _eventFlow.dispatch(schema.name, "onAsyncValueLoad");
-
     });
 
     //列表数据删除事件
@@ -424,7 +428,13 @@ export const createEffects = ($, instance, _consumer) => {
     $("onDataSourceReload").subscribe(({ name, payload }, form) => {
         let field = form.query(name).take();
         let schema = formatField(field);
-        setTableDataSource(field, schema, form, {}, { triggerType: "fieldAction" });
+        setTableDataSource(
+            field,
+            schema,
+            form,
+            {},
+            { triggerType: "fieldAction" }
+        );
         _eventFlow.dispatch(schema.name, "onListDataSourceReload");
     });
 
@@ -433,13 +443,20 @@ export const createEffects = ($, instance, _consumer) => {
         let field = form.query(name).take();
         let schema = formatField(field);
         //翻页时过滤掉冗余参数，避免传递到接口，导致报错
-        let { isServerSidePagination, total, ...extraParameters } = pagination || {};
-        setTableDataSource(field, schema, form, extraParameters, {
-            triggerType: "pageChange"
-        }, pagination?.isServerSidePagination !== true);
+        let { isServerSidePagination, total, ...extraParameters } =
+            pagination || {};
+        setTableDataSource(
+            field,
+            schema,
+            form,
+            extraParameters,
+            {
+                triggerType: "pageChange"
+            },
+            pagination?.isServerSidePagination !== true
+        );
 
         _eventFlow.dispatch(schema.name, "onListPageChange");
-
     });
     //
 
@@ -451,8 +468,11 @@ export const createEffects = ($, instance, _consumer) => {
         let itemsIndex = undefined;
         if (typeof fn === "function") {
             let actionArgs = fn()?.show;
-            if (typeof actionArgs?.arrayIndex !== "undefined" && !isNaN(Number(actionArgs.arrayIndex))) {
-                itemsIndex = Number(actionArgs.arrayIndex)
+            if (
+                typeof actionArgs?.arrayIndex !== "undefined" &&
+                !isNaN(Number(actionArgs.arrayIndex))
+            ) {
+                itemsIndex = Number(actionArgs.arrayIndex);
             }
         }
 
@@ -477,6 +497,5 @@ export const createEffects = ($, instance, _consumer) => {
         let field = form.query(name).take();
         let schema = formatField(field);
         _eventFlow.dispatch(schema.name, "onClose");
-    })
-
+    });
 };
