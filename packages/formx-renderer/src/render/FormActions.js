@@ -6,7 +6,8 @@ import {
     setTableErrorsToExtraField,
     isResponsiveSizeSmall,
     getRequestParams,
-    getFormEnvValue
+    getFormEnvValue,
+    createEvaluator
 } from "../extensions/utils";
 import { batch, untracked } from "@formily/reactive";
 
@@ -19,6 +20,7 @@ export default class FormActions {
         this.businessData = {};
         this.formEnvs = new FormEnvs();
         this.formFunction = new FormFunction();
+        this.evaluator = createEvaluator(instance);
         this.getFormSchema = () => {
             return _consumer()?.formSchema;
         };
