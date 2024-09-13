@@ -213,7 +213,6 @@ export function addLinkageItem(targets, store, type, item) {
     let name = item.name;
     let path = item.path;
     let extraProps = item.extraProps || {};
-    let componentProps = item.componentProps || {};
     let ctype = item.componentName;
     let hiddenValue = false;
 
@@ -237,8 +236,8 @@ export function addLinkageItem(targets, store, type, item) {
             expression = extraProps.columnVisibility.expression;
         }
     } else if (type === "displayText") {
-        if (componentProps.displayText) {
-            expression = componentProps.displayText;
+        if (extraProps.displayTextExpression) {
+            expression = extraProps.displayTextExpression;
         }
     } else if (type === "renderBydependencies") {
         let deps = item.data?.renderBydependencies;
@@ -988,7 +987,7 @@ export function setInitialOptions(
     setLinkageDisplayText(
         instance,
         schema.name,
-        schema.componentProps?.displayText,
+        schema.extraProps?.displayTextExpression,
         _evaluator
     );
 }
