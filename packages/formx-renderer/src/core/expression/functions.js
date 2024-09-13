@@ -775,7 +775,7 @@ export function FormatQuarterValue(v, format) {
  * @param {number} money 金额数字
  * @returns {string} 对应的中文大写字符串，如：123 => 壹佰贰拾叁元整
  */
-export function FormatMoneyToUpperChinese(money) {
+export function FormatMoneyToUpperChinese(money, unit = "元") {
     //汉字的数字
     var cnNums = new Array(
         "零",
@@ -798,7 +798,7 @@ export function FormatMoneyToUpperChinese(money) {
     //整数金额时后面跟的字符
     var cnInteger = "整";
     //整型完以后的单位
-    var cnIntLast = "元";
+    var cnIntLast = unit ?? "元";
     //最大处理的数字
     var maxNum = 999999999999999.9999;
     //金额整数部分
