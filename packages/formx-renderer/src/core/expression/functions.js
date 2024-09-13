@@ -809,7 +809,7 @@ export function FormatMoneyToUpperChinese(money) {
     var chineseStr = "";
     //分离金额后用的数组，预定义
     var parts;
-    if (money == "") {
+    if (money === "") {
         return "";
     }
     money = parseFloat(money);
