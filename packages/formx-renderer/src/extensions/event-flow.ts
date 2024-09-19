@@ -277,7 +277,7 @@ async function dispatchAction(
             });
         },
         callExpression: function (name, expr) {
-            let res = evaluator.evaluate(expr, expressionVar);
+            let res = evaluator.evaluate(expr, expressionVar, runtimeParams);
             return res;
         },
         setValue: function (name, v) {
@@ -295,7 +295,8 @@ async function dispatchAction(
                             apiData.input,
                             form,
                             {},
-                            getFormEnvValue
+                            getFormEnvValue,
+                            runtimeParams
                         ),
                         output: apiData.output
                     };
@@ -474,7 +475,11 @@ async function dispatchAction(
             _params.dataFill = dataFill;
         } else {
             if (typeof params === "string" && params.length > 0) {
-                _params = evaluator.evaluate(params, expressionVar);
+                _params = evaluator.evaluate(
+                    params,
+                    expressionVar,
+                    runtimeParams
+                );
             }
         }
 

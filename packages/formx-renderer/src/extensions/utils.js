@@ -377,7 +377,7 @@ export function getRequestParams(input, form, injectEnvs, getEnv, injectVars) {
     function getExpressionValue(item, value) {
         let _value = value;
         if (item && item.expression) {
-            _value = _evaluator.evaluate(item.expression, {}, { value });
+            _value = _evaluator.evaluate(item.expression, {}, { ...injectVars || {}, value });
         }
 
         if (typeof _value === "undefined") {
