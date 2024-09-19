@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import Decimal from "decimal.js";
+import { FormPath } from "@formily/shared";
 import { formatNumberComma, decryptString, encryptString, guid, formatQuarterValue } from "../utils";
 
 
@@ -312,6 +313,22 @@ export function GetProperty(values, p) {
             o = values[0] || {};
         }
         value = o[p];
+    }
+    return value;
+}
+
+export function GetInPath(values, ...args) {
+    let value = values;
+    let paths = "";
+    if (args instanceof Array) {
+        args.forEach(d => {
+            if (!IsNullOrEmpty(d)) {
+                paths = paths + "." + d;
+            }
+        })
+    }
+    if (paths.length > 0) {
+        value = FormPath.getIn(values, paths);
     }
     return value;
 }
