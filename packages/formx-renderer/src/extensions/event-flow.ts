@@ -27,6 +27,7 @@ type ActionRuntimeContext = {
     source: string;
     expressionVar: {
         items: number;
+        sourceIndex?: number;
     };
     runtimeParams: any;
     onReject: (msg: string) => void;
@@ -525,6 +526,7 @@ const transformItemsPath = (
     let path = targetFieldPath;
 
     let index = -1;
+    let sourceIndex = -1;
 
     if (
         typeof sourceFieldPath === "string" &&
@@ -534,7 +536,7 @@ const transformItemsPath = (
     ) {
         let source = getItemIndex(sourceFieldPath);
         let target = getItemIndex(targetFieldPath);
-
+        sourceIndex = source.index;
         if (target.index === -1 && targetFieldPath.indexOf(".items.") > -1) {
             if (target.parentKey && target.parentKey === source.parentKey) {
                 index = source.index;
@@ -551,7 +553,8 @@ const transformItemsPath = (
     return {
         targetPath: path,
         expressionVar: {
-            items: index
+            items: index,
+            sourceIndex: sourceIndex
         }
     };
 };

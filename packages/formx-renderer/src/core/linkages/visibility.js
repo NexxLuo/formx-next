@@ -52,11 +52,11 @@ export function setExtraNameFieldVisibility(state, form, visible) {
     }
 }
 
-export function linkageVisibility(linkageItem, instance, _evaluator) {
+export function linkageVisibility(linkageItem, instance, _evaluator, schema) {
     //隐藏联动
     if (linkageItem.visibility instanceof Array) {
         linkageItem.visibility.forEach(d => {
-            let _expressionVar = getExpressionVar(d.name);
+            let _expressionVar = getExpressionVar(d.name, schema?.path);
             if (d.component === "tabpane") {
                 let res = _evaluator.evaluate(d.expression, _expressionVar);
                 linkageTabPaneVisible(instance, d.name, d.path, !res);

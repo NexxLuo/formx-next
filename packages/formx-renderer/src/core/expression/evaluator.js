@@ -81,6 +81,14 @@ export default class Evaluator {
                 return injectVar[k];
             };
 
+            this.parser.functions.GetTargetIndex = () => {
+                return replaceVar.items === -1 ? undefined : replaceVar.items;
+            };
+
+            this.parser.functions.GetSourceIndex = () => {
+                return replaceVar.sourceIndex === -1 ? undefined : replaceVar.sourceIndex;
+            };
+
             let res = expr.evaluate({
                 null: null,
                 ...injectVar

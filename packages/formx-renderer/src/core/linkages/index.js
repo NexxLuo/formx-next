@@ -543,13 +543,13 @@ function triggerLinkage(
             schema,
             ignoreInitValue
         );
-        linkageVisibility(linkageItem, instance, _evaluator);
-        linkageAvailability(linkageItem, instance, _evaluator);
-        linkageProps(linkageItem, schema, instance, _evaluator);
-        linkageRequired(linkageItem, instance, _evaluator);
+        linkageVisibility(linkageItem, instance, _evaluator, schema);
+        linkageAvailability(linkageItem, instance, _evaluator, schema);
+        linkageProps(linkageItem, schema, instance, _evaluator, schema);
+        linkageRequired(linkageItem, instance, _evaluator, schema);
         linkageColumnVisibility(linkageItem, instance, _evaluator);
-        linkageDisplayText(linkageItem, instance, _evaluator);
-        linkageRenderBydependencies(linkageItem, instance, _evaluator);
+        linkageDisplayText(linkageItem, instance, _evaluator, schema);
+        linkageRenderBydependencies(linkageItem, instance, _evaluator, schema);
         linkageDataSource(
             schema,
             linkageItem,
@@ -988,7 +988,8 @@ export function setInitialOptions(
         instance,
         schema.name,
         schema.extraProps?.displayTextExpression,
-        _evaluator
+        _evaluator,
+        schema
     );
 }
 

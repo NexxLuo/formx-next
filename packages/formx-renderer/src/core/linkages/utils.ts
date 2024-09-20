@@ -1,12 +1,17 @@
 import { getItemIndex } from "../utils";
 import Decimal from "decimal.js";
 
-export function getExpressionVar(name: string) {
+export function getExpressionVar(name: string, sourcePath?: string) {
     //由于表格的行数据联动时需要指定index，故将表达式内容中的items替换为当前的行index
     let { index } = getItemIndex(name);
+    let sourceIndex = -1;
+    if (sourcePath) {
+        sourceIndex = getItemIndex(sourcePath).index;
+    }
 
     return {
-        items: index
+        items: index,
+        sourceIndex: sourceIndex
     };
 }
 
@@ -149,12 +154,12 @@ export const isValidNumber = (v: any) => {
 type NumberUnitOptionsType = {
     value: any;
     unit:
-    | "percentage"
-    | "thousand"
-    | "tenThousand"
-    | "million"
-    | "tenMillion"
-    | "oneHundredMillion";
+        | "percentage"
+        | "thousand"
+        | "tenThousand"
+        | "million"
+        | "tenMillion"
+        | "oneHundredMillion";
     precision?: number;
 };
 

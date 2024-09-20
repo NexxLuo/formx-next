@@ -5,7 +5,7 @@ import {
 } from "./utils";
 import { FormPath } from "@formily/core";
 
-export function linkageProps(linkageItem, field, instance, _evaluator) {
+export function linkageProps(linkageItem, field, instance, _evaluator,schema) {
     let propertyPathMap = {
         value: ["value"],
         title: [
@@ -38,7 +38,7 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
                 if (bl === true) {
                     instance.setFieldState(targetPath, state => {
                         let name = state.path.toString();
-                        let _expressionVar = getExpressionVar(name);
+                        let _expressionVar = getExpressionVar(name,schema?.path);
                         let res = _evaluator.evaluate(
                             d.expression,
                             _expressionVar
@@ -74,10 +74,10 @@ export function linkageProps(linkageItem, field, instance, _evaluator) {
 }
 
 
-export function linkageRequired(linkageItem, instance, _evaluator) {
+export function linkageRequired(linkageItem, instance, _evaluator,schema) {
     if (linkageItem.required instanceof Array) {
         linkageItem.required.forEach(d => {
-            let _expressionVar = getExpressionVar(d.name);
+            let _expressionVar = getExpressionVar(d.name,schema?.path);
             instance.setFieldState(d.name, state => {
                 let res = _evaluator.evaluate(d.expression, _expressionVar);
                 if (res === true) {

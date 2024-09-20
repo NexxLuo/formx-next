@@ -99,13 +99,13 @@ export function getValue(
     return value;
 }
 
-const setAsyncApiValue = (name, instance) => {
+const setAsyncApiValue = (name, instance, schema) => {
 
     let state = instance.getFieldState(name);
     if (state) {
         let _state = formatState(state);
         let initialValue = _state.extraProps?.initialValue;
-        let expressionVar = getExpressionVar(_state.name);
+        let expressionVar = getExpressionVar(_state.name, schema?.path);
         setAsyncValue(
             _state.name,
             initialValue,
@@ -118,7 +118,7 @@ const setAsyncApiValue = (name, instance) => {
 
 const setExpressionValue = (name, expression, _evaluator, instance, sourcePath, ignoreInitValue) => {
     //值联动时items应该取目标控件的index，否则会明细表汇总到主表时，字段值为当前明细行数据
-    let _expressionVar = getExpressionVar(name);
+    let _expressionVar = getExpressionVar(name, sourcePath);
     //执行表达式
     let res = _evaluator.evaluate(expression, _expressionVar);
     //如果表达式返回undefined，则不进行值设置，可通过此方式避免死循环
@@ -191,11 +191,11 @@ export function linkageValue(linkageItem, instance, _evaluator, type, schema, ig
         linkageItem.value.forEach(d => {
             if (type) {
                 if (d.type === "api") {
-                    setAsyncApiValue(d.name, instance);
+                    setAsyncApiValue(d.name, instance, schema);
                 }
             } else {
                 if (d.type === "api") {
-                    setAsyncApiValue(d.name, instance);
+                    setAsyncApiValue(d.name, instance, schema);
                 } else if (d.expression) {
                     setExpressionValue(d.name, d.expression, _evaluator, instance, schema.path, ignoreInitValue);
                 }

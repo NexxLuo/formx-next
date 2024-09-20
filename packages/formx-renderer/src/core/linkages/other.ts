@@ -5,10 +5,11 @@ export function setLinkageDisplayText(
     instance: Form,
     name: string,
     expr: string,
-    _evaluator
+    _evaluator,
+    schema
 ) {
     if (name && expr) {
-        let _expressionVar = getExpressionVar(name);
+        let _expressionVar = getExpressionVar(name, schema?.path);
         let _field = instance.query(name).take();
         if (_field) {
             let res = _evaluator.evaluate(expr, _expressionVar);
@@ -17,10 +18,21 @@ export function setLinkageDisplayText(
     }
 }
 
-export function linkageDisplayText(linkageItem, instance: Form, _evaluator) {
+export function linkageDisplayText(
+    linkageItem,
+    instance: Form,
+    _evaluator,
+    schema
+) {
     if (linkageItem.displayText instanceof Array) {
         linkageItem.displayText.forEach(d => {
-            setLinkageDisplayText(instance, d.name, d.expression, _evaluator);
+            setLinkageDisplayText(
+                instance,
+                d.name,
+                d.expression,
+                _evaluator,
+                schema
+            );
         });
     }
 }
