@@ -382,7 +382,10 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                     //bug fixed : 表格不应该设置{}值，否则会导致数据错误
                     if (["arraytable"].indexOf(item.componentName) > -1) {
                         values[itemName] = [];
-                        listKeys.push(itemName);
+                        //增量更新时，不进行差异对比查找出删除的数据，直接使用onListItemDelete事件记录的删除数据
+                        if (extraProps.incrementalUpdate !== true) {
+                            listKeys.push(itemName);
+                        }
                     } else {
                         values[itemName] = {};
                     }
@@ -1350,7 +1353,6 @@ class Renderer extends React.Component {
         let nextDeleted = this.stateRef.current.deleted || {};
 
         let existData = nextDeleted[item.key];
-
         if (item) {
             if (existData instanceof Array) {
                 nextDeleted[item.key] = []

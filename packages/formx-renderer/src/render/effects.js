@@ -69,11 +69,12 @@ export const createEffects = ($, instance, _consumer) => {
     let fieldActionTargetMap = {};
 
     function getContext() {
-        let { formSchemaMap, options, loading } = _consumer();
+        let { formSchemaMap, options, loading, onListItemDelete } = _consumer();
         return {
             formSchemaMap: formSchemaMap ?? {},
             options: options ?? {},
-            loading: loading ?? false
+            loading: loading ?? false,
+            onListItemDelete
         };
     }
 
