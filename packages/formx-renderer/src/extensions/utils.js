@@ -106,7 +106,7 @@ export const getApiFieldValue = (form, id, injectVar) => {
                 if (state) {
                     let values = state.value;
                     if (values instanceof Array) {
-                        let rowIndex = injectVar?.index;
+                        let rowIndex = injectVar?.arrayIndex ?? injectVar?.index;
                         if (rowIndex) {
                             objectValue = values[rowIndex];
                         } else {
@@ -131,6 +131,27 @@ export const getApiFieldValue = (form, id, injectVar) => {
                 }
 
                 v = values;
+            } else if (k.indexOf(".toolbar_") > -1) {
+                let temp = k.split(".toolbar_");
+                let listKey = temp[0],
+                    fieldKey = temp[1];
+                let state = form.getFieldState(listKey);
+                let objectValue = null;
+
+                if (state) {
+                    let values = state.value;
+                    if (values instanceof Array) {
+                        let rowIndex = injectVar?.arrayIndex ?? injectVar?.index;
+                        if (rowIndex) {
+                            objectValue = values[rowIndex];
+                        } else {
+                            objectValue = values[0];
+                        }
+                    }
+                }
+                if (fieldKey) {
+                    v = objectValue?.[fieldKey];
+                }
             } else {
                 v = form.getValuesIn(k);
             }
