@@ -202,6 +202,8 @@ export function getItemIndex(path, form) {
             let pathArr = path.split(".toolbar_");
             if (pathArr.length > 1) {
                 parentKey = pathArr[0];
+                key = pathArr[1];
+                dataIndex = key;
             } else {
                 parentKey = getParentPath(path);
             }
