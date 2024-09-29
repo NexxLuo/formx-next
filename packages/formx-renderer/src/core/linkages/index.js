@@ -193,11 +193,14 @@ const getItemsFromExpression = expr => {
 
     if (expr) {
         let matched = expr.match(
-            /value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.)+'\)/g
+            /value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.|.toolbar_)+'\)/g
         );
         if (matched) {
             matched.forEach(i => {
                 let v = i.replace(/value\('([^<]*?)'\)/g, "$1");
+                if (v.indexOf(".toolbar_") > -1) {
+                    v = v.replace(".toolbar_", ".items.");
+                }
                 expressionItems[v] = {
                     type: "value",
                     value: v
@@ -533,7 +536,6 @@ function triggerLinkage(
 
     //此表单项是否被联动引用
     let linkageItem = getLinkageItem(name, linkageItemMap, instance, options);
-
     if (linkageItem) {
         linkageValue(
             linkageItem,
