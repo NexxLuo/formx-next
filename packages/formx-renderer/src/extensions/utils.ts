@@ -1,7 +1,7 @@
 import { Evaluator } from "../core/expression";
 import { getItemIndex, guid } from "../core/utils";
 
-export function getFormEnvValue(form, k, injectEnvs) {
+export function getFormEnvValue(form, k, injectEnvs?) {
     try {
         if (
             typeof injectEnvs === "object" &&
@@ -18,7 +18,7 @@ export function getFormEnvValue(form, k, injectEnvs) {
     }
 }
 
-export function createEvaluator(form, options) {
+export function createEvaluator(form, options?) {
     function callFunc() {
         let formActions = form.getFormState().formActions;
         try {
@@ -198,7 +198,7 @@ export const requestApiById = async (params, pagination, signal) => {
         ...pagination
     };
 
-    let queryOptions = window._Formx_Global_Options.get(
+    let queryOptions = (window as any)._Formx_Global_Options.get(
         "dataSourceDetailQuery",
         getParams(queryString, reqParams)
     );
@@ -345,7 +345,7 @@ export const requestValidateApiById = async params => {
 
     let queryString = `?id=${id}`;
     let reqParams = input;
-    let queryOptions = window._Formx_Global_Options.get(
+    let queryOptions = (window as any)._Formx_Global_Options.get(
         "dataSourceValidateQuery",
         getParams(queryString, reqParams)
     );
@@ -544,7 +544,7 @@ export const requestPostApiById = async params => {
 
     let reqParams = input;
 
-    let queryOptions = window._Formx_Global_Options.get(
+    let queryOptions = (window as any)._Formx_Global_Options.get(
         "dataSourceMaintain",
         getParams(queryString, reqParams)
     );
@@ -807,14 +807,14 @@ export function transformCardToTab(schema) {
             let children = {};
             Reflect.ownKeys(firstChildren).forEach(k => {
                 let item = firstChildren[k];
-                if (["__DATA__", "additionalProperties"].includes(k)) {
+                if (["__DATA__", "additionalProperties"].includes(k as string)) {
                     extraProperties[k] = item;
                 } else {
                     let componentType = item["x-component"].toLowerCase();
                     if (["arraytable"].includes(componentType)) {
                         bl = true;
                         let tabpaneId = guid("g");
-                        let tabpane = {
+                        let tabpane:any = {
                             properties: {},
                             "type": "void",
                             "x-component": "Tab.TabPane",
