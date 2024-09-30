@@ -181,7 +181,7 @@ function getParams(queryString, bodyParams) {
     };
 }
 
-export const requestApiById = async (params, pagination, signal) => {
+export const requestApiById = async (params, pagination, signal?) => {
     let { id, input, output, runtime } = params;
 
     if (!id) {
@@ -335,7 +335,7 @@ export const requestApiById = async (params, pagination, signal) => {
 };
 
 export const requestValidateApiById = async params => {
-    let { id, input, form } = params;
+    let { id, input } = params;
 
     if (!id) {
         return {
@@ -532,7 +532,7 @@ export function getRequestParams(input, form, injectEnvs, getEnv, injectVars) {
 }
 
 export const requestPostApiById = async params => {
-    let { id, input, form } = params;
+    let { id, input } = params;
 
     if (!id) {
         return {
@@ -604,6 +604,26 @@ export const requestPostApiById = async params => {
         requestInfo
     };
 };
+
+export const requestApiByType = ({
+    apiType,
+    params
+}: {
+    apiType?: 0 | 1 | 2,
+    params: {
+        id: string, input: any, output?: any, runtime?: any, pagination?: any
+    }
+}) => {
+    if (apiType == 1) {
+        return requestValidateApiById(params)
+    }
+
+    if (apiType == 2) {
+        return requestPostApiById(params)
+    }
+
+    return requestApiById(params, params.pagination)
+}
 
 function flatData(arr, removeChildren = true) {
     let treeList = arr || [];

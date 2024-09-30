@@ -1,5 +1,5 @@
 import type { Field, Form } from "@formily/core";
-import { requestApiById, getRequestParams, getFormEnvValue } from "./utils";
+import { requestApiByType, getRequestParams, getFormEnvValue } from "./utils";
 import { linkageDataFill } from "../core/linkages/dataFill";
 import { parseStyleString } from "../core/linkages/utils";
 import { getItemIndex } from "../core/utils";
@@ -305,7 +305,7 @@ async function dispatchAction(
                         form,
                         _params.output
                     );
-                    requestApiById(_params)
+                    requestApiByType({ apiType: apiData.apiType, params: _params })
                         .then(res => {
                             if (res.state === 0) {
                                 reject(res.message);
