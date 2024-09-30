@@ -762,6 +762,24 @@ export default class FormActions {
         return this.setFieldAttribute(id, values);
     };
 
+    getRuntimeVar = id => {
+        let props = this.getFieldComponentProps(id)?.["x-runtime"];
+        return props || {};
+    };
+
+    getRuntimeVarByCode = code => {
+        let id = this.getElementIdByCode(code);
+        return this.getRuntimeVar(id);
+    };
+
+    getRecord = id => {
+        let data = getRuntimeVar(id);
+        return {
+            data: data?.row,
+            index: data?.index
+        };
+    };
+
     getValues = () => {
         let formInstance = this.getFormInstance();
 
