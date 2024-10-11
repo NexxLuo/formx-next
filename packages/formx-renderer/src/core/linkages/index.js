@@ -211,6 +211,18 @@ const getItemsFromExpression = expr => {
     return expressionItems;
 };
 
+const distinctArr = (arr, keyField = "name") => {
+    let obj = {};
+    let combineArr = [...arr].reduce((cur, next) => {
+        obj[next[keyField]]
+            ? ""
+            : (obj[next[keyField]] = true && cur.push(next));
+        return cur;
+    }, []);
+
+    return combineArr;
+};
+
 //添加所有被引用的表单项
 export function addLinkageItem(targets, store, type, item) {
     let name = item.name;
@@ -359,7 +371,7 @@ export function addLinkageItem(targets, store, type, item) {
                     if (store[k]) {
                         let prev = store[k][type];
                         if (prev) {
-                            store[k][type] = [...prev, curr];
+                            store[k][type] = distinctArr([...prev, curr]);
                         } else {
                             store[k][type] = [curr];
                         }
@@ -387,7 +399,10 @@ export function addLinkageItem(targets, store, type, item) {
                             if (store[k]) {
                                 let prev = store[k][type];
                                 if (prev) {
-                                    store[k][type] = [...prev, curr];
+                                    store[k][type] = distinctArr([
+                                        ...prev,
+                                        curr
+                                    ]);
                                 } else {
                                     store[k][type] = [curr];
                                 }
