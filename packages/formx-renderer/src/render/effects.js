@@ -198,6 +198,8 @@ export const createEffects = ($, instance, _consumer) => {
 
     $("onFieldMount").subscribe((field, form) => {
         let schema = formatField(field, getContext().options);
+        //重新mount时，应将loaded设置为false，避免无法重新加载数据
+        field.loaded = false;
 
         let _context = getContext();
 
@@ -218,25 +220,22 @@ export const createEffects = ($, instance, _consumer) => {
         }
     });
 
-    $("onFieldChange", "*", ["visited"]).subscribe((field, form) => {
-        if (
-            field.mounted &&
-            field.visited &&
-            field.loaded !== true &&
-            field.loading !== true
-        ) {
-            let schema = formatField(field, getContext().options);
-            let dataSourceLoadMode =
-                schema.extraProps.dataSourceLoadMode ?? "mount";
-            if (dataSourceLoadMode === "focus") {
-                let { index: triggerIndex } = getItemIndex(schema.path);
-                setAsyncDataSource(schema, form, _evaluator, triggerIndex);
-            }
-        }
-    });
-
-    $("onFieldChange", "*", ["active"]).subscribe(field => {
+    $("onFieldChange", "*", ["active"]).subscribe((field, form) => {
         if (field.mounted) {
+            if (
+                field.active &&
+                field.loaded !== true &&
+                field.loading !== true
+            ) {
+                let schema = formatField(field, getContext().options);
+                let dataSourceLoadMode =
+                    schema.extraProps.dataSourceLoadMode ?? "mount";
+                if (dataSourceLoadMode === "focus") {
+                    let { index: triggerIndex } = getItemIndex(schema.path);
+                    setAsyncDataSource(schema, form, _evaluator, triggerIndex);
+                }
+            }
+
             _eventFlow.dispatch(
                 field.path.toString(),
                 field.active === true ? "onFocus" : "onBlur"
