@@ -994,6 +994,71 @@ export default class FormActions {
         }
     };
 
+    focusField = idOrCode => {
+        let form = this.getFormInstance();
+        if (form) {
+            let g = this.getFieldGraphByCode(idOrCode)[0];
+            let fieldId = idOrCode;
+
+            if (g) {
+                fieldId = g.path;
+            }
+            let field = form.query(fieldId).take();
+
+            if (field) {
+                fieldId = field.path.toString();
+                let wrapper = window.document.querySelector(
+                    ".formx-container[data-form-id=" + form.id + "]"
+                );
+                //对.字符进行转义，避免元素查找失败
+                fieldId = fieldId.replaceAll(".", "\\.");
+
+                if (wrapper) {
+                    try {
+                        let el = wrapper.querySelector(
+                            ".ant-formily-item[data-field-id=" + fieldId + "]"
+                        );
+                        if (el) {
+                            let editorEL = el.getElementsByClassName(
+                                "formx-field-focusable"
+                            )[0];
+                            if (editorEL) {
+                                editorEL.focus();
+                                return;
+                            }
+
+                            let selectEl =
+                                el.getElementsByClassName(
+                                    "ant-select-enabled"
+                                )[0];
+
+                            if (selectEl) {
+                                selectEl.click();
+                                return;
+                            }
+
+                            let inputEl = el.getElementsByTagName("input")[0];
+
+                            if (inputEl) {
+                                inputEl.focus();
+                                return;
+                            }
+
+                            let buttonEL = el.getElementsByTagName("button")[0];
+
+                            if (buttonEL) {
+                                buttonEL.focus();
+                                return;
+                            }
+                        }
+                    } catch (error) {
+                        console.error("focus field error", error);
+                    }
+                }
+            }
+        }
+    };
+
     setLoading = (id, loading) => {
         let formInstance = this.getFormInstance();
         if (id && formInstance) {

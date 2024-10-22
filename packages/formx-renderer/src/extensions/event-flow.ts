@@ -435,6 +435,13 @@ async function dispatchAction(
             if (field) {
                 form.notify("onFieldDataSourceLoad", { field, envs: args });
             }
+        },
+        focusField: function (name) {
+            let formActions = form.formActions;
+            let fn = formActions.focusField;
+            if (typeof fn === "function") {
+                fn(name)
+            }
         }
     };
 
