@@ -29,6 +29,26 @@ export function createEvaluator(form, options?) {
         }
     }
 
+    function getFormItemCode() {
+        let formActions = form.formActions;
+        try {
+            return formActions.getFormItemCode.apply(null, arguments);
+        } catch (error) {
+            console.error("call getFormItemCode error:", error);
+            return null;
+        }
+    }
+
+    function transformIdValuesToCode() {
+        let formActions = form.getFormState().formActions;
+        try {
+            return formActions.transformIdValuesToCode.apply(null, arguments);
+        } catch (error) {
+            console.error("call transformIdValuesToCode error:", error);
+            return null;
+        }
+    }
+
     //创建表达式计算实例，并传递上下文
     return new Evaluator({
         functions: {
@@ -76,7 +96,9 @@ export function createEvaluator(form, options?) {
             env: k => {
                 return getFormEnvValue(form, k);
             },
-            CallFunc: callFunc
+            CallFunc: callFunc,
+            GetFormItemCode: getFormItemCode,
+            TransformIdValuesToCode: transformIdValuesToCode
         },
         onError: options?.onError
     });
@@ -382,6 +404,17 @@ export const requestValidateApiById = async params => {
     if (res && res.State === 0) {
         bl = false;
         msg = res.Message;
+    }
+
+    if (res && res.Data instanceof Array) {
+        return res.Data.map(d => {
+            return {
+                rowKey: d.RowKey,
+                message: d.Message,
+                failed: d.Error,
+                column: d.Target
+            };
+        });
     }
 
     return {
