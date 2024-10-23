@@ -4,11 +4,23 @@ import {
     getRequestParams,
     setTableErrorsToExtraField
 } from "../../extensions/utils";
-import { SchemaValidatorKeys } from "@formily/json-schema/esm/shared"
+import { SchemaValidatorKeys } from "@formily/json-schema/esm/shared";
 import {
     validate as validateBuiltIn,
     getValidateRules as getValidateRulesBuiltIn
-} from '@formily/validator'
+} from "@formily/validator";
+
+import { registerValidateMessageTemplateEngine } from "@formily/core";
+import { getItemIndex } from "../utils";
+
+registerValidateMessageTemplateEngine((message, context) => {
+    if (context?.field?.displayName === "ArrayField") {
+        if (message === "该字段是必填字段") {
+            return "数据不能为空";
+        }
+    }
+    return message;
+});
 
 function isNullOrEmpty(v) {
     return v === undefined || v === null || v === "";
@@ -28,7 +40,6 @@ async function validateInternal(_value, context) {
     return msg;
 }
 
-
 async function validateArrayTable(value, rule, context) {
     let validatorContext = rule.validatorContext;
     let schemaMap = validatorContext?.formSchemaMap || {};
@@ -46,8 +57,7 @@ async function validateArrayTable(value, rule, context) {
 
     let componentProps = field.componentProps;
     //大数据量情况下，验证性能很慢,支持禁用验证
-    if (componentProps?.disabledValidate === true
-    ) {
+    if (componentProps?.disabledValidate === true) {
         return "";
     }
 
@@ -126,10 +136,7 @@ async function validateArrayTable(value, rule, context) {
 
             if (extraProps) {
                 let columnVisibility = extraProps.columnVisibility;
-                if (
-                    typeof columnVisibility === "object" &&
-                    columnVisibility
-                ) {
+                if (typeof columnVisibility === "object" && columnVisibility) {
                     if (
                         columnVisibility.type === "expression" &&
                         columnVisibility.expression
@@ -147,15 +154,17 @@ async function validateArrayTable(value, rule, context) {
 
                 if (columnHidden !== true) {
                     let visibility = extraProps.visibility;
-                    if (
-                        typeof visibility === "object" &&
-                        visibility
-                    ) {
-                        if (visibility.type === "expression" &&
-                            visibility.expression) {
-                            hidden = _evaluator.evaluate(visibility.expression, {
-                                items: rowIndex
-                            });
+                    if (typeof visibility === "object" && visibility) {
+                        if (
+                            visibility.type === "expression" &&
+                            visibility.expression
+                        ) {
+                            hidden = _evaluator.evaluate(
+                                visibility.expression,
+                                {
+                                    items: rowIndex
+                                }
+                            );
                         }
                         if (visibility.type === "hidden") {
                             hidden = true;
@@ -219,7 +228,10 @@ async function validateArrayTable(value, rule, context) {
                             if (key === "required") {
                                 value = schema.required;
                             }
-                            let isValidatorKey = value !== undefined && value !== null && value !== false;
+                            let isValidatorKey =
+                                value !== undefined &&
+                                value !== null &&
+                                value !== false;
                             if (key === "format" && value === "number") {
                                 isValidatorKey = false;
                             }
@@ -234,7 +246,7 @@ async function validateArrayTable(value, rule, context) {
                                     context: { rule: { [key]: value } }
                                 });
                             }
-                        })
+                        });
 
                         let rules = getValidateRules(
                             schema,
@@ -285,6 +297,267 @@ async function validateArrayTable(value, rule, context) {
     return "";
 }
 
+function getBatchValidatorApi(extraProps) {
+    let batchValidateAsyncApi = null;
+
+    if (
+        typeof extraProps.batchValidateAsync === "object" &&
+        extraProps.batchValidateAsync
+    ) {
+        try {
+            batchValidateAsyncApi = JSON.parse(
+                extraProps.batchValidateAsync.api
+            );
+        } catch (error) {}
+    }
+
+    return batchValidateAsyncApi;
+}
+
+async function batchValidateArrayTableColumn(value, rule, context) {
+    let validatorContext = rule.validatorContext;
+    let schemaMap = validatorContext?.formSchemaMap || {};
+    let field = context.field;
+    let instance = context.form;
+    let listPath = field.path.toString();
+
+    let _evaluator = validatorContext?.evaluator;
+    let _options = validatorContext?.options;
+
+    let arr = value;
+
+    let tasks = [];
+
+    function formatValidateResult(data, columnKey, columnTitle) {
+        let resArr = [];
+
+        if (data instanceof Array) {
+            let listValueMap = {};
+
+            arr.forEach((d, i) => {
+                listValueMap[d.__KEY__] = i;
+            });
+
+            data.forEach(d => {
+                let index = listValueMap[d.rowKey];
+
+                if (index > -1 && d.failed === true) {
+                    if (d.column) {
+                        columnKey = d.column;
+                        let columnSchema = schemaMap[columnKey];
+                        if (columnSchema) {
+                            columnTitle =
+                                columnSchema.title ||
+                                columnSchema["x-component-props"]?.[
+                                    "x-extra-props"
+                                ]?.title;
+                        }
+                    }
+
+                    let _address = [listPath, index, columnKey].join(".");
+                    let _path = _address;
+
+                    let msg = d.message || context.message || "验证未通过";
+
+                    resArr.push({
+                        address: _address,
+                        messages: [msg],
+                        path: _path,
+                        type: "error",
+                        title: columnTitle,
+                        triggerType: "onSubmit",
+                        code: "ValidateError"
+                    });
+                }
+            });
+        } else {
+            arr.forEach((d, i) => {
+                let _address = [listPath, i, columnKey].join(".");
+                let _path = _address;
+                resArr.push({
+                    address: _address,
+                    messages: [data],
+                    path: _path,
+                    type: "error",
+                    title: columnTitle,
+                    triggerType: "onSubmit",
+                    code: "ValidateError"
+                });
+            });
+        }
+        return resArr;
+    }
+
+    function validate(_value, _title, _validator, context, _instance) {
+        return new Promise(resolve => {
+            let res = _validator(
+                _value,
+                { validatorContext: context },
+                {
+                    form: _instance
+                }
+            );
+            if (res) {
+                if (res.constructor?.name === "Promise") {
+                    res.then(_res => {
+                        if (_res) {
+                            resolve(
+                                formatValidateResult(
+                                    _res,
+                                    context.columnKey,
+                                    _title
+                                )
+                            );
+                        } else {
+                            resolve(null);
+                        }
+                    });
+                } else {
+                    if (res) {
+                        resolve(
+                            formatValidateResult(res, context.columnKey, _title)
+                        );
+                    } else {
+                        resolve(null);
+                    }
+                }
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
+    function isVisible(rowIndex, columnKey, _options, _schema, _evaluator) {
+        let bl = true;
+        if (_options?.[columnKey]?.visible === false) {
+            bl = false;
+            return bl;
+        }
+
+        if (_schema) {
+            let extraProps = _schema["x-component-props"]?.["x-extra-props"];
+            let columnHidden = false;
+
+            if (extraProps) {
+                let columnVisibility = extraProps.columnVisibility;
+                if (typeof columnVisibility === "object" && columnVisibility) {
+                    if (
+                        columnVisibility.type === "expression" &&
+                        columnVisibility.expression
+                    ) {
+                        columnHidden = _evaluator.evaluate(
+                            columnVisibility.expression,
+                            {}
+                        );
+                    }
+                    if (columnVisibility.type === "hidden") {
+                        columnHidden = true;
+                    }
+                }
+                let hidden = false;
+
+                if (columnHidden !== true) {
+                    let visibility = extraProps.visibility;
+                    if (typeof visibility === "object" && visibility) {
+                        if (
+                            visibility.type === "expression" &&
+                            visibility.expression
+                        ) {
+                            hidden = _evaluator.evaluate(
+                                visibility.expression,
+                                {
+                                    items: rowIndex
+                                }
+                            );
+                        }
+                        if (visibility.type === "hidden") {
+                            hidden = true;
+                        }
+                    }
+                }
+
+                if (columnHidden === true || hidden === true) {
+                    bl = false;
+                }
+            }
+        }
+
+        return bl;
+    }
+
+    if (arr instanceof Array && arr.length > 0) {
+        let arrayItemKeys = [];
+        field.fieldActions?.mapItems((_, key, o) => {
+            if (o.leaf === true) {
+                arrayItemKeys.push(key);
+            }
+        });
+
+        arrayItemKeys.forEach(k => {
+            let _schema = schemaMap[k];
+            if (_schema) {
+                let extraProps =
+                    _schema["x-component-props"]?.["x-extra-props"];
+
+                let title = _schema.title || extraProps?.title;
+
+                if (_schema.type !== "void") {
+                    if (
+                        typeof extraProps.batchValidateAsync === "object" &&
+                        extraProps.batchValidateAsync
+                    ) {
+                        let batchValidateAsyncApi =
+                            getBatchValidatorApi(extraProps);
+
+                        if (batchValidateAsyncApi) {
+                            tasks.push({
+                                validator: asyncValidator,
+                                title,
+                                context: {
+                                    api: batchValidateAsyncApi,
+                                    message:
+                                        extraProps.batchValidateAsync.message,
+                                    columnKey: _schema.name,
+                                    expressionVar: {}
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    let res = [];
+
+    for (let i = 0, len = tasks.length; i < len; i++) {
+        let { validator, context, title } = tasks[i];
+        const result = await validate(arr, title, validator, context, instance);
+        if (result instanceof Array) {
+            result.forEach(r => {
+                let { key: columnKey, index } = getItemIndex(r.address);
+                if (
+                    isVisible(
+                        index,
+                        columnKey,
+                        _options,
+                        schemaMap[columnKey],
+                        _evaluator
+                    )
+                ) {
+                    res.push(r);
+                }
+            });
+        }
+    }
+
+    if (tasks.length > 0) {
+        setTableErrorsToExtraField(listPath, instance, res);
+    }
+
+    return "";
+}
+
 function regExpValidator(value, rule) {
     let { message: _message, expression: _expression } = rule.validatorContext;
 
@@ -325,7 +598,7 @@ async function asyncValidator(value, rule, context) {
 
     let _instance = context.form;
 
-    let { valid, message: returnedMsg } = await requestValidateApiById({
+    let res = await requestValidateApiById({
         form: _instance,
         id: _api.dataSourceId,
         input: getRequestParams(_api.input, _instance, {}, getEnv, {
@@ -334,9 +607,15 @@ async function asyncValidator(value, rule, context) {
         output: _api.output
     });
 
+    if (res instanceof Array) {
+        return res;
+    }
+
+    let { valid, message: returnedMsg } = res;
+
     let msg = "";
     if (valid === false) {
-        msg = _message || returnedMsg || "验证未通过";
+        msg = returnedMsg || _message || "验证未通过";
     }
 
     return msg;
@@ -353,6 +632,16 @@ function getValidateRules(schema, instance, _evaluator, context) {
     if (schema.componentName?.toLowerCase() === "arraytable") {
         rules.push({
             validator: validateArrayTable,
+            triggerType: "onSubmit", //只有提交或手动验证时方验证表格内数据
+            validatorContext: {
+                formSchemaMap: context?.formSchemaMap,
+                evaluator: _evaluator,
+                options: context?.options
+            }
+        });
+
+        rules.push({
+            validator: batchValidateArrayTableColumn,
             triggerType: "onSubmit", //只有提交或手动验证时方验证表格内数据
             validatorContext: {
                 formSchemaMap: context?.formSchemaMap,
@@ -395,7 +684,10 @@ function getValidateRules(schema, instance, _evaluator, context) {
         }
     }
 
+    let batchValidateAsyncApi = getBatchValidatorApi(extraProps);
+
     if (
+        batchValidateAsyncApi === null &&
         typeof extraProps.validateAsync === "object" &&
         extraProps.validateAsync
     ) {
@@ -403,7 +695,7 @@ function getValidateRules(schema, instance, _evaluator, context) {
 
         try {
             validateAsyncApi = JSON.parse(extraProps.validateAsync.api);
-        } catch (error) { }
+        } catch (error) {}
 
         let validateAsyncMessage = extraProps.validateAsync.message;
         if (validateAsyncApi) {
@@ -419,15 +711,17 @@ function getValidateRules(schema, instance, _evaluator, context) {
         }
     }
 
-
     //自定义组件会自动注册验证规则但不会体现在schema中，此处需要额外处理，将验证规则注入到字段中
     let allValidateRules = getValidateRulesBuiltIn();
     //验证规则名称固定格式为：组件名_validator
-    let custom_validator_key = schema.componentName?.toLowerCase() + "_validator";
+    let custom_validator_key =
+        schema.componentName?.toLowerCase() + "_validator";
     if (typeof allValidateRules[custom_validator_key] === "function") {
         rules.push({
             validator: validateInternal,
-            validatorContext: { rule: { [custom_validator_key]: true, id: name, form: instance } }
+            validatorContext: {
+                rule: { [custom_validator_key]: true, id: name, form: instance }
+            }
         });
     }
     //

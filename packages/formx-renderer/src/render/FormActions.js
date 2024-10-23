@@ -261,6 +261,34 @@ export default class FormActions {
         });
     };
 
+    getFormItemCode = (id) => {
+        return this.getFieldSchema(id)?.["x-component-props"]?.["x-extra-props"]?.formItemCode;
+    }
+
+    transformIdValuesToCode = (obj, merge = false) => {
+        let value = obj;
+        if (obj instanceof Array) {
+            value = [];
+            obj.forEach(item => {
+                let d = {};
+                if (merge === true) {
+                    d = { ...item };
+                }
+                for (const k in item) {
+                    if (Object.prototype.hasOwnProperty.call(item, k)) {
+                        const formItemCode = this.getFormItemCode(k);
+                        if (formItemCode) {
+                            d[formItemCode] = item[k]
+                        }
+
+                    }
+                }
+                value.push(d);
+            })
+        }
+        return value;
+    };
+
     isMobile = () => {
         return this.isResponsiveSizeSmall();
     };
