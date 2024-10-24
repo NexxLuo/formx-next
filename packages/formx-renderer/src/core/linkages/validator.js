@@ -365,7 +365,7 @@ async function batchValidateArrayTableColumn(value, rule, context) {
                         path: _path,
                         type: "error",
                         title: columnTitle,
-                        triggerType: "onSubmit",
+                        triggerType: "onBatchValidate",
                         code: "ValidateError"
                     });
                 }
@@ -380,7 +380,7 @@ async function batchValidateArrayTableColumn(value, rule, context) {
                     path: _path,
                     type: "error",
                     title: columnTitle,
-                    triggerType: "onSubmit",
+                    triggerType: "onBatchValidate",
                     code: "ValidateError"
                 });
             });
@@ -551,10 +551,7 @@ async function batchValidateArrayTableColumn(value, rule, context) {
         }
     }
 
-    if (tasks.length > 0) {
-        setTableErrorsToExtraField(listPath, instance, res);
-    }
-
+    setTableErrorsToExtraField(listPath, instance, res);
     return "";
 }
 
