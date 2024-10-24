@@ -629,8 +629,8 @@ function mergeErrors(a, b, formGraph) {
     let e_a = a.errors || [];
     let w_a = a.warnings || [];
 
-    let e_b = b.errors || [];
-    let w_b = b.warnings || [];
+    let e_b = b?.errors || [];
+    let w_b = b?.warnings || [];
 
     let errorsMap = {};
 
@@ -661,6 +661,16 @@ function mergeErrors(a, b, formGraph) {
                                 ...item,
                                 title: item.title
                             };
+                        } else {
+                            //如果是批量验证，不排除掉卸载的字段，否则会被过滤掉错误信息
+                            if (item.triggerType === "onBatchValidate" &&
+                                g.display !== "hidden" &&
+                                g.display !== "none") {
+                                errorsMap[item.path] = {
+                                    ...item,
+                                    title: item.title
+                                };
+                            }
                         }
                     } else {
                         errorsMap[item.path] = {
