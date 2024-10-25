@@ -270,7 +270,9 @@ export default class FormActions {
         if (obj instanceof Array) {
             value = [];
             obj.forEach(item => {
-                let d = {};
+                let d = {
+                    __KEY__: item.__KEY__
+                };
                 if (merge === true) {
                     d = { ...item };
                 }
