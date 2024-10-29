@@ -1418,6 +1418,7 @@ class Renderer extends React.Component {
                         loading: this.props.loading,
                         options: this.props.options || {},
                         onListItemDelete: this.onListItemDelete,
+                        sourceValues: this.state.sourceValues,
                         enabledSmallLayoutSize:
                             this.props.enabledSmallLayoutSize
                     }}

@@ -44,6 +44,10 @@ export default class FormActions {
             return _consumer()?.options;
         };
 
+        this.getSourceValues = () => {
+            return _consumer()?.sourceValues;
+        };
+
         //是否由外部options控制了禁用、只读状态
         this.isControledDisabled = id => {
             let bl = false;
