@@ -193,7 +193,7 @@ const getItemsFromExpression = expr => {
 
     if (expr) {
         let matched = expr.match(
-            /value\('(\w|-|__DATA__.|.EDIT_ROW.|.items.|.toolbar_)+'\)/g
+            /value\('(\w|-|.(\d+).|__DATA__.|.EDIT_ROW.|.items.|.toolbar_)+'\)/g
         );
         if (matched) {
             matched.forEach(i => {

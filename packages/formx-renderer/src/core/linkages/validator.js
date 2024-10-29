@@ -580,7 +580,8 @@ function expressionValidator(value, rule) {
     } = rule.validatorContext;
 
     let res = _evaluator.evaluate(_expression, _expressionVar, {
-        value
+        value,
+        index: _expressionVar.items
     });
     return res === true ? "" : _message;
 }
