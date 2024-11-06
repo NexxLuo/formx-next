@@ -134,6 +134,61 @@ function getRoot(graphMap, k) {
     return root;
 }
 
+const getTitleSuffixByGraph = (graph, graphMap = {}) => {
+    let d = graph;
+
+    let name = d.path;
+    let path = d.address;
+    let ctype = d.component[0]?.toLowerCase();
+    let componentProps = d.component[1];
+    let extraprops = componentProps?.["x-extra-props"] || {};
+
+    let title_suffix = "";
+    let nameFieldKey = extraprops.extraNameFieldKey ||
+        extraprops.relatedNameFieldKey;
+    let idFieldKey = extraprops.relatedIdFieldKey ||
+        extraprops.relatedKey;
+    if (
+        nameFieldKey
+    ) {
+        title_suffix = "_id";
+        if (ctype === "datepicker.rangepicker") {
+            title_suffix = "_开始";
+        }
+    }
+
+    let idFieldGraph = graphMap[path.replace(name, idFieldKey)];
+    if (idFieldKey && idFieldGraph && idFieldGraph.component[0] === "DatePicker.RangePicker") {
+        title_suffix = "_结束";
+    }
+
+    return title_suffix;
+}
+
+const getTitleSuffixBySchema = (schema, parentSchema, t) => {
+    let extraprops = schema["x-component-props"]?.["x-extra-props"] || {};
+    let ctype = schema["x-component"]?.toLowerCase();
+
+    let title_suffix = "";
+    let nameFieldKey = extraprops.extraNameFieldKey ||
+        extraprops.relatedNameFieldKey;
+    let idFieldKey = extraprops.relatedIdFieldKey ||
+        extraprops.relatedKey;
+    if (
+        nameFieldKey
+    ) {
+        title_suffix = "_id";
+        if (ctype === "datepicker.rangepicker") {
+            title_suffix = "_开始";
+        }
+    }
+
+    if (idFieldKey && parentSchema?.["x-component"] === "DatePicker.RangePicker") {
+        title_suffix = "_结束";
+    }
+    return title_suffix;
+}
+
 function getFormItems(ins) {
     if (ins) {
         let g = ins.getFormGraph();
@@ -160,12 +215,8 @@ function getFormItems(ins) {
             let ctype = d.componentName;
 
             if (currTitle) {
-                if (
-                    extraprops.extraNameFieldKey ||
-                    extraprops.relatedNameFieldKey
-                ) {
-                    currTitle = currTitle + "_id";
-                }
+                let title_suffix = getTitleSuffixByGraph(g[k], g);
+                currTitle = currTitle + title_suffix;
                 if (currTitle.endsWith("_name")) {
                     currTitle = currTitle.substring(0, currTitle.length - 5);
                 }
@@ -198,6 +249,8 @@ function getFormItems(ins) {
                             if (t && ct) {
                                 ct = t + "." + ct;
                             }
+                            let title_suffix = getTitleSuffixBySchema(_props, null);
+                            ct = ct + title_suffix;
 
                             let clabel = "";
 
@@ -235,6 +288,8 @@ function getFormItems(ins) {
                                         _label.length - 5
                                     );
                                 }
+                                let title_suffix = getTitleSuffixBySchema(__props, _props, _label);
+                                _label = _label + title_suffix;
                                 let _ct = _label;
                                 if (t && _ct) {
                                     _ct = t + "." + _ct;
