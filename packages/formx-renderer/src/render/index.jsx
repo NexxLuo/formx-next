@@ -287,8 +287,9 @@ function getFormItems(ins) {
  * @param {*} graph
  * @param {*} stateValues
  * @param {*} bindEntity 是否将表单项值绑定到实体字段，默认情况下会将表单项值绑定到父级容器
+ * @param {*} includeUndefined 未输入的表单项值为undefined，获取值时将无此字段，以此参数控制是否包含字段
  */
-function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, getContainer) {
+function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, getContainer, includeUndefined) {
     let values = {};
 
     let listValues = {};
@@ -360,6 +361,12 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
             let _dataHandleMode = extraProps.dataHandleMode ?? "default";
             if (bindEntity && extraProps.entity && ["onlyLoad", "none"].indexOf(_dataHandleMode) > -1) {
                 allowValues = false;
+            }
+
+            if (includeUndefined === true) {
+                if (typeof stateValues[itemName] === "undefined") {
+                    stateValues[itemName] = null;
+                }
             }
 
             if (allowValues) {
@@ -931,7 +938,7 @@ class Renderer extends React.Component {
         return getFormItems(ins);
     };
 
-    getData = bindEntity => {
+    getData = (bindEntity, includeUndefined = false) => {
         let ins = this.formInstance;
         if (ins) {
             let { values, listValues, listKeys } = ins.getFormState(state => {
@@ -940,7 +947,8 @@ class Renderer extends React.Component {
                     { ...state.values },
                     bindEntity,
                     state.formActions,
-                    this.getContainer
+                    this.getContainer,
+                    includeUndefined
                 );
             });
             return {
@@ -1085,7 +1093,7 @@ class Renderer extends React.Component {
         });
     };
 
-    submit = (callback, onError, bindEntity) => {
+    submit = (callback, onError, bindEntity, includeUndefined = false) => {
         let ins = this.formInstance;
         if (ins) {
             const _submit = () => {
@@ -1096,7 +1104,8 @@ class Renderer extends React.Component {
                         { ...formState.values },
                         bindEntity,
                         state.formActions,
-                        this.getContainer
+                        this.getContainer,
+                        includeUndefined
                     );
                     callback(
                         values,
