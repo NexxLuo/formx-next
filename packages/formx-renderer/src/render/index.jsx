@@ -364,7 +364,7 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
             }
 
             if (includeUndefined === true) {
-                if (typeof stateValues[itemName] === "undefined") {
+                if (item.displayName === "Field" && typeof stateValues[itemName] === "undefined") {
                     stateValues[itemName] = null;
                 }
             }
