@@ -1481,6 +1481,7 @@ class Renderer extends React.Component {
                     context={{
                         loading: this.props.loading,
                         options: this.props.options || {},
+                        disabledAsyncValue: this.props.disabledAsyncValue,
                         onListItemDelete: this.onListItemDelete,
                         sourceValues: this.state.sourceValues,
                         enabledSmallLayoutSize:
@@ -1505,7 +1506,8 @@ Renderer.defaultProps = {
     disabled: false,
     readOnly: false,
     enabledSmallLayoutSize: false,
-    ignoreSetEmptyValue: false
+    ignoreSetEmptyValue: false,
+    disabledAsyncValue: false
 };
 Renderer.propTypes = {
     components: PropTypes.object.isRequired,
@@ -1536,7 +1538,9 @@ Renderer.propTypes = {
     onDataInit: PropTypes.func,
     onDataChange: PropTypes.func,
     /** 是否忽略设置空值(null)数据，忽略后此字段会正常响应公式联动 */
-    ignoreSetEmptyValue: PropTypes.bool
+    ignoreSetEmptyValue: PropTypes.bool,
+    /** 是否禁用异步数据接口请求，一般流程结束后应不再请求异步数据值 */
+    disabledAsyncValue: PropTypes.bool
 };
 
 export default Renderer;
