@@ -921,7 +921,7 @@ function setSelectable(field, schema, instance, _evaluator) {
     let name = schema.name;
     let ctype = schema.componentName?.toLowerCase();
 
-    if (ctype === "datepicker" || ctype === "monthpicker") {
+    if (ctype === "datepicker" || ctype === "monthpicker"  || ctype === "datepicker.rangepicker") {
         let expressionVar = getExpressionVar(name);
 
         let dateItemSelectable = extraProps.itemSelectable;
