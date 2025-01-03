@@ -57,6 +57,13 @@ function getLinkageItem(name, store = {}, instance, options) {
                     return false;
                 }
                 if (_state.mounted === false) {
+                    let extraProps =
+                        _state?.component?.[1]?.["x-extra-props"] || {};
+                    if (extraProps.relatedKey) {
+                        //如果是字段是下拉类的隐藏字段，unmount时应该允许被联动设置，因为其id字段隐藏后会将隐藏字段unmount
+                        //再次显示时重新mount，但是将无法满足hasValue判断，故无法在mount周期中设置值，所以在此处理为允许被联动
+                        return true;
+                    }
                     return false;
                 }
             }
@@ -921,7 +928,11 @@ function setSelectable(field, schema, instance, _evaluator) {
     let name = schema.name;
     let ctype = schema.componentName?.toLowerCase();
 
-    if (ctype === "datepicker" || ctype === "monthpicker"  || ctype === "datepicker.rangepicker") {
+    if (
+        ctype === "datepicker" ||
+        ctype === "monthpicker" ||
+        ctype === "datepicker.rangepicker"
+    ) {
         let expressionVar = getExpressionVar(name);
 
         let dateItemSelectable = extraProps.itemSelectable;
