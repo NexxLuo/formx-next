@@ -755,11 +755,16 @@ export function getLabelMap(dataSource) {
     return labelMap;
 }
 
-export function setTableErrorsToExtraField(arrayPath, instance, errors) {
+export function setTableErrorsToExtraField(arrayPath, instance, errors, isBatchApi = false) {
     let extraField = instance.query("__DATA__").take();
 
     let arrayTable = instance.query(arrayPath).take();
     let arrayValue = arrayTable?.value;
+
+    //表格列批量验证时应和常规的错误合并
+    if (isBatchApi) {
+        errors = [...errors, ...extraField.selfErrors];
+    }
 
     if (arrayTable) {
         let errorsMap = {};

@@ -550,7 +550,7 @@ async function batchValidateArrayTableColumn(value, rule, context) {
         }
     }
 
-    setTableErrorsToExtraField(listPath, instance, res);
+    setTableErrorsToExtraField(listPath, instance, res, true);
     return "";
 }
 
