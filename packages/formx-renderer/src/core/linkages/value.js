@@ -279,8 +279,7 @@ export function setInitialValue(field, schema, instance, _loading, _evaluator) {
             );
             field.setState(s => {
                 //如果值已经被修改过，则不再设置默认值，比如表格复制行数据，此时数据已经被修改过，无需再设置默认值
-                //visible为false时证明需要隐藏值，也就不应该设置默认值
-                if (!s.selfModified && s.display !== "none") {
+                if (!s.selfModified) {
                     let precision = s.componentProps?.precision;
                     if (
                         typeof _initialValue == "number" &&
