@@ -174,7 +174,9 @@ export function linkageDataFill(instance, schema, _evaluator, itemsIndex) {
             if (field && targetField) {
                 //如果是清空值，则清空数据联动的所有值
                 if (isNull(values[0])) {
-                    targetField.onInput(undefined)
+                    if (!isNull(targetField.value)) {
+                        targetField.onInput(undefined)
+                    }
                     continue;
                 }
 
