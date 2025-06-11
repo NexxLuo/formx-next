@@ -26,7 +26,9 @@
     "@formily/reactive-react": "^2.1.2",
     "@formily/shared": "^2.1.2",
     "@platform/formx-antd": "^1.6.41",
-    "antd": "3.26.20"
+    "antd": "3.26.20",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11"
   },
   "dependencies": {
     "@designable/core": "1.0.0-beta.45",
