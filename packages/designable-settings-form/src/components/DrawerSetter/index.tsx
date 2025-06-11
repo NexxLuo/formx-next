@@ -54,7 +54,7 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
               {props.children}
             </FormLayout>
           </div>
-        </div>,
+        </div> as any,
         root
       )
     }
