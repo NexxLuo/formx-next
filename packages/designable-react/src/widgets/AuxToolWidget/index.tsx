@@ -14,7 +14,7 @@ import { Cover } from './Cover'
 import { DashedBox } from './DashedBox'
 import './styles.less'
 
-export const AuxToolWidget = () => {
+export const AuxToolWidget = ({extraHelperTools}) => {
   const engine = useDesigner()
   const viewport = useViewport()
   const prefix = usePrefix('auxtool')
@@ -33,7 +33,7 @@ export const AuxToolWidget = () => {
     <div ref={ref} className={prefix}>
       <Insertion />
       <DashedBox />
-      <Selection />
+      <Selection extraHelperTools={extraHelperTools} />
       <Cover />
       <FreeSelection />
     </div>

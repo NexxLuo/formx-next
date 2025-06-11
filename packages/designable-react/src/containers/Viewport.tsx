@@ -1,18 +1,20 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { usePrefix, useViewport } from '../hooks'
 import { AuxToolWidget, EmptyWidget } from '../widgets'
-import { Viewport as ViewportType } from '@designable/core'
+import { Viewport as ViewportType,TreeNode } from '@designable/core'
 import { requestIdle, globalThisPolyfill } from '@designable/shared'
 import cls from 'classnames'
 export interface IViewportProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'placeholder'> {
   placeholder?: React.ReactNode
   dragTipsDirection?: 'left' | 'right'
+  extraHelperTools?:(node:TreeNode)=>React.ReactNode
 }
 
 export const Viewport: React.FC<IViewportProps> = ({
   placeholder,
   dragTipsDirection,
+  extraHelperTools,
   ...props
 }) => {
   const [loaded, setLoaded] = useState(false)
@@ -60,7 +62,7 @@ export const Viewport: React.FC<IViewportProps> = ({
       }}
     >
       {props.children}
-      <AuxToolWidget />
+      <AuxToolWidget extraHelperTools={extraHelperTools} />
       <EmptyWidget dragTipsDirection={dragTipsDirection}>
         {placeholder}
       </EmptyWidget>

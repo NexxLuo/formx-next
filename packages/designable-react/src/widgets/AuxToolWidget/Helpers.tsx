@@ -13,6 +13,7 @@ const HELPER_DEBOUNCE_TIMEOUT = 100
 export interface IHelpersProps {
   node: TreeNode
   nodeRect: DOMRect
+  extraHelperTools?: (node:TreeNode) => React.ReactNode
 }
 export interface IViewportState {
   viewportWidth?: number
@@ -23,7 +24,7 @@ export interface IViewportState {
   viewportIsScrollBottom?: boolean
 }
 
-export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
+export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect,extraHelperTools }) => {
   const prefix = usePrefix('aux-helpers')
   const designer = useDesigner()
   const viewport = useViewport()
@@ -97,6 +98,12 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
 
   if (!nodeRect || !node) return null
 
+  let fn=extraHelperTools;
+  let extra=null;
+  if (typeof fn=='function') {
+    extra=fn(node)
+  }
+
   return (
     <div
       className={cls(prefix, {
@@ -106,6 +113,7 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
     >
       <div className={cls(prefix + '-content')}>
         <Selector node={node} />
+        {extra}
         {node?.allowClone() === false ? null : <Copy node={node} />}
         {node?.allowDrag() === false ? null : <DragHandler node={node} />}
         {node?.allowDelete() === false ? null : <Delete node={node} />}

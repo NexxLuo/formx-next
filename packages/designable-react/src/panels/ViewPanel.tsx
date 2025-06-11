@@ -13,6 +13,7 @@ export interface IViewPanelProps {
   ) => React.ReactElement
   scrollable?: boolean
   dragTipsDirection?: 'left' | 'right'
+  extraHelperTools?:(node:TreeNode)=>React.ReactNode
 }
 
 export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
@@ -39,7 +40,7 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   }
   if (workbench.type === 'DESIGNABLE')
     return (
-      <Viewport dragTipsDirection={props.dragTipsDirection}>
+      <Viewport dragTipsDirection={props.dragTipsDirection} extraHelperTools={props.extraHelperTools}>
         {render()}
       </Viewport>
     )

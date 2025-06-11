@@ -16,6 +16,7 @@ import { TranslateHandler } from './TranslateHandler'
 export interface ISelectionBoxProps {
   node: TreeNode
   showHelpers: boolean
+  extraHelperTools?:(node:TreeNode)=>React.ReactNode
 }
 
 export const SelectionBox: React.FC<ISelectionBoxProps> = (props) => {
@@ -57,7 +58,7 @@ export const SelectionBox: React.FC<ISelectionBoxProps> = (props) => {
   )
 }
 
-export const Selection = observer(() => {
+export const Selection = observer<any>(({extraHelperTools}) => {
   const selection = useSelection()
   const tree = useTree()
   const cursor = useCursor()
@@ -73,6 +74,7 @@ export const Selection = observer(() => {
           <SelectionBox
             key={id}
             node={node}
+            extraHelperTools={extraHelperTools}
             showHelpers={selection.selected.length === 1}
           />
         )
