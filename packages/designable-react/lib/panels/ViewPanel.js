@@ -34,7 +34,8 @@ const ViewPanel = exports.ViewPanel = (0, _reactiveReact.observer)(props => {
     });
   };
   if (workbench.type === 'DESIGNABLE') return /*#__PURE__*/_react.default.createElement(_containers.Viewport, {
-    dragTipsDirection: props.dragTipsDirection
+    dragTipsDirection: props.dragTipsDirection,
+    extraHelperTools: props.extraHelperTools
   }, render());
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {

@@ -14,7 +14,9 @@ var _DashedBox = require("./DashedBox");
 require("./styles.less");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-const AuxToolWidget = () => {
+const AuxToolWidget = ({
+  extraHelperTools
+}) => {
   const engine = (0, _hooks.useDesigner)();
   const viewport = (0, _hooks.useViewport)();
   const prefix = (0, _hooks.usePrefix)('auxtool');
@@ -30,7 +32,9 @@ const AuxToolWidget = () => {
   return /*#__PURE__*/_react.default.createElement("div", {
     ref: ref,
     className: prefix
-  }, /*#__PURE__*/_react.default.createElement(_Insertion.Insertion, null), /*#__PURE__*/_react.default.createElement(_DashedBox.DashedBox, null), /*#__PURE__*/_react.default.createElement(_Selection.Selection, null), /*#__PURE__*/_react.default.createElement(_Cover.Cover, null), /*#__PURE__*/_react.default.createElement(_FreeSelection.FreeSelection, null));
+  }, /*#__PURE__*/_react.default.createElement(_Insertion.Insertion, null), /*#__PURE__*/_react.default.createElement(_DashedBox.DashedBox, null), /*#__PURE__*/_react.default.createElement(_Selection.Selection, {
+    extraHelperTools: extraHelperTools
+  }), /*#__PURE__*/_react.default.createElement(_Cover.Cover, null), /*#__PURE__*/_react.default.createElement(_FreeSelection.FreeSelection, null));
 };
 exports.AuxToolWidget = AuxToolWidget;
 AuxToolWidget.displayName = 'AuxToolWidget';

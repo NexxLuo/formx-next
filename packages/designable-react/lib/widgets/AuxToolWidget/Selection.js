@@ -52,7 +52,9 @@ const SelectionBox = props => {
   })));
 };
 exports.SelectionBox = SelectionBox;
-const Selection = exports.Selection = (0, _reactiveReact.observer)(() => {
+const Selection = exports.Selection = (0, _reactiveReact.observer)(({
+  extraHelperTools
+}) => {
   const selection = (0, _hooks.useSelection)();
   const tree = (0, _hooks.useTree)();
   const cursor = (0, _hooks.useCursor)();
@@ -65,6 +67,7 @@ const Selection = exports.Selection = (0, _reactiveReact.observer)(() => {
     return /*#__PURE__*/_react.default.createElement(SelectionBox, {
       key: id,
       node: node,
+      extraHelperTools: extraHelperTools,
       showHelpers: selection.selected.length === 1
     });
   }));

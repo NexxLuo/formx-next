@@ -16,6 +16,7 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 const Viewport = ({
   placeholder,
   dragTipsDirection,
+  extraHelperTools,
   ...props
 }) => {
   const [loaded, setLoaded] = (0, _react.useState)(false);
@@ -58,7 +59,9 @@ const Viewport = ({
       overflow: isFrameRef.current ? 'hidden' : 'overlay',
       ...props.style
     }
-  }), props.children, /*#__PURE__*/_react.default.createElement(_widgets.AuxToolWidget, null), /*#__PURE__*/_react.default.createElement(_widgets.EmptyWidget, {
+  }), props.children, /*#__PURE__*/_react.default.createElement(_widgets.AuxToolWidget, {
+    extraHelperTools: extraHelperTools
+  }), /*#__PURE__*/_react.default.createElement(_widgets.EmptyWidget, {
     dragTipsDirection: dragTipsDirection
   }, placeholder));
 };

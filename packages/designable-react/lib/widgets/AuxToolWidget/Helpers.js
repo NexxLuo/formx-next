@@ -18,7 +18,8 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 const HELPER_DEBOUNCE_TIMEOUT = 100;
 const Helpers = ({
   node,
-  nodeRect
+  nodeRect,
+  extraHelperTools
 }) => {
   const prefix = (0, _hooks.usePrefix)('aux-helpers');
   const designer = (0, _hooks.useDesigner)();
@@ -64,6 +65,11 @@ const Helpers = ({
     });
   }, [viewport, nodeRect]);
   if (!nodeRect || !node) return null;
+  let fn = extraHelperTools;
+  let extra = null;
+  if (typeof fn == 'function') {
+    extra = fn(node);
+  }
   return /*#__PURE__*/_react.default.createElement("div", {
     className: (0, _classnames.default)(prefix, {
       [position]: true
@@ -73,7 +79,7 @@ const Helpers = ({
     className: (0, _classnames.default)(prefix + '-content')
   }, /*#__PURE__*/_react.default.createElement(_Selector.Selector, {
     node: node
-  }), node?.allowClone() === false ? null : /*#__PURE__*/_react.default.createElement(_Copy.Copy, {
+  }), extra, node?.allowClone() === false ? null : /*#__PURE__*/_react.default.createElement(_Copy.Copy, {
     node: node
   }), node?.allowDrag() === false ? null : /*#__PURE__*/_react.default.createElement(_DragHandler.DragHandler, {
     node: node
