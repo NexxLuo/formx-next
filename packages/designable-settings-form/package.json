@@ -1,6 +1,6 @@
 {
   "name": "@platform/designable-settings-form",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@designable/core": "1.0.0-beta.45",
-    "@platform/designable-react": "1.2.0",
+    "@platform/designable-react": "1.2.1",
     "@designable/shared": "1.0.0-beta.45",
     "@babel/parser": "^7.14.7",
     "@monaco-editor/react": "^4.2.1",
