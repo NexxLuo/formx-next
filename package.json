@@ -18,8 +18,11 @@
     "@types/react-dom": "17.0.11"
   },
   "devDependencies": {
+    "antd": "3.26.20",
+    "@designable/core": "1.0.0-beta.45",
+    "@designable/shared": "1.0.0-beta.45",
     "lerna": "^4.0.0",
-    "father": "^4.4.6",
+    "father": "4.4.6",
     "@types/react": "17.0.39",
     "@types/react-dom": "17.0.11"
   },
