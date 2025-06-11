@@ -5,4 +5,3 @@ export interface ILoadScriptProps {
     base?: string;
 }
 export declare const loadScript: (props: ILoadScriptProps) => Promise<any>;
-//# sourceMappingURL=loadScript.d.ts.map

@@ -11,4 +11,3 @@ declare const _default: {
     };
 };
 export default _default;
-//# sourceMappingURL=zh-CN.d.ts.map

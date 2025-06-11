@@ -7,4 +7,3 @@ export interface ICornerInputProps {
     onChange?: (value: string) => void;
 }
 export declare const CornerInput: React.FC<ICornerInputProps>;
-//# sourceMappingURL=index.d.ts.map

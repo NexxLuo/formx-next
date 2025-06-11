@@ -17,7 +17,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -91,7 +91,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -165,7 +165,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -239,7 +239,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -313,7 +313,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -387,7 +387,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -461,7 +461,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -535,7 +535,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -609,7 +609,7 @@ export declare const SchemaField: {
             ColorInput: import("react").FC<import("./components").IColorInputProps>;
             ImageInput: import("react").FC<import("./components").ImageInputProps>;
             MonacoInput: import("react").FC<import("./components").MonacoInputProps> & {
-                loader?: typeof import("@monaco-editor/react").loader;
+                loader?: typeof import("@monaco-editor/loader").default;
             };
             PositionInput: import("react").FC<import("./components").IPositionInputProps>;
             CornerInput: import("react").FC<import("./components").ICornerInputProps>;
@@ -670,4 +670,3 @@ export declare const SchemaField: {
         displayName: string;
     };
 };
-//# sourceMappingURL=SchemaField.d.ts.map

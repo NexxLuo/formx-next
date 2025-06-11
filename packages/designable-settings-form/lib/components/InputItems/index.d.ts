@@ -21,4 +21,3 @@ export interface IInputItemProps {
 export declare const InputItems: React.FC<IInputItemsProps> & {
     Item: React.FC<IInputItemProps>;
 };
-//# sourceMappingURL=index.d.ts.map

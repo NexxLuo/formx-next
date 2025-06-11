@@ -7,4 +7,3 @@ export interface IDisplayStyleSetterProps {
     onChange?: (value: string) => void;
 }
 export declare const DisplayStyleSetter: React.FC<IDisplayStyleSetterProps>;
-//# sourceMappingURL=index.d.ts.map

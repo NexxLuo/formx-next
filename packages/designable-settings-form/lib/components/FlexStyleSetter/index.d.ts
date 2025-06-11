@@ -5,4 +5,3 @@ export interface IFlexStyleSetterProps {
     style?: React.CSSProperties;
 }
 export declare const FlexStyleSetter: React.FC<IFlexStyleSetterProps>;
-//# sourceMappingURL=index.d.ts.map

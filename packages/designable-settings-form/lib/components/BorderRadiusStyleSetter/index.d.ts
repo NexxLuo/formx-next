@@ -4,4 +4,3 @@ export interface IBorderRadiusStyleSetterProps {
     onChange?: (value: string) => void;
 }
 export declare const BorderRadiusStyleSetter: React.FC<IBorderRadiusStyleSetterProps>;
-//# sourceMappingURL=index.d.ts.map

@@ -5,4 +5,3 @@ export interface IBorderStyleSetterProps {
     style?: React.CSSProperties;
 }
 export declare const BorderStyleSetter: React.FC<IBorderStyleSetterProps>;
-//# sourceMappingURL=index.d.ts.map

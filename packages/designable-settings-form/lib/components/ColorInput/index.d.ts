@@ -5,4 +5,3 @@ export interface IColorInputProps {
     onChange?: (color: string) => void;
 }
 export declare const ColorInput: React.FC<IColorInputProps>;
-//# sourceMappingURL=index.d.ts.map

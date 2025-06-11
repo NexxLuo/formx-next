@@ -6,4 +6,3 @@ export interface IBoxShadowStyleSetterProps {
     onChange?: (value: string) => void;
 }
 export declare const BoxShadowStyleSetter: React.FC<IBoxShadowStyleSetterProps>;
-//# sourceMappingURL=index.d.ts.map

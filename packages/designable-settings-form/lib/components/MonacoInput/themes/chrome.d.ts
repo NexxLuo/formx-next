@@ -37,4 +37,3 @@ declare const _default: {
     };
 };
 export default _default;
-//# sourceMappingURL=chrome.d.ts.map
