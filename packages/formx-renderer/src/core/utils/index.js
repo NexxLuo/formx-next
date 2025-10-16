@@ -624,7 +624,7 @@ export function transformToTreeData(
     }
 
     function getParentKey(node) {
-        return node[pidField] || "";
+        return node[pidField] || rootKey || "";
     }
 
     if (!flatData) {
