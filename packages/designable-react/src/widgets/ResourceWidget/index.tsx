@@ -21,6 +21,8 @@ export interface IResourceWidgetProps {
   className?: string
   defaultExpand?: boolean
   children?: SourceMapper | React.ReactElement
+  itemData?: any
+  renderContent?: (itemData: any, expanded: boolean) => React.ReactElement
 }
 
 export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
@@ -64,6 +66,14 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
       }
       return buf
     }, [])
+
+    let children = null;
+    if (typeof props.renderContent === "function") {
+      children = props.renderContent(props.itemData, expand);
+    } else {
+      children = sources.map(isFn(props.children) ? props.children : renderNode);
+    }
+
     const remainItems =
       sources.reduce((length, source) => {
         return length + (source.span ?? 1)
@@ -91,7 +101,7 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
         </div>
         <div className={prefix + '-content-wrapper'}>
           <div className={prefix + '-content'}>
-            {sources.map(isFn(props.children) ? props.children : renderNode)}
+            {children}
             {remainItems ? (
               <div
                 className={prefix + '-item-remain'}

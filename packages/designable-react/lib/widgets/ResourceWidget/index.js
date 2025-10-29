@@ -56,6 +56,12 @@ const ResourceWidget = exports.ResourceWidget = (0, _reactiveReact.observer)(pro
     }
     return buf;
   }, []);
+  let children = null;
+  if (typeof props.renderContent === "function") {
+    children = props.renderContent(props.itemData, expand);
+  } else {
+    children = sources.map((0, _shared.isFn)(props.children) ? props.children : renderNode);
+  }
   const remainItems = sources.reduce((length, source) => {
     return length + (source.span ?? 1);
   }, 0) % 3;
@@ -81,7 +87,7 @@ const ResourceWidget = exports.ResourceWidget = (0, _reactiveReact.observer)(pro
     className: prefix + '-content-wrapper'
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: prefix + '-content'
-  }, sources.map((0, _shared.isFn)(props.children) ? props.children : renderNode), remainItems ? /*#__PURE__*/_react.default.createElement("div", {
+  }, children, remainItems ? /*#__PURE__*/_react.default.createElement("div", {
     className: prefix + '-item-remain',
     style: {
       gridColumnStart: `span ${3 - remainItems}`
