@@ -7,6 +7,7 @@ import cls from 'classnames'
 export interface ISettingPanelProps {
   title?: React.ReactNode
   extra?: React.ReactNode
+  defaultVisible?: boolean
 }
 
 export const SettingsPanel: React.FC<ISettingPanelProps> = observer((props) => {
@@ -14,7 +15,7 @@ export const SettingsPanel: React.FC<ISettingPanelProps> = observer((props) => {
   const workbench = useWorkbench()
   const [innerVisible, setInnerVisible] = useState(true)
   const [pinning, setPinning] = useState(false)
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(props.defaultVisible??true)
   useEffect(() => {
     if (visible || workbench.type === 'DESIGNABLE') {
       if (!innerVisible) {

@@ -18,7 +18,7 @@ const SettingsPanel = exports.SettingsPanel = (0, _reactiveReact.observer)(props
   const workbench = (0, _hooks.useWorkbench)();
   const [innerVisible, setInnerVisible] = (0, _react.useState)(true);
   const [pinning, setPinning] = (0, _react.useState)(false);
-  const [visible, setVisible] = (0, _react.useState)(true);
+  const [visible, setVisible] = (0, _react.useState)(props.defaultVisible ?? true);
   (0, _react.useEffect)(() => {
     if (visible || workbench.type === 'DESIGNABLE') {
       if (!innerVisible) {
