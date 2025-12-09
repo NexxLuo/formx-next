@@ -165,8 +165,9 @@ export function observerChainHidden($) {
                             let _fieldPath = _field.address.toString();
                             let a = parentPath.split(".").length + 1;
                             let b = _fieldPath.split(".").length;
+                            let isVoidField = _field.displayName?.toLowerCase() === "voidfield";
                             //查找直系子级
-                            if (a === b) {
+                            if (!isVoidField && a === b) {
                                 childrens.push(_fieldPath);
                             }
                         });
