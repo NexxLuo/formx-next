@@ -1,6 +1,6 @@
 {
     "name": "@platform/formx-renderer",
-    "version": "1.8.52",
+    "version": "1.8.53",
     "description": "",
     "license": "MIT",
     "author": "n",
@@ -8,7 +8,6 @@
         "lib"
     ],
     "main": "lib/index.js",
-    "module": "es/index.js",
     "scripts": {
         "build": "father build",
         "dev": "father dev",
