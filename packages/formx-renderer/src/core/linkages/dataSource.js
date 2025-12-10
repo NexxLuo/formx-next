@@ -108,7 +108,11 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
             });
         }
     } else if (dataSource.type === "const") {
-        if (dataSource.data && dataSource.data.const instanceof Array) {
+        let canSet = true;
+        if (field.modified || field.initialValue instanceof Array) {
+            canSet = false;
+        }
+        if (canSet && dataSource.data && dataSource.data.const instanceof Array) {
             field.setState(state => {
                 let { needTransform, transformer } = getListDataFieldMap(dataSource.data.fields);
                 let _data = [];
