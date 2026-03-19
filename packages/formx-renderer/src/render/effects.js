@@ -492,6 +492,11 @@ export const createEffects = ($, instance, _consumer) => {
         });
     });
     //
+    $("onModalOpen").subscribe(({ name }, form) => {
+        let field = form.query(name).take();
+        let schema = formatField(field);
+        _eventFlow.dispatch(schema.name, "onModalOpen");
+    });
 
     $("onCancel").subscribe(({ name }, form) => {
         let field = form.query(name).take();
