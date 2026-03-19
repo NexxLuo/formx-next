@@ -1,3 +1,4 @@
+import { FormPath } from "@formily/shared";
 import { Evaluator } from "../core/expression";
 import { getItemIndex, guid } from "../core/utils";
 
@@ -49,6 +50,31 @@ export function createEvaluator(form, options?) {
         }
     }
 
+    function GetModalArgs(modalKey: string, valuePath: string, root: string = "show") {
+        const field = form.query(modalKey).take();
+        if (field) {
+            const fn = field.fieldActions?.getActionArgs;
+            if (typeof fn === "function") {
+                const data = fn();
+                let paths = [];
+
+                if (root) {
+                    paths.push(root);
+                }
+                if (valuePath) {
+                    paths.push(valuePath);
+                }
+
+                if (paths.length > 0) {
+                    const _res = FormPath.getIn(data, paths.join("."));
+                    return _res;
+                }
+
+            }
+        }
+        return null;
+    }
+
     //创建表达式计算实例，并传递上下文
     return new Evaluator({
         functions: {
@@ -96,6 +122,7 @@ export function createEvaluator(form, options?) {
             env: k => {
                 return getFormEnvValue(form, k);
             },
+            GetModalArgs: GetModalArgs,
             CallFunc: callFunc,
             GetFormItemCode: getFormItemCode,
             TransformIdValuesToCode: transformIdValuesToCode
@@ -872,7 +899,7 @@ export function transformCardToTab(schema) {
                     if (["arraytable"].includes(componentType)) {
                         bl = true;
                         let tabpaneId = guid("g");
-                        let tabpane:any = {
+                        let tabpane: any = {
                             properties: {},
                             "type": "void",
                             "x-component": "Tab.TabPane",
