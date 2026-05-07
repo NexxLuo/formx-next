@@ -766,9 +766,9 @@ export default class FormActions {
         return this.setFieldState(id, fn);
     };
 
-    setValueByCode = (code, value) => {
+    setValueByCode = (code, value, callback, nullAsDefault) => {
         let id = this.getElementIdByCode(code);
-        return this.setValue(id, value);
+        return this.setValue(id, value, callback, nullAsDefault);
     };
 
     getValueByCode = code => {
