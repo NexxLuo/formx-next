@@ -61,13 +61,13 @@ export function triggerItemActions(state, args, form) {
             });
         },
         filterData: function (name, args, sourcename) {
-            let v = form.getFieldValue(sourcename);
+            let v = form.getFieldState(sourcename)?.value;
             form.getFieldState(name, state => {
                 state.fieldActions.filterData(v);
             });
         },
         findData: function (name, args, sourcename) {
-            let v = form.getFieldValue(sourcename);
+             let v = form.getFieldState(sourcename)?.value;
             form.getFieldState(name, state => {
                 state.fieldActions.findData(v);
             });
