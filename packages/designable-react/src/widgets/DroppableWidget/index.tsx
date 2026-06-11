@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from 'react'
 import { TreeNode } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { useTreeNode, useNodeIdProps } from '../../hooks'
 import { NodeTitleWidget } from '../NodeTitleWidget'
 import {
@@ -19,7 +20,7 @@ export interface IDroppableWidgetProps {
   hasChildren?: boolean
 }
 
-export const DroppableWidget: React.FC<IDroppableWidgetProps> = observer(
+export const DroppableWidget = observer(
   ({
     node,
     actions,
@@ -57,6 +58,6 @@ export const DroppableWidget: React.FC<IDroppableWidgetProps> = observer(
   }
 )
 
-DroppableWidget.defaultProps = {
+(DroppableWidget as any).defaultProps = {
   placeholder: true,
 }

@@ -2,9 +2,9 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2017",
     "allowJs": false,
     "noUnusedLocals": false,
     "preserveConstEnums": true,
@@ -16,13 +16,27 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
-      "@platform/designable-react": ["./packages/designable-react/src"],
-      "@platform/designable-react/lib/*": ["./packages/designable-react/src/*"],
-      "@platform/formx-antd": ["./packages/formx-antd/src"],
-      "@platform/formx-antd/lib/*": ["./packages/formx-antd/src/*"],
-      "@platform/formx-renderer": ["./packages/formx-renderer/src"],
-      "@platform/formx-renderer/lib/*": ["./packages/formx-renderer/src/*"]
+      "@platform/designable-react": [
+        "./packages/designable-react/src"
+      ],
+      "@platform/designable-react/lib/*": [
+        "./packages/designable-react/src/*"
+      ],
+      "@platform/formx-antd": [
+        "./packages/formx-antd/src"
+      ],
+      "@platform/formx-antd/lib/*": [
+        "./packages/formx-antd/src/*"
+      ],
+      "@platform/formx-renderer": [
+        "./packages/formx-renderer/src"
+      ],
+      "@platform/formx-renderer/lib/*": [
+        "./packages/formx-renderer/src/*"
+      ]
     },
-    "lib": ["ESNext"]
+    "lib": [
+      "ESNext"
+    ]
   }
 }

@@ -1,10 +1,11 @@
+// @ts-nocheck
 import React, { Fragment, useState, useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { observer, useField } from '@formily/react'
 import { FormLayout } from '@platform/formx-antd'
 import { IconWidget, usePrefix, useTreeNode } from '@platform/designable-react'
 import { Button } from 'antd'
-import { ButtonProps } from 'antd/lib/button'
+import { ButtonProps } from 'antd'
 import cls from 'classnames'
 import './styles.less'
 
@@ -13,7 +14,7 @@ export interface IDrawerSetterProps {
   triggerProps: ButtonProps
 }
 
-export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
+export const DrawerSetter: React.FC<React.PropsWithChildren<IDrawerSetterProps>> = observer((props) => {
   const node = useTreeNode()
   const field = useField()
   const [visible, setVisible] = useState(false)
@@ -43,6 +44,7 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
             </span>
           </div>
           <div className={prefix + '-body'}>
+            {(FormLayout as any)}
             <FormLayout
               colon={false}
               labelWidth={120}

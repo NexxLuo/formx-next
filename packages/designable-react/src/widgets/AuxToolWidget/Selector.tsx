@@ -1,10 +1,11 @@
+// @ts-nocheck
 import React, { useEffect, useState, useRef } from 'react'
 import { TreeNode } from '@designable/core'
 import { useHover, useSelection, usePrefix } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { NodeTitleWidget } from '../NodeTitleWidget'
 import { Button } from 'antd'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 
 const useMouseHover = <T extends { current: HTMLElement }>(
   ref: T,
@@ -40,7 +41,7 @@ export interface ISelectorProps {
   style?: React.CSSProperties
 }
 
-export const Selector: React.FC<ISelectorProps> = observer(({ node }) => {
+export const Selector = observer(({ node }) => {
   const hover = useHover()
   const [expand, setExpand] = useState(false)
   const ref = useRef<HTMLDivElement>(null)

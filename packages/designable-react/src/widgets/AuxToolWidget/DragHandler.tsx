@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from 'react'
 import { TreeNode } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { IconWidget } from '../IconWidget'
 import { useDesigner, usePrefix } from '../../hooks'
 import { Button } from 'antd'
@@ -10,7 +11,7 @@ export interface IDragHandlerProps {
   style?: React.CSSProperties
 }
 
-export const DragHandler: React.FC<IDragHandlerProps> = observer(
+export const DragHandler = observer(
   ({ node, style }) => {
     const designer = useDesigner()
     const prefix = usePrefix('aux-drag-handler')

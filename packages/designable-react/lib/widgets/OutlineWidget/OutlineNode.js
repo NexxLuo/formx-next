@@ -8,17 +8,20 @@ var _react = _interopRequireWildcard(require("react"));
 var _core = require("@designable/core");
 var _shared = require("@designable/shared");
 var _reactive = require("@formily/reactive");
-var _reactiveReact = require("@formily/reactive-react");
+var _observer = require("../../observer");
 var _hooks = require("../../hooks");
 var _IconWidget = require("../IconWidget");
 var _NodeTitleWidget = require("../NodeTitleWidget");
 var _context = require("./context");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-const OutlineTreeNode = exports.OutlineTreeNode = (0, _reactiveReact.observer)(({
+// @ts-nocheck
+
+const OutlineTreeNode = exports.OutlineTreeNode = (0, _observer.observer)(({
   node,
   className,
   style,
@@ -26,7 +29,7 @@ const OutlineTreeNode = exports.OutlineTreeNode = (0, _reactiveReact.observer)((
 }) => {
   const prefix = (0, _hooks.usePrefix)('outline-tree-node');
   const engine = (0, _hooks.useDesigner)();
-  const ref = (0, _react.useRef)();
+  const ref = (0, _react.useRef)(null);
   const ctx = (0, _react.useContext)(_context.NodeContext);
   const request = (0, _react.useRef)(null);
   const cursor = (0, _hooks.useCursor)();
@@ -87,90 +90,100 @@ const OutlineTreeNode = exports.OutlineTreeNode = (0, _reactiveReact.observer)((
   const renderIcon = node => {
     const icon = node.designerProps.icon;
     if (icon) {
-      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
         infer: icon,
         size: 12
       });
     }
     if (node === node?.root) {
-      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
         infer: "Page",
         size: 12
       });
     } else if (node.designerProps?.droppable) {
-      return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
         infer: "Container",
         size: 12
       });
     }
-    return /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
       infer: "Component",
       size: 12
     });
   };
   const renderTitle = node => {
     if ((0, _shared.isFn)(ctx.renderTitle)) return ctx.renderTitle(node);
-    return /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement(_NodeTitleWidget.NodeTitleWidget, {
-      node: node
-    }));
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_NodeTitleWidget.NodeTitleWidget, {
+        node: node
+      })
+    });
   };
   const renderActions = node => {
     if ((0, _shared.isFn)(ctx.renderActions)) return ctx.renderActions(node);
   };
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     style: style,
     ref: ref,
     className: (0, _classnames.default)(prefix, className, 'expanded'),
-    "data-designer-outline-node-id": node.id
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-header'
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-header-head',
-    style: {
-      left: -node.depth * 16,
-      width: node.depth * 16
-    }
-  }), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-header-content'
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-header-base'
-  }, (node?.children?.length > 0 || node === node.root) && /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-expand',
-    onClick: e => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (ref.current?.classList?.contains('expanded')) {
-        ref.current?.classList.remove('expanded');
-      } else {
-        ref.current?.classList.add('expanded');
-      }
-    }
-  }, /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
-    infer: "Expand",
-    size: 10
-  })), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-icon'
-  }, renderIcon(node)), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-title'
-  }, renderTitle(node))), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-header-actions',
-    "data-click-stop-propagation": true
-  }, renderActions(node), node !== node.root && /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
-    className: (0, _classnames.default)(prefix + '-hidden-icon', {
-      hidden: node.hidden
-    }),
-    infer: node.hidden ? 'EyeClose' : 'Eye',
-    size: 14,
-    onClick: () => {
-      node.hidden = !node.hidden;
-    }
-  })))), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-children'
-  }, node.children?.map(child => {
-    return /*#__PURE__*/_react.default.createElement(OutlineTreeNode, {
-      node: child,
-      key: child.id,
-      workspaceId: workspaceId
-    });
-  })));
+    "data-designer-outline-node-id": node.id,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: prefix + '-header',
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix + '-header-head',
+        style: {
+          left: -node.depth * 16,
+          width: node.depth * 16
+        }
+      }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: prefix + '-header-content',
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+          className: prefix + '-header-base',
+          children: [(node?.children?.length > 0 || node === node.root) && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: prefix + '-expand',
+            onClick: e => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (ref.current?.classList?.contains('expanded')) {
+                ref.current?.classList.remove('expanded');
+              } else {
+                ref.current?.classList.add('expanded');
+              }
+            },
+            children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
+              infer: "Expand",
+              size: 10
+            })
+          }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: prefix + '-icon',
+            children: renderIcon(node)
+          }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: prefix + '-title',
+            children: renderTitle(node)
+          })]
+        }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+          className: prefix + '-header-actions',
+          "data-click-stop-propagation": true,
+          children: [renderActions(node), node !== node.root && /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
+            className: (0, _classnames.default)(prefix + '-hidden-icon', {
+              hidden: node.hidden
+            }),
+            infer: node.hidden ? 'EyeClose' : 'Eye',
+            size: 14,
+            onClick: () => {
+              node.hidden = !node.hidden;
+            }
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-children',
+      children: node.children?.map(child => {
+        return /*#__PURE__*/(0, _jsxRuntime.jsx)(OutlineTreeNode, {
+          node: child,
+          workspaceId: workspaceId
+        }, child.id);
+      })
+    })]
+  });
 });

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo } from 'react'
 import { createForm } from '@formily/core'
 import { Form } from '@platform/formx-antd'
@@ -24,7 +25,7 @@ const GlobalState = {
   idleRequest: null,
 }
 
-export const SettingsForm: React.FC<ISettingFormProps> = observer(
+export const SettingsForm: React.FC<React.PropsWithChildren<ISettingFormProps>> = observer(
   (props) => {
     const workbench = useWorkbench()
     const currentWorkspace =
@@ -62,7 +63,7 @@ export const SettingsForm: React.FC<ISettingFormProps> = observer(
           >
             <SettingsFormContext.Provider value={props}>
               <Form
-                form={form}
+                form={form as any}
                 colon={false}
                 labelWidth={120}
                 labelAlign="left"

@@ -14,10 +14,10 @@ var _format = require("./format");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
 var _config = require("./config");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const MonacoInput = ({
   className,
   language,
@@ -38,8 +38,8 @@ const MonacoInput = ({
   const submitRef = (0, _react.useRef)(null);
   const declarationRef = (0, _react.useRef)([]);
   const extraLibRef = (0, _react.useRef)(null);
-  const monacoRef = (0, _react.useRef)();
-  const editorRef = (0, _react.useRef)();
+  const monacoRef = (0, _react.useRef)(null);
+  const editorRef = (0, _react.useRef)(null);
   const computedLanguage = (0, _react.useRef)(language || defaultLanguage);
   const realLanguage = (0, _react.useRef)('');
   const unmountedRef = (0, _react.useRef)(false);
@@ -88,19 +88,22 @@ const MonacoInput = ({
     };
     if (helpLink === false) return null;
     const href = getHref();
-    return href && /*#__PURE__*/_react.default.createElement(_antd.Tooltip, {
-      title: /*#__PURE__*/_react.default.createElement(_designableReact.TextWidget, {
+    return href && /*#__PURE__*/(0, _jsxRuntime.jsx)(_antd.Tooltip, {
+      title: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.TextWidget, {
         token: "SettingComponents.MonacoInput.helpDocument"
+      }),
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix + '-helper',
+        children: /*#__PURE__*/(0, _jsxRuntime.jsx)("a", {
+          target: "_blank",
+          href: href,
+          rel: "noreferrer",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+            infer: "Help"
+          })
+        })
       })
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-helper'
-    }, /*#__PURE__*/_react.default.createElement("a", {
-      target: "_blank",
-      href: href,
-      rel: "noreferrer"
-    }, /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-      infer: "Help"
-    }))));
+    });
   };
   const onMountHandler = (editor, monaco) => {
     editorRef.current = editor;
@@ -191,69 +194,73 @@ const MonacoInput = ({
   realLanguage.current = /(?:javascript|typescript)/gi.test(computedLanguage.current) ? 'typescript' : computedLanguage.current;
   const renderHelpCode = () => {
     if (!helpCode) return null;
-    return /*#__PURE__*/_react.default.createElement("div", {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
       className: prefix + '-view',
       style: {
         width: helpCodeViewWidth || '50%'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_react2.default, {
-      value: helpCode,
-      theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
-      defaultLanguage: realLanguage.current,
-      language: realLanguage.current,
-      options: {
-        ...props.options,
-        lineNumbers: 'off',
-        readOnly: true,
-        glyphMargin: false,
-        folding: false,
-        lineDecorationsWidth: 0,
-        lineNumbersMinChars: 0,
-        minimap: {
-          enabled: false
-        },
-        tabSize: 2,
-        smoothScrolling: true,
-        scrollbar: {
-          verticalScrollbarSize: 5,
-          horizontalScrollbarSize: 5,
-          alwaysConsumeMouseWheel: false
-        }
       },
-      width: "100%",
-      height: "100%"
-    }));
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.default, {
+        value: helpCode,
+        theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
+        defaultLanguage: realLanguage.current,
+        language: realLanguage.current,
+        options: {
+          ...props.options,
+          lineNumbers: 'off',
+          readOnly: true,
+          glyphMargin: false,
+          folding: false,
+          lineDecorationsWidth: 0,
+          lineNumbersMinChars: 0,
+          minimap: {
+            enabled: false
+          },
+          tabSize: 2,
+          smoothScrolling: true,
+          scrollbar: {
+            verticalScrollbarSize: 5,
+            horizontalScrollbarSize: 5,
+            alwaysConsumeMouseWheel: false
+          }
+        },
+        width: "100%",
+        height: "100%"
+      })
+    });
   };
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: (0, _classnames.default)(prefix, className, {
       loaded
     }),
     style: {
       width,
       height
-    }
-  }, renderHelper(), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-view'
-  }, /*#__PURE__*/_react.default.createElement(_react2.default, _extends({}, props, {
-    theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
-    defaultLanguage: realLanguage.current,
-    language: realLanguage.current,
-    options: {
-      glyphMargin: true,
-      ...props.options,
-      tabSize: 2,
-      smoothScrolling: true,
-      scrollbar: {
-        verticalScrollbarSize: 5,
-        horizontalScrollbarSize: 5,
-        alwaysConsumeMouseWheel: false
-      }
     },
-    value: input,
-    width: "100%",
-    height: "100%",
-    onMount: onMountHandler
-  }))), renderHelpCode());
+    children: [renderHelper(), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-view',
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.default, {
+        ...props,
+        theme: theme === 'dark' ? 'monokai' : 'chrome-devtools',
+        defaultLanguage: realLanguage.current,
+        language: realLanguage.current,
+        options: {
+          glyphMargin: true,
+          ...props.options,
+          tabSize: 2,
+          smoothScrolling: true,
+          scrollbar: {
+            verticalScrollbarSize: 5,
+            horizontalScrollbarSize: 5,
+            alwaysConsumeMouseWheel: false
+          }
+        },
+        value: input,
+        width: "100%",
+        height: "100%",
+        onMount: onMountHandler
+      })
+    }), renderHelpCode()]
+  });
 };
 exports.MonacoInput = MonacoInput;
 MonacoInput.loader = _react2.loader;

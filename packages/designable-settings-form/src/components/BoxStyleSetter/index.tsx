@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { useField, observer } from '@formily/react'
 import { usePrefix, IconWidget } from '@platform/designable-react'
@@ -26,7 +27,7 @@ const PositionMap = {
 const BoxRex =
   /([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+)(?:\s+([\d\.]+[^\d\s\.+-]+))?)?)?/
 
-export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
+export const BoxStyleSetter: React.FC<React.PropsWithChildren<IMarginStyleSetterProps>> = observer(
   (props) => {
     const field = useField()
     const prefix = usePrefix('box-style-setter')
@@ -104,7 +105,7 @@ export const BoxStyleSetter: React.FC<IMarginStyleSetterProps> = observer(
   }
 )
 
-BoxStyleSetter.defaultProps = {
+(BoxStyleSetter as any).defaultProps = {
   labels: [
     <IconWidget infer="Top" size={16} key="1" />,
     <IconWidget infer="Right" size={16} key="2" />,

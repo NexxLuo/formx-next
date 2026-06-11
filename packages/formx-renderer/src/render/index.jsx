@@ -1,5 +1,4 @@
 import React, { createContext } from "react";
-import ReactDOM from "react-dom"
 import PropTypes from "prop-types";
 import FormRender from "../core/render";
 import FormActions from "./FormActions";
@@ -1446,7 +1445,7 @@ class Renderer extends React.Component {
     };
 
     getContainer = () => {
-        return ReactDOM.findDOMNode(this);
+        return this.containerRef.current;
     };
 
     render() {
@@ -1460,6 +1459,7 @@ class Renderer extends React.Component {
             this.props;
         console.log("FormRenderRender")
         return (
+            <div ref={this.containerRef}>
             <FormContext.Provider
                 value={{
                     loading: this.props.loading,
@@ -1498,6 +1498,7 @@ class Renderer extends React.Component {
                     })
                 }
             </FormContext.Provider>
+            </div>
         );
     }
 }

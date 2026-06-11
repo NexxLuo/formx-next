@@ -6,7 +6,7 @@ import {
   useValidNodeOffsetRect,
   usePrefix,
 } from '../../hooks'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { CursorStatus, ClosestPosition, TreeNode } from '@designable/core'
 import cls from 'classnames'
 interface ICoverRectProps {

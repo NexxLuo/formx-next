@@ -9,6 +9,7 @@ var _antd = require("antd");
 var _designableReact = require("@platform/designable-react");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -72,33 +73,36 @@ function createPolyInput(polyTypes = []) {
     const transformOnChangeValue = (value, type) => {
       return type?.toChangeValue ? type?.toChangeValue(value) : value;
     };
-    return /*#__PURE__*/_react.default.createElement("div", {
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
       className: (0, _classnames.default)(prefix, className),
-      style: style
-    }, component && /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-content'
-    }, /*#__PURE__*/_react.default.createElement(component, {
-      ...props,
-      value: type?.toInputValue ? type?.toInputValue(value) : value,
-      onChange: event => {
-        const value = getEventValue(event);
-        typesValue.current[type?.type] = value;
-        onChange?.(transformOnChangeValue(value, type));
-      }
-    })), /*#__PURE__*/_react.default.createElement(_antd.Button, {
-      className: prefix + '-controller',
-      style: {
-        width: !component ? '100%' : 'auto'
-      },
-      block: true,
-      onClick: () => {
-        const nextType = getNextType();
-        if (nextType === type) return;
-        setCurrent(nextType?.type);
-        onChange?.(transformOnChangeValue(typesValue.current[nextType?.type], nextType));
-      }
-    }, type?.icon ? /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-      infer: type.icon
-    }) : type?.title || type?.type));
+      style: style,
+      children: [component && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix + '-content',
+        children: /*#__PURE__*/_react.default.createElement(component, {
+          ...props,
+          value: type?.toInputValue ? type?.toInputValue(value) : value,
+          onChange: event => {
+            const value = getEventValue(event);
+            typesValue.current[type?.type] = value;
+            onChange?.(transformOnChangeValue(value, type));
+          }
+        })
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_antd.Button, {
+        className: prefix + '-controller',
+        style: {
+          width: !component ? '100%' : 'auto'
+        },
+        block: true,
+        onClick: () => {
+          const nextType = getNextType();
+          if (nextType === type) return;
+          setCurrent(nextType?.type);
+          onChange?.(transformOnChangeValue(typesValue.current[nextType?.type], nextType));
+        },
+        children: type?.icon ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+          infer: type.icon
+        }) : type?.title || type?.type
+      })]
+    });
   };
 }

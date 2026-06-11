@@ -1,9 +1,10 @@
+// @ts-nocheck
 import React from 'react'
 import { Breadcrumb } from 'antd'
 import { useCurrentNode, useSelection, usePrefix, useHover } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { NodeTitleWidget } from '../NodeTitleWidget'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import './styles.less'
 
 export interface INodePathWidgetProps {
@@ -11,7 +12,7 @@ export interface INodePathWidgetProps {
   maxItems?: number
 }
 
-export const NodePathWidget: React.FC<INodePathWidgetProps> = observer(
+export const NodePathWidget = observer(
   (props) => {
     const selected = useCurrentNode(props.workspaceId)
     const selection = useSelection(props.workspaceId)

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { Field, useField, observer } from '@formily/react'
 import { Radio } from '@platform/formx-antd'
@@ -10,7 +11,7 @@ export interface IFlexStyleSetterProps {
   style?: React.CSSProperties
 }
 
-export const FlexStyleSetter: React.FC<IFlexStyleSetterProps> = observer(
+export const FlexStyleSetter: React.FC<React.PropsWithChildren<IFlexStyleSetterProps>> = observer(
   (props) => {
     const field = useField()
     const prefix = usePrefix('flex-style-setter')

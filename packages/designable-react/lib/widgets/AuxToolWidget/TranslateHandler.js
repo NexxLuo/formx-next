@@ -8,6 +8,7 @@ var _react = _interopRequireDefault(require("react"));
 var _classnames = _interopRequireDefault(require("classnames"));
 var _hooks = require("../../hooks");
 var _IconWidget = require("../IconWidget");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const TranslateHandler = props => {
   const designer = (0, _hooks.useDesigner)();
@@ -20,8 +21,13 @@ const TranslateHandler = props => {
   };
   const allowTranslate = props.node.allowTranslate();
   if (!allowTranslate) return null;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", createHandler('translate'), /*#__PURE__*/_react.default.createElement(_IconWidget.IconWidget, {
-    infer: "FreeMove"
-  })));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_jsxRuntime.Fragment, {
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      ...createHandler('translate'),
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_IconWidget.IconWidget, {
+        infer: "FreeMove"
+      })
+    })
+  });
 };
 exports.TranslateHandler = TranslateHandler;

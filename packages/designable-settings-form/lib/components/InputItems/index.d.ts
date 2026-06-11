@@ -5,12 +5,14 @@ export interface IInputItemsContext {
     vertical?: boolean;
 }
 export interface IInputItemsProps {
+    children?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     width?: string | number;
     vertical?: boolean;
 }
 export interface IInputItemProps {
+    children?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     icon?: React.ReactNode;

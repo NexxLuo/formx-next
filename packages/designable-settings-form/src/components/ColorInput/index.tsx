@@ -10,7 +10,7 @@ export interface IColorInputProps {
 }
 
 export const ColorInput: React.FC<IColorInputProps> = (props) => {
-  const container = useRef<HTMLDivElement>()
+  const container = useRef<HTMLDivElement>(null)
   const prefix = usePrefix('color-input')
   const color = props.value as string
   return (
@@ -23,7 +23,6 @@ export const ColorInput: React.FC<IColorInputProps> = (props) => {
         placeholder="Color"
         prefix={
           <Popover
-            autoAdjustOverflow
             trigger="click"
             getPopupContainer={() => container.current}
             content={

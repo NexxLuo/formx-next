@@ -5,4 +5,4 @@ export interface IBoxShadowStyleSetterProps {
     value?: string;
     onChange?: (value: string) => void;
 }
-export declare const BoxShadowStyleSetter: React.FC<IBoxShadowStyleSetterProps>;
+export declare const BoxShadowStyleSetter: React.FC<React.PropsWithChildren<IBoxShadowStyleSetterProps>>;

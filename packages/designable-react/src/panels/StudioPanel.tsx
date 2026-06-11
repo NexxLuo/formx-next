@@ -3,6 +3,7 @@ import { usePrefix, usePosition } from '../hooks'
 import { Layout } from '../containers'
 import cls from 'classnames'
 export interface IStudioPanelProps {
+  children?: React.ReactNode
   style?: React.CSSProperties
   className?: string
   logo?: React.ReactNode

@@ -2,6 +2,7 @@ import React from 'react'
 import { Engine, IResource, IBehavior } from '@designable/core'
 
 export interface IDesignerLayoutProps {
+  children?: React.ReactNode
   prefixCls?: string
   theme?: 'dark' | 'light' | (string & {})
   variables?: Record<string, string>

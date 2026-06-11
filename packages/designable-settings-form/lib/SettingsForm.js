@@ -16,9 +16,12 @@ var _effects = require("./effects");
 var _antd = require("antd");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// @ts-nocheck
+
 const GlobalState = {
   idleRequest: null
 };
@@ -45,42 +48,48 @@ const SettingsForm = exports.SettingsForm = (0, _react2.observer)(props => {
   }, [node, node?.props, schema, operation, isEmpty]);
   const render = () => {
     if (!isEmpty) {
-      return /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
         className: (0, _classnames.default)(prefix, props.className),
         style: props.style,
-        key: node.id
-      }, /*#__PURE__*/_react.default.createElement(_context.SettingsFormContext.Provider, {
-        value: props
-      }, /*#__PURE__*/_react.default.createElement(_formxAntd.Form, {
-        form: form,
-        colon: false,
-        labelWidth: 120,
-        labelAlign: "left",
-        wrapperAlign: "right",
-        feedbackLayout: "none",
-        tooltipLayout: "text"
-      }, /*#__PURE__*/_react.default.createElement(_SchemaField.SchemaField, {
-        schema: schema,
-        components: props.components,
-        scope: {
-          $node: node,
-          ...props.scope
-        }
-      }))));
+        children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_context.SettingsFormContext.Provider, {
+          value: props,
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_formxAntd.Form, {
+            form: form,
+            colon: false,
+            labelWidth: 120,
+            labelAlign: "left",
+            wrapperAlign: "right",
+            feedbackLayout: "none",
+            tooltipLayout: "text",
+            children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SchemaField.SchemaField, {
+              schema: schema,
+              components: props.components,
+              scope: {
+                $node: node,
+                ...props.scope
+              }
+            })
+          })
+        })
+      }, node.id);
     }
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-empty'
-    }, /*#__PURE__*/_react.default.createElement(_antd.Empty, null));
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-empty',
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_antd.Empty, {})
+    });
   };
-  return /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget.Provider, {
-    tooltip: true
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-wrapper'
-  }, !isEmpty && /*#__PURE__*/_react.default.createElement(_designableReact.NodePathWidget, {
-    workspaceId: currentWorkspaceId
-  }), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-content'
-  }, render())));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget.Provider, {
+    tooltip: true,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: prefix + '-wrapper',
+      children: [!isEmpty && /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.NodePathWidget, {
+        workspaceId: currentWorkspaceId
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix + '-content',
+        children: render()
+      })]
+    })
+  });
 }, {
   scheduler: update => {
     (0, _shared.cancelIdle)(GlobalState.idleRequest);

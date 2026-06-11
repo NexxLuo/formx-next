@@ -8,6 +8,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _designableReact = require("@platform/designable-react");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -28,15 +29,34 @@ const PositionInput = props => {
       props.onChange?.(type);
     }
   });
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: (0, _classnames.default)(prefix, props.className),
-    style: props.style
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-row'
-  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('top'), "\u2533")), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-row'
-  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('left'), "\u2523"), /*#__PURE__*/_react.default.createElement("div", createCellProps('center'), "\u254B"), /*#__PURE__*/_react.default.createElement("div", createCellProps('right'), "\u252B")), /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-row'
-  }, /*#__PURE__*/_react.default.createElement("div", createCellProps('bottom'), "\u253B")));
+    style: props.style,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-row',
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        ...createCellProps('top'),
+        children: "\u2533"
+      })
+    }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: prefix + '-row',
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        ...createCellProps('left'),
+        children: "\u2523"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        ...createCellProps('center'),
+        children: "\u254B"
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        ...createCellProps('right'),
+        children: "\u252B"
+      })]
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-row',
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        ...createCellProps('bottom'),
+        children: "\u253B"
+      })
+    })]
+  });
 };
 exports.PositionInput = PositionInput;

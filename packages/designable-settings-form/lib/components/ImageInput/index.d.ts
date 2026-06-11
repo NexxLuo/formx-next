@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputProps } from 'antd/lib/input';
+import { InputProps } from 'antd';
 import './styles.less';
 export interface ImageInputProps extends Omit<InputProps, 'onChange'> {
     value?: string;

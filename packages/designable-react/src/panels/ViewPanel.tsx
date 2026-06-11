@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import { TreeNode, ITreeNode, WorkbenchTypes } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../observer'
 import { useTree, useWorkbench } from '../hooks'
 import { Viewport } from '../containers'
 import { requestIdle } from '@designable/shared'
@@ -16,7 +17,7 @@ export interface IViewPanelProps {
   extraHelperTools?:(node:TreeNode)=>React.ReactNode
 }
 
-export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
+export const ViewPanel = observer((props: IViewPanelProps) => {
   const [visible, setVisible] = useState(true)
   const workbench = useWorkbench()
   const tree = useTree()
@@ -58,6 +59,6 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   )
 })
 
-ViewPanel.defaultProps = {
+(ViewPanel as any).defaultProps = {
   scrollable: true,
 }

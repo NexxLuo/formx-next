@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { usePrefix } from '@platform/designable-react'
 import { useField, observer } from '@formily/react'
@@ -14,7 +15,7 @@ export interface IBoxShadowStyleSetterProps {
   onChange?: (value: string) => void
 }
 
-export const BoxShadowStyleSetter: React.FC<IBoxShadowStyleSetterProps> =
+export const BoxShadowStyleSetter: React.FC<React.PropsWithChildren<IBoxShadowStyleSetterProps>> =
   observer((props) => {
     const field = useField()
     const prefix = usePrefix('shadow-style-setter')

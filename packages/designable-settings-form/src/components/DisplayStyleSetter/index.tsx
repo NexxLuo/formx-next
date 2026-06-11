@@ -14,7 +14,7 @@ export interface IDisplayStyleSetterProps {
   onChange?: (value: string) => void
 }
 
-export const DisplayStyleSetter: React.FC<IDisplayStyleSetterProps> = observer(
+export const DisplayStyleSetter: React.FC<React.PropsWithChildren<IDisplayStyleSetterProps>> = observer(
   (props) => {
     const field = useField<FieldType>()
     const prefix = usePrefix('display-style-setter')

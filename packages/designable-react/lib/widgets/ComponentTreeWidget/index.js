@@ -8,24 +8,23 @@ var _react = _interopRequireWildcard(require("react"));
 var _hooks = require("../../hooks");
 var _context = require("../../context");
 var _core = require("@designable/core");
-var _reactiveReact = require("@formily/reactive-react");
+var _observer = require("../../observer");
 var _classnames = _interopRequireDefault(require("classnames"));
 require("./styles.less");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-const TreeNodeWidget = exports.TreeNodeWidget = (0, _reactiveReact.observer)(props => {
+const TreeNodeWidget = exports.TreeNodeWidget = (0, _observer.observer)(props => {
   const designer = (0, _hooks.useDesigner)(props.node?.designerProps?.effects);
   const components = (0, _hooks.useComponents)();
   const node = props.node;
   const renderChildren = () => {
     if (node?.designerProps?.selfRenderChildren) return [];
     return node?.children?.map(child => {
-      return /*#__PURE__*/_react.default.createElement(TreeNodeWidget, {
-        key: child.id,
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(TreeNodeWidget, {
         node: child
-      });
+      }, child.id);
     });
   };
   const renderProps = (extendsProps = {}) => {
@@ -51,7 +50,9 @@ const TreeNodeWidget = exports.TreeNodeWidget = (0, _reactiveReact.observer)(pro
       return /*#__PURE__*/_react.default.createElement(Component, renderProps(dataId), ...renderChildren());
     } else {
       if (node?.children?.length) {
-        return /*#__PURE__*/_react.default.createElement(_react.Fragment, null, renderChildren());
+        return /*#__PURE__*/(0, _jsxRuntime.jsx)(_react.Fragment, {
+          children: renderChildren()
+        });
       }
     }
   };
@@ -61,7 +62,7 @@ const TreeNodeWidget = exports.TreeNodeWidget = (0, _reactiveReact.observer)(pro
     value: node
   }, renderComponent());
 });
-const ComponentTreeWidget = exports.ComponentTreeWidget = (0, _reactiveReact.observer)(props => {
+const ComponentTreeWidget = exports.ComponentTreeWidget = (0, _observer.observer)(props => {
   const tree = (0, _hooks.useTree)();
   const prefix = (0, _hooks.usePrefix)('component-tree');
   const designer = (0, _hooks.useDesigner)();
@@ -72,16 +73,19 @@ const ComponentTreeWidget = exports.ComponentTreeWidget = (0, _reactiveReact.obs
   (0, _react.useEffect)(() => {
     _core.GlobalRegistry.registerDesignerBehaviors(props.components);
   }, []);
-  return /*#__PURE__*/_react.default.createElement("div", _extends({
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     style: {
       ...props.style,
       ...tree?.props?.style
     },
-    className: (0, _classnames.default)(prefix, props.className)
-  }, dataId), /*#__PURE__*/_react.default.createElement(_context.DesignerComponentsContext.Provider, {
-    value: props.components
-  }, /*#__PURE__*/_react.default.createElement(TreeNodeWidget, {
-    node: tree
-  })));
+    className: (0, _classnames.default)(prefix, props.className),
+    ...dataId,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_context.DesignerComponentsContext.Provider, {
+      value: props.components,
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(TreeNodeWidget, {
+        node: tree
+      })
+    })
+  });
 });
 ComponentTreeWidget.displayName = 'ComponentTreeWidget';

@@ -11,8 +11,10 @@ var _FoldItem = require("../FoldItem");
 var _SizeInput = require("../SizeInput");
 var _InputItems = require("../InputItems");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+// @ts-nocheck
+
 const PositionMap = {
   top: 1,
   right: 2,
@@ -45,47 +47,57 @@ const BoxStyleSetter = exports.BoxStyleSetter = (0, _react2.observer)(props => {
       }
     };
   };
-  return /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_FoldItem.FoldItem, {
     className: (0, _classnames.default)(prefix, props.className),
-    label: field.title
-  }, /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Base, null, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({}, createPositionHandler('all', props), {
-    exclude: ['inherit', 'auto']
-  }))), /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Extra, null, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems, {
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: props.labels[0]
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({}, createPositionHandler('top', props), {
-    exclude: ['inherit', 'auto']
-  }))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: props.labels[1]
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({}, createPositionHandler('right', props), {
-    exclude: ['inherit', 'auto']
-  }))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: props.labels[2]
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({}, createPositionHandler('bottom', props), {
-    exclude: ['inherit', 'auto']
-  }))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: props.labels[3]
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({}, createPositionHandler('left', props), {
-    exclude: ['inherit', 'auto']
-  }))))));
-});
-BoxStyleSetter.defaultProps = {
-  labels: [/*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+    label: field.title,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Base, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+        ...createPositionHandler('all', props),
+        exclude: ['inherit', 'auto']
+      })
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Extra, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_InputItems.InputItems, {
+        width: "50%",
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: props.labels[0],
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            ...createPositionHandler('top', props),
+            exclude: ['inherit', 'auto']
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: props.labels[1],
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            ...createPositionHandler('right', props),
+            exclude: ['inherit', 'auto']
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: props.labels[2],
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            ...createPositionHandler('bottom', props),
+            exclude: ['inherit', 'auto']
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: props.labels[3],
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            ...createPositionHandler('left', props),
+            exclude: ['inherit', 'auto']
+          })
+        })]
+      })
+    })]
+  });
+})(BoxStyleSetter).defaultProps = {
+  labels: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
     infer: "Top",
-    size: 16,
-    key: "1"
-  }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+    size: 16
+  }, "1"), /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
     infer: "Right",
-    size: 16,
-    key: "2"
-  }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+    size: 16
+  }, "2"), /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
     infer: "Bottom",
-    size: 16,
-    key: "3"
-  }), /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+    size: 16
+  }, "3"), /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
     infer: "Left",
-    size: 16,
-    key: "4"
-  })]
+    size: 16
+  }, "4")]
 };

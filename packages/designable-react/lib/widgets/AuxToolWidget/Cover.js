@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.Cover = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _hooks = require("../../hooks");
-var _reactiveReact = require("@formily/reactive-react");
+var _observer = require("../../observer");
 var _core = require("@designable/core");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -29,7 +30,7 @@ const CoverRect = props => {
     }
     return baseStyle;
   };
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: (0, _classnames.default)(prefix, {
       dragging: props.dragging,
       dropping: props.dropping
@@ -37,26 +38,27 @@ const CoverRect = props => {
     style: createCoverStyle()
   });
 };
-const Cover = exports.Cover = (0, _reactiveReact.observer)(() => {
+const Cover = exports.Cover = (0, _observer.observer)(() => {
   const viewportDragon = (0, _hooks.useDragon)();
   const viewport = (0, _hooks.useViewport)();
   const cursor = (0, _hooks.useCursor)();
   const renderDropCover = () => {
     if (!viewportDragon.closestNode || !viewportDragon.closestNode?.allowAppend(viewportDragon.dragNodes) || viewportDragon.closestDirection !== _core.ClosestPosition.Inner) return null;
-    return /*#__PURE__*/_react.default.createElement(CoverRect, {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(CoverRect, {
       node: viewportDragon.closestNode,
       dropping: true
     });
   };
   if (cursor.status !== _core.CursorStatus.Dragging) return null;
-  return /*#__PURE__*/_react.default.createElement(_react.Fragment, null, viewportDragon.dragNodes.map(node => {
-    if (!node) return;
-    if (!viewport.findElementById(node.id)) return;
-    return /*#__PURE__*/_react.default.createElement(CoverRect, {
-      key: node.id,
-      node: node,
-      dragging: true
-    });
-  }), renderDropCover());
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_react.Fragment, {
+    children: [viewportDragon.dragNodes.map(node => {
+      if (!node) return;
+      if (!viewport.findElementById(node.id)) return;
+      return /*#__PURE__*/(0, _jsxRuntime.jsx)(CoverRect, {
+        node: node,
+        dragging: true
+      }, node.id);
+    }), renderDropCover()]
+  });
 });
 Cover.displayName = 'Cover';

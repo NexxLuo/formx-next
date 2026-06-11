@@ -38,7 +38,7 @@ import {
   CollapseItem,
 } from './components'
 
-export const SchemaField = createSchemaField({
+export const SchemaField: any = createSchemaField({
   components: {
     FormItem,
     CollapseItem,

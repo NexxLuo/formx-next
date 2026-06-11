@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import {
   Engine,
   DragStartEvent,
@@ -132,10 +132,9 @@ export interface IResponsiveSimulatorProps
   style?: React.CSSProperties
 }
 
-export const ResponsiveSimulator: React.FC<IResponsiveSimulatorProps> =
-  observer((props) => {
-    const container = useRef<HTMLDivElement>()
-    const content = useRef<HTMLDivElement>()
+export const ResponsiveSimulator = observer((props: IResponsiveSimulatorProps) => {
+    const container = useRef<HTMLDivElement>(null)
+    const content = useRef<HTMLDivElement>(null)
     const prefix = usePrefix('responsive-simulator')
     const screen = useScreen()
     useDesigner((engine) => {

@@ -1,8 +1,10 @@
-import { observer } from '@formily/reactive-react'
+// @ts-nocheck
+import { observer } from '../../observer'
 import React from 'react'
 import { useScreen, usePrefix, useTheme } from '../../hooks'
 
-export interface IMobileBodyProps {}
+export interface IMobileBodyProps {
+  children?: React.ReactNode}
 
 const MockupImages = {
   dark: [
@@ -15,7 +17,7 @@ const MockupImages = {
   ],
 }
 
-export const MobileBody: React.FC<IMobileBodyProps> = observer((props) => {
+export const MobileBody = observer((props: IMobileBodyProps) => {
   const screen = useScreen()
   const theme = useTheme()
   const prefix = usePrefix('mobile-simulator-body')
@@ -75,4 +77,4 @@ export const MobileBody: React.FC<IMobileBodyProps> = observer((props) => {
   )
 })
 
-MobileBody.defaultProps = {}
+(MobileBody as any).defaultProps = {}

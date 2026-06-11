@@ -9,6 +9,7 @@ var _shared = require("@designable/shared");
 var _classnames = _interopRequireDefault(require("classnames"));
 var _widgets = require("../widgets");
 var _hooks = require("../hooks");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -54,87 +55,103 @@ const CompositePanel = props => {
   }, [props.activeKey]);
   const renderContent = () => {
     if (!content || !visible) return;
-    return /*#__PURE__*/_react.default.createElement("div", {
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
       className: (0, _classnames.default)(prefix + '-tabs-content', {
         pinning
-      })
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-header'
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-header-title'
-    }, /*#__PURE__*/_react.default.createElement(_widgets.TextWidget, null, currentItem.title)), /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-header-actions'
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-header-extra'
-    }, currentItem.extra), !pinning && /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
-      infer: "PushPinOutlined",
-      className: prefix + '-tabs-header-pin',
-      onClick: () => {
-        setPinning(!pinning);
-      }
-    }), pinning && /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
-      infer: "PushPinFilled",
-      className: prefix + '-tabs-header-pin-filled',
-      onClick: () => {
-        setPinning(!pinning);
-      }
-    }), /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
-      infer: "Close",
-      className: prefix + '-tabs-header-close',
-      onClick: () => {
-        setVisible(false);
-      }
-    }))), /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-body'
-    }, content));
+      }),
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: prefix + '-tabs-header',
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+          className: prefix + '-tabs-header-title',
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.TextWidget, {
+            children: currentItem.title
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+          className: prefix + '-tabs-header-actions',
+          children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: prefix + '-tabs-header-extra',
+            children: currentItem.extra
+          }), !pinning && /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.IconWidget, {
+            infer: "PushPinOutlined",
+            className: prefix + '-tabs-header-pin',
+            onClick: () => {
+              setPinning(!pinning);
+            }
+          }), pinning && /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.IconWidget, {
+            infer: "PushPinFilled",
+            className: prefix + '-tabs-header-pin-filled',
+            onClick: () => {
+              setPinning(!pinning);
+            }
+          }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.IconWidget, {
+            infer: "Close",
+            className: prefix + '-tabs-header-close',
+            onClick: () => {
+              setVisible(false);
+            }
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix + '-tabs-body',
+        children: content
+      })]
+    });
   };
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: (0, _classnames.default)(prefix, {
       [`direction-${props.direction}`]: !!props.direction
-    })
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: prefix + '-tabs'
-  }, items.map((item, index) => {
-    const takeTab = () => {
-      if (item.href) {
-        return /*#__PURE__*/_react.default.createElement("a", {
-          href: item.href
-        }, item.icon);
-      }
-      return /*#__PURE__*/_react.default.createElement(_widgets.IconWidget, {
-        tooltip: props.showNavTitle ? null : {
-          title: /*#__PURE__*/_react.default.createElement(_widgets.TextWidget, null, item.title),
-          placement: props.direction === 'right' ? 'left' : 'right'
-        },
-        infer: item.icon
-      });
-    };
-    const shape = item.shape ?? 'tab';
-    const Comp = shape === 'link' ? 'a' : 'div';
-    return /*#__PURE__*/_react.default.createElement(Comp, {
-      className: (0, _classnames.default)(prefix + '-tabs-pane', {
-        active: activeKey === item.key
-      }),
-      key: index,
-      href: item.href,
-      onClick: e => {
-        if (shape === 'tab') {
-          if (activeKey === item.key) {
-            setVisible(!visible);
-          } else {
-            setVisible(true);
+    }),
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: prefix + '-tabs',
+      children: items.map((item, index) => {
+        const takeTab = () => {
+          if (item.href) {
+            return /*#__PURE__*/(0, _jsxRuntime.jsx)("a", {
+              href: item.href,
+              children: item.icon
+            });
           }
-          if (!props?.activeKey || !props?.onChange) setActiveKey(item.key);
-        }
-        item.onClick?.(e);
-        props.onChange?.(item.key);
-      }
-    }, takeTab(), props.showNavTitle && item.title ? /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-tabs-pane-title'
-    }, /*#__PURE__*/_react.default.createElement(_widgets.TextWidget, null, item.title)) : null);
-  })), renderContent());
+          return /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.IconWidget, {
+            tooltip: props.showNavTitle ? null : {
+              title: /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.TextWidget, {
+                children: item.title
+              }),
+              placement: props.direction === 'right' ? 'left' : 'right'
+            },
+            infer: item.icon
+          });
+        };
+        const shape = item.shape ?? 'tab';
+        const Comp = shape === 'link' ? 'a' : 'div';
+        return /*#__PURE__*/(0, _jsxRuntime.jsxs)(Comp, {
+          className: (0, _classnames.default)(prefix + '-tabs-pane', {
+            active: activeKey === item.key
+          }),
+          href: item.href,
+          onClick: e => {
+            if (shape === 'tab') {
+              if (activeKey === item.key) {
+                setVisible(!visible);
+              } else {
+                setVisible(true);
+              }
+              if (!props?.activeKey || !props?.onChange) setActiveKey(item.key);
+            }
+            item.onClick?.(e);
+            props.onChange?.(item.key);
+          },
+          children: [takeTab(), props.showNavTitle && item.title ? /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+            className: prefix + '-tabs-pane-title',
+            children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_widgets.TextWidget, {
+              children: item.title
+            })
+          }) : null]
+        }, index);
+      })
+    }), renderContent()]
+  });
 };
 exports.CompositePanel = CompositePanel;
 CompositePanel.Item = () => {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_react.default.Fragment, {});
 };

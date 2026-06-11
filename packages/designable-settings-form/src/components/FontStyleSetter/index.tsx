@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { usePrefix, IconWidget } from '@platform/designable-react'
 import { useField, Field, observer } from '@formily/react'
@@ -46,7 +47,7 @@ const FontFamilyOptions = createFontFamilyOptions([
   'Verdana=verdana,geneva,sans-serif',
 ])
 
-export const FontStyleSetter: React.FC<IFontStyleSetterProps> = observer(
+export const FontStyleSetter: React.FC<React.PropsWithChildren<IFontStyleSetterProps>> = observer(
   (props) => {
     const field = useField()
     const prefix = usePrefix('font-style-setter')

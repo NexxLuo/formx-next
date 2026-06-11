@@ -2,9 +2,9 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "jsx": "react",
+        "jsx": "react-jsx",
         "module": "commonjs",
-        "target": "es5",
+        "target": "es2017",
         "allowJs": false,
         "noUnusedLocals": false,
         "removeComments": true,
@@ -15,6 +15,13 @@
         "downlevelIteration": true,
         "baseUrl": "."
     },
-    "exclude": ["node_modules", "public", "tsoutdir"],
-    "include": ["src", "typings.d.ts"]
+    "exclude": [
+        "node_modules",
+        "public",
+        "tsoutdir"
+    ],
+    "include": [
+        "src",
+        "typings.d.ts"
+    ]
 }

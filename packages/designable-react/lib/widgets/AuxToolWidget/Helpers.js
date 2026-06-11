@@ -12,9 +12,12 @@ var _Selector = require("./Selector");
 var _Copy = require("./Copy");
 var _Delete = require("./Delete");
 var _DragHandler = require("./DragHandler");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+// @ts-nocheck
+
 const HELPER_DEBOUNCE_TIMEOUT = 100;
 const Helpers = ({
   node,
@@ -25,7 +28,7 @@ const Helpers = ({
   const designer = (0, _hooks.useDesigner)();
   const viewport = (0, _hooks.useViewport)();
   const unmountRef = (0, _react.useRef)(false);
-  const ref = (0, _react.useRef)();
+  const ref = (0, _react.useRef)(null);
   const [position, setPosition] = (0, _react.useState)('top-right');
   (0, _react.useLayoutEffect)(() => {
     let request = null;
@@ -70,22 +73,24 @@ const Helpers = ({
   if (typeof fn == 'function') {
     extra = fn(node);
   }
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: (0, _classnames.default)(prefix, {
       [position]: true
     }),
-    ref: ref
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: (0, _classnames.default)(prefix + '-content')
-  }, /*#__PURE__*/_react.default.createElement(_Selector.Selector, {
-    node: node
-  }), extra, node?.allowClone() === false ? null : /*#__PURE__*/_react.default.createElement(_Copy.Copy, {
-    node: node
-  }), node?.allowDrag() === false ? null : /*#__PURE__*/_react.default.createElement(_DragHandler.DragHandler, {
-    node: node
-  }), node?.allowDelete() === false ? null : /*#__PURE__*/_react.default.createElement(_Delete.Delete, {
-    node: node
-  })));
+    ref: ref,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: (0, _classnames.default)(prefix + '-content'),
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Selector.Selector, {
+        node: node
+      }), extra, node?.allowClone() === false ? null : /*#__PURE__*/(0, _jsxRuntime.jsx)(_Copy.Copy, {
+        node: node
+      }), node?.allowDrag() === false ? null : /*#__PURE__*/(0, _jsxRuntime.jsx)(_DragHandler.DragHandler, {
+        node: node
+      }), node?.allowDelete() === false ? null : /*#__PURE__*/(0, _jsxRuntime.jsx)(_Delete.Delete, {
+        node: node
+      })]
+    })
+  });
 };
 exports.Helpers = Helpers;
 Helpers.displayName = 'Helpers';

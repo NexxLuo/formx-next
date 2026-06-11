@@ -1,6 +1,6 @@
 {
     "name": "@platform/formx-renderer",
-    "version": "1.8.56",
+    "version": "2.0.0-beta.0",
     "description": "",
     "license": "MIT",
     "author": "n",
@@ -16,18 +16,18 @@
         "updateWP": "cross-env yarn add webpack@latest webpack-cli@latest webpack-dev-server@latest -D"
     },
     "dependencies": {
-        "@formily/core": "2.3.0",
-        "@formily/react": "2.3.0",
+        "@formily/core": "2.3.7",
+        "@formily/react": "2.3.7",
         "dayjs": "^1.10.3",
         "decimal.js": "^10.4.3",
         "flat": "^5.0.0",
         "jsencrypt": "^3.3.2",
-        "rc-notification": "~3.3.1",
         "uuid": "^8.1.0"
     },
     "peerDependencies": {
-        "react": "16.x || 17.x || 18.x",
-        "react-dom": "16.x || 17.x || 18.x"
+        "react": "16.x || 17.x || 18.x || 19.x",
+        "react-dom": "16.x || 17.x || 18.x || 19.x",
+        "antd": ">=5.0.0 || ^6.0.0"
     },
     "devDependencies": {
         "cross-env": "^7.0.0"

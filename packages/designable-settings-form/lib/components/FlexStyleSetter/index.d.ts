@@ -4,4 +4,4 @@ export interface IFlexStyleSetterProps {
     className?: string;
     style?: React.CSSProperties;
 }
-export declare const FlexStyleSetter: React.FC<IFlexStyleSetterProps>;
+export declare const FlexStyleSetter: React.FC<React.PropsWithChildren<IFlexStyleSetterProps>>;

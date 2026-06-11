@@ -11,7 +11,7 @@ GlobalRegistry.registerDesignerIcons(icons)
 
 export const Designer: React.FC<IDesignerProps> = (props) => {
   const engine = useDesigner()
-  const ref = useRef<Engine>()
+  const ref = useRef<Engine>(null)
   useEffect(() => {
     if (props.engine) {
       if (props.engine && ref.current) {
@@ -44,7 +44,7 @@ export const Designer: React.FC<IDesignerProps> = (props) => {
   )
 }
 
-Designer.defaultProps = {
+(Designer as any).defaultProps = {
   prefixCls: 'dn-',
   theme: 'light',
 }

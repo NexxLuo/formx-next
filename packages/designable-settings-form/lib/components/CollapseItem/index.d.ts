@@ -5,4 +5,4 @@ export interface ICollapseItemProps {
     style?: React.CSSProperties;
     defaultExpand?: boolean;
 }
-export declare const CollapseItem: React.FC<ICollapseItemProps>;
+export declare const CollapseItem: React.FC<React.PropsWithChildren<ICollapseItemProps>>;

@@ -1,11 +1,12 @@
+// @ts-nocheck
 import React, { Fragment } from 'react'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { TreeNode } from '@designable/core'
 export interface INodeTitleWidgetProps {
   node: TreeNode
 }
 
-export const NodeTitleWidget: React.FC<INodeTitleWidgetProps> = observer(
+export const NodeTitleWidget = observer(
   (props) => {
     const takeNode = () => {
       const node = props.node

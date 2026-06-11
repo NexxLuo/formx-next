@@ -3,4 +3,4 @@ export interface IBackgroundStyleSetterProps {
     className?: string;
     style?: React.CSSProperties;
 }
-export declare const BackgroundStyleSetter: React.FC<IBackgroundStyleSetterProps>;
+export declare const BackgroundStyleSetter: React.FC<React.PropsWithChildren<IBackgroundStyleSetterProps>>;

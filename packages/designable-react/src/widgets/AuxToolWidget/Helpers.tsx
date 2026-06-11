@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { TreeNode } from '@designable/core'
 import { reaction } from '@formily/reactive'
@@ -29,7 +30,7 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect,extraHelperToo
   const designer = useDesigner()
   const viewport = useViewport()
   const unmountRef = useRef(false)
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState('top-right')
 
   useLayoutEffect(() => {

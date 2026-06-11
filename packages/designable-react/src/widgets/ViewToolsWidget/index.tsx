@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from 'react'
-import { Button } from 'antd'
-import { observer } from '@formily/reactive-react'
+import { Button, Space } from 'antd'
+import { observer } from '../../observer'
 import { WorkbenchTypes } from '@designable/core'
 import { IconWidget } from '../IconWidget'
 import { usePrefix, useWorkbench } from '../../hooks'
@@ -12,12 +13,12 @@ export interface IViewToolsWidget {
   className?: string
 }
 
-export const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
+export const ViewToolsWidget = observer(
   ({ use, style, className }) => {
     const workbench = useWorkbench()
     const prefix = usePrefix('view-tools')
     return (
-      <Button.Group style={style} className={cls(prefix, className)}>
+      <Space.Compact style={style} className={cls(prefix, className)}>
         {use.includes('DESIGNABLE') && (
           <Button
             disabled={workbench.type === 'DESIGNABLE'}
@@ -62,11 +63,11 @@ export const ViewToolsWidget: React.FC<IViewToolsWidget> = observer(
             <IconWidget infer="Play" />
           </Button>
         )}
-      </Button.Group>
+      </Space.Compact>
     )
   }
 )
 
-ViewToolsWidget.defaultProps = {
+(ViewToolsWidget as any).defaultProps = {
   use: ['DESIGNABLE', 'JSONTREE', 'PREVIEW'],
 }

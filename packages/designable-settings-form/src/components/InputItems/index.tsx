@@ -9,6 +9,7 @@ export interface IInputItemsContext {
 }
 
 export interface IInputItemsProps {
+  children?: React.ReactNode
   className?: string
   style?: React.CSSProperties
   width?: string | number
@@ -16,6 +17,7 @@ export interface IInputItemsProps {
 }
 
 export interface IInputItemProps {
+  children?: React.ReactNode
   className?: string
   style?: React.CSSProperties
   icon?: React.ReactNode
@@ -39,7 +41,7 @@ export const InputItems: React.FC<IInputItemsProps> & {
   )
 }
 
-InputItems.defaultProps = {
+(InputItems as any).defaultProps = {
   width: '100%',
 }
 

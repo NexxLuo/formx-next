@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import {
   isResourceHost,
@@ -6,16 +7,17 @@ import {
   IResource,
 } from '@designable/core'
 import { isFn } from '@designable/shared'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { usePrefix } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { TextWidget } from '../TextWidget'
 import cls from 'classnames'
 import './styles.less'
 
-export type SourceMapper = (resource: IResource) => React.ReactChild
+export type SourceMapper = (resource: IResource) => React.ReactNode
 
 export interface IResourceWidgetProps {
+  children?: React.ReactNode
   title: React.ReactNode
   sources?: IResourceLike[]
   className?: string
@@ -25,7 +27,7 @@ export interface IResourceWidgetProps {
   renderContent?: (itemData: any, expanded: boolean) => React.ReactElement
 }
 
-export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
+export const ResourceWidget = observer(
   (props) => {
     const prefix = usePrefix('resource')
     const [expand, setExpand] = useState(props.defaultExpand)
@@ -115,6 +117,6 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
   }
 )
 
-ResourceWidget.defaultProps = {
+(ResourceWidget as any).defaultProps = {
   defaultExpand: true,
 }

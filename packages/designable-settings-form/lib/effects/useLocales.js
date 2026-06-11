@@ -9,6 +9,7 @@ var _core = require("@formily/core");
 var _core2 = require("@designable/core");
 var _shared = require("@designable/shared");
 var _designableReact = require("@platform/designable-react");
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const takeIcon = message => {
   if (!(0, _shared.isStr)(message)) return;
@@ -22,7 +23,7 @@ const mapEnum = dataSource => (item, index) => {
   return {
     ...item,
     value: item?.value ?? null,
-    label: icon ? /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
+    label: icon ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
       infer: icon[0],
       tooltip: icon[1]
     }) : label?.label ?? label ?? 'Unknow'

@@ -1,6 +1,6 @@
 {
   "name": "@platform/designable-react",
-  "version": "1.2.3",
+  "version": "2.0.0-beta.0",
   "license": "MIT",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -16,19 +16,20 @@
     "dev": "father dev"
   },
   "devDependencies": {
-    "@formily/reactive": "^2.1.2",
-    "@formily/reactive-react": "^2.1.2"
+    "@formily/reactive": "2.3.7",
+    "@formily/reactive-react": "2.3.7"
   },
   "peerDependencies": {
-    "antd": "3.26.20",
-    "react": "16.x || 17.x || 18.x",
-    "@types/react": ">=16.8.0 || >=17.0.0 || >=18.0.0",
-    "@types/react-dom": ">=16.8.0 || >=17.0.0 || >=18.0.0"
+    "@types/react": ">=16.8.0 || >=17.0.0 || >=18.0.0 || ^19.0.0",
+    "@types/react-dom": ">=16.8.0 || >=17.0.0 || >=18.0.0 || ^19.0.0",
+    "antd": ">=5.0.0 || ^6.0.0",
+    "react": "16.x || 17.x || 18.x || 19.x"
   },
   "dependencies": {
     "@designable/core": "1.0.0-beta.45",
     "@designable/shared": "1.0.0-beta.45",
     "@juggle/resize-observer": "^3.3.1",
+    "classnames": "^2.5.1",
     "dateformat": "^4.5.1"
   }
 }

@@ -6,4 +6,4 @@ export interface IMarginStyleSetterProps {
     value?: string;
     onChange?: (value: string) => void;
 }
-export declare const BoxStyleSetter: React.FC<IMarginStyleSetterProps>;
+export declare const BoxStyleSetter: React.FC<React.PropsWithChildren<IMarginStyleSetterProps>>;

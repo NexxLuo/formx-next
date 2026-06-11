@@ -5,7 +5,7 @@ import {
   useValidNodeOffsetRect,
   useSelection,
 } from '../../hooks'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 
 export const DashedBox = observer(() => {
   const hover = useHover()

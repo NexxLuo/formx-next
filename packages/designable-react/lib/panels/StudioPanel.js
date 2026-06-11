@@ -8,8 +8,8 @@ var _react = _interopRequireDefault(require("react"));
 var _hooks = require("../hooks");
 var _containers = require("../containers");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const StudioPanelInternal = ({
   logo,
   actions,
@@ -19,27 +19,38 @@ const StudioPanelInternal = ({
   const position = (0, _hooks.usePosition)();
   const classNameBase = (0, _classnames.default)('root', position, props.className);
   if (logo || actions) {
-    return /*#__PURE__*/_react.default.createElement("div", _extends({}, props, {
-      className: (0, _classnames.default)(`${prefix}-container`, classNameBase)
-    }), /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-header'
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-header-logo'
-    }, logo), /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix + '-header-actions'
-    }, actions)), /*#__PURE__*/_react.default.createElement("div", {
-      className: prefix
-    }, props.children));
+    return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      ...props,
+      className: (0, _classnames.default)(`${prefix}-container`, classNameBase),
+      children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+        className: prefix + '-header',
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+          className: prefix + '-header-logo',
+          children: logo
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+          className: prefix + '-header-actions',
+          children: actions
+        })]
+      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+        className: prefix,
+        children: props.children
+      })]
+    });
   }
-  return /*#__PURE__*/_react.default.createElement("div", _extends({}, props, {
-    className: (0, _classnames.default)(prefix, classNameBase)
-  }), props.children);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    ...props,
+    className: (0, _classnames.default)(prefix, classNameBase),
+    children: props.children
+  });
 };
 const StudioPanel = props => {
-  return /*#__PURE__*/_react.default.createElement(_containers.Layout, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_containers.Layout, {
     theme: props.theme,
     prefixCls: props.prefixCls,
-    position: props.position
-  }, /*#__PURE__*/_react.default.createElement(StudioPanelInternal, props));
+    position: props.position,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(StudioPanelInternal, {
+      ...props
+    })
+  });
 };
 exports.StudioPanel = StudioPanel;

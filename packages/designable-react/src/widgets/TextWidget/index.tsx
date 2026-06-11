@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react'
 import { isStr, isPlainObj } from '@designable/shared'
 import { GlobalRegistry, IDesignerMiniLocales } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 
 export interface ITextWidgetProps {
+  children?: React.ReactNode
   componentName?: string
   sourceName?: string
   token?: string | IDesignerMiniLocales
   defaultMessage?: string | IDesignerMiniLocales
 }
 
-export const TextWidget: React.FC<ITextWidgetProps> = observer((props) => {
+export const TextWidget = observer((props: ITextWidgetProps) => {
   const takeLocale = (
     message: string | IDesignerMiniLocales
   ): React.ReactNode => {

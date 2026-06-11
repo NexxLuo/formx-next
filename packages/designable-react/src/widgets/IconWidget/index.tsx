@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react'
 import { isStr, isFn, isObj, isPlainObj } from '@designable/shared'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { Tooltip } from 'antd'
-import {  TooltipProps } from 'antd/lib/tooltip'
+import {  TooltipProps } from 'antd'
 import { usePrefix, useRegistry, useTheme } from '../../hooks'
 import cls from 'classnames'
 import './styles.less'
@@ -11,6 +11,7 @@ const IconContext = createContext<IconProviderProps>(null)
 
 const isNumSize = (val: any) => /^[\d.]+$/.test(val)
 export interface IconProviderProps {
+  children?: React.ReactNode
   tooltip?: boolean
 }
 
@@ -21,11 +22,11 @@ export interface IShadowSVGProps {
 }
 export interface IIconWidgetProps extends React.HTMLAttributes<HTMLElement> {
   tooltip?: React.ReactNode | TooltipProps
-  infer: React.ReactNode | { shadow: string }
+  infer: any
   size?: number | string
 }
 
-export const IconWidget: React.FC<IIconWidgetProps> & {
+export const IconWidget: React.FC<React.PropsWithChildren<IIconWidgetProps>> & {
   Provider?: React.FC<IconProviderProps>
   ShadowSVG?: React.FC<IShadowSVGProps>
 } = observer((props: React.PropsWithChildren<IIconWidgetProps>) => {
@@ -55,7 +56,7 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
           height,
           width,
           fill: 'currentColor',
-          viewBox: infer.props.viewBox || '0 0 1024 1024',
+          viewBox: (infer as any).props?.viewBox || '0 0 1024 1024',
           focusable: 'false',
           'aria-hidden': 'true',
         })
@@ -128,7 +129,7 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
 })
 
 IconWidget.ShadowSVG = (props) => {
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
   const width = isNumSize(props.width) ? `${props.width}px` : props.width
   const height = isNumSize(props.height) ? `${props.height}px` : props.height
   useEffect(() => {

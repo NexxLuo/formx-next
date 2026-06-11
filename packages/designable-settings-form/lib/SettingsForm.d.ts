@@ -1,4 +1,4 @@
 import React from 'react';
 import { ISettingFormProps } from './types';
 import './styles.less';
-export declare const SettingsForm: React.FC<ISettingFormProps>;
+export declare const SettingsForm: React.FC<React.PropsWithChildren<ISettingFormProps>>;

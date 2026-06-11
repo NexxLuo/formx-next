@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDragon, usePrefix } from '../../hooks'
 import { ClosestPosition } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 
 export const Insertion = observer(() => {
   const viewportDragon = useDragon()

@@ -6,4 +6,4 @@ export interface IDisplayStyleSetterProps {
     value?: string;
     onChange?: (value: string) => void;
 }
-export declare const DisplayStyleSetter: React.FC<IDisplayStyleSetterProps>;
+export declare const DisplayStyleSetter: React.FC<React.PropsWithChildren<IDisplayStyleSetterProps>>;

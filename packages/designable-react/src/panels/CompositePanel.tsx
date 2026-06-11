@@ -5,6 +5,7 @@ import { IconWidget, TextWidget } from '../widgets'
 import { usePrefix } from '../hooks'
 
 export interface ICompositePanelProps {
+  children?: React.ReactNode
   direction?: 'left' | 'right'
   showNavTitle?: boolean
   defaultOpen?: boolean
@@ -14,6 +15,7 @@ export interface ICompositePanelProps {
   onChange?: (activeKey: number | string) => void
 }
 export interface ICompositePanelItemProps {
+  children?: React.ReactNode
   shape?: 'tab' | 'button' | 'link'
   title?: React.ReactNode
   icon?: React.ReactNode

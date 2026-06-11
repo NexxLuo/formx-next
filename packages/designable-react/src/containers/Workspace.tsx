@@ -3,6 +3,7 @@ import { useDesigner } from '../hooks'
 import { WorkspaceContext } from '../context'
 import { uid } from '@designable/shared'
 export interface IWorkspaceProps {
+  children?: React.ReactNode
   id?: string
   title?: string
   description?: string
@@ -14,7 +15,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
   description,
   ...props
 }) => {
-  const oldId = useRef<string>()
+  const oldId = useRef<string>(null)
   const designer = useDesigner()
   const workspace = useMemo(() => {
     if (!designer) return

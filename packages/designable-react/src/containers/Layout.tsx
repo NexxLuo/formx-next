@@ -6,7 +6,7 @@ import cls from 'classnames'
 
 export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
   const layout = useContext(DesignerLayoutContext)
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -40,7 +40,7 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
   )
 }
 
-Layout.defaultProps = {
+(Layout as any).defaultProps = {
   theme: 'light',
   prefixCls: 'dn-',
   position: 'fixed',

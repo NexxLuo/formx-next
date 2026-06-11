@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from 'react'
 import {   Divider } from 'antd'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import { usePrefix, useTreeNode, useSelected } from '../../hooks'
 import { IconWidget } from '../IconWidget'
 import { TextWidget } from '../TextWidget'
@@ -24,6 +25,7 @@ Typography.Link=(props)=>{
 }
 
 export interface INodeActionsWidgetProps {
+  children?: React.ReactNode
   className?: string
   style?: React.CSSProperties
   activeShown?: boolean
@@ -38,9 +40,7 @@ export interface INodeActionsWidgetActionProps
   icon?: React.ReactNode
 }
 
-export const NodeActionsWidget: React.FC<INodeActionsWidgetProps> & {
-  Action?: React.FC<INodeActionsWidgetActionProps>
-} = observer((props) => {
+export const NodeActionsWidget = observer((props: INodeActionsWidgetProps) => {
   const node = useTreeNode()
   const prefix = usePrefix('node-actions')
   const selected = useSelected()

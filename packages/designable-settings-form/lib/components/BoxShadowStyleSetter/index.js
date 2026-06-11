@@ -12,8 +12,10 @@ var _ColorInput = require("../ColorInput");
 var _SizeInput = require("../SizeInput");
 var _InputItems = require("../InputItems");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+// @ts-nocheck
+
 const BoxShadowStyleSetter = exports.BoxShadowStyleSetter = (0, _react2.observer)(props => {
   const field = (0, _react2.useField)();
   const prefix = (0, _designableReact.usePrefix)('shadow-style-setter');
@@ -27,27 +29,43 @@ const BoxShadowStyleSetter = exports.BoxShadowStyleSetter = (0, _react2.observer
       }
     };
   };
-  return /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_FoldItem.FoldItem, {
     className: (0, _classnames.default)(prefix, props.className),
     style: props.style,
-    label: field.title
-  }, /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Base, null, /*#__PURE__*/_react.default.createElement(_ColorInput.ColorInput, createBoxShadowConnector(4))), /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Extra, null, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems, {
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "AxisX"
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(0)))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "AxisY"
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(1)))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "Blur"
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(2)))), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "Shadow"
-  }, /*#__PURE__*/_react.default.createElement(_SizeInput.SizeInput, _extends({
-    exclude: ['inherit', 'auto']
-  }, createBoxShadowConnector(3)))))));
+    label: field.title,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Base, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_ColorInput.ColorInput, {
+        ...createBoxShadowConnector(4)
+      })
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Extra, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_InputItems.InputItems, {
+        width: "50%",
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "AxisX",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            exclude: ['inherit', 'auto'],
+            ...createBoxShadowConnector(0)
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "AxisY",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            exclude: ['inherit', 'auto'],
+            ...createBoxShadowConnector(1)
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "Blur",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            exclude: ['inherit', 'auto'],
+            ...createBoxShadowConnector(2)
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "Shadow",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SizeInput.SizeInput, {
+            exclude: ['inherit', 'auto'],
+            ...createBoxShadowConnector(3)
+          })
+        })]
+      })
+    })]
+  });
 });

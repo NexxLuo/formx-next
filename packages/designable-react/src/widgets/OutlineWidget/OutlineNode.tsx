@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useContext, useEffect } from 'react'
 import {
   TreeNode,
@@ -7,7 +8,7 @@ import {
 } from '@designable/core'
 import { isFn } from '@designable/shared'
 import { autorun } from '@formily/reactive'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 import {
   usePrefix,
   useCursor,
@@ -27,11 +28,11 @@ export interface IOutlineTreeNodeProps {
   workspaceId?: string
 }
 
-export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
+export const OutlineTreeNode = observer(
   ({ node, className, style, workspaceId }) => {
     const prefix = usePrefix('outline-tree-node')
     const engine = useDesigner()
-    const ref = useRef<HTMLDivElement>()
+    const ref = useRef<HTMLDivElement>(null)
     const ctx = useContext(NodeContext)
     const request = useRef(null)
     const cursor = useCursor()

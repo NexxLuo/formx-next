@@ -4,4 +4,4 @@ export interface IBorderStyleSetterProps {
     className?: string;
     style?: React.CSSProperties;
 }
-export declare const BorderStyleSetter: React.FC<IBorderStyleSetterProps>;
+export declare const BorderStyleSetter: React.FC<React.PropsWithChildren<IBorderStyleSetterProps>>;

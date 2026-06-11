@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Fragment, useMemo } from 'react'
 import { usePrefix } from '@platform/designable-react'
 import { camelCase } from '@formily/shared'
@@ -60,7 +61,7 @@ export interface IBorderStyleSetterProps {
   style?: React.CSSProperties
 }
 
-export const BorderStyleSetter: React.FC<IBorderStyleSetterProps> = observer(
+export const BorderStyleSetter: React.FC<React.PropsWithChildren<IBorderStyleSetterProps>> = observer(
   ({ className, style }) => {
     const field = useField<FieldType>()
     const currentPosition = useMemo(

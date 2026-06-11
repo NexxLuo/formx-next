@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScreenType } from '@designable/core'
 import { requestIdle } from '@designable/shared'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../observer'
 import { useScreen } from '../hooks'
 import {
   MobileSimulator,
@@ -11,7 +11,7 @@ import {
 
 export type ISimulatorProps = React.HTMLAttributes<HTMLDivElement>
 
-export const Simulator: React.FC<ISimulatorProps> = observer(
+export const Simulator = observer(
   (props: ISimulatorProps) => {
     const screen = useScreen()
     if (screen.type === ScreenType.PC)

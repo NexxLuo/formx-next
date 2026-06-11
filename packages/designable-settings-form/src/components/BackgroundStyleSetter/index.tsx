@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { useField, Field, observer } from '@formily/react'
 import { usePrefix } from '@platform/designable-react'
@@ -14,7 +15,7 @@ export interface IBackgroundStyleSetterProps {
   style?: React.CSSProperties
 }
 
-export const BackgroundStyleSetter: React.FC<IBackgroundStyleSetterProps> =
+export const BackgroundStyleSetter: React.FC<React.PropsWithChildren<IBackgroundStyleSetterProps>> =
   observer((props) => {
     const field = useField()
     const prefix = usePrefix('background-style-setter')

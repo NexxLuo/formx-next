@@ -13,18 +13,22 @@ var _InputItems = require("../InputItems");
 var _SizeInput = require("../SizeInput");
 var _ColorInput = require("../ColorInput");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+// @ts-nocheck
+
 const createFontFamilyOptions = fonts => {
   return fonts.map(font => {
     const splited = font.split('=');
     const label = splited?.[0];
     const value = splited?.[1];
     return {
-      label: /*#__PURE__*/_react.default.createElement("span", {
+      label: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
         style: {
           fontFamily: value
-        }
-      }, label),
+        },
+        children: label
+      }),
       value
     };
   });
@@ -33,124 +37,138 @@ const FontFamilyOptions = createFontFamilyOptions(['宋体=SimSun', '微软雅�
 const FontStyleSetter = exports.FontStyleSetter = (0, _react2.observer)(props => {
   const field = (0, _react2.useField)();
   const prefix = (0, _designableReact.usePrefix)('font-style-setter');
-  return /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_FoldItem.FoldItem, {
     label: field.title,
     className: (0, _classnames.default)(prefix, props.className),
-    style: props.style
-  }, /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Base, null, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "fontFamily",
-    basePath: field.address.parent(),
-    component: [_formxAntd.Select, {
-      style: {
-        width: '100%'
-      },
-      placeholder: 'Helvetica Neue'
-    }],
-    dataSource: FontFamilyOptions
-  })), /*#__PURE__*/_react.default.createElement(_FoldItem.FoldItem.Extra, null, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems, null, /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "FontWeight",
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "fontWeight",
-    basePath: field.address.parent(),
-    component: [_formxAntd.NumberPicker, {
-      placeholder: '400'
-    }]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "FontStyle",
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "fontStyle",
-    basePath: field.address.parent(),
-    dataSource: [{
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "NormalFontStyle"
-      }),
-      value: 'normal'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "ItalicFontStyle"
-      }),
-      value: 'italic'
-    }],
-    component: [_formxAntd.Radio.Group, {
-      optionType: 'button'
-    }]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "FontColor",
-    width: "100%"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "color",
-    basePath: field.address.parent(),
-    component: [_ColorInput.ColorInput]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "FontSize",
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "fontSize",
-    basePath: field.address.parent(),
-    component: [_SizeInput.SizeInput, {
-      exclude: ['auto']
-    }]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "LineHeight",
-    width: "50%"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "lineHeight",
-    basePath: field.address.parent(),
-    component: [_SizeInput.SizeInput, {
-      exclude: ['auto']
-    }]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "TextAlign"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "textAlign",
-    basePath: field.address.parent(),
-    dataSource: [{
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextAlignLeft"
-      }),
-      value: 'left'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextAlignCenter"
-      }),
-      value: 'center'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextAlignRight"
-      }),
-      value: 'right'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextAlignJustify"
-      }),
-      value: 'justify'
-    }],
-    component: [_formxAntd.Radio.Group, {
-      optionType: 'button'
-    }]
-  })), /*#__PURE__*/_react.default.createElement(_InputItems.InputItems.Item, {
-    icon: "TextDecoration"
-  }, /*#__PURE__*/_react.default.createElement(_react2.Field, {
-    name: "textDecoration",
-    basePath: field.address.parent(),
-    dataSource: [{
-      label: '--',
-      value: 'none'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextUnderline"
-      }),
-      value: 'underline'
-    }, {
-      label: /*#__PURE__*/_react.default.createElement(_designableReact.IconWidget, {
-        infer: "TextLineThrough"
-      }),
-      value: 'line-through'
-    }],
-    component: [_formxAntd.Radio.Group, {
-      optionType: 'button'
-    }]
-  })))));
+    style: props.style,
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Base, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+        name: "fontFamily",
+        basePath: field.address.parent(),
+        component: [_formxAntd.Select, {
+          style: {
+            width: '100%'
+          },
+          placeholder: 'Helvetica Neue'
+        }],
+        dataSource: FontFamilyOptions
+      })
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_FoldItem.FoldItem.Extra, {
+      children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_InputItems.InputItems, {
+        children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "FontWeight",
+          width: "50%",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "fontWeight",
+            basePath: field.address.parent(),
+            component: [_formxAntd.NumberPicker, {
+              placeholder: '400'
+            }]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "FontStyle",
+          width: "50%",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "fontStyle",
+            basePath: field.address.parent(),
+            dataSource: [{
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "NormalFontStyle"
+              }),
+              value: 'normal'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "ItalicFontStyle"
+              }),
+              value: 'italic'
+            }],
+            component: [_formxAntd.Radio.Group, {
+              optionType: 'button'
+            }]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "FontColor",
+          width: "100%",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "color",
+            basePath: field.address.parent(),
+            component: [_ColorInput.ColorInput]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "FontSize",
+          width: "50%",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "fontSize",
+            basePath: field.address.parent(),
+            component: [_SizeInput.SizeInput, {
+              exclude: ['auto']
+            }]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "LineHeight",
+          width: "50%",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "lineHeight",
+            basePath: field.address.parent(),
+            component: [_SizeInput.SizeInput, {
+              exclude: ['auto']
+            }]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "TextAlign",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "textAlign",
+            basePath: field.address.parent(),
+            dataSource: [{
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextAlignLeft"
+              }),
+              value: 'left'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextAlignCenter"
+              }),
+              value: 'center'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextAlignRight"
+              }),
+              value: 'right'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextAlignJustify"
+              }),
+              value: 'justify'
+            }],
+            component: [_formxAntd.Radio.Group, {
+              optionType: 'button'
+            }]
+          })
+        }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_InputItems.InputItems.Item, {
+          icon: "TextDecoration",
+          children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_react2.Field, {
+            name: "textDecoration",
+            basePath: field.address.parent(),
+            dataSource: [{
+              label: '--',
+              value: 'none'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextUnderline"
+              }),
+              value: 'underline'
+            }, {
+              label: /*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
+                infer: "TextLineThrough"
+              }),
+              value: 'line-through'
+            }],
+            component: [_formxAntd.Radio.Group, {
+              optionType: 'button'
+            }]
+          })
+        })]
+      })
+    })]
+  });
 });

@@ -6,12 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.FreeSelection = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _hooks = require("../../hooks");
-var _reactiveReact = require("@formily/reactive-react");
+var _observer = require("../../observer");
 var _core = require("@designable/core");
 var _shared = require("@designable/shared");
 var _classnames = _interopRequireDefault(require("classnames"));
+var _jsxRuntime = require("react/jsx-runtime");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const FreeSelection = exports.FreeSelection = (0, _reactiveReact.observer)(() => {
+const FreeSelection = exports.FreeSelection = (0, _observer.observer)(() => {
   const cursor = (0, _hooks.useCursor)();
   const viewport = (0, _hooks.useViewport)();
   const prefix = (0, _hooks.usePrefix)('aux-free-selection');
@@ -42,7 +43,7 @@ const FreeSelection = exports.FreeSelection = (0, _reactiveReact.observer)(() =>
     return baseStyle;
   };
   if (cursor.status !== _core.CursorStatus.Dragging || cursor.type !== _core.CursorType.Selection) return null;
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
     className: (0, _classnames.default)(prefix),
     style: createSelectionStyle()
   });

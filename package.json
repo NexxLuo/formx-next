@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/formx-renderer"
+    "packages/formx-renderer",
+    "packages/designable-react",
+    "packages/designable-settings-form"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -11,20 +13,22 @@
     "build": "lerna run build --stream",
     "version:patch": "lerna version patch --no-git-tag-version --no-push --yes",
     "version:minor": "lerna version minor --no-git-tag-version --no-push --yes",
+    "version:beta": "lerna version prerelease --preid beta --no-push --no-private --yes",
+    "pub:beta": "cross-env npm run version:beta && lerna publish from-package --no-private --dist-tag beta --yes",
     "pub": "lerna publish from-package --no-private --no-git-reset --yes"
   },
   "resolutions": {
-    "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.11"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "antd": "3.26.20",
+    "antd": "^6.0.0",
     "@designable/core": "1.0.0-beta.45",
     "@designable/shared": "1.0.0-beta.45",
     "lerna": "^4.0.0",
     "father": "4.4.6",
-    "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.11"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   },
   "dependencies": {}
 }

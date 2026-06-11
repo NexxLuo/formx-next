@@ -3,4 +3,4 @@ export interface IFontStyleSetterProps {
     className?: string;
     style?: React.CSSProperties;
 }
-export declare const FontStyleSetter: React.FC<IFontStyleSetterProps>;
+export declare const FontStyleSetter: React.FC<React.PropsWithChildren<IFontStyleSetterProps>>;

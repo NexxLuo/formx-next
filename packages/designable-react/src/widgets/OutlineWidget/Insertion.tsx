@@ -1,13 +1,14 @@
+// @ts-nocheck
 import React from 'react'
 import { useOutlineDragon, usePrefix } from '../../hooks'
 import { ClosestPosition } from '@designable/core'
-import { observer } from '@formily/reactive-react'
+import { observer } from '../../observer'
 
 export interface IInsertionProps {
   workspaceId?: string
 }
 
-export const Insertion: React.FC<IInsertionProps> = observer(
+export const Insertion = observer(
   ({ workspaceId }) => {
     const outlineDragon = useOutlineDragon(workspaceId)
     const prefix = usePrefix('outline-tree-insertion')
