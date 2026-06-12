@@ -56,7 +56,7 @@ export const DroppableWidget = observer(
       </div>
     )
   }
-)
+);
 
 (DroppableWidget as any).defaultProps = {
   placeholder: true,

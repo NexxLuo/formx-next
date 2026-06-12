@@ -103,7 +103,7 @@ export const BoxStyleSetter: React.FC<React.PropsWithChildren<IMarginStyleSetter
       </FoldItem>
     )
   }
-)
+);
 
 (BoxStyleSetter as any).defaultProps = {
   labels: [

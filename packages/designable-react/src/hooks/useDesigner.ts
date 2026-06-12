@@ -7,9 +7,9 @@ export interface IEffects {
 }
 
 export const useDesigner = (effects?: IEffects): Engine => {
+  const contextDesigner = useContext(DesignerEngineContext)
   const designer: Engine =
-    globalThisPolyfill['__DESIGNABLE_ENGINE__'] ||
-    useContext(DesignerEngineContext)
+    globalThisPolyfill['__DESIGNABLE_ENGINE__'] || contextDesigner
   useEffect(() => {
     if (isFn(effects)) {
       return effects(designer)

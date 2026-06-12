@@ -50,6 +50,7 @@ const ViewPanel = exports.ViewPanel = (0, _observer.observer)(props => {
     },
     children: visible && render()
   });
-})(ViewPanel).defaultProps = {
+});
+ViewPanel.defaultProps = {
   scrollable: true
 };

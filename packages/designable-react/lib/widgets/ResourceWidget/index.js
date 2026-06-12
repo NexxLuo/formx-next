@@ -109,6 +109,7 @@ const ResourceWidget = exports.ResourceWidget = (0, _observer.observer)(props =>
       })
     })]
   });
-})(ResourceWidget).defaultProps = {
+});
+ResourceWidget.defaultProps = {
   defaultExpand: true
 };

@@ -10,7 +10,8 @@ var _context = require("../context");
 var _shared = require("@designable/shared");
 const useWorkspace = id => {
   const designer = (0, _useDesigner.useDesigner)();
-  const workspaceId = id || (0, _react.useContext)(_context.WorkspaceContext)?.id;
+  const contextWorkspaceId = (0, _react.useContext)(_context.WorkspaceContext)?.id;
+  const workspaceId = id || contextWorkspaceId;
   if (workspaceId) {
     return designer.workbench.findWorkspaceById(workspaceId);
   }

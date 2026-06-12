@@ -62,6 +62,7 @@ const EmptyWidget = exports.EmptyWidget = (0, _observer.observer)(props => {
     });
   }
   return null;
-})(EmptyWidget).defaultProps = {
+});
+EmptyWidget.defaultProps = {
   dragTipsDirection: 'left'
 };

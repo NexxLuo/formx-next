@@ -196,6 +196,7 @@ const DesignerToolsWidget = exports.DesignerToolsWidget = (0, _observer.observer
     className: (0, _classnames.default)(prefix, props.className),
     children: [renderHistoryController(), renderCursorController(), renderScreenTypeController(), renderMobileController(), renderResponsiveController()]
   });
-})(DesignerToolsWidget).defaultProps = {
+});
+DesignerToolsWidget.defaultProps = {
   use: ['HISTORY', 'CURSOR', 'SCREEN_TYPE']
 };

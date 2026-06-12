@@ -48,6 +48,7 @@ const DroppableWidget = exports.DroppableWidget = (0, _observer.observer)(({
       }))
     }) : null]
   });
-})(DroppableWidget).defaultProps = {
+});
+DroppableWidget.defaultProps = {
   placeholder: true
 };

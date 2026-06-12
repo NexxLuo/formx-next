@@ -62,6 +62,7 @@ const ViewToolsWidget = exports.ViewToolsWidget = (0, _observer.observer)(({
       })
     })]
   });
-})(ViewToolsWidget).defaultProps = {
+});
+ViewToolsWidget.defaultProps = {
   use: ['DESIGNABLE', 'JSONTREE', 'PREVIEW']
 };

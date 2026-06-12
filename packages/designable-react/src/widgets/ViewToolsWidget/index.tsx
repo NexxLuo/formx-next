@@ -66,7 +66,7 @@ export const ViewToolsWidget = observer(
       </Space.Compact>
     )
   }
-)
+);
 
 (ViewToolsWidget as any).defaultProps = {
   use: ['DESIGNABLE', 'JSONTREE', 'PREVIEW'],

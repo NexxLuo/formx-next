@@ -8,7 +8,8 @@ var _react = require("react");
 var _context = require("../context");
 var _shared = require("@designable/shared");
 const useDesigner = effects => {
-  const designer = _shared.globalThisPolyfill['__DESIGNABLE_ENGINE__'] || (0, _react.useContext)(_context.DesignerEngineContext);
+  const contextDesigner = (0, _react.useContext)(_context.DesignerEngineContext);
+  const designer = _shared.globalThisPolyfill['__DESIGNABLE_ENGINE__'] || contextDesigner;
   (0, _react.useEffect)(() => {
     if ((0, _shared.isFn)(effects)) {
       return effects(designer);

@@ -86,7 +86,8 @@ const BoxStyleSetter = exports.BoxStyleSetter = (0, _react2.observer)(props => {
       })
     })]
   });
-})(BoxStyleSetter).defaultProps = {
+});
+BoxStyleSetter.defaultProps = {
   labels: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_designableReact.IconWidget, {
     infer: "Top",
     size: 16

@@ -57,7 +57,7 @@ export const ViewPanel = observer((props: IViewPanelProps) => {
       {visible && render()}
     </div>
   )
-})
+});
 
 (ViewPanel as any).defaultProps = {
   scrollable: true,

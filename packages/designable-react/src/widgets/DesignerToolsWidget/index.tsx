@@ -199,7 +199,7 @@ export const DesignerToolsWidget = observer((props: IDesignerToolsWidgetProps) =
         {renderResponsiveController()}
       </div>
     )
-  })
+  });
 
 (DesignerToolsWidget as any).defaultProps = {
   use: ['HISTORY', 'CURSOR', 'SCREEN_TYPE'],

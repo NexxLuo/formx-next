@@ -75,6 +75,6 @@ export const MobileBody = observer((props: IMobileBodyProps) => {
       </div>
     </div>
   )
-})
+});
 
 (MobileBody as any).defaultProps = {}

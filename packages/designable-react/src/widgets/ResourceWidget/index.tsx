@@ -115,7 +115,7 @@ export const ResourceWidget = observer(
       </div>
     )
   }
-)
+);
 
 (ResourceWidget as any).defaultProps = {
   defaultExpand: true,

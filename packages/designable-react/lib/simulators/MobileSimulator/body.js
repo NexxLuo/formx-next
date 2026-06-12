@@ -69,4 +69,5 @@ const MobileBody = exports.MobileBody = (0, _observer.observer)(props => {
       })]
     })
   });
-})(MobileBody).defaultProps = {};
+});
+MobileBody.defaultProps = {};
