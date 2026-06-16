@@ -1,6 +1,6 @@
 {
   "name": "@platform/designable-settings-form",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "license": "MIT",
   "main": "lib",
   "types": "lib/index.d.ts",
@@ -35,7 +35,7 @@
     "@designable/core": "1.0.0-beta.45",
     "@designable/shared": "1.0.0-beta.45",
     "@monaco-editor/react": "^4.2.1",
-    "@platform/designable-react": "2.0.0-beta.3",
+    "@platform/designable-react": "2.0.0-beta.4",
     "monaco-editor": "^0.25.2",
     "prettier": "^2.3.2",
     "react-color": "^2.19.3",
