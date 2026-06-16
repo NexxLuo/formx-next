@@ -1,6 +1,7 @@
 node_modules
 yarn.lock
 lib
+es
 .npmrc
 yarn-error.log
 .DS_Store

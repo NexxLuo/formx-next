@@ -10,7 +10,7 @@
   "engines": {
     "npm": ">=3.0.0"
   },
-  "module": "lib",
+  "module": "es",
   "scripts": {
     "build": "father build",
     "dev": "father dev"

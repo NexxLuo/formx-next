@@ -1,6 +1,10 @@
 export default {
-    cjs: {
-      output: 'lib'
-    }
-  };
-  
+  cjs: {
+    output: 'lib',
+    transformer: "babel"
+  },
+  esm: {
+    output: 'es',
+    transformer: "babel"
+  }
+};

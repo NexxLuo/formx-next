@@ -8,6 +8,7 @@
         "lib"
     ],
     "main": "lib/index.js",
+    "module": "es/index.js",
     "scripts": {
         "build": "father build",
         "dev": "father dev",
