@@ -133,13 +133,13 @@ IconWidget.ShadowSVG = (props) => {
   const width = isNumSize(props.width) ? `${props.width}px` : props.width
   const height = isNumSize(props.height) ? `${props.height}px` : props.height
   useEffect(() => {
-    if (ref.current) {
-      const root = ref.current.attachShadow({
-        mode: 'open',
-      })
-      root.innerHTML = `<svg viewBox="0 0 1024 1024" style="width:${width};height:${height}">${props.content}</svg>`
-    }
-  }, [])
+    if (!ref.current) return
+    // 严格模式（StrictMode）下 React 会重放 effect，导致对同一个 host 重复调用 attachShadow
+    // 而抛出 "Shadow root cannot be created on a host which already hosts a shadow tree"。
+    // 复用已存在的 shadowRoot，避免重复创建。
+    const root = ref.current.shadowRoot ?? ref.current.attachShadow({ mode: 'open' })
+    root.innerHTML = `<svg viewBox="0 0 1024 1024" style="width:${width};height:${height}">${props.content}</svg>`
+  }, [width, height, props.content])
   return <div ref={ref}></div>
 }
 

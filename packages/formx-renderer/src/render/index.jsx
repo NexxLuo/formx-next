@@ -1459,45 +1459,45 @@ class Renderer extends React.Component {
             this.props;
         console.log("FormRenderRender")
         return (
-            <div ref={this.containerRef}>
-            <FormContext.Provider
-                value={{
-                    loading: this.props.loading,
-                    options: this.props.options
-                }}
-            >
-                <FormRender
-                    initialValues={values?.values}
-                    schema={schema}
-                    components={this.props.components}
-                    form={this.props.form}
-                    effects={_effects}
-                    onInit={this.onInit}
-                    onMount={this.onMount}
-                    readOnly={readOnly}
-                    disabled={disabled}
-                    getContext={getContext}
-                    setContext={setContext}
-                    context={{
+            <div ref={this.containerRef} style={{ width: "100%", height: "100%" }}>
+                <FormContext.Provider
+                    value={{
                         loading: this.props.loading,
-                        options: this.props.options || {},
-                        disabledAsyncValue: this.props.disabledAsyncValue,
-                        onListItemDelete: this.onListItemDelete,
-                        sourceValues: this.state.sourceValues,
-                        enabledSmallLayoutSize:
-                            this.props.enabledSmallLayoutSize
+                        options: this.props.options
                     }}
-                    className={className}
                 >
-                    {this.props.children}
-                </FormRender>
-                {
-                    Object.keys(globalComponents).map(k => {
-                        let Cmp = globalComponents[k]
-                        return <Cmp key={k} getForm={() => { return this.formActions }} />
-                    })
-                }
-            </FormContext.Provider>
+                    <FormRender
+                        initialValues={values?.values}
+                        schema={schema}
+                        components={this.props.components}
+                        form={this.props.form}
+                        effects={_effects}
+                        onInit={this.onInit}
+                        onMount={this.onMount}
+                        readOnly={readOnly}
+                        disabled={disabled}
+                        getContext={getContext}
+                        setContext={setContext}
+                        context={{
+                            loading: this.props.loading,
+                            options: this.props.options || {},
+                            disabledAsyncValue: this.props.disabledAsyncValue,
+                            onListItemDelete: this.onListItemDelete,
+                            sourceValues: this.state.sourceValues,
+                            enabledSmallLayoutSize:
+                                this.props.enabledSmallLayoutSize
+                        }}
+                        className={className}
+                    >
+                        {this.props.children}
+                    </FormRender>
+                    {
+                        Object.keys(globalComponents).map(k => {
+                            let Cmp = globalComponents[k]
+                            return <Cmp key={k} getForm={() => { return this.formActions }} />
+                        })
+                    }
+                </FormContext.Provider>
             </div>
         );
     }
