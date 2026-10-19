@@ -230,8 +230,93 @@ function getParams(queryString, bodyParams) {
     };
 }
 
+//候选值与行数据字段值的匹配：空值不参与匹配；先严格相等，再按字符串形式宽松匹配，避免数字/字符串类型差异导致过滤失效
+function matchFilterValue(fieldValue, filterValue) {
+    if (
+        fieldValue === null ||
+        fieldValue === undefined ||
+        filterValue === null ||
+        filterValue === undefined
+    ) {
+        return false;
+    }
+    if (fieldValue === filterValue) {
+        return true;
+    }
+    return String(fieldValue) === String(filterValue);
+}
+
+/**
+ * 按指定字段的值对行数据进行过滤，树形数据的children层级递归过滤
+ * @param {*} data 行数据（数组或树形数组）
+ * @param {*} field 过滤依据字段
+ * @param {*} values 已选值列表
+ * @param {*} isWhitelist true=仅保留命中的行，false=剔除命中的行
+ */
+function filterRowsByFieldValues(data, field, values, isWhitelist) {
+    function matchRow(d) {
+        let hit = values.some(v => matchFilterValue(d?.[field], v));
+        return isWhitelist ? hit : !hit;
+    }
+
+    function walk(value) {
+        if (value instanceof Array) {
+            return value
+                .filter(d => matchRow(d))
+                .map(d => {
+                    if (d && d.children instanceof Array) {
+                        return { ...d, children: walk(d.children) };
+                    }
+                    return d;
+                });
+        }
+        return value;
+    }
+
+    return walk(data);
+}
+
+/**
+ * 按数据过滤配置对接口返回数据进行过滤
+ * 白名单/黑名单按指定字段的值过滤行（仅保留/剔除所选值的行），自定义公式按行过滤（表达式逐行求值，为假的行被剔除）
+ * 各模式配置独立存储，切换模式互不丢失
+ * @param {*} data 接口返回数据
+ * @param {*} dataFilter { mode: "whitelist"|"blacklist"|"expression", whitelist: {field, values}, blacklist: {field, values}, expression: "" }
+ * @param {*} form 表单实例，自定义公式求值上下文
+ * @returns
+ */
+export function applyDataFilter(data, dataFilter, form) {
+    if (!dataFilter || !dataFilter.mode) {
+        return data;
+    }
+
+    let { mode, whitelist, blacklist, expression } = dataFilter;
+
+    if (mode === "whitelist" || mode === "blacklist") {
+        let modeConfig = mode === "whitelist" ? whitelist : blacklist;
+        let field = modeConfig?.field;
+        let values = modeConfig?.values;
+        if (!field || !(values instanceof Array) || values.length === 0) {
+            return data;
+        }
+        return filterRowsByFieldValues(
+            data,
+            field,
+            values,
+            mode === "whitelist"
+        );
+    }
+
+    if (mode === "expression" && expression && data instanceof Array) {
+        let evaluator = createEvaluator(form);
+        return data.filter(d => evaluator.evaluate(expression, {}, d));
+    }
+
+    return data;
+}
+
 export const requestApiById = async (params, pagination, signal?) => {
-    let { id, input, output, runtime } = params;
+    let { id, input, output, runtime, dataFilter, form } = params;
 
     if (!id) {
         return {
@@ -319,6 +404,9 @@ export const requestApiById = async (params, pagination, signal?) => {
     } else {
         arr = res.Data;
     }
+
+    //在label/value等字段映射之前按接口原始字段进行过滤
+    arr = applyDataFilter(arr, dataFilter, form);
 
     let outputMap = {};
 

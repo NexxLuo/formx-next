@@ -36,7 +36,8 @@ function setAsyncValue(name, initialValue, expressionVar, instance, isInit = fal
                 input: getRequestParams(apiData.input, instance, {}, getEnv, {
                     index: expressionVar?.items
                 }),
-                output: apiData.output
+                output: apiData.output,
+                dataFilter: apiData.dataFilter
             }
         });
     } catch (e) {
@@ -55,7 +56,8 @@ function _getAsyncValue(instance, name, expressionVar, apiData) {
             input: getRequestParams(apiData.input, instance, {}, getEnv, {
                 index: expressionVar?.items
             }),
-            output: apiData.output
+            output: apiData.output,
+            dataFilter: apiData.dataFilter
         }
     });
 }

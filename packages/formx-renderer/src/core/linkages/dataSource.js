@@ -29,6 +29,7 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
     let apiId = "";
     let apiOutput = [];
     let apiInput = [];
+    let apiDataFilter = undefined;
     let dataSource = {};
     let hasPagination = false;
     let _pagination = {};
@@ -44,6 +45,7 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
                     apiId = d.api.dataSourceId;
                     apiOutput = d.api.output;
                     apiInput = d.api.input;
+                    apiDataFilter = d.api.dataFilter;
                 }
             }
         }
@@ -103,6 +105,7 @@ export function setTableDataSource(field, schema, instance, extraParameters, con
                     runtime: extraParameters,
                     input: requestParams,
                     output: apiOutput,
+                    dataFilter: apiDataFilter,
                     env: envs
                 }
             });
@@ -178,7 +181,6 @@ export function setAsyncDataSource(schema,
         apiOutput = apiData.output;
         apiInput = apiData.input;
     }
-
     let envs = {
         dataSizeLimit: extraProps.dataSourceSizeLimit || null,
         ...injectEnvs
@@ -200,7 +202,8 @@ export function setAsyncDataSource(schema,
                         getEnv,
                         { index: triggerIndex }
                     ),
-                    output: apiOutput
+                    output: apiOutput,
+                    dataFilter: apiData?.dataFilter
                 }
             },
             data => {
