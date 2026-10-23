@@ -277,15 +277,65 @@ function filterRowsByFieldValues(data, field, values, isWhitelist) {
 }
 
 /**
+ * 平铺树数据（按父级标识组织）的孤儿行处理：
+ * 源孤儿（接口数据中父级引用本就不存在）展示到根级，保留；
+ * 过滤孤儿（父级行被黑白名单过滤掉造成）级联移除，避免展示层把子级挂到根级
+ */
+function removeFilteredOrphanRows(rows, sourceRows, idField, parentField) {
+    if (!(rows instanceof Array) || !idField || !parentField) {
+        return rows;
+    }
+    function collectIds(list) {
+        let ids = new Set();
+        list.forEach(r => {
+            let id = r ? r[idField] : null;
+            if (id !== undefined && id !== null && id !== "") {
+                ids.add(String(id));
+            }
+        });
+        return ids;
+    }
+    //源数据中存在的父级id（仅当这些父级被过滤掉时，其子级才算过滤孤儿）
+    let sourceIds = collectIds(sourceRows);
+    let result = rows;
+    let changed = true;
+    while (changed) {
+        changed = false;
+        let currentIds = collectIds(result);
+        result = result.filter(r => {
+            let p = r ? r[parentField] : null;
+            //无父级引用或源数据即孤儿：视为根级展示
+            if (
+                p === undefined ||
+                p === null ||
+                p === "" ||
+                !sourceIds.has(String(p))
+            ) {
+                return true;
+            }
+            //父级仍在过滤结果中
+            if (currentIds.has(String(p))) {
+                return true;
+            }
+            //父级被过滤造成孤儿：级联移除
+            changed = true;
+            return false;
+        });
+    }
+    return result;
+}
+
+/**
  * 按数据过滤配置对接口返回数据进行过滤
  * 白名单/黑名单按指定字段的值过滤行（仅保留/剔除所选值的行），自定义公式按行过滤（表达式逐行求值，为假的行被剔除）
  * 各模式配置独立存储，切换模式互不丢失
  * @param {*} data 接口返回数据
  * @param {*} dataFilter { mode: "whitelist"|"blacklist"|"expression", whitelist: {field, values}, blacklist: {field, values}, expression: "" }
  * @param {*} form 表单实例，自定义公式求值上下文
+ * @param {*} output 输出参数配置，用于识别平铺树数据的标识/父级字段
  * @returns
  */
-export function applyDataFilter(data, dataFilter, form) {
+export function applyDataFilter(data, dataFilter, form, output) {
     if (!dataFilter || !dataFilter.mode) {
         return data;
     }
@@ -299,11 +349,30 @@ export function applyDataFilter(data, dataFilter, form) {
         if (!field || !(values instanceof Array) || values.length === 0) {
             return data;
         }
-        return filterRowsByFieldValues(
+        let filtered = filterRowsByFieldValues(
             data,
             field,
             values,
             mode === "whitelist"
+        );
+        //平铺树数据：父级行被过滤后级联移除子级行（源孤儿除外，展示到根级）
+        let idField;
+        let parentField;
+        if (output instanceof Array) {
+            output.forEach(d => {
+                if (d.fieldMap === "value") {
+                    idField = d.field;
+                }
+                if (d.fieldMap === "parent") {
+                    parentField = d.field;
+                }
+            });
+        }
+        return removeFilteredOrphanRows(
+            filtered,
+            data,
+            idField,
+            parentField
         );
     }
 
@@ -406,7 +475,7 @@ export const requestApiById = async (params, pagination, signal?) => {
     }
 
     //在label/value等字段映射之前按接口原始字段进行过滤
-    arr = applyDataFilter(arr, dataFilter, form);
+    arr = applyDataFilter(arr, dataFilter, form, output);
 
     let outputMap = {};
 
