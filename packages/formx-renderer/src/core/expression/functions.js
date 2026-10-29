@@ -742,6 +742,32 @@ export function IsDuplicated(items, itemKey) {
 }
 
 /**
+ * 验证集合中的是否存在不同的值
+ * @param {*} items 数组集合
+ * @param {*} itemKey 属性key（可选参数）
+ * @returns 是否存在不同的值
+ */
+export function HasDifferent(items, itemKey) {
+    console.log("HasDifferent items:", items, "itemKey:", itemKey);
+  if (!Array.isArray(items) || items.length < 2) {
+    return false;
+  }
+
+  // 未传 itemKey 时直接比较元素本身，传了则比较元素上该属性的值
+  const getValue = itemKey == null
+    ? (item) => item
+    : (item) => (item == null ? undefined : item[itemKey]);
+
+  const first = getValue(items[0]);
+  for (let i = 1; i < items.length; i++) {
+    if (!Object.is(getValue(items[i]), first)) {
+      return true; // 找到第一个不一致的值立即返回，短路退出
+    }
+  }
+  return false;
+}
+
+/**
  * 生成一个唯一id
  * @returns guid
  */
