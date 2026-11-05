@@ -436,6 +436,13 @@ async function dispatchAction(
                 form.notify("onFieldDataSourceLoad", { field, envs: args });
             }
         },
+        recalculateTableFormula: function (name, args) {
+            let formActions = form.formActions;
+            let fn = formActions.recalculateTableFormula;
+            if (typeof fn === "function") {
+                fn(name, { source, envs: args });
+            }
+        },
         focusField: function (name) {
             let formActions = form.formActions;
             let fn = formActions.focusField;

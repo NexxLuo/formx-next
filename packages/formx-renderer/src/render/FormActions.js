@@ -136,6 +136,19 @@ export default class FormActions {
         this.tasks = {};
     }
 
+    recalculateTableFormula = (id, args) => {
+        let form = this.getFormInstance();
+        let field = form.query(id).take();
+        if (field) {
+            if (field.displayName === "ArrayField") {
+                let fn = field.fieldActions?.recalculateFormula;
+                if (typeof fn === "function") {
+                    fn(args);
+                }
+            }
+        }
+    };
+
     reloadFieldDataSource = (id, envs) => {
         let form = this.getFormInstance();
         let field = form.query(id).take();
@@ -276,9 +289,10 @@ export default class FormActions {
         });
     };
 
-    getFormItemCode = (id) => {
-        return this.getFieldSchema(id)?.["x-component-props"]?.["x-extra-props"]?.formItemCode;
-    }
+    getFormItemCode = id => {
+        return this.getFieldSchema(id)?.["x-component-props"]?.["x-extra-props"]
+            ?.formItemCode;
+    };
 
     transformIdValuesToCode = (obj, merge = false) => {
         let value = obj;
@@ -295,13 +309,12 @@ export default class FormActions {
                     if (Object.prototype.hasOwnProperty.call(item, k)) {
                         const formItemCode = this.getFormItemCode(k);
                         if (formItemCode) {
-                            d[formItemCode] = item[k]
+                            d[formItemCode] = item[k];
                         }
-
                     }
                 }
                 value.push(d);
-            })
+            });
         }
         return value;
     };
