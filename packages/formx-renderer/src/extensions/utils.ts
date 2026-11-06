@@ -939,7 +939,36 @@ export function getLabelMap(dataSource) {
     return labelMap;
 }
 
+//表格状态刷新去重：每列字段validate均会触发一次错误同步，
+//其中的setState(仅用于刷新componentProps引用)会引发一轮formx表格重渲染(mapProps指纹重算O(行×列))，
+//29列即29轮≈数百毫秒；合并到下一拍执行一次
+let __pendingTableStateUpdates: any[] = [];
+function scheduleTableStateUpdate(arrayTable: any) {
+    if (__pendingTableStateUpdates.indexOf(arrayTable) > -1) {
+        return;
+    }
+    __pendingTableStateUpdates.push(arrayTable);
+    if (__pendingTableStateUpdates.length > 1) {
+        return;
+    }
+    setTimeout(() => {
+        let tables = __pendingTableStateUpdates;
+        __pendingTableStateUpdates = [];
+        tables.forEach(t => {
+            try {
+                t.setState((s: any) => {
+                    s.componentProps = { ...s.componentProps };
+                });
+            } catch (e) {
+                console.error("[表格状态刷新] error", e);
+            }
+        });
+    }, 0);
+}
+
 export function setTableErrorsToExtraField(arrayPath, instance, errors, isBatchApi = false) {
+
+
     let extraField = instance.query("__DATA__").take();
 
     let arrayTable = instance.query(arrayPath).take();
@@ -966,6 +995,19 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors, isBatchA
             arrayValue.forEach((d, i) => {
                 let e = errorsMap[i];
                 let item = d;
+                //干净行跳过：无待写入错误且行上本无__ERRORS__键时，
+                //读取observable行与deleteProperty均会产生无意义的反应式通知，
+                //大数据量表格(validate触发)下逐行执行会造成数百毫秒耗时
+                if (
+                    !(e instanceof Array && e.length > 0) &&
+                    !(
+                        item &&
+                        typeof item === "object" &&
+                        Object.prototype.hasOwnProperty.call(item, "__ERRORS__")
+                    )
+                ) {
+                    return;
+                }
                 let nextErrors = [];
                 let prevErrors = item.__ERRORS__;
                 if (e instanceof Array && e.length > 0) {
@@ -997,11 +1039,11 @@ export function setTableErrorsToExtraField(arrayPath, instance, errors, isBatchA
                     Reflect.deleteProperty(item, "__ERRORS__")
                 }
             })
-            arrayTable.setState(s => {
-                s.componentProps = { ...s.componentProps }
-            });
+            scheduleTableStateUpdate(arrayTable);
         }
     }
+
+
 
     if (extraField) {
         let prevErrors = extraField.selfErrors;
