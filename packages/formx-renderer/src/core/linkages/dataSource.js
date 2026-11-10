@@ -181,8 +181,19 @@ export function setAsyncDataSource(schema,
         apiOutput = apiData.output;
         apiInput = apiData.input;
     }
+
+    let fieldKey = "";
+    if (name) {
+        let arr = name.split(".");
+        fieldKey = arr[arr.length - 1];
+    }
+
     let envs = {
         dataSizeLimit: extraProps.dataSourceSizeLimit || null,
+        formFieldName: name,
+        formFieldKey: fieldKey,
+        formExtraFieldKey:
+            extraProps.extraIdFieldKey || extraProps.extraNameFieldKey,
         ...injectEnvs
     };
 
