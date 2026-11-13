@@ -22,6 +22,11 @@ import { clone } from "@formily/shared";
 import { DateTimeFormat } from "../core/expression/functions"
 export const FormContext = createContext(null);
 
+//表格组件写入行值的UI内部标记(非业务数据)，出数时剔除：
+//__ERRORS__ 行内校验错误(ArrayTable完成编辑的纯函数校验通道)，__LOADING__ 单元格异步值加载态
+//(__KEY__/__PARENT__/__ROOT__为树形结构键，transformToTreeData依赖且历来随出数，不在剔除之列)
+const TABLE_ROW_INTERNAL_MARKS = ["__ERRORS__", "__LOADING__"];
+
 function formatGraph(item) {
     let componentProps = { ...(item.component?.[1] || {}) };
     let extraProps = { ...(componentProps?.["x-extra-props"] || {}) };
@@ -497,6 +502,11 @@ function getValuesFromGraph(graph, stateValues, bindEntity = true, formActions, 
                     let _d = {};
                     for (const columnKey in row) {
                         if (Object.hasOwnProperty.call(row, columnKey)) {
+
+                            //剔除表格组件写入的UI内部标记，避免脏数据流出(见TABLE_ROW_INTERNAL_MARKS注释)
+                            if (TABLE_ROW_INTERNAL_MARKS.indexOf(columnKey) > -1) {
+                                continue;
+                            }
 
                             let column_schema = formSchemaMap?.[columnKey];
                             let extraProps = column_schema?.["x-component-props"]?.["x-extra-props"] || {};
