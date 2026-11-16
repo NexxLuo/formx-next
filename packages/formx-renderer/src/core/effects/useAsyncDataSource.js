@@ -133,8 +133,9 @@ export const useAsyncData = (form, { name, service, extra }, filter) => {
                         name,
                         payload: res
                     });
+                }).catch(e => {
+                    state.loading = false;
                 });
-
             });
         }
     }, 100);
@@ -198,6 +199,11 @@ export const useAsyncListData = (
                 notify("onAsyncDataSourceComplete", {
                     name,
                     payload: res
+                });
+            }).catch(e => {
+                field.setState((state) => {
+                    state.loading = false;
+                    state.componentProps.loading = false;
                 });
             });
         }
@@ -314,6 +320,8 @@ export const useAsyncValue = (form, { pathVars, name, service, extra, isInit }) 
                     name,
                     payload: res
                 });
+            }).catch(e => {
+                state.loading = false;
             });
         });
     }, 100);
@@ -385,6 +393,10 @@ export const useAsyncRequest = ({
             if (typeof reject === "function") {
                 reject();
             }
+        }
+    }).catch(e => {
+        if (typeof reject === "function") {
+            reject(e);
         }
     });
 };

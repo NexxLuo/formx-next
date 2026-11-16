@@ -112,6 +112,56 @@ function apiPrepare(form: Form, output) {
     return { groups, items, dataIndexMap };
 }
 
+function apiCatch(form: Form, output, sourceField: string, error: any) {
+    let dataIndexMap = {};
+
+    let groups = [];
+    let groupsMap = {};
+    let items = [];
+    let subItems = [];
+    if (output instanceof Array) {
+        output.forEach(d => {
+            if (d.targetField) {
+                if (d.dataType === "array") {
+                    groups.push(d.targetField);
+                    groupsMap[d.id] = d.targetField;
+                }
+                let _field = d.field;
+                if (_field) {
+                    let arr = d.targetField.split(".");
+                    let fieldKey = arr[arr.length - 1];
+                    dataIndexMap[_field] = fieldKey;
+                }
+            }
+        });
+
+        output.forEach(d => {
+            let parentId = d.parentId;
+            if (d.targetField) {
+                if (groupsMap.hasOwnProperty(parentId)) {
+                    subItems.push(d.targetField);
+                } else {
+                    items.push(d.targetField);
+                }
+            }
+        });
+    }
+
+    [...groups, ...items].forEach(d => {
+        let field = form.query(d).take();
+        if (field) {
+            field.setState(s => {
+                s.componentProps = { ...(s.componentProps || {}) };
+                s.loading = false;
+            });
+        }
+    });
+
+    console.error("api call error in event flow,source field:", sourceField, error);
+
+    return { groups, items, dataIndexMap };
+}
+
 function apiCallback(form: Form, data, { dataIndexMap, groups, items }) {
     let _data = [];
     let _itemData = {};
@@ -308,6 +358,7 @@ async function dispatchAction(
                     requestApiByType({ apiType: apiData.apiType, params: _params })
                         .then(res => {
                             if (res.state === 0) {
+                                apiCatch(form, _params.output,actionContext.source,res);
                                 reject(res.message);
                             } else {
                                 resolve(res.data);
@@ -319,6 +370,7 @@ async function dispatchAction(
                             }
                         })
                         .catch((e: any) => {
+                            apiCatch(form, _params.output,actionContext.source,e);
                             reject(e);
                         });
                 }
