@@ -50,7 +50,7 @@ function getLinkageItem(name, store = {}, instance, options) {
         if (_state) {
             //如果触发联动的是表格，则不应触发当前表格列本身的联动
             let { index: targetIndex, parentKey: tableKey } = getItemIndex(
-                _state.path
+                _state.path.toString()
             );
             if (targetIndex > -1) {
                 if (tableKey === name) {
@@ -87,7 +87,9 @@ function getLinkageItem(name, store = {}, instance, options) {
         }
         //
 
-        return instance.getFieldState(_name);
+        //这里只需mounted/path/component等字段实例属性，直接查询可避免完整getState序列化，
+        //以及errors/warnings/successes计算属性引发的全表单queryFeedbacks扫描
+        return instance.query(_name).take();
     }
 
     //如果已被外部控制为隐藏，则不进行联动控制

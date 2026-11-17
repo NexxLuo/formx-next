@@ -133,7 +133,8 @@ export function getItemIndex(path, form) {
         dataIndex = key;
 
         if (form) {
-            let itemState = form.getFieldState(path);
+            //只需componentProps/fieldActions等实例属性，避免完整getState触发全局错误计算
+            let itemState = form.query(path).take();
 
             let itemIsSchema = false;
             let itemIsEditing = false;
@@ -152,7 +153,7 @@ export function getItemIndex(path, form) {
             //非编辑模式需要通过dataIndex获取数据
             //renderSchema模式也需要通过dataIndex获取数据，因为此时的通过key无法获取到真实数据
             if (!itemIsEditing || itemIsSchema) {
-                let listState = form.getFieldState(parentKey);
+                let listState = form.query(parentKey).take();
                 if (
                     listState &&
                     typeof listState.fieldActions?.getItemDataIndex ===
