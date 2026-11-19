@@ -15,19 +15,6 @@ export function getExpressionVar(name: string, sourcePath?: string) {
     };
 }
 
-function getChildrenGraph(graph: object, path: string) {
-    let items = [];
-    for (const k in graph) {
-        if (graph.hasOwnProperty(k)) {
-            const g = graph[k];
-            if (g.path && g.path !== path && g.path.indexOf(path) > -1) {
-                items.push(g);
-            }
-        }
-    }
-    return items;
-}
-
 /**
  * 将 array.items.key1 中的items转换为表格正在编辑中的索引
  * @param {string} path 包含items的路径
@@ -40,23 +27,21 @@ export function transformArrayItemsPath(path: string, form: any) {
         let itemKey = pathArr[1];
         let itemIndex: string | number = -1;
 
-        //获取表格组件未卸载的表单项（即为编辑中的表单项）
-        let gArr = getChildrenGraph(form.getFormGraph(), listKey);
-        let itemGraph = null;
-        if (gArr instanceof Array) {
-            itemGraph = gArr.find(d => {
-                return (
-                    d.mounted === true &&
-                    d.unmounted === false &&
-                    d.path.indexOf(itemKey) > 0
-                );
-            });
-        }
-        //
+        //只查询表格子孙字段，避免getFormGraph全量序列表单及重复计算校验反馈
+        let itemFields = form.query(`${listKey}.**`).map();
+        let itemField = itemFields.find(field => {
+            let fieldPath = field?.path?.toString();
+            return (
+                field?.mounted === true &&
+                field?.unmounted === false &&
+                fieldPath !== listKey &&
+                fieldPath?.indexOf(itemKey) > 0
+            );
+        });
 
         //从编辑中的表单项路径中匹配出索引
-        if (itemGraph) {
-            let itemPathArr = itemGraph.path.split(".");
+        if (itemField) {
+            let itemPathArr = itemField.path.toString().split(".");
             for (let i = 0; i < itemPathArr.length; i++) {
                 let _index = itemPathArr[i];
                 if (isNaN(_index) === false && _index !== null) {
