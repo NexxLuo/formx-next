@@ -356,11 +356,7 @@ export const createEffects = ($, instance, _consumer) => {
         if (runtime) {
             if (runtime.arrayPath && runtime.isOperationTool === true) {
                 if ("index" in runtime) {
-                    let arrayItem = clone(
-                        form.getValuesIn(
-                            runtime.arrayPath + "." + runtime.index
-                        )
-                    );
+                    let arrayItem = clone(runtime.row);
                     form.notify(runtime.arrayPath + "_" + "onOperationClick", {
                         name: runtime.arrayPath,
                         event,
